@@ -311,6 +311,7 @@ defineExpose({ hover, go })
             :el="el"
             :path="String(i)"
             mode="view"
+            :pick="pickMode === true"
             @element-hover="onHover"
             @element-move="hover.move($event)"
             @element-leave="onLeave"
