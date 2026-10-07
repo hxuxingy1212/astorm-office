@@ -283,4 +283,3 @@ pub fn merge_into_lines(
     }
     n
 }
-

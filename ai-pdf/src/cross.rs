@@ -16,10 +16,10 @@
 //! 保真口径与 unpack 相同：**语义优先，非像素锁定**——旋转文本、裁剪、
 //! 渐变/图案填充、复杂矢量路径在首版以简化形态表达或跳过。
 
-use json2docx::model::blocks::Block;
 use crate::model::{DocumentModel, Element, PageModel};
 use crate::text::{detect_table_rows, extract_pages, PageText, TableMatch};
 use anyhow::{anyhow, Result};
+use json2docx::model::blocks::Block;
 use std::collections::BTreeSet;
 use std::path::{Path, PathBuf};
 
@@ -83,8 +83,7 @@ pub fn open_source(pdf: &Path) -> Result<PdfSource> {
     let mut pages = Vec::new();
     for (path, pt) in model.pages.iter().zip(pts) {
         let page_json: PageModel = serde_json::from_str(
-            &std::fs::read_to_string(dir.join(path))
-                .map_err(|e| anyhow!("read {}: {e}", path))?,
+            &std::fs::read_to_string(dir.join(path)).map_err(|e| anyhow!("read {}: {e}", path))?,
         )
         .map_err(|e| anyhow!("parse {}: {e}", path))?;
         let (w, h) = (
@@ -505,31 +504,41 @@ pub fn to_pptx(src: &PdfSource) -> Result<json2pptx::Presentation> {
     let src_dir = src.dir.clone();
     for pd in &src.pages {
         let sw = (pd.width / pw).max(0.01); // 页 → 版面比例（>1 = 页更大，需缩小）
-        // 矩形先画（垫底），再图片，再文本（保持常见 z 序）
+                                            // 矩形先画（垫底），再图片，再文本（保持常见 z 序）
         let mut shapes: Vec<PptElement> = Vec::new();
         for el in &pd.page.elements {
-            if let Element::Rect { x, y, w, h, fill, .. } = el {
+            if let Element::Rect {
+                x, y, w, h, fill, ..
+            } = el
+            {
                 if *w * *h >= pd.width * pd.height * 0.96 {
                     continue;
                 }
-                shapes.push(PptElement::Shape(json2pptx::model::elements::ShapeElement {
-                    shape_type: "rect".to_string(),
-                    position: pd_position(pd, pw, ph, *x, *y, *w, (*h).max(1.0)),
-                    fill: fill
-                        .as_ref()
-                        .map(|c| json2pptx::model::elements::Fill::Solid(hex6(c))),
-                    ..Default::default()
-                }));
+                shapes.push(PptElement::Shape(
+                    json2pptx::model::elements::ShapeElement {
+                        shape_type: "rect".to_string(),
+                        position: pd_position(pd, pw, ph, *x, *y, *w, (*h).max(1.0)),
+                        fill: fill
+                            .as_ref()
+                            .map(|c| json2pptx::model::elements::Fill::Solid(hex6(c))),
+                        ..Default::default()
+                    },
+                ));
             }
         }
         let mut images: Vec<PptElement> = Vec::new();
         for el in &pd.page.elements {
-            if let Element::Image { src, x, y, w, h, .. } = el {
-                images.push(PptElement::Image(json2pptx::model::elements::ImageElement {
-                    src: abs_media(&src_dir, src),
-                    position: pd_position(pd, pw, ph, *x, *y, *w, (*h).max(1.0)),
-                    ..Default::default()
-                }));
+            if let Element::Image {
+                src, x, y, w, h, ..
+            } = el
+            {
+                images.push(PptElement::Image(
+                    json2pptx::model::elements::ImageElement {
+                        src: abs_media(&src_dir, src),
+                        position: pd_position(pd, pw, ph, *x, *y, *w, (*h).max(1.0)),
+                        ..Default::default()
+                    },
+                ));
             }
         }
         let mut texts: Vec<PptElement> = Vec::new();
@@ -640,7 +649,14 @@ fn text_groups(pd: &PageData) -> Vec<(f64, f64, f64, f64, f64, String)> {
                     lines.push(t);
                 }
             }
-            (x0, x1, y_top, y_top - y_bot + size * 0.5, size, lines.join("\n"))
+            (
+                x0,
+                x1,
+                y_top,
+                y_top - y_bot + size * 0.5,
+                size,
+                lines.join("\n"),
+            )
         })
         .collect()
 }
@@ -692,7 +708,12 @@ pub fn to_xlsx(src: &PdfSource) -> Result<json2xlsx::Workbook> {
         for (ti, t) in pd.tables.iter().enumerate() {
             let mut rows = Vec::new();
             for (r, cells) in t.data.iter().enumerate() {
-                rows.push(xlsx_row(pd, cells, (r + 1) as u32, if r == 0 { Some("hdr") } else { None }));
+                rows.push(xlsx_row(
+                    pd,
+                    cells,
+                    (r + 1) as u32,
+                    if r == 0 { Some("hdr") } else { None },
+                ));
             }
             wb.sheets.push(json2xlsx::model::Sheet {
                 name: format!("P{}T{}", pd.pt.page, ti + 1),
@@ -754,7 +775,10 @@ fn cell_value(text: &str) -> serde_json::Value {
     let t = text.trim();
     // 纯数字（含负/小数/千分位）→ 数值
     let numeric = t.replace(',', "");
-    if matches!(t.as_bytes().first(), Some(b'0'..=b'9') | Some(b'-') | Some(b'+')) && !t.contains(' ')
+    if matches!(
+        t.as_bytes().first(),
+        Some(b'0'..=b'9') | Some(b'-') | Some(b'+')
+    ) && !t.contains(' ')
         && numeric.parse::<f64>().is_ok()
         && t.chars().any(|c| c.is_ascii_digit())
     {
@@ -804,14 +828,20 @@ pub fn office_to_pdf(input: &Path, out: &Path) -> Result<usize> {
     ));
     match ext.as_str() {
         "docx" => {
-            let _ = json2docx::unpack(&input.display().to_string(), &unpack_dir.display().to_string());
+            let _ = json2docx::unpack(
+                &input.display().to_string(),
+                &unpack_dir.display().to_string(),
+            );
             let doc = json2docx::parse(&input.display().to_string())?;
             let r = docx_to_pdf(&doc, &unpack_dir, out);
             let _ = std::fs::remove_dir_all(&unpack_dir);
             r
         }
         "pptx" | "ppt" => {
-            let _ = json2pptx::unpack(&input.display().to_string(), &unpack_dir.display().to_string());
+            let _ = json2pptx::unpack(
+                &input.display().to_string(),
+                &unpack_dir.display().to_string(),
+            );
             let pres = json2pptx::parse(&input.display().to_string())?;
             let r = pptx_to_pdf(&pres, &unpack_dir, out);
             let _ = std::fs::remove_dir_all(&unpack_dir);
@@ -926,7 +956,10 @@ fn wrap_text(text: &str, size: f64, max_w: f64) -> Vec<String> {
 /// 文本字体选择：WinAnsi 可编码（含 •/–/© 等）→ Helvetica 零嵌入；
 /// 其余非 ASCII → 宋体（fonts.rs 平台候选表解析本机 CJK TrueType）
 fn pick_font(text: &str) -> &'static str {
-    if text.chars().all(|c| crate::repack::winansi_byte(c).is_some()) {
+    if text
+        .chars()
+        .all(|c| crate::repack::winansi_byte(c).is_some())
+    {
         "Helvetica"
     } else {
         "system:宋体"
@@ -936,7 +969,14 @@ fn pick_font(text: &str) -> &'static str {
 /// 文本块推进（在 cur 页写行，返回新 y 光标）；空间不足则开新页。
 /// Element::Text 的最简构造（默认填充文本态字段）
 #[allow(clippy::too_many_arguments)]
-fn text_el(text: String, x: f64, y: f64, size: f64, font: &str, color: &str) -> crate::model::Element {
+fn text_el(
+    text: String,
+    x: f64,
+    y: f64,
+    size: f64,
+    font: &str,
+    color: &str,
+) -> crate::model::Element {
     crate::model::Element::Text {
         text,
         x,
@@ -966,7 +1006,15 @@ fn text_el(text: String, x: f64, y: f64, size: f64, font: &str, color: &str) -> 
 
 /// Element::Rect 的最简构造
 #[allow(clippy::too_many_arguments)]
-fn rect_el(x: f64, y: f64, w: f64, h: f64, fill: Option<String>, stroke: Option<String>, line_width: f64) -> crate::model::Element {
+fn rect_el(
+    x: f64,
+    y: f64,
+    w: f64,
+    h: f64,
+    fill: Option<String>,
+    stroke: Option<String>,
+    line_width: f64,
+) -> crate::model::Element {
     crate::model::Element::Rect {
         x,
         y,
@@ -1038,11 +1086,7 @@ fn flow_text(
 }
 
 /// docx → PDF（流式简化排版）。
-fn docx_to_pdf(
-    doc: &json2docx::Document,
-    unpacked: &Path,
-    out: &Path,
-) -> Result<usize> {
+fn docx_to_pdf(doc: &json2docx::Document, unpacked: &Path, out: &Path) -> Result<usize> {
     let build_dir = temp_build_dir("docx");
     let _ = std::fs::create_dir_all(&build_dir);
     use json2docx::model::blocks::Block;
@@ -1073,7 +1117,11 @@ fn docx_to_pdf(
     pages.push(np);
     let mut y = ph - mt;
 
-    let body = doc.defaults.as_ref().and_then(|s| s.font_size).unwrap_or(11.0);
+    let body = doc
+        .defaults
+        .as_ref()
+        .and_then(|s| s.font_size)
+        .unwrap_or(11.0);
     for part in &doc.parts {
         for block in &part.blocks {
             match block {
@@ -1084,33 +1132,84 @@ fn docx_to_pdf(
                     pages.push(np);
                     y = ph - mt;
                 }
-                Block::Heading { level, text, align, .. } => {
-                    let size = body * match level {
-                        1 => 1.8,
-                        2 => 1.45,
-                        3 => 1.2,
-                        4 => 1.1,
-                        5 => 1.0,
-                        _ => 0.95,
-                    };
+                Block::Heading {
+                    level, text, align, ..
+                } => {
+                    let size = body
+                        * match level {
+                            1 => 1.8,
+                            2 => 1.45,
+                            3 => 1.2,
+                            4 => 1.1,
+                            5 => 1.0,
+                            _ => 0.95,
+                        };
                     let lines = wrap_text(text, size, usable);
-                    flow_text(&mut pages, ph, mt, mb, ml, &mut y, &lines, size, "#111111", align.as_deref(), usable);
+                    flow_text(
+                        &mut pages,
+                        ph,
+                        mt,
+                        mb,
+                        ml,
+                        &mut y,
+                        &lines,
+                        size,
+                        "#111111",
+                        align.as_deref(),
+                        usable,
+                    );
                     y -= size * 0.35;
                 }
                 Block::Paragraph(p) => {
                     let text = p.text.clone().unwrap_or_default();
                     let lines = wrap_text(&text, body, usable - p.indent.unwrap_or(0.0));
                     let indent = ml + p.indent.unwrap_or(0.0);
-                    flow_text(&mut pages, ph, mt, mb, indent, &mut y, &lines, body, "#1a1a1a", p.align.as_deref(), usable);
+                    flow_text(
+                        &mut pages,
+                        ph,
+                        mt,
+                        mb,
+                        indent,
+                        &mut y,
+                        &lines,
+                        body,
+                        "#1a1a1a",
+                        p.align.as_deref(),
+                        usable,
+                    );
                 }
                 Block::Quote(q) => {
                     let lines = wrap_text(&q.text, body, usable - 24.0);
                     y -= body * 0.4;
-                    flow_text(&mut pages, ph, mt, mb, ml + 24.0, &mut y, &lines, body, "#555555", None, usable - 24.0);
+                    flow_text(
+                        &mut pages,
+                        ph,
+                        mt,
+                        mb,
+                        ml + 24.0,
+                        &mut y,
+                        &lines,
+                        body,
+                        "#555555",
+                        None,
+                        usable - 24.0,
+                    );
                 }
                 Block::Caption(c) => {
                     let lines = wrap_text(&c.text, body * 0.9, usable);
-                    flow_text(&mut pages, ph, mt, mb, ml, &mut y, &lines, body * 0.9, "#555555", Some("center"), usable);
+                    flow_text(
+                        &mut pages,
+                        ph,
+                        mt,
+                        mb,
+                        ml,
+                        &mut y,
+                        &lines,
+                        body * 0.9,
+                        "#555555",
+                        Some("center"),
+                        usable,
+                    );
                 }
                 Block::Code(c) => {
                     for line in c.text.lines() {
@@ -1122,7 +1221,14 @@ fn docx_to_pdf(
                             pages.push(np);
                             y = ph - mt;
                         }
-                        let el = text_el(line.to_string(), ml + 12.0, y - size * 1.38, size, "Courier", "#333333");
+                        let el = text_el(
+                            line.to_string(),
+                            ml + 12.0,
+                            y - size * 1.38,
+                            size,
+                            "Courier",
+                            "#333333",
+                        );
                         pages.last_mut().unwrap().elements.push(el);
                         y -= size * 1.38;
                     }
@@ -1144,8 +1250,21 @@ fn docx_to_pdf(
                             "•  ".to_string()
                         };
                         let indent = 16.0 + item.level as f64 * 18.0;
-                        let lines = wrap_text(&format!("{prefix}{item_text}"), body, usable - indent);
-                        flow_text(&mut pages, ph, mt, mb, ml + indent, &mut y, &lines, body, "#1a1a1a", None, usable - indent);
+                        let lines =
+                            wrap_text(&format!("{prefix}{item_text}"), body, usable - indent);
+                        flow_text(
+                            &mut pages,
+                            ph,
+                            mt,
+                            mb,
+                            ml + indent,
+                            &mut y,
+                            &lines,
+                            body,
+                            "#1a1a1a",
+                            None,
+                            usable - indent,
+                        );
                         y -= body * 0.25;
                     }
                 }
@@ -1176,14 +1295,14 @@ fn docx_to_pdf(
                                     })
                                     .collect::<Vec<_>>()
                                     .join(" ");
-                                wrap_text(&text, cell_size, widths.get(ci).copied().unwrap_or(72.0) - 8.0)
+                                wrap_text(
+                                    &text,
+                                    cell_size,
+                                    widths.get(ci).copied().unwrap_or(72.0) - 8.0,
+                                )
                             })
                             .collect();
-                        let row_h = cell_lines
-                            .iter()
-                            .map(|ls| ls.len())
-                            .max()
-                            .unwrap_or(1) as f64
+                        let row_h = cell_lines.iter().map(|ls| ls.len()).max().unwrap_or(1) as f64
                             * cell_size
                             * 1.3
                             + 5.0;
@@ -1200,11 +1319,26 @@ fn docx_to_pdf(
                             let w = widths[ci];
                             let row = row.cells.get(ci);
                             let fill = row.and_then(|c| c.fill.clone());
-                            let el = rect_el(x, row_top - row_h, w, row_h, fill, Some("#999999".to_string()), 0.7);
+                            let el = rect_el(
+                                x,
+                                row_top - row_h,
+                                w,
+                                row_h,
+                                fill,
+                                Some("#999999".to_string()),
+                                0.7,
+                            );
                             pages.last_mut().unwrap().elements.push(el);
                             let mut ty = row_top - 5.0 - cell_size * 1.1;
                             for line in cells_l {
-                                let el = text_el(line.clone(), x + 4.0, ty, cell_size, pick_font(line), "#111111");
+                                let el = text_el(
+                                    line.clone(),
+                                    x + 4.0,
+                                    ty,
+                                    cell_size,
+                                    pick_font(line),
+                                    "#111111",
+                                );
                                 pages.last_mut().unwrap().elements.push(el);
                                 ty -= cell_size * 1.3;
                             }
@@ -1242,11 +1376,20 @@ fn docx_to_pdf(
                         .join("\n");
                     if !text.is_empty() {
                         let lines = wrap_text(&text, body, usable);
-                        flow_text(&mut pages, ph, mt, mb, ml, &mut y, &lines, body, "#1a1a1a", None, usable);
+                        flow_text(
+                            &mut pages, ph, mt, mb, ml, &mut y, &lines, body, "#1a1a1a", None,
+                            usable,
+                        );
                     }
                 }
-                Block::Bibliography(_) | Block::Formula(_) | Block::Chart(_) | Block::TextBox(_)
-                | Block::Attachment(_) | Block::Shape(_) | Block::Raw(_) | Block::Sdt(_) => {
+                Block::Bibliography(_)
+                | Block::Formula(_)
+                | Block::Chart(_)
+                | Block::TextBox(_)
+                | Block::Attachment(_)
+                | Block::Shape(_)
+                | Block::Raw(_)
+                | Block::Sdt(_) => {
                     // 首版兜底边界：复杂块（公式/图表/图形/嵌入）native 渲染跳过，
                     // 保真需求走 --engine soffice（本机 LibreOffice）
                 }
@@ -1255,7 +1398,6 @@ fn docx_to_pdf(
     }
     write_product(&build_dir, model, pages, out)
 }
-
 
 /// 段落文本拼合（TextContent 的多段结构 → 换行连接）
 fn ppt_text(content: &json2pptx::model::elements::TextContent) -> String {
@@ -1275,13 +1417,18 @@ fn pptx_to_pdf(pres: &json2pptx::Presentation, unpacked: &Path, out: &Path) -> R
     let _ = std::fs::create_dir_all(build_dir.join("media"));
     let (pw, ph) = (pres.width * 72.0, pres.height * 72.0);
     let model = DocumentModel {
-        page_size: crate::model::PageSize { width: pw, height: ph },
-        meta: pres.meta.as_ref().and_then(|m| m.title.clone()).map(|t| {
-            crate::model::Meta {
+        page_size: crate::model::PageSize {
+            width: pw,
+            height: ph,
+        },
+        meta: pres
+            .meta
+            .as_ref()
+            .and_then(|m| m.title.clone())
+            .map(|t| crate::model::Meta {
                 title: Some(t),
                 ..Default::default()
-            }
-        }),
+            }),
         ..Default::default()
     };
     let mut pages: Vec<crate::model::PageModel> = Vec::new();
@@ -1311,7 +1458,11 @@ fn pptx_to_pdf(pres: &json2pptx::Presentation, unpacked: &Path, out: &Path) -> R
                     let size = t.font_size.unwrap_or(12.0).max(4.0);
                     let x = px(t.position.x);
                     let top = ph - px(t.position.y);
-                    let color = t.color.clone().map(|c| hex6(&c)).unwrap_or_else(|| "#1a1a1a".to_string());
+                    let color = t
+                        .color
+                        .clone()
+                        .map(|c| hex6(&c))
+                        .unwrap_or_else(|| "#1a1a1a".to_string());
                     let gap = size * 1.3;
                     for (i, line) in text.split('\n').enumerate() {
                         if line.trim().is_empty() {
@@ -1398,13 +1549,18 @@ fn xlsx_to_pdf(wb: &json2xlsx::Workbook, out: &Path) -> Result<usize> {
     let (pw, ph) = (842.0, 595.0); // A4 横放
     let (mt, mb, ml, _mr) = (54.0, 54.0, 48.0, 48.0);
     let model = DocumentModel {
-        page_size: crate::model::PageSize { width: pw, height: ph },
-        meta: wb.meta.as_ref().and_then(|m| m.title.clone()).map(|t| {
-            crate::model::Meta {
+        page_size: crate::model::PageSize {
+            width: pw,
+            height: ph,
+        },
+        meta: wb
+            .meta
+            .as_ref()
+            .and_then(|m| m.title.clone())
+            .map(|t| crate::model::Meta {
                 title: Some(t),
                 ..Default::default()
-            }
-        }),
+            }),
         ..Default::default()
     };
     let mut pages: Vec<crate::model::PageModel> = Vec::new();
@@ -1421,7 +1577,14 @@ fn xlsx_to_pdf(wb: &json2xlsx::Workbook, out: &Path) -> Result<usize> {
                 height: Some(ph),
                 ..Default::default()
             };
-            let el = text_el(sheet.name.clone(), ml, ph - mt - 14.0, 14.0, "Helvetica", "#666666");
+            let el = text_el(
+                sheet.name.clone(),
+                ml,
+                ph - mt - 14.0,
+                14.0,
+                "Helvetica",
+                "#666666",
+            );
             page.elements.push(el);
             pages.push(page);
             continue;
@@ -1468,9 +1631,24 @@ fn xlsx_to_pdf(wb: &json2xlsx::Workbook, out: &Path) -> Result<usize> {
                     break;
                 }
                 let w = col_w.get(&(ci + 1)).copied().unwrap_or(default_w);
-                let el = rect_el(x, y0 - row_h, w, row_h, Some("#F2F2F2".to_string()), Some("#CCCCCC".to_string()), 0.6);
+                let el = rect_el(
+                    x,
+                    y0 - row_h,
+                    w,
+                    row_h,
+                    Some("#F2F2F2".to_string()),
+                    Some("#CCCCCC".to_string()),
+                    0.6,
+                );
                 page.elements.push(el);
-                let el = text_el(col_letter((ci + 1) as u32), x + 4.0, y0 - row_h + 4.0, 8.0, "Helvetica", "#666666");
+                let el = text_el(
+                    col_letter((ci + 1) as u32),
+                    x + 4.0,
+                    y0 - row_h + 4.0,
+                    8.0,
+                    "Helvetica",
+                    "#666666",
+                );
                 page.elements.push(el);
                 x += w;
             }
@@ -1482,9 +1660,24 @@ fn xlsx_to_pdf(wb: &json2xlsx::Workbook, out: &Path) -> Result<usize> {
             {
                 let top = y0 - (ri % rows_per_page + 1) as f64 * row_h;
                 let idx = row.index.unwrap_or((ri + 1) as u32);
-                let el = rect_el(ml - 26.0, top, 26.0, row_h, Some("#F2F2F2".to_string()), Some("#CCCCCC".to_string()), 0.6);
+                let el = rect_el(
+                    ml - 26.0,
+                    top,
+                    26.0,
+                    row_h,
+                    Some("#F2F2F2".to_string()),
+                    Some("#CCCCCC".to_string()),
+                    0.6,
+                );
                 page.elements.push(el);
-                let el = text_el(idx.to_string(), ml - 22.0, top + 4.5, 8.0, "Helvetica", "#666666");
+                let el = text_el(
+                    idx.to_string(),
+                    ml - 22.0,
+                    top + 4.5,
+                    8.0,
+                    "Helvetica",
+                    "#666666",
+                );
                 page.elements.push(el);
                 let mut x = ml;
                 for c in 0..cols_per_page {
@@ -1504,7 +1697,8 @@ fn xlsx_to_pdf(wb: &json2xlsx::Workbook, out: &Path) -> Result<usize> {
                             } else {
                                 x + 4.0
                             };
-                            let el = text_el(text, x_text, top + 4.5, size, pick_font(""), "#111111");
+                            let el =
+                                text_el(text, x_text, top + 4.5, size, pick_font(""), "#111111");
                             page.elements.push(el);
                         }
                     }

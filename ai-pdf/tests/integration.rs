@@ -294,7 +294,11 @@ fn ocr_engine_chain_prefers_local_native_over_tesseract() {
     let saved = std::env::var("UNIOCR_URL").ok();
     std::env::remove_var("UNIOCR_URL");
     let e = json2pdf::ocr::engine(None, None).unwrap();
-    let expected = if cfg!(target_os = "macos") { "vision" } else { "tesseract" };
+    let expected = if cfg!(target_os = "macos") {
+        "vision"
+    } else {
+        "tesseract"
+    };
     assert_eq!(e.name(), expected);
     if let Some(v) = saved {
         std::env::set_var("UNIOCR_URL", v);
@@ -317,7 +321,9 @@ fn ocr_vision_engine_recognizes_native_page() {
     let e = json2pdf::ocr::engine(None, None).unwrap();
     let lines = e.recognize(&png, "eng").expect("Vision recognize");
     assert!(!lines.is_empty(), "Vision 对扫描页应识别出行");
-    assert!(lines.iter().all(|l| l.bbox.1 >= 0.0 && l.bbox.3 >= l.bbox.1));
+    assert!(lines
+        .iter()
+        .all(|l| l.bbox.1 >= 0.0 && l.bbox.3 >= l.bbox.1));
     // 内容抽查：该页是 LinnSequencer 扫描页，标题必须被认出
     let joined = lines
         .iter()
@@ -348,7 +354,11 @@ const CROSS_PAGE: &str = concat!(
 
 fn fixture_cross_pdf(dir: &std::path::Path) -> std::path::PathBuf {
     let pdf = dir.join("cross.pdf");
-    std::fs::write(&pdf, build_pdf(&[CROSS_PAGE, "BT /F1 12 Tf 72 700 Td (Page two) Tj ET"])).unwrap();
+    std::fs::write(
+        &pdf,
+        build_pdf(&[CROSS_PAGE, "BT /F1 12 Tf 72 700 Td (Page two) Tj ET"]),
+    )
+    .unwrap();
     pdf
 }
 
@@ -390,7 +400,10 @@ fn cross_pdf_to_docx_roundtrip() {
             _ => None,
         })
         .collect();
-    assert!(cells.iter().any(|c| c.contains("Name")), "表头应有 Name: {cells:?}");
+    assert!(
+        cells.iter().any(|c| c.contains("Name")),
+        "表头应有 Name: {cells:?}"
+    );
     // 列表 + 分页符 + 元信息
     let lists = parsed
         .all_blocks()
@@ -440,7 +453,11 @@ fn cross_pdf_to_xlsx_roundtrip() {
     let pdf = fixture_cross_pdf(dir.path());
     let src = json2pdf::cross::open_source(&pdf).unwrap();
     let wb = json2pdf::cross::to_xlsx(&src).unwrap();
-    let table_sheet = wb.sheets.iter().find(|s| s.name.starts_with("P1T")).expect("应有表格 sheet");
+    let table_sheet = wb
+        .sheets
+        .iter()
+        .find(|s| s.name.starts_with("P1T"))
+        .expect("应有表格 sheet");
     let first_row = &table_sheet.rows[0];
     let vals: Vec<String> = first_row
         .cells
@@ -450,7 +467,10 @@ fn cross_pdf_to_xlsx_roundtrip() {
             other => other.to_string(),
         })
         .collect();
-    assert!(vals.iter().any(|v| v.contains("Name")), "表头应有 Name: {vals:?}");
+    assert!(
+        vals.iter().any(|v| v.contains("Name")),
+        "表头应有 Name: {vals:?}"
+    );
     // 数值识别：第二行 Qty 列应为 number 12
     let nums: Vec<serde_json::Value> = table_sheet.rows[1]
         .cells
@@ -458,7 +478,8 @@ fn cross_pdf_to_xlsx_roundtrip() {
         .map(|c| c.value.clone().unwrap())
         .collect();
     assert!(
-        nums.iter().any(|v| v.is_number() && v.as_f64() == Some(12.0)),
+        nums.iter()
+            .any(|v| v.is_number() && v.as_f64() == Some(12.0)),
         "12 应转成数值: {nums:?}"
     );
     let out = dir.path().join("out.xlsx");

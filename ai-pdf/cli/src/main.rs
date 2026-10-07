@@ -750,7 +750,11 @@ fn dispatch(cli: &Cli, out: &Output) -> Result<i32, CmdError> {
         Cmd::Convert(ConvertCmd::Office { file, engine }) => {
             let o = default_output(cli, file, "pdf");
             let payload = convert::convert_office(file, Some(&o), engine)?;
-            out.status(&format!("已转换（{} 引擎）→ {}", payload["engine"].as_str().unwrap_or("?"), o.display()));
+            out.status(&format!(
+                "已转换（{} 引擎）→ {}",
+                payload["engine"].as_str().unwrap_or("?"),
+                o.display()
+            ));
             out.emit_result(&ok_payload(payload))?;
         }
         Cmd::Convert(ConvertCmd::Docx { file }) => {
@@ -785,8 +789,14 @@ fn dispatch(cli: &Cli, out: &Output) -> Result<i32, CmdError> {
             let o = default_output(cli, file, "xlsx");
             let src = json2pdf::cross::open_source(file)?;
             let wb = json2pdf::cross::to_xlsx(&src)?;
-            json2xlsx::generate(&wb, &o).map_err(|e| CliError::new(format!("生成 xlsx 失败: {e}")))?;
-            out.status(&format!("已转换 {} 页（{} sheets）→ {}", src.pages.len(), wb.sheets.len(), o.display()));
+            json2xlsx::generate(&wb, &o)
+                .map_err(|e| CliError::new(format!("生成 xlsx 失败: {e}")))?;
+            out.status(&format!(
+                "已转换 {} 页（{} sheets）→ {}",
+                src.pages.len(),
+                wb.sheets.len(),
+                o.display()
+            ));
             out.emit_result(&ok_payload(json!({
                 "input": file.display().to_string(),
                 "output": o.display().to_string(),

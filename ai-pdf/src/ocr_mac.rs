@@ -16,9 +16,9 @@ use anyhow::{anyhow, Result};
 use objc2::rc::{autoreleasepool, Retained};
 use objc2::runtime::AnyObject;
 use objc2::AnyThread;
-use objc2_foundation::{NSArray, NSData, NSDictionary, NSString, NSProcessInfo};
+use objc2_foundation::{NSArray, NSData, NSDictionary, NSProcessInfo, NSString};
 use objc2_vision::{
-    VNImageRequestHandler, VNImageOption, VNRecognizeTextRequest, VNRequest,
+    VNImageOption, VNImageRequestHandler, VNRecognizeTextRequest, VNRequest,
     VNRequestTextRecognitionLevel,
 };
 
@@ -97,8 +97,10 @@ impl OcrEngine for MacOcr {
     }
 
     fn recognize(&self, png: &[u8], language: &str) -> Result<Vec<OcrLine>> {
-        let (w, h) = png_dims(png).ok_or_else(|| anyhow!("PNG 头无法解析，Vision 无法拿到归一化换算基准"))?;
-        let supported = Self::supported_languages().ok_or_else(|| anyhow!("Vision 支持语言查询失败"))?;
+        let (w, h) = png_dims(png)
+            .ok_or_else(|| anyhow!("PNG 头无法解析，Vision 无法拿到归一化换算基准"))?;
+        let supported =
+            Self::supported_languages().ok_or_else(|| anyhow!("Vision 支持语言查询失败"))?;
         // 候选 ∩ 支持；全不在支持列表则不设语言（交系统自动判断）
         let cands: Vec<Retained<NSString>> = Self::candidates(language)
             .into_iter()
@@ -121,7 +123,9 @@ impl OcrEngine for MacOcr {
             req.setUsesLanguageCorrection(false);
 
             let base: Retained<VNRequest> = req.clone().into_super().into_super();
-            handler.performRequests_error(&NSArray::from_retained_slice(std::slice::from_ref(&base)))?;
+            handler.performRequests_error(&NSArray::from_retained_slice(std::slice::from_ref(
+                &base,
+            )))?;
 
             let mut out = Vec::new();
             if let Some(obs) = req.results() {
