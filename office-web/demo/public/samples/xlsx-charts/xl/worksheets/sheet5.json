@@ -1,0 +1,313 @@
+{
+  "name": "Sheet5",
+  "default_row_height": 13.5,
+  "columns": [
+    {
+      "width": 7.375
+    },
+    {},
+    {
+      "width": 14.125
+    },
+    {},
+    {},
+    {},
+    {},
+    {
+      "width": 9.0,
+      "style": {
+        "font": {
+          "name": "ＭＳ Ｐゴシック",
+          "size": 11.0,
+          "color": "FF0000"
+        },
+        "border": {
+          "top": "thin",
+          "bottom": "thin",
+          "left": "thin",
+          "right": "thin"
+        }
+      }
+    },
+    {},
+    {},
+    {
+      "width": 9.0,
+      "style": {
+        "fill": "FFFF00"
+      }
+    },
+    {
+      "width": 9.0,
+      "style": {
+        "font": {
+          "name": "ＭＳ Ｐゴシック",
+          "size": 11.0,
+          "color": "FF0000"
+        },
+        "fill": "FFFF00"
+      }
+    },
+    {
+      "width": 9.0,
+      "style": {
+        "fill": "FFFF00"
+      }
+    }
+  ],
+  "merges": [
+    "F2:F7"
+  ],
+  "print": {
+    "orientation": "portrait",
+    "paper_size": 9,
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "rows": [
+    {
+      "index": 1,
+      "height": 27.0,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "追試テスト",
+          "style": {
+            "font": {
+              "bold": true,
+              "italic": true,
+              "underline": "double",
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "height": 28.5,
+      "cells": [
+        {
+          "ref": "B2",
+          "type": "string",
+          "value": "TEST",
+          "style": {
+            "font": {
+              "name": "HGP創英角ｺﾞｼｯｸUB",
+              "size": 24.0,
+              "color": "000000"
+            }
+          }
+        },
+        {
+          "ref": "F2",
+          "type": "string",
+          "value": "縦文字",
+          "style": {
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "text_rotation": 255
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "cells": [
+        {
+          "ref": "F3",
+          "style": {
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "text_rotation": 255
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "height": 15.75,
+      "cells": [
+        {
+          "ref": "C4",
+          "type": "string",
+          "value": "記号cm"
+        },
+        {
+          "ref": "F4",
+          "style": {
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "text_rotation": 255
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "cells": [
+        {
+          "ref": "F5",
+          "style": {
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "text_rotation": 255
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "height": 14.25,
+      "cells": [
+        {
+          "ref": "F6",
+          "style": {
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "text_rotation": 255
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "height": 48.75,
+      "cells": [
+        {
+          "ref": "C7",
+          "style": {
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium"
+            }
+          }
+        },
+        {
+          "ref": "F7",
+          "style": {
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "text_rotation": 255
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "style": {
+        "border": {
+          "top": "thin",
+          "bottom": "thin",
+          "left": "thin",
+          "right": "thin"
+        }
+      },
+      "cells": [
+        {
+          "ref": "G11",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin"
+            }
+          }
+        },
+        {
+          "ref": "H11",
+          "style": {
+            "font": {
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            }
+          }
+        },
+        {
+          "ref": "I11",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "right": "thin"
+            }
+          }
+        },
+        {
+          "ref": "K11",
+          "style": {
+            "fill": "FFFF00",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            }
+          }
+        },
+        {
+          "ref": "L11",
+          "style": {
+            "font": {
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "fill": "FFFF00",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            }
+          }
+        },
+        {
+          "ref": "M11",
+          "style": {
+            "fill": "FFFF00",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

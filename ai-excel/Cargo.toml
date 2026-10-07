@@ -1,0 +1,24 @@
+[package]
+name = "json2xlsx"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "JSON <-> XLSX bidirectional conversion library & CLI"
+
+[lib]
+name = "json2xlsx"
+path = "src/lib.rs"
+
+[dependencies]
+office-core = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+schemars = { workspace = true }
+zip = { workspace = true }
+quick-xml = { workspace = true }
+chrono = { workspace = true }
+ureq = { workspace = true }
+calamine = "0.36"
+
+[lints]
+workspace = true

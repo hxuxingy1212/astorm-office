@@ -1,0 +1,168 @@
+{
+  "name": "0b256859_Themes2",
+  "source": "/tmp/excel_corpus2/npoi/0b256859_Themes2.xlsx",
+  "palette": [
+    {
+      "hex": "FFFFFF",
+      "count": 2,
+      "usage": "font"
+    },
+    {
+      "hex": "000000",
+      "count": 1,
+      "usage": "font"
+    },
+    {
+      "hex": "000000",
+      "count": 1,
+      "usage": "font"
+    },
+    {
+      "hex": "0000FF",
+      "count": 1,
+      "usage": "fill"
+    },
+    {
+      "hex": "002060",
+      "count": 1,
+      "usage": "font"
+    },
+    {
+      "hex": "002060",
+      "count": 1,
+      "usage": "font"
+    },
+    {
+      "hex": "0070C0",
+      "count": 1,
+      "usage": "font"
+    },
+    {
+      "hex": "00B050",
+      "count": 1,
+      "usage": "font"
+    },
+    {
+      "hex": "00FF00",
+      "count": 1,
+      "usage": "fill"
+    },
+    {
+      "hex": "C0C0C0",
+      "count": 1,
+      "usage": "font"
+    },
+    {
+      "hex": "C0C0C0",
+      "count": 1,
+      "usage": "font"
+    },
+    {
+      "hex": "FF0000",
+      "count": 1,
+      "usage": "font"
+    },
+    {
+      "hex": "FF0000",
+      "count": 1,
+      "usage": "font"
+    },
+    {
+      "hex": "FFFFFF",
+      "count": 1,
+      "usage": "font"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "count": 17
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "bold": true,
+      "count": 5
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "0070C0",
+      "count": 1
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "000000",
+      "count": 1
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "C0C0C0",
+      "count": 1
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "FF0000",
+      "count": 1
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "002060",
+      "count": 1
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "00B050",
+      "count": 1
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "FFFFFF",
+      "count": 1
+    }
+  ],
+  "header": {
+    "sheet": "Sheet1",
+    "row": 1,
+    "style": {
+      "font": {
+        "bold": true,
+        "name": "Calibri",
+        "size": 11.0
+      }
+    },
+    "values": [
+      "Theme Colours",
+      "Theme",
+      "Explicit",
+      "Background",
+      "CF"
+    ]
+  },
+  "columns": [
+    {
+      "width": 31.140625
+    },
+    {},
+    {},
+    {},
+    {
+      "width": 13.85546875
+    }
+  ],
+  "default_row_height": 15.0,
+  "sheets": [
+    "Sheet1"
+  ],
+  "notes": [
+    "检测到表头：Sheet1 第 1 行（保持该行样式即可得到一致外观）",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

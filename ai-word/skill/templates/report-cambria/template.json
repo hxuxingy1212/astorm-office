@@ -1,0 +1,31 @@
+{
+  "_notes": [
+    "正文西文字体：Cambria；中文字体：宋体",
+    "标题字体：Cambria",
+    "正文字号：11 pt"
+  ],
+  "page": {
+    "margins": {
+      "bottom": 72.0,
+      "footer": 42.0,
+      "header": 42.0,
+      "left": 90.0,
+      "right": 90.0,
+      "top": 72.0
+    },
+    "orientation": "portrait",
+    "size": "A4"
+  },
+  "styles": {
+    "Normal": {
+      "font_family": "Cambria",
+      "font_size": 11.0
+    }
+  },
+  "theme": {
+    "east_asia_font": "宋体",
+    "heading_font": "Cambria",
+    "major_font": "Cambria",
+    "minor_font": "Cambria"
+  }
+}

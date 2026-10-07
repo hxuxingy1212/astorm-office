@@ -1,0 +1,36 @@
+{
+  "height": 7.5,
+  "meta": {
+    "application": "json2pptx",
+    "author": "AI PPT",
+    "last_modified_by": "AI PPT",
+    "title": "创意多彩 - AI PPT Template"
+  },
+  "slides": [
+    "ppt/slides/slide1.json",
+    "ppt/slides/slide2.json",
+    "ppt/slides/slide3.json",
+    "ppt/slides/slide4.json",
+    "ppt/slides/slide5.json"
+  ],
+  "table_styles": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<a:tblStyleLst xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" def=\"{5C22544A-7EE6-4342-B048-85BDC9FD1C3A}\"/>",
+  "theme": {
+    "colors": {
+      "accent1": "FF6B6B",
+      "accent2": "4ECDC4",
+      "accent3": "FFE66D",
+      "accent4": "292F36",
+      "accent5": "FF8A5C",
+      "accent6": "A29BFE",
+      "dk1": "2D3436",
+      "dk2": "636E72",
+      "folHlink": "FF6B6B",
+      "hlink": "4ECDC4",
+      "lt1": "FFFFFF",
+      "lt2": "FFF5F5"
+    },
+    "major_font": "Montserrat",
+    "minor_font": "STKaiti"
+  },
+  "width": 13.333
+}

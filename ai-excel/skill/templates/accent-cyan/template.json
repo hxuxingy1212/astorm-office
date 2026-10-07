@@ -1,0 +1,206 @@
+{
+  "name": "PivotTableWithMissingReference",
+  "source": "/tmp/ec3/closedxml/ClosedXML-develop/ClosedXML.Tests/Resource/TryToLoad/PivotTableWithMissingReference.xlsx",
+  "default_font": {
+    "name": "Arial",
+    "size": 11.0
+  },
+  "palette": [
+    {
+      "hex": "00B0F0",
+      "count": 21,
+      "usage": "fill"
+    },
+    {
+      "hex": "FFFF00",
+      "count": 15,
+      "usage": "fill"
+    },
+    {
+      "hex": "DC0000",
+      "count": 9,
+      "usage": "font"
+    },
+    {
+      "hex": "F2F2F2",
+      "count": 6,
+      "usage": "fill"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Arial",
+      "size": 8.0,
+      "count": 1793
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "count": 550
+    },
+    {
+      "name": "Arial",
+      "size": 9.0,
+      "bold": true,
+      "count": 223
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "bold": true,
+      "count": 108
+    },
+    {
+      "name": "Arial",
+      "size": 8.0,
+      "bold": true,
+      "count": 105
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "bold": true,
+      "count": 28
+    },
+    {
+      "name": "Arial",
+      "size": 16.0,
+      "bold": true,
+      "color": "DC0000",
+      "count": 9
+    },
+    {
+      "name": "Arial",
+      "size": 16.0,
+      "bold": true,
+      "count": 9
+    },
+    {
+      "name": "Arial",
+      "size": 12.0,
+      "bold": true,
+      "count": 5
+    },
+    {
+      "name": "Arial",
+      "size": 9.0,
+      "count": 3
+    },
+    {
+      "name": "Arial",
+      "size": 14.0,
+      "bold": true,
+      "count": 2
+    },
+    {
+      "name": "Arial",
+      "size": 12.0,
+      "bold": true,
+      "count": 1
+    }
+  ],
+  "number_formats": [
+    "0.0",
+    "0.00"
+  ],
+  "header": {
+    "sheet": "Output LBLC",
+    "row": 1,
+    "style": {
+      "font": {
+        "bold": true,
+        "name": "Arial",
+        "size": 12.0
+      }
+    },
+    "values": [
+      "",
+      ""
+    ]
+  },
+  "columns": [
+    {
+      "width": 27.125
+    },
+    {
+      "width": 19.125
+    },
+    {
+      "width": 15.0
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 19.0
+    },
+    {
+      "width": 17.75
+    },
+    {
+      "width": 17.0
+    },
+    {
+      "width": 17.875
+    },
+    {
+      "width": 18.25
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 14.625
+    },
+    {
+      "width": 14.625
+    }
+  ],
+  "default_row_height": 14.25,
+  "sheets": [
+    "Output LBLC",
+    "Basic Spec",
+    "BK TK"
+  ],
+  "notes": [
+    "检测到表头：Output LBLC 第 1 行（保持该行样式即可得到一致外观）",
+    "工作簿默认字体：Arial 11",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "elements": [
+    {
+      "type": "text",
+      "id": 2,
+      "text": [
+        {
+          "runs": [
+            {
+              "text": "创意多彩",
+              "font_size": 54.0,
+              "bold": true,
+              "color": "accent1",
+              "lang": "en-US"
+            }
+          ],
+          "align": "center"
+        }
+      ],
+      "position": {
+        "x": 1.5,
+        "y": 1.5,
+        "w": 10.333,
+        "h": 2.0
+      },
+      "name": "TextBox 2",
+      "font_size": 54.0,
+      "color": "accent1",
+      "align": "center",
+      "vert_align": "middle",
+      "wrap": true
+    },
+    {
+      "type": "text",
+      "id": 3,
+      "text": [
+        {
+          "runs": [
+            {
+              "text": "AI-Powered Presentation Template",
+              "font_size": 24.0,
+              "color": "dk2",
+              "lang": "en-US"
+            }
+          ],
+          "align": "center"
+        }
+      ],
+      "position": {
+        "x": 1.5,
+        "y": 3.5,
+        "w": 10.333,
+        "h": 1.0
+      },
+      "name": "TextBox 3",
+      "font_size": 24.0,
+      "color": "dk2",
+      "align": "center",
+      "vert_align": "middle",
+      "wrap": true
+    },
+    {
+      "type": "text",
+      "id": 4,
+      "text": [
+        {
+          "runs": [
+            {
+              "text": "json2pptx · Generated from JSON",
+              "font_size": 16.0,
+              "color": "accent2",
+              "lang": "en-US"
+            }
+          ],
+          "align": "center"
+        }
+      ],
+      "position": {
+        "x": 1.5,
+        "y": 4.8,
+        "w": 10.333,
+        "h": 0.8
+      },
+      "name": "TextBox 4",
+      "font_size": 16.0,
+      "color": "accent2",
+      "align": "center",
+      "vert_align": "middle",
+      "wrap": true
+    },
+    {
+      "type": "shape",
+      "id": 5,
+      "shape_type": "rect",
+      "position": {
+        "x": 4.5,
+        "y": 6.2,
+        "w": 4.333,
+        "h": 0.06
+      },
+      "name": "Shape 5",
+      "fill": "accent1"
+    }
+  ],
+  "background": "FFF8F8"
+}

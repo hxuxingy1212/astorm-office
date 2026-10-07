@@ -1,0 +1,80 @@
+{
+  "_notes": [
+    "正文西文字体：微软雅黑；中文字体：宋体",
+    "标题字体：微软雅黑",
+    "正文字号：10.5 pt",
+    "一级标题字号：22 pt"
+  ],
+  "page": {
+    "margins": {
+      "bottom": 72.0,
+      "footer": 49.6,
+      "header": 42.55,
+      "left": 90.0,
+      "right": 90.0,
+      "top": 72.0
+    },
+    "orientation": "portrait",
+    "size": "A4"
+  },
+  "styles": {
+    "Heading1": {
+      "align": "justify",
+      "bold": false,
+      "east_asia_font": "微软雅黑",
+      "font_family": "微软雅黑",
+      "font_size": 22.0,
+      "line_spacing": 2.4,
+      "space_after": 16.5,
+      "space_before": 17.0
+    },
+    "Heading2": {
+      "align": "justify",
+      "east_asia_font": "微软雅黑",
+      "font_family": "微软雅黑",
+      "font_size": 16.0,
+      "line_spacing": 1.5,
+      "space_after": 7.0,
+      "space_before": 7.0
+    },
+    "Heading3": {
+      "align": "justify",
+      "east_asia_font": "微软雅黑",
+      "font_family": "微软雅黑",
+      "font_size": 15.0,
+      "line_spacing": 1.5,
+      "space_after": 1.0,
+      "space_before": 1.0
+    },
+    "Heading4": {
+      "align": "justify",
+      "bold": true,
+      "east_asia_font": "微软雅黑",
+      "font_family": "微软雅黑",
+      "font_size": 14.0,
+      "line_spacing": 1.5,
+      "space_after": 2.5,
+      "space_before": 2.0
+    },
+    "Heading5": {
+      "align": "justify",
+      "east_asia_font": "微软雅黑",
+      "font_family": "微软雅黑",
+      "font_size": 12.0,
+      "line_spacing": 1.5,
+      "space_after": 2.5,
+      "space_before": 2.0
+    },
+    "Normal": {
+      "east_asia_font": "宋体",
+      "font_family": "微软雅黑",
+      "font_size": 10.5
+    }
+  },
+  "theme": {
+    "east_asia_font": "宋体",
+    "heading_font": "微软雅黑",
+    "major_font": "微软雅黑",
+    "minor_font": "微软雅黑"
+  }
+}

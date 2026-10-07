@@ -1,0 +1,34 @@
+{
+  "_notes": [
+    "正文西文字体：仿宋_GB2312；中文字体：仿宋_GB2312",
+    "标题字体：Calibri Light",
+    "正文字号：16 pt",
+    "正文行距：2.30 倍"
+  ],
+  "page": {
+    "margins": {
+      "bottom": 72.0,
+      "footer": 49.6,
+      "header": 42.55,
+      "left": 90.0,
+      "right": 90.0,
+      "top": 72.0
+    },
+    "orientation": "portrait",
+    "size": "A4"
+  },
+  "styles": {
+    "Normal": {
+      "east_asia_font": "仿宋_GB2312",
+      "font_family": "仿宋_GB2312",
+      "font_size": 16.0,
+      "line_spacing": 2.3
+    }
+  },
+  "theme": {
+    "east_asia_font": "仿宋_GB2312",
+    "heading_font": "Calibri Light",
+    "major_font": "Calibri Light",
+    "minor_font": "仿宋_GB2312"
+  }
+}

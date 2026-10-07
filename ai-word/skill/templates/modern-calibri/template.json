@@ -1,0 +1,32 @@
+{
+  "_notes": [
+    "正文西文字体：Calibri；中文字体：",
+    "标题字体：Cambria",
+    "正文字号：11 pt"
+  ],
+  "page": {
+    "margins": {
+      "bottom": 72.0,
+      "footer": 36.0,
+      "header": 36.0,
+      "left": 72.0,
+      "right": 72.0,
+      "top": 72.0
+    },
+    "orientation": "portrait",
+    "size": "Letter"
+  },
+  "styles": {
+    "Normal": {
+      "east_asia_font": "",
+      "font_family": "Calibri",
+      "font_size": 11.0
+    }
+  },
+  "theme": {
+    "east_asia_font": "",
+    "heading_font": "Cambria",
+    "major_font": "Cambria",
+    "minor_font": "Calibri"
+  }
+}

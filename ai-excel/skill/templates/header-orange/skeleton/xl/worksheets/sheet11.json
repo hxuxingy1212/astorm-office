@@ -1,0 +1,207 @@
+{
+  "name": "AssetRandsPerPoint",
+  "default_row_height": 15.0,
+  "columns": [
+    {
+      "width": 13.140625
+    },
+    {
+      "width": 19.0
+    },
+    {
+      "width": 11.5703125
+    },
+    {
+      "width": 14.28515625
+    },
+    {
+      "width": 10.42578125
+    },
+    {
+      "width": 12.85546875
+    },
+    {
+      "width": 13.85546875
+    },
+    {
+      "width": 13.85546875
+    },
+    {
+      "width": 11.140625
+    },
+    {
+      "width": 14.140625
+    },
+    {
+      "width": 15.42578125
+    },
+    {
+      "width": 19.7109375
+    },
+    {
+      "width": 9.85546875
+    },
+    {
+      "width": 13.7109375
+    },
+    {
+      "width": 10.5703125
+    }
+  ],
+  "print": {
+    "orientation": "portrait",
+    "paper_size": 9,
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "tables": [
+    {
+      "range": "A1:O3",
+      "name": "AssetRandsPerPoint",
+      "style": "TableStyleMedium2",
+      "show_banded_rows": true,
+      "columns": [
+        "EffectiveDate",
+        "AssetsEffectiveDate",
+        "Portfolio_Id",
+        "PortfolioName",
+        "AssetCode",
+        "MaturityDate",
+        "NominalValue",
+        "FictionalTradeNominalValue",
+        "BucketDate",
+        "RandsPerPoint",
+        "ShockMethod",
+        "RecommendedTrade",
+        "BondType",
+        "Calculation_Id",
+        "Username"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "EffectiveDate",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "AssetsEffectiveDate",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "Portfolio_Id"
+        },
+        {
+          "ref": "D1",
+          "type": "string",
+          "value": "PortfolioName"
+        },
+        {
+          "ref": "E1",
+          "type": "string",
+          "value": "AssetCode",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "F1",
+          "type": "string",
+          "value": "MaturityDate",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "G1",
+          "type": "string",
+          "value": "NominalValue",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "H1",
+          "type": "string",
+          "value": "FictionalTradeNominalValue",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "I1",
+          "type": "string",
+          "value": "BucketDate",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "J1",
+          "type": "string",
+          "value": "RandsPerPoint"
+        },
+        {
+          "ref": "K1",
+          "type": "string",
+          "value": "ShockMethod"
+        },
+        {
+          "ref": "L1",
+          "type": "string",
+          "value": "RecommendedTrade"
+        },
+        {
+          "ref": "M1",
+          "type": "string",
+          "value": "BondType"
+        },
+        {
+          "ref": "N1",
+          "type": "string",
+          "value": "Calculation_Id"
+        },
+        {
+          "ref": "O1",
+          "type": "string",
+          "value": "Username"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "J2",
+          "number_format": "_ * #,##0.00000000_ ;_ * \\-#,##0.00000000_ ;_ * \"-\"????????_ ;_ @_ "
+        },
+        {
+          "ref": "L2",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "M2"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "cells": [
+        {
+          "ref": "J3",
+          "number_format": "_ * #,##0.00000000_ ;_ * \\-#,##0.00000000_ ;_ * \"-\"????????_ ;_ @_ "
+        },
+        {
+          "ref": "L3",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "M3"
+        }
+      ]
+    }
+  ]
+}

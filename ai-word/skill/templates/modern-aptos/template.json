@@ -1,0 +1,76 @@
+{
+  "_notes": [
+    "正文西文字体：Aptos；中文字体：",
+    "标题字体：Aptos Display",
+    "正文字号：12 pt",
+    "一级标题字号：20 pt",
+    "标题颜色：#0F4761"
+  ],
+  "page": {
+    "margins": {
+      "bottom": 72.0,
+      "footer": 42.0,
+      "header": 42.0,
+      "left": 90.0,
+      "right": 90.0,
+      "top": 72.0
+    },
+    "orientation": "portrait",
+    "size": "A4"
+  },
+  "styles": {
+    "Heading1": {
+      "color": "0F4761",
+      "font_size": 20.0,
+      "space_after": 4.0,
+      "space_before": 18.0
+    },
+    "Heading2": {
+      "color": "0F4761",
+      "font_size": 16.0,
+      "space_after": 4.0,
+      "space_before": 8.0
+    },
+    "Heading3": {
+      "color": "0F4761",
+      "font_size": 14.0,
+      "space_after": 4.0,
+      "space_before": 8.0
+    },
+    "Heading4": {
+      "color": "0F4761",
+      "font_size": 12.0,
+      "italic": true,
+      "space_after": 2.0,
+      "space_before": 4.0
+    },
+    "Heading5": {
+      "color": "0F4761",
+      "font_size": 12.0,
+      "space_after": 2.0,
+      "space_before": 4.0
+    },
+    "Heading6": {
+      "color": "595959",
+      "font_size": 12.0,
+      "italic": true,
+      "space_before": 2.0
+    },
+    "Normal": {
+      "east_asia_font": "",
+      "font_family": "Aptos",
+      "font_size": 12.0,
+      "space_after": 9.0,
+      "space_before": 9.0
+    }
+  },
+  "theme": {
+    "colors": {
+      "heading": "0F4761"
+    },
+    "east_asia_font": "",
+    "heading_font": "Aptos Display",
+    "major_font": "Aptos Display",
+    "minor_font": "Aptos"
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "name": "autofilter-colors",
+  "source": "/tmp/excel_corpus/lo/autofilter-colors.xlsx",
+  "default_font": {
+    "name": "Liberation Sans",
+    "size": 11.0
+  },
+  "palette": [
+    {
+      "hex": "808080",
+      "count": 4,
+      "usage": "font"
+    },
+    {
+      "hex": "B3CAC7",
+      "count": 4,
+      "usage": "fill"
+    },
+    {
+      "hex": "B7B3CA",
+      "count": 4,
+      "usage": "fill"
+    },
+    {
+      "hex": "E8F2A1",
+      "count": 4,
+      "usage": "fill"
+    },
+    {
+      "hex": "FFD7D7",
+      "count": 4,
+      "usage": "fill"
+    },
+    {
+      "hex": "3465A4",
+      "count": 3,
+      "usage": "font"
+    },
+    {
+      "hex": "FFFFFF",
+      "count": 3,
+      "usage": "font"
+    },
+    {
+      "hex": "00A933",
+      "count": 2,
+      "usage": "font"
+    },
+    {
+      "hex": "D4EA6B",
+      "count": 2,
+      "usage": "fill"
+    },
+    {
+      "hex": "FF0000",
+      "count": 2,
+      "usage": "font"
+    },
+    {
+      "hex": "FFBF00",
+      "count": 2,
+      "usage": "font"
+    },
+    {
+      "hex": "FFDBB6",
+      "count": 2,
+      "usage": "fill"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Liberation Sans",
+      "size": 11.0,
+      "color": "808080",
+      "count": 4
+    },
+    {
+      "name": "Liberation Sans",
+      "size": 11.0,
+      "color": "FFFFFF",
+      "count": 3
+    },
+    {
+      "name": "Liberation Sans",
+      "size": 11.0,
+      "bold": true,
+      "count": 3
+    },
+    {
+      "name": "Liberation Sans",
+      "size": 11.0,
+      "color": "3465A4",
+      "count": 3
+    },
+    {
+      "name": "Liberation Sans",
+      "size": 11.0,
+      "color": "FF0000",
+      "count": 2
+    },
+    {
+      "name": "Liberation Sans",
+      "size": 11.0,
+      "color": "00A933",
+      "count": 2
+    },
+    {
+      "name": "Liberation Sans",
+      "size": 11.0,
+      "color": "FFBF00",
+      "count": 2
+    },
+    {
+      "name": "Liberation Sans",
+      "size": 11.0,
+      "count": 1
+    }
+  ],
+  "header": {
+    "sheet": "Sheet1",
+    "row": 1,
+    "style": {
+      "font": {
+        "bold": true,
+        "name": "Liberation Sans",
+        "size": 11.0
+      }
+    },
+    "values": [
+      "Background",
+      "Foreground",
+      "Both"
+    ]
+  },
+  "columns": [
+    {
+      "width": 10.625
+    },
+    {
+      "width": 10.625
+    },
+    {
+      "width": 10.625
+    }
+  ],
+  "default_row_height": 14.25,
+  "sheets": [
+    "Sheet1"
+  ],
+  "notes": [
+    "检测到表头：Sheet1 第 1 行（保持该行样式即可得到一致外观）",
+    "工作簿默认字体：Liberation Sans 11",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

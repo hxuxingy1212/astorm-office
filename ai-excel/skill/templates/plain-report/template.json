@@ -1,0 +1,134 @@
+{
+  "name": "ef682e39_48962",
+  "source": "/tmp/excel_corpus2/npoi/ef682e39_48962.xlsx",
+  "default_font": {
+    "name": "Verdana",
+    "size": 10.0
+  },
+  "fonts": [
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "count": 12
+    },
+    {
+      "name": "Verdana",
+      "size": 16.0,
+      "count": 11
+    },
+    {
+      "name": "Verdana",
+      "size": 12.0,
+      "count": 6
+    },
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "count": 6
+    },
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "count": 5
+    },
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "count": 2
+    },
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "count": 2
+    },
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "bold": true,
+      "count": 2
+    },
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "count": 2
+    },
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "count": 1
+    },
+    {
+      "name": "Times New Roman",
+      "size": 12.0,
+      "count": 1
+    },
+    {
+      "name": "Arial",
+      "size": 12.0,
+      "count": 1
+    },
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "count": 1
+    },
+    {
+      "name": "Verdana",
+      "size": 12.0,
+      "count": 1
+    },
+    {
+      "name": "Verdana",
+      "size": 16.0,
+      "count": 1
+    },
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "count": 1
+    },
+    {
+      "name": "Tahoma",
+      "size": 12.0,
+      "count": 1
+    }
+  ],
+  "number_formats": [
+    "\"$\"#,##0.00",
+    "#,##0",
+    "#,##0.00\\ [$€-40C]",
+    "0.00%",
+    "0.00_);[Red]\\(0.00\\)",
+    "[$$-409]#,##0.00_);[Red]\\([$$-409]#,##0.00\\)",
+    "d-mmm",
+    "mm-dd-yy"
+  ],
+  "columns": [
+    {
+      "width": 11.0
+    },
+    {
+      "width": 31.0
+    },
+    {
+      "width": 10.7109375
+    },
+    {
+      "width": 10.7109375
+    },
+    {
+      "width": 12.7109375
+    },
+    {
+      "width": 10.85546875
+    }
+  ],
+  "default_row_height": 13.0,
+  "sheets": [
+    "Sheet1"
+  ],
+  "notes": [
+    "工作簿默认字体：Verdana 10",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

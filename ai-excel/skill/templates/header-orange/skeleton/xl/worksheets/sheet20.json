@@ -1,0 +1,196 @@
+{
+  "name": "StressedHedges",
+  "default_row_height": 15.0,
+  "columns": [
+    {
+      "width": 14.7109375
+    },
+    {
+      "width": 12.7109375
+    },
+    {
+      "width": 12.5703125
+    },
+    {
+      "width": 9.140625
+    },
+    {
+      "width": 12.42578125
+    },
+    {},
+    {
+      "width": 13.5703125
+    },
+    {
+      "width": 20.7109375
+    },
+    {
+      "width": 19.0
+    },
+    {
+      "width": 19.85546875
+    },
+    {
+      "width": 12.140625
+    },
+    {
+      "width": 15.42578125
+    },
+    {
+      "width": 15.140625
+    },
+    {
+      "width": 12.42578125
+    },
+    {
+      "width": 21.7109375
+    },
+    {
+      "width": 20.7109375
+    }
+  ],
+  "print": {
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "tables": [
+    {
+      "range": "A1:P2",
+      "name": "StressedHedges",
+      "style": "TableStyleMedium2",
+      "show_banded_rows": true,
+      "columns": [
+        "CalculationId",
+        "StressType",
+        "CurveType",
+        "Step",
+        "ShockDate",
+        "Code",
+        "LiabilityRPP",
+        "PillarRandsPerPoint",
+        "RequiredHoldings",
+        "StressedAssetsRPP",
+        "Trade",
+        "StressApplied",
+        "StressedPrice",
+        "CashValue",
+        "ZeroStressCashValue",
+        "ChangeInCashValue"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "CalculationId"
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "StressType"
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "CurveType"
+        },
+        {
+          "ref": "D1",
+          "type": "string",
+          "value": "Step",
+          "number_format": "0.00%"
+        },
+        {
+          "ref": "E1",
+          "type": "string",
+          "value": "ShockDate",
+          "number_format": "mm-dd-yy"
+        },
+        {
+          "ref": "F1",
+          "type": "string",
+          "value": "Code"
+        },
+        {
+          "ref": "G1",
+          "type": "string",
+          "value": "LiabilityRPP",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "H1",
+          "type": "string",
+          "value": "PillarRandsPerPoint",
+          "number_format": "#,##0.00000"
+        },
+        {
+          "ref": "I1",
+          "type": "string",
+          "value": "RequiredHoldings",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "J1",
+          "type": "string",
+          "value": "StressedAssetsRPP",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "K1",
+          "type": "string",
+          "value": "Trade",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "L1",
+          "type": "string",
+          "value": "StressApplied",
+          "number_format": "0.00%"
+        },
+        {
+          "ref": "M1",
+          "type": "string",
+          "value": "StressedPrice",
+          "number_format": "#,##0.00000"
+        },
+        {
+          "ref": "N1",
+          "type": "string",
+          "value": "CashValue",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "O1",
+          "type": "string",
+          "value": "ZeroStressCashValue",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "P1",
+          "type": "string",
+          "value": "ChangeInCashValue",
+          "number_format": "#,##0.00"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "B2"
+        },
+        {
+          "ref": "C2"
+        }
+      ]
+    }
+  ]
+}

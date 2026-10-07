@@ -1,0 +1,201 @@
+{
+  "name": "BondsOverview",
+  "default_row_height": 15.0,
+  "columns": [
+    {
+      "width": 13.140625
+    },
+    {
+      "width": 11.5703125
+    },
+    {
+      "width": 14.28515625
+    },
+    {
+      "width": 10.140625
+    },
+    {
+      "width": 13.85546875
+    },
+    {
+      "width": 9.7109375
+    },
+    {
+      "width": 12.85546875
+    },
+    {
+      "width": 11.85546875
+    },
+    {
+      "width": 15.85546875
+    },
+    {
+      "width": 15.0
+    },
+    {
+      "width": 11.28515625
+    },
+    {
+      "width": 16.5703125
+    }
+  ],
+  "print": {
+    "orientation": "portrait",
+    "paper_size": 9,
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "tables": [
+    {
+      "range": "A1:L2",
+      "name": "Table_Query_from_SILPEN2",
+      "style": "TableStyleMedium2",
+      "show_banded_rows": true,
+      "columns": [
+        "EffectiveDate",
+        "Portfolio_Id",
+        "PortfolioName",
+        "BondCode",
+        "NominalValue",
+        "IssueDate",
+        "MaturityDate",
+        "CouponRate",
+        "CouponsPerYear",
+        "PaymentTiming",
+        "IsFixedRate",
+        "YieldToMaturity"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "EffectiveDate",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "Portfolio_Id",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "PortfolioName",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "D1",
+          "type": "string",
+          "value": "BondCode",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "E1",
+          "type": "string",
+          "value": "NominalValue",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "F1",
+          "type": "string",
+          "value": "IssueDate",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "G1",
+          "type": "string",
+          "value": "MaturityDate",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "H1",
+          "type": "string",
+          "value": "CouponRate",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "I1",
+          "type": "string",
+          "value": "CouponsPerYear",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "J1",
+          "type": "string",
+          "value": "PaymentTiming",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "K1",
+          "type": "string",
+          "value": "IsFixedRate",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "L1",
+          "type": "string",
+          "value": "YieldToMaturity"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "B2",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "C2",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "D2",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "E2",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "F2",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "G2",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "H2",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "I2",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "J2",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "K2",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "L2",
+          "number_format": "0.00%"
+        }
+      ]
+    }
+  ]
+}

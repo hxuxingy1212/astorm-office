@@ -1,0 +1,394 @@
+{
+  "name": "Sheet1",
+  "default_row_height": 14.25,
+  "base_col_width": 10.0,
+  "tab_selected": true,
+  "columns": [
+    {
+      "width": 10.625
+    },
+    {
+      "width": 10.625
+    },
+    {
+      "width": 10.625
+    }
+  ],
+  "print": {
+    "orientation": "portrait",
+    "paper_size": 9,
+    "margin_left": 0.0,
+    "margin_right": 0.0,
+    "margin_top": 0.3937007874015748,
+    "margin_bottom": 0.3937007874015748,
+    "margin_header": 0.0,
+    "margin_footer": 0.0
+  },
+  "tables": [
+    {
+      "range": "A1:C11",
+      "name": "__Anonymous_Sheet_DB__0",
+      "show_banded_rows": true,
+      "columns": [
+        "Background",
+        "Foreground",
+        "Both"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "Background",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Liberation Sans",
+              "size": 11.0
+            }
+          }
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "Foreground",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Liberation Sans",
+              "size": 11.0
+            }
+          }
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "Both",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Liberation Sans",
+              "size": 11.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "hidden": true,
+      "cells": [
+        {
+          "ref": "A2",
+          "style": {
+            "fill": "E8F2A1"
+          }
+        },
+        {
+          "ref": "B2",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "3465A4"
+            }
+          }
+        },
+        {
+          "ref": "C2",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "808080"
+            },
+            "fill": "E8F2A1"
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "cells": [
+        {
+          "ref": "A3",
+          "style": {
+            "fill": "FFD7D7"
+          }
+        },
+        {
+          "ref": "B3",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "3465A4"
+            }
+          }
+        },
+        {
+          "ref": "C3",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "808080"
+            },
+            "fill": "FFD7D7"
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "cells": [
+        {
+          "ref": "A4",
+          "style": {
+            "fill": "FFD7D7"
+          }
+        },
+        {
+          "ref": "B4",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "3465A4"
+            }
+          }
+        },
+        {
+          "ref": "C4",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "808080"
+            },
+            "fill": "FFD7D7"
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "hidden": true,
+      "cells": [
+        {
+          "ref": "A5",
+          "style": {
+            "fill": "E8F2A1"
+          }
+        },
+        {
+          "ref": "B5",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "00A933"
+            }
+          }
+        },
+        {
+          "ref": "C5",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "808080"
+            },
+            "fill": "E8F2A1"
+          }
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "hidden": true,
+      "cells": [
+        {
+          "ref": "A6",
+          "style": {
+            "fill": "B3CAC7"
+          }
+        },
+        {
+          "ref": "B6",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0
+            }
+          }
+        },
+        {
+          "ref": "C6",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "FFFFFF"
+            },
+            "fill": "B3CAC7"
+          }
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "hidden": true,
+      "cells": [
+        {
+          "ref": "A7",
+          "style": {
+            "fill": "D4EA6B"
+          }
+        },
+        {
+          "ref": "B7",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "00A933"
+            }
+          }
+        },
+        {
+          "ref": "C7",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "FFFFFF"
+            },
+            "fill": "D4EA6B"
+          }
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "hidden": true,
+      "cells": [
+        {
+          "ref": "A8",
+          "style": {
+            "fill": "FFDBB6"
+          }
+        },
+        {
+          "ref": "B8",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "FF0000"
+            }
+          }
+        },
+        {
+          "ref": "C8",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "FFFFFF"
+            },
+            "fill": "FFDBB6"
+          }
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "hidden": true,
+      "cells": [
+        {
+          "ref": "A9",
+          "style": {
+            "fill": "B3CAC7"
+          }
+        },
+        {
+          "ref": "B9",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "FFBF00"
+            }
+          }
+        },
+        {
+          "ref": "C9",
+          "style": {
+            "fill": "B3CAC7"
+          }
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "hidden": true,
+      "cells": [
+        {
+          "ref": "A10",
+          "style": {
+            "fill": "B7B3CA"
+          }
+        },
+        {
+          "ref": "B10",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "FF0000"
+            }
+          }
+        },
+        {
+          "ref": "C10",
+          "style": {
+            "fill": "B7B3CA"
+          }
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "hidden": true,
+      "cells": [
+        {
+          "ref": "A11",
+          "style": {
+            "fill": "B7B3CA"
+          }
+        },
+        {
+          "ref": "B11",
+          "style": {
+            "font": {
+              "name": "Liberation Sans",
+              "size": 11.0,
+              "color": "FFBF00"
+            }
+          }
+        },
+        {
+          "ref": "C11",
+          "style": {
+            "fill": "B7B3CA"
+          }
+        }
+      ]
+    }
+  ]
+}

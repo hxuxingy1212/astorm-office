@@ -1,0 +1,23 @@
+[package]
+name = "json2docx"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "JSON to DOCX bidirectional conversion library"
+readme = "README.md"
+keywords = ["docx", "word", "json", "ooxml", "wordprocessingml"]
+categories = ["parser-implementations", "encoding", "data-structures"]
+
+[dependencies]
+office-core = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+schemars = { workspace = true }
+zip = { workspace = true }
+quick-xml = { workspace = true }
+ureq = { workspace = true }
+image = { workspace = true }
+rwml = { version = "0.1.4", default-features = false, features = ["docx"] }
+
+[lints]
+workspace = true

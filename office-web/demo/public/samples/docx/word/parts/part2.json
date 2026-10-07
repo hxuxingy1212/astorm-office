@@ -1,0 +1,22 @@
+{
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "目录"
+    },
+    {
+      "type": "toc",
+      "title": "目录",
+      "levels": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": ""
+    }
+  ]
+}

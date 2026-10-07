@@ -1,0 +1,189 @@
+/*! @astorm/office-viewer — macOS 风格设计令牌与共享控件
+ *
+ * 字体：SF Pro / PingFang SC 系统栈；控件：分段控件 / 圆角按钮 / 毛玻璃弹层；
+ * 颜色：系统蓝 #007AFF、系统灰阶（label / secondary / separator）。
+ */
+:root {
+  --ov-font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'PingFang SC',
+    'Helvetica Neue', 'Microsoft YaHei', Arial, sans-serif;
+  --ov-font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco, monospace;
+
+  --ov-accent: #007aff;
+  --ov-accent-soft: rgba(0, 122, 255, 0.14);
+  --ov-label: rgba(0, 0, 0, 0.85);
+  --ov-label-2: rgba(0, 0, 0, 0.5);
+  --ov-label-3: rgba(0, 0, 0, 0.26);
+  --ov-separator: rgba(0, 0, 0, 0.1);
+  --ov-hairline: 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+
+  --ov-bg-window: #ececec;
+  --ov-bg-content: #ffffff;
+  --ov-bg-sidebar: rgba(246, 246, 246, 0.72);
+  --ov-bg-control: #ffffff;
+  --ov-bg-segment: rgba(120, 120, 128, 0.12);
+  --ov-bg-fill: rgba(120, 120, 128, 0.08);
+
+  --ov-radius-sm: 5px;
+  --ov-radius: 6px;
+  --ov-radius-lg: 10px;
+  --ov-radius-popover: 12px;
+  --ov-shadow-control: 0 0.5px 1px rgba(0, 0, 0, 0.08);
+  --ov-shadow-popover: 0 12px 32px rgba(0, 0, 0, 0.2), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+  --ov-blur: saturate(180%) blur(20px);
+}
+
+.ov-root,
+.ov-root * {
+  box-sizing: border-box;
+}
+.ov-root {
+  font-family: var(--ov-font);
+  color: var(--ov-label);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 覆盖式细滚动条（macOS 观感） */
+.ov-root ::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+.ov-root ::-webkit-scrollbar-track {
+  background: transparent;
+}
+.ov-root ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.24);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.ov-root ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+  background-clip: padding-box;
+}
+
+/* ---- 分段控件（macOS Segmented Control） ---- */
+.ov-segmented {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 7px;
+  background: var(--ov-bg-segment);
+}
+.ov-segmented > button,
+.ov-segmented > .ov-seg {
+  appearance: none;
+  border: 0;
+  padding: 4px 12px;
+  border-radius: var(--ov-radius-sm);
+  background: transparent;
+  color: var(--ov-label);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.4;
+  cursor: default;
+  white-space: nowrap;
+}
+.ov-segmented > button:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+.ov-segmented > button.active {
+  background: var(--ov-bg-control);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  font-weight: 500;
+}
+
+/* ---- 工具条按钮 ---- */
+.ov-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 24px;
+  padding: 0 8px;
+  border: 1px solid var(--ov-separator);
+  border-radius: var(--ov-radius);
+  background: var(--ov-bg-control);
+  color: var(--ov-label);
+  font: inherit;
+  font-size: 12px;
+  box-shadow: var(--ov-shadow-control);
+  cursor: default;
+}
+.ov-btn:hover:not(:disabled) {
+  background: #f7f7f7;
+}
+.ov-btn:active:not(:disabled) {
+  background: #ededed;
+}
+.ov-btn:disabled {
+  color: var(--ov-label-3);
+  box-shadow: none;
+}
+
+/* ---- 工具条（unified toolbar） ---- */
+.ov-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+  background: rgba(246, 246, 246, 0.82);
+  backdrop-filter: var(--ov-blur);
+  -webkit-backdrop-filter: var(--ov-blur);
+  border-bottom: 0.5px solid var(--ov-separator);
+  font-size: 12px;
+  color: var(--ov-label-2);
+}
+
+/* ---- 内容容器（卡片/画布） ---- */
+.ov-pane {
+  background: var(--ov-bg-content);
+  border-radius: var(--ov-radius-lg);
+  box-shadow: var(--ov-hairline), 0 1px 3px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+/* ---- 数值标签 ---- */
+.ov-value {
+  font-variant-numeric: tabular-nums;
+  color: var(--ov-label-2);
+}
+
+/* ---- 悬浮高亮：core/hover.enter 挂到当前悬浮元素（三格式统一） ---- */
+.ov-hovering {
+  outline: 2px solid rgba(0, 122, 255, 0.65);
+  outline-offset: -2px;
+  border-radius: 2px;
+  /* 轻蓝罩层（叠在单元格填充/图片上仍可见，不遮内容） */
+  box-shadow: inset 0 0 0 9999px rgba(0, 122, 255, 0.05);
+}
+
+/* ---- 缩放控件（PPT / XLSX 底栏右侧共用） ---- */
+.ov-zoom {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.ov-zoom input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 110px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(120, 120, 128, 0.24);
+  outline: none;
+}
+.ov-zoom input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(0, 0, 0, 0.1);
+}
+.ov-zoom span {
+  font-variant-numeric: tabular-nums;
+  min-width: 34px;
+  text-align: right;
+}

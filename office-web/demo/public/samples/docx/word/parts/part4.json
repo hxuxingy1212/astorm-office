@@ -1,0 +1,107 @@
+{
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "第二章 方法"
+    },
+    {
+      "type": "table",
+      "header_row": true,
+      "rows": [
+        {
+          "cells": [
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "方法",
+                  "align": "center"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "R@1",
+                  "align": "center"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "R@5",
+                  "align": "center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "Baseline"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "72.1"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "88.4"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "Ours"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "79.6"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "92.3"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "caption": "表 1  各方法在基准上的表现"
+    },
+    {
+      "type": "code",
+      "text": "def align(x, y):\n    return cosine_similarity(x, y).mean()"
+    }
+  ]
+}

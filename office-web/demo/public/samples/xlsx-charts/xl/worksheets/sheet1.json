@@ -1,0 +1,899 @@
+{
+  "name": "Sheet1",
+  "default_row_height": 13.5,
+  "auto_filter": "A2:K2",
+  "columns": [
+    {},
+    {
+      "width": 19.75
+    },
+    {},
+    {
+      "width": 11.125
+    },
+    {
+      "width": 10.625
+    },
+    {
+      "width": 10.625
+    }
+  ],
+  "merges": [
+    "B17:D17"
+  ],
+  "conditional_formats": [
+    {
+      "range": "E4",
+      "type": "top10",
+      "rank": 10
+    },
+    {
+      "range": "E4",
+      "type": "colorScale",
+      "colors": [
+        "FF7128",
+        "FFEF9C"
+      ]
+    }
+  ],
+  "print": {
+    "orientation": "portrait",
+    "paper_size": 9,
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "tables": [
+    {
+      "range": "D39:D41",
+      "name": "テーブル1",
+      "style": "TableStyleMedium2",
+      "show_banded_rows": true,
+      "columns": [
+        "列1"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "D1",
+          "type": "string",
+          "value": "DDDDDDFFFFFF"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "A2",
+          "type": "string",
+          "value": "aaa"
+        },
+        {
+          "ref": "B2",
+          "type": "string",
+          "value": "bbb"
+        },
+        {
+          "ref": "C2",
+          "type": "string",
+          "value": "ccc"
+        },
+        {
+          "ref": "D2",
+          "type": "string",
+          "value": "ddd"
+        },
+        {
+          "ref": "E2",
+          "type": "string",
+          "value": "eee"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "cells": [
+        {
+          "ref": "E3",
+          "type": "string",
+          "value": "http://google.com",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "FFDE66"
+            }
+          },
+          "link": "http://google.com/"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "height": 17.25,
+      "cells": [
+        {
+          "ref": "B4",
+          "type": "string",
+          "value": "trest",
+          "style": {
+            "font": {
+              "name": "ＭＳ Ｐゴシック",
+              "size": 14.0,
+              "color": "000000"
+            },
+            "alignment": {
+              "horizontal": "right",
+              "vertical": "top"
+            }
+          }
+        },
+        {
+          "ref": "E4",
+          "type": "string",
+          "value": "条件付き書式"
+        },
+        {
+          "ref": "G4",
+          "value": 10,
+          "formula": "SUM(G7:G10)"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "cells": [
+        {
+          "ref": "B5",
+          "type": "string",
+          "value": " "
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "cells": [
+        {
+          "ref": "B6",
+          "type": "string",
+          "value": "  "
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "height": 27.0,
+      "cells": [
+        {
+          "ref": "A7",
+          "type": "string",
+          "value": "\r\nTEST",
+          "style": {
+            "alignment": {
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "B7",
+          "type": "string",
+          "value": " \r\nTEST",
+          "style": {
+            "alignment": {
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "D7",
+          "type": "string",
+          "value": "リッチテキスト？"
+        },
+        {
+          "ref": "F7",
+          "comment": "作成者:\r\ndddddd"
+        },
+        {
+          "ref": "G7",
+          "type": "number",
+          "value": 1
+        },
+        {
+          "ref": "H7",
+          "type": "number",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "height": 40.5,
+      "cells": [
+        {
+          "ref": "A8",
+          "type": "string",
+          "value": "　"
+        },
+        {
+          "ref": "B8",
+          "type": "string",
+          "value": "TEST\r\n\r\nTEST",
+          "style": {
+            "alignment": {
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "D8",
+          "type": "string",
+          "value": "リッチテキスト",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "FFDE66"
+            }
+          },
+          "link": "#Sheet2!A1"
+        },
+        {
+          "ref": "G8",
+          "type": "number",
+          "value": 2
+        },
+        {
+          "ref": "H8",
+          "type": "number",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "cells": [
+        {
+          "ref": "G9",
+          "type": "number",
+          "value": 3
+        },
+        {
+          "ref": "H9",
+          "type": "number",
+          "value": 6
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "cells": [
+        {
+          "ref": "B10",
+          "type": "string",
+          "value": "見出し",
+          "style": {
+            "font": {
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "FDE2B0"
+            }
+          }
+        },
+        {
+          "ref": "D10",
+          "type": "boolean",
+          "value": true,
+          "style": {
+            "font": {
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "006100"
+            },
+            "fill": "C6EFCE"
+          }
+        },
+        {
+          "ref": "G10",
+          "type": "number",
+          "value": 4
+        },
+        {
+          "ref": "H10",
+          "type": "number",
+          "value": 7
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "cells": [
+        {
+          "ref": "B11",
+          "type": "string",
+          "value": "本文",
+          "style": {
+            "font": {
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "7A7477"
+            }
+          }
+        },
+        {
+          "ref": "D11",
+          "type": "string",
+          "value": "NULL"
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "height": 28.5,
+      "cells": [
+        {
+          "ref": "C12",
+          "type": "string",
+          "value": "Sheet1!A1",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "FFDE66"
+            }
+          },
+          "link": "#Sheet1!A1"
+        },
+        {
+          "ref": "E12",
+          "type": "string",
+          "value": "英語",
+          "style": {
+            "font": {
+              "italic": true,
+              "strike": true,
+              "name": "HGP教科書体",
+              "size": 24.0,
+              "color": "000000"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "cells": [
+        {
+          "ref": "D14",
+          "type": "string",
+          "value": "ff"
+        },
+        {
+          "ref": "E14",
+          "type": "string",
+          "value": "dd"
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "cells": [
+        {
+          "ref": "B15",
+          "style": {
+            "fill": "7A3FC1"
+          }
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "cells": [
+        {
+          "ref": "H16",
+          "type": "string",
+          "value": "test"
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "height": 46.5,
+      "cells": [
+        {
+          "ref": "B17",
+          "type": "string",
+          "value": "DDDDDD",
+          "style": {
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "C17",
+          "style": {
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D17",
+          "style": {
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "cells": [
+        {
+          "ref": "B20",
+          "type": "number",
+          "value": 1,
+          "number_format": "0.0000_);\\(0.0000\\)",
+          "style": {
+            "border": {
+              "bottom": "thin"
+            }
+          }
+        },
+        {
+          "ref": "C20",
+          "comment": "作成者:\r\nTest"
+        }
+      ]
+    },
+    {
+      "index": 21,
+      "height": 14.25,
+      "cells": [
+        {
+          "ref": "B21",
+          "type": "number",
+          "value": 3333,
+          "number_format": "\\$#,##0.0000;\\-\\$#,##0.0000"
+        }
+      ]
+    },
+    {
+      "index": 22,
+      "height": 14.25,
+      "cells": [
+        {
+          "ref": "B22",
+          "type": "number",
+          "value": 333,
+          "number_format": "_-\\$* #,##0.00_ ;_-\\$* \\-#,##0.00\\ ;_-\\$* \"-\"??_ ;_-@_ "
+        },
+        {
+          "ref": "D22",
+          "style": {
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "diagonal": "medium",
+              "diagonal_up": true,
+              "diagonal_color": "FF0000"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 23,
+      "cells": [
+        {
+          "ref": "B23",
+          "type": "date",
+          "value": "2020-03-01",
+          "number_format": "yyyy\"年\"m\"月\";@"
+        }
+      ]
+    },
+    {
+      "index": 24,
+      "cells": [
+        {
+          "ref": "B24",
+          "type": "number",
+          "value": 0.6062500000000001,
+          "number_format": "[$-409]h:mm\\ AM/PM;@"
+        }
+      ]
+    },
+    {
+      "index": 25,
+      "cells": [
+        {
+          "ref": "B25",
+          "type": "number",
+          "value": 0.05,
+          "number_format": "0.00%"
+        },
+        {
+          "ref": "D25",
+          "type": "string",
+          "value": "dddddfsfsdfds",
+          "style": {
+            "font": {
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "FFFFFF"
+            },
+            "fill": "000000"
+          }
+        }
+      ]
+    },
+    {
+      "index": 26,
+      "cells": [
+        {
+          "ref": "B26",
+          "type": "number",
+          "value": 0.5,
+          "number_format": "# ??/??"
+        },
+        {
+          "ref": "D26",
+          "type": "string",
+          "value": "dddddfsfsdfds",
+          "style": {
+            "fill": "FFFF00"
+          }
+        },
+        {
+          "ref": "K26",
+          "type": "string",
+          "value": "tset"
+        }
+      ]
+    },
+    {
+      "index": 27,
+      "cells": [
+        {
+          "ref": "B27",
+          "type": "number",
+          "value": 44180.584027777775,
+          "number_format": "m/d/yy h:mm"
+        },
+        {
+          "ref": "D27",
+          "type": "string",
+          "value": "dfdfdsfdsfdsfs",
+          "style": {
+            "font": {
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "F4E7ED"
+            },
+            "fill": "000000"
+          }
+        }
+      ]
+    },
+    {
+      "index": 28,
+      "cells": [
+        {
+          "ref": "B28",
+          "type": "number",
+          "value": 444,
+          "number_format": "@"
+        },
+        {
+          "ref": "D28",
+          "type": "string",
+          "value": "dfsdsfdsfsd",
+          "style": {
+            "font": {
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "B13F9A"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 29,
+      "cells": [
+        {
+          "ref": "B29",
+          "type": "date",
+          "value": "2020-12-14",
+          "number_format": "d-mmm-yy"
+        },
+        {
+          "ref": "D29",
+          "type": "string",
+          "value": "fsdfsfsfsf",
+          "style": {
+            "font": {
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "B83D68"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 30,
+      "cells": [
+        {
+          "ref": "B30",
+          "type": "number",
+          "value": 44105
+        },
+        {
+          "ref": "D30",
+          "type": "string",
+          "value": "fsfdsfsdfs",
+          "style": {
+            "font": {
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "AC66BB"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 31,
+      "cells": [
+        {
+          "ref": "B31",
+          "type": "number",
+          "value": 1.2345
+        },
+        {
+          "ref": "D31",
+          "type": "string",
+          "value": "sfsfsfsfs",
+          "style": {
+            "font": {
+              "name": "ＭＳ Ｐゴシック",
+              "size": 11.0,
+              "color": "DE6C36"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 32,
+      "cells": [
+        {
+          "ref": "B32",
+          "type": "number",
+          "value": 1.2345,
+          "number_format": "0.0_ "
+        }
+      ]
+    },
+    {
+      "index": 33,
+      "cells": [
+        {
+          "ref": "B33",
+          "type": "number",
+          "value": 12345675544,
+          "number_format": "#,##0.00_ "
+        }
+      ]
+    },
+    {
+      "index": 34,
+      "cells": [
+        {
+          "ref": "B34",
+          "type": "number",
+          "value": 1.2345,
+          "number_format": "0.000_ "
+        }
+      ]
+    },
+    {
+      "index": 35,
+      "cells": [
+        {
+          "ref": "B35",
+          "type": "number",
+          "value": 1.2345,
+          "number_format": "0_ "
+        }
+      ]
+    },
+    {
+      "index": 37,
+      "cells": [
+        {
+          "ref": "B37",
+          "type": "string",
+          "value": "123456789012345678",
+          "number_format": "@"
+        }
+      ]
+    },
+    {
+      "index": 39,
+      "cells": [
+        {
+          "ref": "D39",
+          "type": "string",
+          "value": "列1"
+        }
+      ]
+    },
+    {
+      "index": 40,
+      "cells": [
+        {
+          "ref": "D40",
+          "type": "string",
+          "value": "test1"
+        }
+      ]
+    },
+    {
+      "index": 41,
+      "cells": [
+        {
+          "ref": "D41",
+          "type": "string",
+          "value": "test2"
+        }
+      ]
+    },
+    {
+      "index": 44,
+      "cells": [
+        {
+          "ref": "D44",
+          "type": "string",
+          "value": "行ラベル"
+        },
+        {
+          "ref": "F44",
+          "type": "string",
+          "value": "行ラベル"
+        }
+      ]
+    },
+    {
+      "index": 45,
+      "cells": [
+        {
+          "ref": "D45",
+          "type": "string",
+          "value": "test1",
+          "style": {
+            "alignment": {
+              "horizontal": "left"
+            }
+          }
+        },
+        {
+          "ref": "F45",
+          "type": "string",
+          "value": "test1",
+          "style": {
+            "alignment": {
+              "horizontal": "left"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 46,
+      "cells": [
+        {
+          "ref": "D46",
+          "type": "string",
+          "value": "test2",
+          "style": {
+            "alignment": {
+              "horizontal": "left"
+            }
+          }
+        },
+        {
+          "ref": "F46",
+          "type": "string",
+          "value": "test2",
+          "style": {
+            "alignment": {
+              "horizontal": "left"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 47,
+      "cells": [
+        {
+          "ref": "D47",
+          "type": "string",
+          "value": "総計",
+          "style": {
+            "alignment": {
+              "horizontal": "left"
+            }
+          }
+        },
+        {
+          "ref": "F47",
+          "type": "string",
+          "value": "総計",
+          "style": {
+            "alignment": {
+              "horizontal": "left"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "charts": [
+    {
+      "type": "line",
+      "data_range": "G7:H10",
+      "legend": "right",
+      "anchor": "E18",
+      "size": {
+        "w": 4.738,
+        "h": 3.0
+      },
+      "offset": [
+        476250,
+        14287
+      ],
+      "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\r\n<c:chartSpace xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:c16r2=\"http://schemas.microsoft.com/office/drawing/2015/06/chart\"><c:date1904 val=\"0\"/><c:lang val=\"ja-JP\"/><c:roundedCorners val=\"0\"/><mc:AlternateContent xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\"><mc:Choice Requires=\"c14\" xmlns:c14=\"http://schemas.microsoft.com/office/drawing/2007/8/2/chart\"><c14:style val=\"102\"/></mc:Choice><mc:Fallback><c:style val=\"2\"/></mc:Fallback></mc:AlternateContent><c:chart><c:autoTitleDeleted val=\"0\"/><c:plotArea><c:layout/><c:lineChart><c:grouping val=\"stacked\"/><c:varyColors val=\"0\"/><c:ser><c:idx val=\"0\"/><c:order val=\"0\"/><c:tx><c:v>ライン①</c:v></c:tx><c:val><c:numRef><c:f>Sheet1!$G$7:$G$10</c:f><c:numCache><c:formatCode>General</c:formatCode><c:ptCount val=\"4\"/><c:pt idx=\"0\"><c:v>1</c:v></c:pt><c:pt idx=\"1\"><c:v>2</c:v></c:pt><c:pt idx=\"2\"><c:v>3</c:v></c:pt><c:pt idx=\"3\"><c:v>4</c:v></c:pt></c:numCache></c:numRef></c:val><c:smooth val=\"0\"/><c:extLst><c:ext uri=\"{C3380CC4-5D6E-409C-BE32-E72D297353CC}\" xmlns:c16=\"http://schemas.microsoft.com/office/drawing/2014/chart\"><c16:uniqueId val=\"{00000000-11F7-42B7-A007-301720C0FE9B}\"/></c:ext></c:extLst></c:ser><c:ser><c:idx val=\"1\"/><c:order val=\"1\"/><c:tx><c:v>ライン②</c:v></c:tx><c:val><c:numRef><c:f>Sheet1!$H$7:$H$10</c:f><c:numCache><c:formatCode>General</c:formatCode><c:ptCount val=\"4\"/><c:pt idx=\"0\"><c:v>4</c:v></c:pt><c:pt idx=\"1\"><c:v>5</c:v></c:pt><c:pt idx=\"2\"><c:v>6</c:v></c:pt><c:pt idx=\"3\"><c:v>7</c:v></c:pt></c:numCache></c:numRef></c:val><c:smooth val=\"0\"/><c:extLst><c:ext uri=\"{C3380CC4-5D6E-409C-BE32-E72D297353CC}\" xmlns:c16=\"http://schemas.microsoft.com/office/drawing/2014/chart\"><c16:uniqueId val=\"{00000001-11F7-42B7-A007-301720C0FE9B}\"/></c:ext></c:extLst></c:ser><c:dLbls><c:showLegendKey val=\"0\"/><c:showVal val=\"0\"/><c:showCatName val=\"0\"/><c:showSerName val=\"0\"/><c:showPercent val=\"0\"/><c:showBubbleSize val=\"0\"/></c:dLbls><c:marker val=\"1\"/><c:smooth val=\"0\"/><c:axId val=\"207163904\"/><c:axId val=\"207356480\"/></c:lineChart><c:catAx><c:axId val=\"207163904\"/><c:scaling><c:orientation val=\"minMax\"/></c:scaling><c:delete val=\"0\"/><c:axPos val=\"b\"/><c:majorTickMark val=\"out\"/><c:minorTickMark val=\"none\"/><c:tickLblPos val=\"nextTo\"/><c:crossAx val=\"207356480\"/><c:crosses val=\"autoZero\"/><c:auto val=\"1\"/><c:lblAlgn val=\"ctr\"/><c:lblOffset val=\"100\"/><c:noMultiLvlLbl val=\"0\"/></c:catAx><c:valAx><c:axId val=\"207356480\"/><c:scaling><c:orientation val=\"minMax\"/></c:scaling><c:delete val=\"0\"/><c:axPos val=\"l\"/><c:majorGridlines/><c:numFmt formatCode=\"General\" sourceLinked=\"1\"/><c:majorTickMark val=\"out\"/><c:minorTickMark val=\"none\"/><c:tickLblPos val=\"nextTo\"/><c:crossAx val=\"207163904\"/><c:crosses val=\"autoZero\"/><c:crossBetween val=\"between\"/></c:valAx></c:plotArea><c:legend><c:legendPos val=\"r\"/><c:overlay val=\"0\"/></c:legend><c:plotVisOnly val=\"1\"/><c:dispBlanksAs val=\"zero\"/><c:showDLblsOverMax val=\"0\"/></c:chart><c:printSettings><c:headerFooter/><c:pageMargins b=\"0.75\" l=\"0.7\" r=\"0.7\" t=\"0.75\" header=\"0.3\" footer=\"0.3\"/><c:pageSetup/></c:printSettings></c:chartSpace>",
+      "snapshot": "{\"type\":\"line\",\"data_range\":\"G7:H10\",\"legend\":\"right\",\"anchor\":\"E18\",\"size\":{\"w\":4.738,\"h\":3.0},\"offset\":[476250,14287]}"
+    }
+  ],
+  "images": [
+    {
+      "src": "xl/media/image1.png",
+      "anchor": "M17",
+      "size": {
+        "w": 5.309,
+        "h": 5.354
+      },
+      "offset": [
+        365500,
+        28574
+      ]
+    }
+  ],
+  "shapes": [
+    "<xdr:twoCellAnchor><xdr:from><xdr:col>9</xdr:col><xdr:colOff>304800</xdr:colOff><xdr:row>5</xdr:row><xdr:rowOff>161925</xdr:rowOff></xdr:from><xdr:to><xdr:col>14</xdr:col><xdr:colOff>123825</xdr:colOff><xdr:row>14</xdr:row><xdr:rowOff>133350</xdr:rowOff></xdr:to><xdr:sp macro=\"\" textlink=\"\"><xdr:nvSpPr><xdr:cNvPr id=\"3\" name=\"直方体 2\"><a:extLst><a:ext uri=\"{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}\"><a16:creationId xmlns:a16=\"http://schemas.microsoft.com/office/drawing/2014/main\" id=\"{00000000-0008-0000-0000-000003000000}\"/></a:ext></a:extLst></xdr:cNvPr><xdr:cNvSpPr/></xdr:nvSpPr><xdr:spPr><a:xfrm><a:off x=\"7581900\" y=\"1066800\"/><a:ext cx=\"3248025\" cy=\"1704975\"/></a:xfrm><a:prstGeom prst=\"cube\"><a:avLst/></a:prstGeom></xdr:spPr><xdr:style><a:lnRef idx=\"2\"><a:schemeClr val=\"accent1\"><a:shade val=\"50000\"/></a:schemeClr></a:lnRef><a:fillRef idx=\"1\"><a:schemeClr val=\"accent1\"/></a:fillRef><a:effectRef idx=\"0\"><a:schemeClr val=\"accent1\"/></a:effectRef><a:fontRef idx=\"minor\"><a:schemeClr val=\"lt1\"/></a:fontRef></xdr:style><xdr:txBody><a:bodyPr vertOverflow=\"clip\" horzOverflow=\"clip\" rtlCol=\"0\" anchor=\"t\"/><a:lstStyle/><a:p><a:pPr algn=\"l\"/><a:r><a:rPr kumimoji=\"1\" lang=\"en-US\" altLang=\"ja-JP\" sz=\"1100\"/><a:t>ddddddrtrr</a:t></a:r></a:p><a:p><a:pPr algn=\"l\"/><a:r><a:rPr kumimoji=\"1\" lang=\"en-US\" altLang=\"ja-JP\" sz=\"1100\"/><a:t>d</a:t></a:r><a:r><a:rPr kumimoji=\"1\" lang=\"en-US\" altLang=\"ja-JP\" sz=\"1400\"><a:solidFill><a:srgbClr val=\"00B0F0\"/></a:solidFill></a:rPr><a:t>dfd</a:t></a:r><a:r><a:rPr kumimoji=\"1\" lang=\"en-US\" altLang=\"ja-JP\" sz=\"1100\"/><a:t>sf</a:t></a:r><a:endParaRPr kumimoji=\"1\" lang=\"ja-JP\" altLang=\"en-US\" sz=\"1100\"/></a:p></xdr:txBody></xdr:sp><xdr:clientData/></xdr:twoCellAnchor>",
+    "<xdr:twoCellAnchor><xdr:from><xdr:col>15</xdr:col><xdr:colOff>476250</xdr:colOff><xdr:row>7</xdr:row><xdr:rowOff>161925</xdr:rowOff></xdr:from><xdr:to><xdr:col>17</xdr:col><xdr:colOff>400050</xdr:colOff><xdr:row>12</xdr:row><xdr:rowOff>95250</xdr:rowOff></xdr:to><xdr:sp macro=\"\" textlink=\"\"><xdr:nvSpPr><xdr:cNvPr id=\"5\" name=\"円/楕円 4\"><a:extLst><a:ext uri=\"{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}\"><a16:creationId xmlns:a16=\"http://schemas.microsoft.com/office/drawing/2014/main\" id=\"{00000000-0008-0000-0000-000005000000}\"/></a:ext></a:extLst></xdr:cNvPr><xdr:cNvSpPr/></xdr:nvSpPr><xdr:spPr><a:xfrm><a:off x=\"12744450\" y=\"1409700\"/><a:ext cx=\"1295400\" cy=\"981075\"/></a:xfrm><a:prstGeom prst=\"ellipse\"><a:avLst/></a:prstGeom><a:solidFill><a:schemeClr val=\"accent4\"><a:lumMod val=\"20000\"/><a:lumOff val=\"80000\"/></a:schemeClr></a:solidFill></xdr:spPr><xdr:style><a:lnRef idx=\"2\"><a:schemeClr val=\"accent1\"><a:shade val=\"50000\"/></a:schemeClr></a:lnRef><a:fillRef idx=\"1\"><a:schemeClr val=\"accent1\"/></a:fillRef><a:effectRef idx=\"0\"><a:schemeClr val=\"accent1\"/></a:effectRef><a:fontRef idx=\"minor\"><a:schemeClr val=\"lt1\"/></a:fontRef></xdr:style><xdr:txBody><a:bodyPr vertOverflow=\"clip\" horzOverflow=\"clip\" rtlCol=\"0\" anchor=\"t\"/><a:lstStyle/><a:p><a:pPr algn=\"l\"/><a:endParaRPr kumimoji=\"1\" lang=\"ja-JP\" altLang=\"en-US\" sz=\"1100\"/></a:p></xdr:txBody></xdr:sp><xdr:clientData/></xdr:twoCellAnchor>",
+    "<xdr:twoCellAnchor><xdr:from><xdr:col>13</xdr:col><xdr:colOff>383381</xdr:colOff><xdr:row>7</xdr:row><xdr:rowOff>161925</xdr:rowOff></xdr:from><xdr:to><xdr:col>16</xdr:col><xdr:colOff>438150</xdr:colOff><xdr:row>11</xdr:row><xdr:rowOff>198834</xdr:rowOff></xdr:to><xdr:cxnSp macro=\"\"><xdr:nvCxnSpPr><xdr:cNvPr id=\"7\" name=\"カギ線コネクタ 6\"><a:extLst><a:ext uri=\"{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}\"><a16:creationId xmlns:a16=\"http://schemas.microsoft.com/office/drawing/2014/main\" id=\"{00000000-0008-0000-0000-000007000000}\"/></a:ext></a:extLst></xdr:cNvPr><xdr:cNvCxnSpPr><a:stCxn id=\"3\" idx=\"4\"/><a:endCxn id=\"5\" idx=\"0\"/></xdr:cNvCxnSpPr></xdr:nvCxnSpPr><xdr:spPr><a:xfrm flipV=\"1\"><a:off x=\"11279981\" y=\"1409700\"/><a:ext cx=\"2112169\" cy=\"722709\"/></a:xfrm><a:prstGeom prst=\"bentConnector4\"><a:avLst><a:gd name=\"adj1\" fmla=\"val 24577\"/><a:gd name=\"adj2\" fmla=\"val 179077\"/></a:avLst></a:prstGeom><a:ln><a:tailEnd type=\"arrow\"/></a:ln></xdr:spPr><xdr:style><a:lnRef idx=\"1\"><a:schemeClr val=\"accent1\"/></a:lnRef><a:fillRef idx=\"0\"><a:schemeClr val=\"accent1\"/></a:fillRef><a:effectRef idx=\"0\"><a:schemeClr val=\"accent1\"/></a:effectRef><a:fontRef idx=\"minor\"><a:schemeClr val=\"tx1\"/></a:fontRef></xdr:style></xdr:cxnSp><xdr:clientData/></xdr:twoCellAnchor>",
+    "<xdr:twoCellAnchor><xdr:from><xdr:col>14</xdr:col><xdr:colOff>123825</xdr:colOff><xdr:row>7</xdr:row><xdr:rowOff>161925</xdr:rowOff></xdr:from><xdr:to><xdr:col>16</xdr:col><xdr:colOff>438150</xdr:colOff><xdr:row>9</xdr:row><xdr:rowOff>115491</xdr:rowOff></xdr:to><xdr:cxnSp macro=\"\"><xdr:nvCxnSpPr><xdr:cNvPr id=\"9\" name=\"直線矢印コネクタ 8\"><a:extLst><a:ext uri=\"{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}\"><a16:creationId xmlns:a16=\"http://schemas.microsoft.com/office/drawing/2014/main\" id=\"{00000000-0008-0000-0000-000009000000}\"/></a:ext></a:extLst></xdr:cNvPr><xdr:cNvCxnSpPr><a:stCxn id=\"3\" idx=\"5\"/><a:endCxn id=\"5\" idx=\"0\"/></xdr:cNvCxnSpPr></xdr:nvCxnSpPr><xdr:spPr><a:xfrm flipV=\"1\"><a:off x=\"11706225\" y=\"1409700\"/><a:ext cx=\"1685925\" cy=\"296466\"/></a:xfrm><a:prstGeom prst=\"straightConnector1\"><a:avLst/></a:prstGeom><a:ln><a:tailEnd type=\"arrow\"/></a:ln></xdr:spPr><xdr:style><a:lnRef idx=\"1\"><a:schemeClr val=\"accent1\"/></a:lnRef><a:fillRef idx=\"0\"><a:schemeClr val=\"accent1\"/></a:fillRef><a:effectRef idx=\"0\"><a:schemeClr val=\"accent1\"/></a:effectRef><a:fontRef idx=\"minor\"><a:schemeClr val=\"tx1\"/></a:fontRef></xdr:style></xdr:cxnSp><xdr:clientData/></xdr:twoCellAnchor>",
+    "<xdr:twoCellAnchor><xdr:from><xdr:col>18</xdr:col><xdr:colOff>104775</xdr:colOff><xdr:row>5</xdr:row><xdr:rowOff>9525</xdr:rowOff></xdr:from><xdr:to><xdr:col>19</xdr:col><xdr:colOff>219075</xdr:colOff><xdr:row>9</xdr:row><xdr:rowOff>142875</xdr:rowOff></xdr:to><xdr:cxnSp macro=\"\"><xdr:nvCxnSpPr><xdr:cNvPr id=\"8\" name=\"カギ線コネクタ 7\"><a:extLst><a:ext uri=\"{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}\"><a16:creationId xmlns:a16=\"http://schemas.microsoft.com/office/drawing/2014/main\" id=\"{00000000-0008-0000-0000-000008000000}\"/></a:ext></a:extLst></xdr:cNvPr><xdr:cNvCxnSpPr/></xdr:nvCxnSpPr><xdr:spPr><a:xfrm rot=\"16200000\" flipH=\"1\"><a:off x=\"14420850\" y=\"923925\"/><a:ext cx=\"819150\" cy=\"800100\"/></a:xfrm><a:prstGeom prst=\"bentConnector3\"><a:avLst/></a:prstGeom><a:ln><a:tailEnd type=\"arrow\"/></a:ln></xdr:spPr><xdr:style><a:lnRef idx=\"1\"><a:schemeClr val=\"accent1\"/></a:lnRef><a:fillRef idx=\"0\"><a:schemeClr val=\"accent1\"/></a:fillRef><a:effectRef idx=\"0\"><a:schemeClr val=\"accent1\"/></a:effectRef><a:fontRef idx=\"minor\"><a:schemeClr val=\"tx1\"/></a:fontRef></xdr:style></xdr:cxnSp><xdr:clientData/></xdr:twoCellAnchor>",
+    "<xdr:oneCellAnchor><xdr:from><xdr:col>8</xdr:col><xdr:colOff>99032</xdr:colOff><xdr:row>41</xdr:row><xdr:rowOff>146648</xdr:rowOff></xdr:from><xdr:ext cx=\"1535484\" cy=\"937629\"/><xdr:sp macro=\"\" textlink=\"\"><xdr:nvSpPr><xdr:cNvPr id=\"6\" name=\"正方形/長方形 5\"><a:extLst><a:ext uri=\"{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}\"><a16:creationId xmlns:a16=\"http://schemas.microsoft.com/office/drawing/2014/main\" id=\"{00000000-0008-0000-0000-000006000000}\"/></a:ext></a:extLst></xdr:cNvPr><xdr:cNvSpPr/></xdr:nvSpPr><xdr:spPr><a:xfrm><a:off x=\"7566632\" y=\"7852373\"/><a:ext cx=\"1535484\" cy=\"937629\"/></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst/></a:prstGeom><a:noFill/></xdr:spPr><xdr:txBody><a:bodyPr wrap=\"none\" lIns=\"91440\" tIns=\"45720\" rIns=\"91440\" bIns=\"45720\"><a:spAutoFit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn=\"ctr\"/><a:r><a:rPr lang=\"en-US\" altLang=\"ja-JP\" sz=\"5400\" b=\"1\" cap=\"none\" spc=\"0\"><a:ln w=\"18000\"><a:solidFill><a:schemeClr val=\"accent2\"><a:satMod val=\"140000\"/></a:schemeClr></a:solidFill><a:prstDash val=\"solid\"/><a:miter lim=\"800000\"/></a:ln><a:noFill/><a:effectLst><a:outerShdw blurRad=\"25500\" dist=\"23000\" dir=\"7020000\" algn=\"tl\"><a:srgbClr val=\"000000\"><a:alpha val=\"50000\"/></a:srgbClr></a:outerShdw></a:effectLst></a:rPr><a:t>TEST</a:t></a:r><a:endParaRPr lang=\"ja-JP\" altLang=\"en-US\" sz=\"5400\" b=\"1\" cap=\"none\" spc=\"0\"><a:ln w=\"18000\"><a:solidFill><a:schemeClr val=\"accent2\"><a:satMod val=\"140000\"/></a:schemeClr></a:solidFill><a:prstDash val=\"solid\"/><a:miter lim=\"800000\"/></a:ln><a:noFill/><a:effectLst><a:outerShdw blurRad=\"25500\" dist=\"23000\" dir=\"7020000\" algn=\"tl\"><a:srgbClr val=\"000000\"><a:alpha val=\"50000\"/></a:srgbClr></a:outerShdw></a:effectLst></a:endParaRPr></a:p></xdr:txBody></xdr:sp><xdr:clientData/></xdr:oneCellAnchor>"
+  ]
+}

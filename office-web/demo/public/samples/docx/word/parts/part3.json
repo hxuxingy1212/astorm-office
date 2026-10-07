@@ -1,0 +1,69 @@
+{
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "第一章 绪论"
+    },
+    {
+      "type": "paragraph",
+      "runs": [
+        {
+          "text": "随着大语言模型的发展，跨模态信息检索成为研究热点。"
+        },
+        {
+          "text": "（相关综述见脚注）",
+          "footnote": "Zhang et al. 2024 综述了多模态检索的进展。"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1.1 研究背景"
+    },
+    {
+      "type": "paragraph",
+      "text": "传统方法难以统一建模文本、图像与音频等异构模态。"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        {
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "提出统一的多模态表征框架"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "设计跨模态对齐损失"
+            }
+          ]
+        },
+        {
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "在多个基准上验证有效性"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "latex": "L=L_{r}et+λL_{a}lign",
+      "display": true
+    },
+    {
+      "type": "paragraph",
+      "text": "其中第一项为检索损失，第二项为对齐损失。"
+    }
+  ]
+}

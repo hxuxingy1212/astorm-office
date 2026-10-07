@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  rust:
+    name: Rust (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - name: Format
+        run: cargo fmt --all --check
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: Test
+        run: cargo test
+      - name: Build web-server
+        run: cargo build -p json2pptx-web-server
+
+  schema-consistency:
+    name: Schema consistency
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build CLIs
+        run: cargo build -p json2docx-cli -p json2xlsx-cli -p json2pptx-cli -p json2pdf-cli
+      - name: Check committed schemas match generated ones
+        run: |
+          set -e
+          ./target/debug/json2docx schema --json > /tmp/schema-docx.json
+          ./target/debug/json2xlsx schema --json > /tmp/schema-xlsx.json
+          ./target/debug/json2pptx schema --json > /tmp/schema-pptx.json
+          ./target/debug/json2pdf schema --json > /tmp/schema-pdf.json
+          diff -u ai-word/skill/references/schema.json  /tmp/schema-docx.json
+          diff -u ai-excel/skill/references/schema.json /tmp/schema-xlsx.json
+          diff -u ai-ppt/skill/references/schema.json   /tmp/schema-pptx.json
+          diff -u ai-pdf/skill/references/schema.json   /tmp/schema-pdf.json
+          echo "schemas are in sync"
+
+  web:
+    name: Web frontend (ai-ppt)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ai-ppt/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: ai-ppt/web/pnpm-lock.yaml
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Type check
+        run: pnpm exec vue-tsc --noEmit
+      - name: Build
+        run: pnpm exec vite build

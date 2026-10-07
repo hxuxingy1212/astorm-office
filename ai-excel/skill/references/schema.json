@@ -1,0 +1,1899 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Workbook",
+  "type": "object",
+  "required": [
+    "sheets"
+  ],
+  "properties": {
+    "meta": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Meta"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "date1904": {
+      "type": "boolean"
+    },
+    "styles": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/StyleDef"
+      }
+    },
+    "default_font": {
+      "description": "Workbook default font (styles.xml `fonts[0]`); Calibri 11 when omitted.",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Font"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "active_tab": {
+      "description": "Active sheet index (0-based) in the workbook view.",
+      "type": [
+        "integer",
+        "null"
+      ],
+      "format": "uint32",
+      "minimum": 0.0
+    },
+    "named_ranges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/NamedRange"
+      }
+    },
+    "sheets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Sheet"
+      }
+    },
+    "theme": {
+      "description": "原样保留的 `xl/theme/theme1.xml`（形状/图表里的 `schemeClr` 依赖它）。",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "definitions": {
+    "Meta": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "author": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "StyleDef": {
+      "description": "A reusable cell style definition. Cells reference it by name (via [`super::CellStyleRef::Named`]) or embed it inline.",
+      "type": "object",
+      "properties": {
+        "font": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Font"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fill": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "border": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Border"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "alignment": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Alignment"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "number_format": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "locked": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "Font": {
+      "type": "object",
+      "properties": {
+        "bold": {
+          "type": "boolean"
+        },
+        "italic": {
+          "type": "boolean"
+        },
+        "strike": {
+          "type": "boolean"
+        },
+        "underline": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "size": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "color": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Border": {
+      "description": "Border sides. `all` is a shorthand expanded into the four sides during normalization.",
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "top": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "bottom": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "left": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "right": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "color": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "diagonal": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "diagonal_up": {
+          "type": "boolean"
+        },
+        "diagonal_down": {
+          "type": "boolean"
+        },
+        "diagonal_color": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Alignment": {
+      "type": "object",
+      "properties": {
+        "horizontal": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vertical": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "wrap_text": {
+          "type": "boolean"
+        },
+        "indent": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "text_rotation": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int32"
+        }
+      }
+    },
+    "NamedRange": {
+      "type": "object",
+      "required": [
+        "name",
+        "ref"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "ref": {
+          "type": "string"
+        }
+      }
+    },
+    "Sheet": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "sheet_type": {
+          "description": "工作表类型：`None`/worksheet 为普通表，`chart` 为图表工作表（chartsheet）。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw_sheet": {
+          "description": "图表工作表的原始部件 XML（原样回写）。",
+          "allOf": [
+            {
+              "$ref": "#/definitions/RawXml"
+            }
+          ]
+        },
+        "raw_sheet_rels": {
+          "description": "图表工作表的原始关系文件 XML（原样回写）。",
+          "allOf": [
+            {
+              "$ref": "#/definitions/RawXml"
+            }
+          ]
+        },
+        "tab_color": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "freeze": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "direction": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "gridlines": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "headings": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "zoom": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "default_col_width": {
+          "description": "Default column width (characters) from `<sheetFormatPr>`.",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "default_row_height": {
+          "description": "Default row height (points) from `<sheetFormatPr>`.",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "base_col_width": {
+          "description": "Base column width from `<sheetFormatPr>`.",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "show_formulas": {
+          "type": "boolean"
+        },
+        "tab_selected": {
+          "type": "boolean"
+        },
+        "auto_filter": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "filter_columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterColumn"
+          }
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Column"
+          }
+        },
+        "merges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "protect": {
+          "type": "boolean"
+        },
+        "validations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataValidation"
+          }
+        },
+        "conditional_formats": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConditionalFormat"
+          }
+        },
+        "sparklines": {
+          "description": "迷你图（sparkline）。",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Sparkline"
+          }
+        },
+        "pivot_tables": {
+          "description": "透视表（创建用；读取到的透视表以不透明部件保留）。",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PivotTable"
+          }
+        },
+        "slicers": {
+          "description": "切片器（基于透视缓存字段；创建用）。",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Slicer"
+          }
+        },
+        "drawing_shapes": {
+          "description": "结构化形状（创建用；读取到的形状以 `shapes` 原样保留）。",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Shape"
+          }
+        },
+        "sort": {
+          "description": "排序状态（`sortState`）。",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SortState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ole_objects": {
+          "description": "OLE 嵌入对象（创建用；读取到的以部件原样保留）。",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OleObject"
+          }
+        },
+        "background": {
+          "description": "工作表背景图（`<picture r:id>`），部件路径如 \"xl/media/image2.jpeg\"。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "print": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PrintSettings"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "print_area": {
+          "description": "Print area range, e.g. \"A1:C20\".",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "print_title_rows": {
+          "description": "Rows repeated at top when printing, e.g. \"1:1\".",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "print_title_cols": {
+          "description": "Columns repeated at left when printing, e.g. \"A:A\".",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Table"
+          }
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Row"
+          }
+        },
+        "charts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Chart"
+          }
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Image"
+          }
+        },
+        "shapes": {
+          "description": "原样保留的绘图形状/连接线锚点（`sp`/`cxnSp` 的原始 XML），回写时按原样输出。",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "vml_drawings": {
+          "description": "保留的表单控件 VML 部件（按钮等），原样回写。",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RawXml"
+          }
+        }
+      }
+    },
+    "RawXml": {
+      "description": "原样保留的 XML 片段：正常序列化，但在相等性比较中被忽略， 以免影响「生成→解析」往返断言的字段对齐。",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "FilterColumn": {
+      "description": "A single AutoFilter column criterion (value list or custom comparison).",
+      "type": "object",
+      "required": [
+        "col_id"
+      ],
+      "properties": {
+        "col_id": {
+          "description": "0-based column index within the filter range.",
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "operator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "criteria": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "criteria2": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Column": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "outline_level": {
+          "description": "Outline (grouping) level, 1..=7.",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "collapsed": {
+          "type": "boolean"
+        },
+        "style": {
+          "description": "Column default style applied to cells lacking their own.",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/StyleDef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "DataValidation": {
+      "description": "Data validation rule (dropdown lists, number ranges, etc.).",
+      "type": "object",
+      "required": [
+        "range",
+        "type"
+      ],
+      "properties": {
+        "range": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "operator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "formula1": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "formula2": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "values": {
+          "description": "Inline list values (list type) — serialized as a quoted CSV formula.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allow_blank": {
+          "type": "boolean"
+        },
+        "show_error": {
+          "type": "boolean"
+        },
+        "error_title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "error_message": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "prompt_title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "prompt_message": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ConditionalFormat": {
+      "description": "A conditional-formatting rule.",
+      "type": "object",
+      "required": [
+        "range",
+        "type"
+      ],
+      "properties": {
+        "range": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "operator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "formulas": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "colors": {
+          "description": "colorScale colors (2 or 3).",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "color": {
+          "description": "dataBar color.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "text": {
+          "description": "containsText: the text to search for.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rank": {
+          "description": "top10 rank.",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "percent": {
+          "type": "boolean"
+        },
+        "bottom": {
+          "type": "boolean"
+        },
+        "icon_style": {
+          "description": "iconSet style, e.g. \"3TrafficLights1\".",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reverse_icons": {
+          "type": "boolean"
+        },
+        "show_value": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "time_period": {
+          "description": "timePeriod rule, e.g. \"today\", \"lastWeek\", \"thisMonth\".",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "above_average": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "equal_average": {
+          "type": "boolean"
+        },
+        "std_dev": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "font": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Font"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fill": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stop_if_true": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Sparkline": {
+      "description": "迷你图（sparkline）：在单个单元格内绘制一列数据的小图表。",
+      "type": "object",
+      "required": [
+        "data_range",
+        "location"
+      ],
+      "properties": {
+        "type": {
+          "description": "类型：line（默认）/ column / winloss（OOXML stacked）。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "data_range": {
+          "description": "数据源范围，如 \"A1:A10\"（可含跨表前缀）。",
+          "type": "string"
+        },
+        "location": {
+          "description": "目标单元格，如 \"B1\"。",
+          "type": "string"
+        },
+        "color": {
+          "description": "线条/柱颜色（6 位十六进制）。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "show_high": {
+          "description": "是否显示高点/低点/首点/末点/负点标记。",
+          "type": "boolean"
+        },
+        "show_low": {
+          "type": "boolean"
+        },
+        "show_first": {
+          "type": "boolean"
+        },
+        "show_last": {
+          "type": "boolean"
+        },
+        "show_negative": {
+          "type": "boolean"
+        }
+      }
+    },
+    "PivotTable": {
+      "description": "透视表定义（创建用）。",
+      "type": "object",
+      "required": [
+        "source"
+      ],
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source": {
+          "description": "数据源区域，可含表名，如 \"Sheet1!A1:D100\"。",
+          "type": "string"
+        },
+        "position": {
+          "description": "放置锚点单元格，如 \"F2\"。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "style": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rows": {
+          "description": "行字段（列名）。",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "columns": {
+          "description": "列字段（列名）。",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "values": {
+          "description": "值字段。",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PivotValue"
+          }
+        }
+      }
+    },
+    "PivotValue": {
+      "description": "透视表字段聚合。",
+      "type": "object",
+      "required": [
+        "field"
+      ],
+      "properties": {
+        "field": {
+          "description": "源字段名（列名）。",
+          "type": "string"
+        },
+        "function": {
+          "description": "聚合函数：sum（默认）/ count / average / max / min。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "description": "显示名（默认 \"Sum of <field>\"）。",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Slicer": {
+      "description": "切片器（slicer）：绑定到同表透视缓存里的某个字段。",
+      "type": "object",
+      "required": [
+        "field"
+      ],
+      "properties": {
+        "field": {
+          "description": "透视缓存字段名（列名）。",
+          "type": "string"
+        },
+        "pivot": {
+          "description": "所绑定的透视表名（缺省用本表第一个）。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "caption": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "style": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "column_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "row_height": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "anchor": {
+          "description": "放置位置：\"B2\" 或 \"B2:F7\"。",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Shape": {
+      "description": "结构化形状（创建用）。",
+      "type": "object",
+      "properties": {
+        "geometry": {
+          "description": "预设几何：rect/ellipse/roundRect/triangle/rightArrow/diamond 等（默认 rect）。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "anchor": {
+          "description": "锚点：\"B2:F7\"（区域）或 \"B2\"（单格，配合 size）。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "size": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Size"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "offset": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "maxItems": 2,
+          "minItems": 2
+        },
+        "fill": {
+          "description": "纯色填充（6 位十六进制）。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "gradient": {
+          "description": "渐变填充：\"C1-C2\" 或 \"C1-C2-C3[:angle]\"（角度可选）。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "line_color": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "line_width": {
+          "description": "线宽（磅）。",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "rotation": {
+          "description": "旋转（度）。",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "flip_h": {
+          "type": "boolean"
+        },
+        "flip_v": {
+          "type": "boolean"
+        },
+        "text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Size": {
+      "type": "object",
+      "required": [
+        "h",
+        "w"
+      ],
+      "properties": {
+        "w": {
+          "type": "number",
+          "format": "double"
+        },
+        "h": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "SortState": {
+      "description": "排序状态（`sortState`）。",
+      "type": "object",
+      "required": [
+        "range"
+      ],
+      "properties": {
+        "range": {
+          "type": "string"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SortCondition"
+          }
+        }
+      }
+    },
+    "SortCondition": {
+      "description": "排序条件。",
+      "type": "object",
+      "required": [
+        "column"
+      ],
+      "properties": {
+        "column": {
+          "description": "排序列，如 \"A:A\" 或 \"A2:A10\"。",
+          "type": "string"
+        },
+        "descending": {
+          "type": "boolean"
+        },
+        "sort_on": {
+          "description": "排序依据：value（默认）/ cellColor / fontColor / icon。",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "OleObject": {
+      "description": "OLE 嵌入对象（创建用）。",
+      "type": "object",
+      "required": [
+        "prog_id",
+        "src"
+      ],
+      "properties": {
+        "prog_id": {
+          "description": "ProgID，如 \"Excel.Sheet.12\" / \"Package\"。",
+          "type": "string"
+        },
+        "src": {
+          "description": "载荷二进制文件路径（作为 embeddings/oleObjectN.bin 写入）。",
+          "type": "string"
+        },
+        "anchor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "size": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Size"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "icon": {
+          "description": "图标显示文本（DrawAspect=Icon 时）。",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "PrintSettings": {
+      "description": "Print / page-setup settings.",
+      "type": "object",
+      "properties": {
+        "orientation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "paper_size": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "scale": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "fit_to_page": {
+          "type": "boolean"
+        },
+        "fit_to_width": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "fit_to_height": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "margin_left": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "margin_right": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "margin_top": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "margin_bottom": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "margin_header": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "margin_footer": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "h_center": {
+          "description": "`printOptions`：水平/垂直居中。",
+          "type": "boolean"
+        },
+        "v_center": {
+          "type": "boolean"
+        },
+        "row_breaks": {
+          "description": "手动分页：行/列断点（`rowBreaks`/`colBreaks` 的 id）。",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "uint32",
+            "minimum": 0.0
+          }
+        },
+        "col_breaks": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "uint32",
+            "minimum": 0.0
+          }
+        },
+        "different_odd_even": {
+          "description": "打印页眉/页脚（`headerFooter`）。",
+          "type": "boolean"
+        },
+        "different_first": {
+          "type": "boolean"
+        },
+        "odd_header": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "odd_footer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "even_header": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "even_footer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "first_header": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "first_footer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Table": {
+      "description": "A structured table (ListObject) over a cell range.",
+      "type": "object",
+      "required": [
+        "range"
+      ],
+      "properties": {
+        "range": {
+          "type": "string"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "style": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "show_header_row": {
+          "type": "boolean"
+        },
+        "insert_row": {
+          "description": "`insertRow=\"1\"`：插入行时扩展表格（自动填充计算列）。",
+          "type": "boolean"
+        },
+        "show_banded_rows": {
+          "type": "boolean"
+        },
+        "show_banded_columns": {
+          "type": "boolean"
+        },
+        "show_first_column": {
+          "type": "boolean"
+        },
+        "show_last_column": {
+          "type": "boolean"
+        },
+        "columns": {
+          "description": "Column header names. Derived from the header row when omitted.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "totals_row": {
+          "description": "汇总行（totals row）是否存在。",
+          "type": "boolean"
+        },
+        "totals": {
+          "description": "各列的汇总定义（与 `columns` 对齐）。",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TableTotal"
+          }
+        },
+        "calculated_formulas": {
+          "description": "各列计算列公式（与 `columns` 对齐）。",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "TableTotal": {
+      "description": "结构化表格某列的汇总行定义。",
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "function": {
+          "description": "汇总函数：sum/average/count/countNums/max/min/stdDev/var/custom 等。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "formula": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Row": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "description": "1-based row number. Inferred from position when omitted.",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "height": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "outline_level": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint8",
+          "minimum": 0.0
+        },
+        "collapsed": {
+          "type": "boolean"
+        },
+        "style": {
+          "description": "Row default style.",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/StyleDef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cells": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Cell"
+          }
+        }
+      }
+    },
+    "Cell": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "description": "A1 reference, e.g. \"B2\". Inferred from position when omitted.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "type": {
+          "description": "One of string|number|boolean|date|error|richtext. Inferred when omitted.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value": true,
+        "formula": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "number_format": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "style": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/CellStyleRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "link": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "link_tooltip": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "comment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "runs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Run"
+          }
+        }
+      }
+    },
+    "CellStyleRef": {
+      "description": "A cell's `style` field: either a name referencing `workbook.styles` or an inline style definition.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/StyleDef"
+        }
+      ]
+    },
+    "Run": {
+      "type": "object",
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "bold": {
+          "type": "boolean"
+        },
+        "italic": {
+          "type": "boolean"
+        },
+        "strike": {
+          "type": "boolean"
+        },
+        "underline": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vert_align": {
+          "description": "\"superscript\" or \"subscript\".",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "color": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "size": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "font": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Chart": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "data_range": {
+          "description": "Source range, e.g. \"B2:B8\". Optional only when `series` are embedded.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "categories": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "legend": {
+          "description": "Legend position: right/left/top/bottom (or \"none\" to hide).",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "category_axis_title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value_axis_title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "show_values": {
+          "description": "Show data labels.",
+          "type": "boolean"
+        },
+        "colors": {
+          "description": "Per-series colors (6-hex).",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "anchor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "size": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Size"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "offset": {
+          "description": "锚点单元格内的偏移 `[dx, dy]`（EMU），保留图片/图表在单元格内的精确位置。",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "maxItems": 2,
+          "minItems": 2
+        },
+        "series": {
+          "description": "系列级设置（与数据列对齐）；用于组合图/系列标记/系列色。",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChartSeries"
+          }
+        },
+        "value_axis": {
+          "description": "数值轴设置。",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ChartAxis"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "category_axis": {
+          "description": "类别轴设置。",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/ChartAxis"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "raw": {
+          "description": "原始图表部件 XML；结构化字段未改动时优先回写以保证保真。",
+          "allOf": [
+            {
+              "$ref": "#/definitions/RawXml"
+            }
+          ]
+        },
+        "snapshot": {
+          "description": "解析时的结构化字段快照；与当前一致时才会使用 `raw`。",
+          "allOf": [
+            {
+              "$ref": "#/definitions/RawXml"
+            }
+          ]
+        }
+      }
+    },
+    "ChartSeries": {
+      "description": "图表系列级设置。",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "系列名（默认取列标题）。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "type": {
+          "description": "系列类型（组合图用）：bar/column/line/area；缺省用图表类型。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "color": {
+          "description": "系列颜色（6 位十六进制）。",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "marker": {
+          "description": "标记：none/circle/square/diamond/triangle/x/star/dot/dash/plus。（line/scatter）",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "secondary": {
+          "description": "是否绘制在次坐标轴。",
+          "type": "boolean"
+        }
+      }
+    },
+    "ChartAxis": {
+      "description": "图表坐标轴设置。",
+      "type": "object",
+      "properties": {
+        "visible": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "min": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "max": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "gridlines": {
+          "description": "主网格线（数值轴默认显示）。",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "number_format": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Image": {
+      "type": "object",
+      "required": [
+        "src"
+      ],
+      "properties": {
+        "src": {
+          "type": "string"
+        },
+        "anchor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "size": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Size"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "offset": {
+          "description": "锚点单元格内的偏移 `[dx, dy]`（EMU）。",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "maxItems": 2,
+          "minItems": 2
+        }
+      }
+    }
+  }
+}

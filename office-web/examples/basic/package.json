@@ -1,0 +1,15 @@
+{
+  "name": "@astorm/example-basic",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "@astorm/office-viewer 外部应用接入示例（真实项目 npm i 后写法一致；本仓库内通过 vite 别名指向 ../../dist 免安装运行）",
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@astorm/office-viewer": "*",
+    "vue": "^3.4.0"
+  }
+}

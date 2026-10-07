@@ -1,0 +1,71 @@
+[package]
+name = "json2pdf"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "PDF toolkit in Rust — JSON 产物目录双向解析 + ZCode 官方 pdf 插件命令面的 Rust 移植"
+keywords = ["pdf", "json", "cli", "unpack", "repack"]
+categories = ["command-line-utilities", "parser-implementations"]
+
+[lib]
+name = "json2pdf"
+path = "src/lib.rs"
+
+[dependencies]
+office-core = { workspace = true }
+lopdf = { workspace = true }
+brotli = { workspace = true }
+flate2 = { workspace = true }
+png = { workspace = true }
+clap = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+schemars = { workspace = true }
+anyhow = { workspace = true }
+unicode-normalization = { workspace = true }
+ttf-parser = { workspace = true }
+# 老式中文 PDF 常用非内嵌「宋体」+ GBK 码位（无 ToUnicode/Encoding 可依）
+encoding_rs = { workspace = true }
+ureq = { workspace = true }
+# 跨格式转换（convert docx/pptx/xlsx）：产物目录为中间形态的架构内映射，
+# 依赖反向（office 三格式不依赖 ai-pdf），monorepo 内路径直连
+json2docx = { path = "../ai-word" }
+json2pptx = { path = "../ai-ppt" }
+json2xlsx = { path = "../ai-excel" }
+hayro-ccitt = "0.4"
+hayro-jbig2 = "0.3"
+openjpeg2-pure-rs = "0.1"
+
+# macOS 系统 OCR（Vision）：纯 Rust 绑定系统框架，不引入 C 编译单元；
+# 仅 macOS 目标编译，其他平台零影响（运行时探测失败自动回落 tesseract）
+[target.'cfg(target_os = "macos")'.dependencies]
+objc2 = "0.6"
+objc2-foundation = { version = "0.3", features = [
+    "NSData",
+    "NSArray",
+    "NSDictionary",
+    "NSError",
+    "NSObject",
+    "NSProcessInfo",
+    "NSString",
+] }
+objc2-vision = { version = "0.3", default-features = false, features = [
+    "alloc",
+    "block2",
+    "objc2-core-foundation",
+    "objc2-core-graphics",
+    "std",
+    "VNDefines",
+    "VNError",
+    "VNObservation",
+    "VNRecognizeTextRequest",
+    "VNRequest",
+    "VNRequestHandler",
+    "VNTypes",
+] }
+
+[dev-dependencies]
+tempfile = { workspace = true }
+
+[lints]
+workspace = true

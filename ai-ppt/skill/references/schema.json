@@ -1,0 +1,3140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Presentation",
+  "description": "演示文稿顶层结构\n\n包含整份演示文稿的所有配置和数据。 可作为 JSON 输入进行 PPTX 生成，也可作为 PPTX 解析的输出。",
+  "type": "object",
+  "required": [
+    "slides"
+  ],
+  "properties": {
+    "width": {
+      "description": "幻灯片宽度（英寸），默认 13.333（宽屏 16:9）",
+      "default": 13.333,
+      "type": "number",
+      "format": "double"
+    },
+    "height": {
+      "description": "幻灯片高度（英寸），默认 7.5（宽屏 16:9）",
+      "default": 7.5,
+      "type": "number",
+      "format": "double"
+    },
+    "meta": {
+      "description": "元信息（可选）",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Meta"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "template": {
+      "description": "模板名称（可选），对应 TemplatePreset 中的预设名称",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "theme": {
+      "description": "主题配置（可选），包含颜色方案和字体",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/Theme"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "slides": {
+      "description": "幻灯片列表",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Slide"
+      }
+    },
+    "table_styles": {
+      "description": "原始 ppt/tableStyles.xml（保留内置表格样式/banding；缺省则生成默认）",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "definitions": {
+    "Meta": {
+      "description": "演示文稿元信息（标题、作者）",
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "演示文稿标题",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "author": {
+          "description": "作者名称",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "company": {
+          "description": "公司",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "application": {
+          "description": "生成程序（如 Microsoft Office PowerPoint）",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "last_modified_by": {
+          "description": "最后修改者",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Theme": {
+      "description": "演示文稿主题，包含颜色方案和字体设置\n\n颜色键值对说明： - dk1/dk2: 深色，lt1/lt2: 浅色 - accent1~accent6: 强调色 - hlink/folHlink: 超链接颜色",
+      "type": "object",
+      "properties": {
+        "colors": {
+          "description": "颜色方案映射表",
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "major_font": {
+          "description": "主要字体（标题用）",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "minor_font": {
+          "description": "次要字体（正文用）",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Slide": {
+      "description": "单张幻灯片",
+      "type": "object",
+      "required": [
+        "elements"
+      ],
+      "properties": {
+        "elements": {
+          "description": "幻灯片中的元素列表（文本、形状、图片等）",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Element"
+          }
+        },
+        "background": {
+          "description": "背景设置 - 字符串: 纯色背景，如 \"#FFFFFF\" - 对象: 渐变背景或图片背景"
+        },
+        "transition": {
+          "description": "幻灯片过渡动画",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Transition"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "notes": {
+          "description": "演讲者备注（纯文本，多行用换行符分隔）",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Element": {
+      "description": "幻灯片元素枚举\n\n通过 JSON 中的 \"type\" 字段自动反序列化为对应的元素类型。 支持：text, shape, line, image, table, group 以及高级组件。",
+      "oneOf": [
+        {
+          "description": "文本框元素",
+          "type": "object",
+          "required": [
+            "position",
+            "text",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "text"
+              ]
+            },
+            "id": {
+              "description": "稳定 ID（来自/写入 p:cNvPr/@id），用于 `@id=N` 寻址；生成时缺省自动分配",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "uint32",
+              "minimum": 0.0
+            },
+            "text": {
+              "description": "文本内容（简单字符串或多段落）",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/TextContent"
+                }
+              ]
+            },
+            "position": {
+              "description": "位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "name": {
+              "description": "元素名称",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "placeholder": {
+              "description": "占位符引用 `type|idx`（来自 p:ph，用于保留占位符语义）",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "font_size": {
+              "description": "字体大小（磅）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "bold": {
+              "description": "加粗",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "italic": {
+              "description": "斜体",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "underline": {
+              "description": "下划线",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "color": {
+              "description": "文字颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "font_family": {
+              "description": "字体名称",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "align": {
+              "description": "水平对齐：left, center, right, justify",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "vert_align": {
+              "description": "垂直对齐：top, middle, bottom",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "vert": {
+              "description": "文字方向：horz（横向，默认）/ vert（纵向）",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "line_spacing": {
+              "description": "行距倍数（如 1.0 单倍 / 1.2 / 1.5），段落级优先",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "wrap": {
+              "description": "是否自动换行（默认 true）",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "fill": {
+              "description": "文本背景填充",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Fill"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "fill_alpha": {
+              "description": "文本背景透明度",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "line": {
+              "description": "文本边框线",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Line"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "line_alpha": {
+              "description": "文本边框透明度",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "shadow": {
+              "description": "阴影效果",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Shadow"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "effects": {
+              "description": "其他效果：发光/倒影/柔化边缘/模糊/内阴影/填充覆盖",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Effects"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "autofit": {
+              "description": "文本自适应（normAutofit / spAutoFit / noAutofit）",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Autofit"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "animations": {
+              "description": "元素的动画列表",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "$ref": "#/definitions/Animation"
+              }
+            }
+          }
+        },
+        {
+          "description": "自动形状元素（矩形、椭圆、箭头等）",
+          "type": "object",
+          "required": [
+            "position",
+            "shape_type",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "shape"
+              ]
+            },
+            "id": {
+              "description": "稳定 ID（来自/写入 p:cNvPr/@id），用于 `@id=N` 寻址；生成时缺省自动分配",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "uint32",
+              "minimum": 0.0
+            },
+            "shape_type": {
+              "description": "形状类型：rect, roundRect, ellipse, triangle, rightArrow 等",
+              "type": "string"
+            },
+            "position": {
+              "description": "位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "name": {
+              "description": "元素名称",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "placeholder": {
+              "description": "占位符引用 `type|idx`（来自 p:ph，用于保留占位符语义）",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "rotation": {
+              "description": "旋转角度（度）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "fill": {
+              "description": "填充色",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Fill"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "fill_alpha": {
+              "description": "填充透明度（0~1）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "no_fill": {
+              "description": "是否不填充",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "line": {
+              "description": "边框线",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Line"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "line_alpha": {
+              "description": "边框透明度（0~1）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "shadow": {
+              "description": "阴影效果",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Shadow"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "effects": {
+              "description": "其他效果：发光/倒影/柔化边缘/模糊/内阴影/填充覆盖",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Effects"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "autofit": {
+              "description": "文本自适应（normAutofit / spAutoFit / noAutofit）",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Autofit"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "adjust": {
+              "description": "形状调整参数（如圆角矩形的圆角大小）",
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "text": {
+              "description": "形状内的文字",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/TextContent"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "font_size": {
+              "description": "文字字体大小",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "color": {
+              "description": "文字颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "align": {
+              "description": "文字对齐方式（水平：left, center, right, justify）",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "vert_align": {
+              "description": "文字垂直对齐：top, middle, bottom",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "line_spacing": {
+              "description": "行距倍数（如 1.0 单倍 / 1.2 / 1.5），段落级优先",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "animations": {
+              "description": "动画列表",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "$ref": "#/definitions/Animation"
+              }
+            }
+          }
+        },
+        {
+          "description": "线条元素",
+          "type": "object",
+          "required": [
+            "position",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "line"
+              ]
+            },
+            "id": {
+              "description": "稳定 ID（来自/写入 p:cNvPr/@id），用于 `@id=N` 寻址；生成时缺省自动分配",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "uint32",
+              "minimum": 0.0
+            },
+            "position": {
+              "description": "位置和尺寸（线条的包围盒）",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "name": {
+              "description": "元素名称",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "points": {
+              "description": "顶点列表（英寸，相对 position 原点；两点为直线，多点折线）",
+              "default": [],
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  {
+                    "type": "number",
+                    "format": "double"
+                  }
+                ],
+                "maxItems": 2,
+                "minItems": 2
+              }
+            },
+            "color": {
+              "description": "线条颜色（默认主题强调色）",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "width": {
+              "description": "线条宽度（磅，默认 1.0）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "dash": {
+              "description": "虚线样式：solid / dashed / dotted",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "arrow_start": {
+              "description": "起点端点：none / arrow / dot",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "arrow_end": {
+              "description": "终点端点：none / arrow / dot",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "smooth": {
+              "description": "是否平滑曲线（true 时相邻顶点间用二次贝塞尔连接）",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "rotation": {
+              "description": "旋转角度（度）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "animations": {
+              "description": "元素的动画列表",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "$ref": "#/definitions/Animation"
+              }
+            }
+          }
+        },
+        {
+          "description": "图片元素",
+          "type": "object",
+          "required": [
+            "position",
+            "src",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "image"
+              ]
+            },
+            "id": {
+              "description": "稳定 ID（来自/写入 p:cNvPr/@id），用于 `@id=N` 寻址；生成时缺省自动分配",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "uint32",
+              "minimum": 0.0
+            },
+            "src": {
+              "description": "图片源路径（本地路径或 URL）",
+              "type": "string"
+            },
+            "position": {
+              "description": "位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "name": {
+              "description": "元素名称",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "rotation": {
+              "description": "旋转角度（度）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "crop": {
+              "description": "裁剪参数",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Crop"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hyperlink": {
+              "description": "超链接 URL",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "line": {
+              "description": "图片边框",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Line"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "brightness": {
+              "description": "亮度调整（-1.0 ~ 1.0）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "contrast": {
+              "description": "对比度调整（-1.0 ~ 1.0）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "fill_mode": {
+              "description": "填充模式：stretch（默认）/ contain / cover / tile",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "tooltip": {
+              "description": "悬浮提示文字",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "media": {
+              "description": "关联的媒体（视频/音频，src 为媒体文件，图片本身作为封面）",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/MediaRef"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "animations": {
+              "description": "动画列表",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "$ref": "#/definitions/Animation"
+              }
+            }
+          }
+        },
+        {
+          "description": "图标元素（前端用内置 SVG 图标库渲染，打包时降级为形状）",
+          "type": "object",
+          "required": [
+            "icon",
+            "position",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "icon"
+              ]
+            },
+            "id": {
+              "description": "稳定 ID（来自/写入 p:cNvPr/@id），用于 `@id=N` 寻址；生成时缺省自动分配",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "uint32",
+              "minimum": 0.0
+            },
+            "position": {
+              "description": "位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "icon": {
+              "description": "图标名称（内置 SVG 库）",
+              "type": "string"
+            },
+            "color": {
+              "description": "图标颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "元素名称",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "rotation": {
+              "description": "旋转角度（度）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "line": {
+              "description": "图标边框",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/Line"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "animations": {
+              "description": "动画列表",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "$ref": "#/definitions/Animation"
+              }
+            }
+          }
+        },
+        {
+          "description": "公式元素（LaTeX 文本，打包时降级为文本框）",
+          "type": "object",
+          "required": [
+            "latex",
+            "position",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "formula"
+              ]
+            },
+            "id": {
+              "description": "稳定 ID（来自/写入 p:cNvPr/@id），用于 `@id=N` 寻址；生成时缺省自动分配",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "uint32",
+              "minimum": 0.0
+            },
+            "position": {
+              "description": "位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "latex": {
+              "description": "公式 LaTeX 文本",
+              "type": "string"
+            },
+            "color": {
+              "description": "公式文字颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "元素名称",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "rotation": {
+              "description": "旋转角度（度）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "text": {
+              "description": "文本内容（降级时用，可与 latex 同源）",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/TextContent"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "font_size": {
+              "description": "字体大小",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "animations": {
+              "description": "动画列表",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "$ref": "#/definitions/Animation"
+              }
+            }
+          }
+        },
+        {
+          "description": "表格元素",
+          "type": "object",
+          "required": [
+            "position",
+            "rows",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "table"
+              ]
+            },
+            "id": {
+              "description": "稳定 ID（来自/写入 p:cNvPr/@id），用于 `@id=N` 寻址；生成时缺省自动分配",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "uint32",
+              "minimum": 0.0
+            },
+            "position": {
+              "description": "位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "name": {
+              "description": "元素名称",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "rows": {
+              "description": "表格行数据（每行包含多个单元格）",
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Cell"
+                }
+              }
+            },
+            "column_widths": {
+              "description": "每列宽度（英寸，缺省均分表格总宽）",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "header_row": {
+              "description": "是否将第一行作为表头",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "style_id": {
+              "description": "内置表格样式 ID（GUID，如 {5C22544A-...}）",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "rtl": {
+              "description": "是否从右到左",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "row_heights": {
+              "description": "各行高度（英寸）",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "tbl_attrs": {
+              "description": "原始 a:tblPr 属性（firstRow/firstCol/bandRow 等，原样保留）",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "font_size": {
+              "description": "默认字体大小",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "color": {
+              "description": "默认文字颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "animations": {
+              "description": "动画列表",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "$ref": "#/definitions/Animation"
+              }
+            }
+          }
+        },
+        {
+          "description": "真实图表元素",
+          "type": "object",
+          "required": [
+            "chart_type",
+            "position",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "chart"
+              ]
+            },
+            "id": {
+              "description": "稳定 ID（来自/写入 p:cNvPr/@id），用于 `@id=N` 寻址；生成时缺省自动分配",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "uint32",
+              "minimum": 0.0
+            },
+            "position": {
+              "description": "位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "name": {
+              "description": "元素名称",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "chart_type": {
+              "description": "图表类型：column, bar, line, pie, doughnut, area, scatter, radar",
+              "type": "string"
+            },
+            "title": {
+              "description": "图表标题",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "categories": {
+              "description": "分类标签",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "series": {
+              "description": "数据系列",
+              "default": [],
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ChartSeries"
+              }
+            },
+            "legend": {
+              "description": "是否显示图例",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "legend_position": {
+              "description": "图例位置：top, bottom, left, right, topRight",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "raw": {
+              "description": "原始图表部件 XML（保留完整样式；生成时优先原样回写）",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "animations": {
+              "description": "动画列表",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "$ref": "#/definitions/Animation"
+              }
+            }
+          }
+        },
+        {
+          "description": "批注元素",
+          "type": "object",
+          "required": [
+            "position",
+            "text",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "comment"
+              ]
+            },
+            "position": {
+              "description": "批注锚点位置（英寸）",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "author": {
+              "description": "作者",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "text": {
+              "description": "批注内容",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "description": "公式元素",
+          "type": "object",
+          "required": [
+            "omml",
+            "position",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "equation"
+              ]
+            },
+            "id": {
+              "description": "稳定 ID（来自/写入 p:cNvPr/@id），用于 `@id=N` 寻址；生成时缺省自动分配",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "uint32",
+              "minimum": 0.0
+            },
+            "position": {
+              "description": "位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "name": {
+              "description": "元素名称",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "omml": {
+              "description": "原始 OMML 数学 XML（`a14:m` 子树）",
+              "type": "string"
+            },
+            "text": {
+              "description": "纯文本近似（用于查询/预览）",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        {
+          "description": "不透明富对象元素",
+          "type": "object",
+          "required": [
+            "position",
+            "type",
+            "xml"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "opaque"
+              ]
+            },
+            "id": {
+              "description": "稳定 ID（来自/写入 p:cNvPr/@id），用于 `@id=N` 寻址；生成时缺省自动分配",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "uint32",
+              "minimum": 0.0
+            },
+            "position": {
+              "description": "位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "name": {
+              "description": "元素名称",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "xml": {
+              "description": "原始元素 XML（rId 为原始值）",
+              "type": "string"
+            },
+            "rels": {
+              "description": "引用的关系",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/OpaqueRel"
+              }
+            },
+            "parts": {
+              "description": "关系指向的内部部件",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/OpaquePart"
+              }
+            },
+            "text": {
+              "description": "提取的纯文本（用于查询/预览）",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        {
+          "description": "元素分组，可将多个元素组合为一个整体",
+          "type": "object",
+          "required": [
+            "children",
+            "position",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "group"
+              ]
+            },
+            "id": {
+              "description": "稳定 ID（来自/写入 p:cNvPr/@id），用于 `@id=N` 寻址；生成时缺省自动分配",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "uint32",
+              "minimum": 0.0
+            },
+            "position": {
+              "description": "分组位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "name": {
+              "description": "分组名称",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "rotation": {
+              "description": "旋转角度（度）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "children": {
+              "description": "子元素列表",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Element"
+              }
+            },
+            "animations": {
+              "description": "分组的动画列表",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "$ref": "#/definitions/Animation"
+              }
+            }
+          }
+        },
+        {
+          "description": "水平进度条组件",
+          "type": "object",
+          "required": [
+            "position",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "progress_bar"
+              ]
+            },
+            "position": {
+              "description": "组件位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "value": {
+              "description": "进度值 0-100",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "color": {
+              "description": "进度条颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "track_color": {
+              "description": "轨道（背景条）颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "rounded": {
+              "description": "是否圆角",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "show_label": {
+              "description": "是否显示标签",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "label": {
+              "description": "自定义标签文字（缺省显示百分比）",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "text_color": {
+              "description": "标签文字颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "font_size": {
+              "description": "标签字号",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            }
+          }
+        },
+        {
+          "description": "环形进度指示器组件",
+          "type": "object",
+          "required": [
+            "position",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "progress_ring"
+              ]
+            },
+            "position": {
+              "description": "组件位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "value": {
+              "description": "进度值 0-100",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "color": {
+              "description": "进度弧颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "track_color": {
+              "description": "轨道环颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "thickness": {
+              "description": "环的粗细（点）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "show_label": {
+              "description": "是否显示中心百分比",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "text_color": {
+              "description": "中心文字颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "font_size": {
+              "description": "中心文字字号",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            }
+          }
+        },
+        {
+          "description": "柱状图组件（用矩形形状模拟，非 Excel 图表对象）",
+          "type": "object",
+          "required": [
+            "data",
+            "position",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "bar_chart"
+              ]
+            },
+            "position": {
+              "description": "组件位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "data": {
+              "description": "数据值数组，每个值一根柱（旧版 JSON 的 value 字段仍兼容）",
+              "type": "array",
+              "items": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "labels": {
+              "description": "底部标签数组",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "colors": {
+              "description": "每根柱的颜色数组",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "max": {
+              "description": "纵轴最大值（用于计算柱高比例）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "show_values": {
+              "description": "柱顶显示数值",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "axis": {
+              "description": "显示坐标轴",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "label_color": {
+              "description": "标签颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "font_size": {
+              "description": "标签字号",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            }
+          }
+        },
+        {
+          "description": "折线图组件（用连接线 + 数据点形状模拟，非 Excel 图表对象）",
+          "type": "object",
+          "required": [
+            "data",
+            "position",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "line_chart"
+              ]
+            },
+            "position": {
+              "description": "组件位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "data": {
+              "description": "数据值数组，每个值一个数据点（旧版 JSON 的 value 字段仍兼容）",
+              "type": "array",
+              "items": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "labels": {
+              "description": "底部标签数组",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "colors": {
+              "description": "折线颜色（可传数组，缺省单色）",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "max": {
+              "description": "纵轴最大值（用于计算点高比例）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "show_values": {
+              "description": "数据点上方显示数值",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "axis": {
+              "description": "显示坐标轴",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "smooth": {
+              "description": "是否平滑曲线",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "label_color": {
+              "description": "标签颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "font_size": {
+              "description": "标签字号",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            }
+          }
+        },
+        {
+          "description": "饼图组件（用扇形形状模拟，非 Excel 图表对象）",
+          "type": "object",
+          "required": [
+            "data",
+            "position",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "pie_chart"
+              ]
+            },
+            "position": {
+              "description": "组件位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "data": {
+              "description": "数据值数组，每个值一个扇区（旧版 JSON 的 value 字段仍兼容）",
+              "type": "array",
+              "items": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "labels": {
+              "description": "扇区标签数组",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "colors": {
+              "description": "每个扇区的颜色数组",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "show_values": {
+              "description": "扇区外侧显示百分比",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "label_color": {
+              "description": "标签颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "font_size": {
+              "description": "标签字号",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            }
+          }
+        },
+        {
+          "description": "环形图组件（用环形扇区形状模拟，非 Excel 图表对象）",
+          "type": "object",
+          "required": [
+            "data",
+            "position",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "ring_chart"
+              ]
+            },
+            "position": {
+              "description": "组件位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "data": {
+              "description": "数据值数组，每个值一个环段（旧版 JSON 的 value 字段仍兼容）",
+              "type": "array",
+              "items": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "labels": {
+              "description": "环段标签数组",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "colors": {
+              "description": "每个环段的颜色数组",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "thickness": {
+              "description": "环的粗细（占半径比例，0~1，默认 0.35）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            },
+            "show_values": {
+              "description": "外侧显示百分比",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "label_color": {
+              "description": "标签颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "font_size": {
+              "description": "标签字号",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            }
+          }
+        },
+        {
+          "description": "KPI 卡片组件",
+          "type": "object",
+          "required": [
+            "position",
+            "type",
+            "value"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "kpi_card"
+              ]
+            },
+            "position": {
+              "description": "组件位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "value": {
+              "description": "主数值（大号粗体显示）",
+              "type": "string"
+            },
+            "label": {
+              "description": "小标题",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "delta": {
+              "description": "变化指示（正数绿色 / 负数红色）",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "bg": {
+              "description": "卡片背景色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "accent": {
+              "description": "强调条颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "rounded": {
+              "description": "卡片圆角",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "text_color": {
+              "description": "文字颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        {
+          "description": "星级评分组件",
+          "type": "object",
+          "required": [
+            "position",
+            "rating",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "rating_stars"
+              ]
+            },
+            "position": {
+              "description": "组件位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "rating": {
+              "description": "评分值（旧版 JSON 的 value 字段仍兼容）",
+              "type": "number",
+              "format": "double"
+            },
+            "max": {
+              "description": "星星总数（默认 5）",
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "uint32",
+              "minimum": 0.0
+            },
+            "color": {
+              "description": "已点亮星星颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "empty_color": {
+              "description": "未点亮星星颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        {
+          "description": "水平时间线组件",
+          "type": "object",
+          "required": [
+            "items",
+            "position",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "timeline"
+              ]
+            },
+            "position": {
+              "description": "组件位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "items": {
+              "description": "时间节点数组（date/title/desc 等，旧版 JSON 的 value 字段仍兼容）",
+              "type": "array",
+              "items": true
+            },
+            "line_color": {
+              "description": "基线颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "dot_color": {
+              "description": "圆点颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "label_color": {
+              "description": "标签颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        {
+          "description": "流程步骤组件",
+          "type": "object",
+          "required": [
+            "position",
+            "steps",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "process_flow"
+              ]
+            },
+            "position": {
+              "description": "组件位置和尺寸",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Position"
+                }
+              ]
+            },
+            "steps": {
+              "description": "步骤名称数组（旧版 JSON 的 value 字段仍兼容）",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "colors": {
+              "description": "每步的圆角矩形颜色",
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "text_color": {
+              "description": "步骤文字颜色",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "font_size": {
+              "description": "步骤字号",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            }
+          }
+        }
+      ]
+    },
+    "TextContent": {
+      "description": "文本内容的两种表示方式",
+      "anyOf": [
+        {
+          "description": "简单纯文本（不包含段落格式）",
+          "type": "string"
+        },
+        {
+          "description": "多段落富文本（支持精细格式控制）",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Paragraph"
+          }
+        }
+      ]
+    },
+    "Paragraph": {
+      "description": "段落，包含多个 TextRun 或纯文本",
+      "type": "object",
+      "properties": {
+        "runs": {
+          "description": "文本运行片段列表（精细格式控制）",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/TextRun"
+          }
+        },
+        "text": {
+          "description": "纯文本内容（无格式分段时使用）",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "font_size": {
+          "description": "段落级字体大小",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "bold": {
+          "description": "段落级加粗",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "italic": {
+          "description": "段落级斜体",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "color": {
+          "description": "段落级文字颜色",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "align": {
+          "description": "对齐方式：left, center, right, justify",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "line_spacing": {
+          "description": "行距倍数（如 1.0 单倍 / 1.2 / 1.5）",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "bullet": {
+          "description": "是否显示项目符号",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "TextRun": {
+      "description": "一个文本运行片段（相同格式的一段文字）",
+      "type": "object",
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "description": "文本内容",
+          "type": "string"
+        },
+        "font_size": {
+          "description": "字体大小（磅）",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "bold": {
+          "description": "加粗",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "italic": {
+          "description": "斜体",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "underline": {
+          "description": "下划线",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "color": {
+          "description": "文字颜色",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "font_family": {
+          "description": "字体名称",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hyperlink": {
+          "description": "超链接地址（网页 URL）",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "highlight": {
+          "description": "高亮背景色（十六进制）",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "underline_color": {
+          "description": "下划线颜色（十六进制）",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "spacing": {
+          "description": "字符间距（磅，可为负）",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "lang": {
+          "description": "语言标签（如 zh-CN）",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rtl": {
+          "description": "是否从右到左",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "Position": {
+      "description": "元素在幻灯片上的位置和尺寸（英寸单位）",
+      "type": "object",
+      "required": [
+        "h",
+        "w",
+        "x",
+        "y"
+      ],
+      "properties": {
+        "x": {
+          "description": "X 坐标（左上角）",
+          "type": "number",
+          "format": "double"
+        },
+        "y": {
+          "description": "Y 坐标（左上角）",
+          "type": "number",
+          "format": "double"
+        },
+        "w": {
+          "description": "宽度",
+          "type": "number",
+          "format": "double"
+        },
+        "h": {
+          "description": "高度",
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "Fill": {
+      "description": "填充类型：纯色、渐变或图案",
+      "anyOf": [
+        {
+          "description": "纯色填充，直接传颜色值字符串",
+          "type": "string"
+        },
+        {
+          "description": "渐变填充",
+          "type": "object",
+          "required": [
+            "stops"
+          ],
+          "properties": {
+            "stops": {
+              "description": "渐变停止点列表",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GradientStop"
+              }
+            },
+            "angle": {
+              "description": "渐变角度（度）",
+              "type": [
+                "number",
+                "null"
+              ],
+              "format": "double"
+            }
+          }
+        },
+        {
+          "description": "图案填充",
+          "type": "object",
+          "required": [
+            "bg",
+            "fg",
+            "pattern"
+          ],
+          "properties": {
+            "pattern": {
+              "description": "图案预设名（如 pct20, diagCross, smallGrid 等 OOXML prst 值）",
+              "type": "string"
+            },
+            "fg": {
+              "description": "前景色",
+              "type": "string"
+            },
+            "bg": {
+              "description": "背景色",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "description": "图片填充",
+          "type": "object",
+          "required": [
+            "src"
+          ],
+          "properties": {
+            "src": {
+              "description": "图片路径/URL",
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "GradientStop": {
+      "description": "渐变停止点",
+      "type": "object",
+      "required": [
+        "color",
+        "position"
+      ],
+      "properties": {
+        "color": {
+          "description": "停止点颜色",
+          "type": "string"
+        },
+        "position": {
+          "description": "停止点位置（0~1）",
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "Line": {
+      "description": "线条样式",
+      "type": "object",
+      "required": [
+        "color"
+      ],
+      "properties": {
+        "color": {
+          "description": "线条颜色",
+          "type": "string"
+        },
+        "width": {
+          "description": "线条宽度（磅），默认 1.0",
+          "default": 1.0,
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "Shadow": {
+      "description": "阴影效果",
+      "type": "object",
+      "properties": {
+        "blur": {
+          "description": "模糊半径（磅），默认 4.0",
+          "default": 4.0,
+          "type": "number",
+          "format": "double"
+        },
+        "distance": {
+          "description": "阴影距离（磅），默认 3.0",
+          "default": 3.0,
+          "type": "number",
+          "format": "double"
+        },
+        "angle": {
+          "description": "阴影角度（度），默认 45.0",
+          "default": 45.0,
+          "type": "number",
+          "format": "double"
+        },
+        "opacity": {
+          "description": "不透明度（0~1），默认 0.4",
+          "default": 0.4,
+          "type": "number",
+          "format": "double"
+        },
+        "color": {
+          "description": "阴影颜色",
+          "default": "000000",
+          "type": "string"
+        }
+      }
+    },
+    "Effects": {
+      "description": "效果集合",
+      "type": "object",
+      "properties": {
+        "glow": {
+          "description": "发光",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Glow"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reflection": {
+          "description": "是否启用倒影",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "soft_edge": {
+          "description": "柔化边缘半径（磅）",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "blur": {
+          "description": "模糊半径（磅）",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "inner_shadow": {
+          "description": "内阴影",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Shadow"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "fill_overlay": {
+          "description": "填充覆盖",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/FillOverlay"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "Glow": {
+      "description": "发光效果",
+      "type": "object",
+      "required": [
+        "color"
+      ],
+      "properties": {
+        "color": {
+          "description": "发光颜色（十六进制）",
+          "type": "string"
+        },
+        "radius": {
+          "description": "半径（磅）",
+          "default": 8.0,
+          "type": "number",
+          "format": "double"
+        },
+        "opacity": {
+          "description": "不透明度（0~1）",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        }
+      }
+    },
+    "FillOverlay": {
+      "description": "填充覆盖效果",
+      "type": "object",
+      "required": [
+        "color"
+      ],
+      "properties": {
+        "color": {
+          "description": "覆盖颜色",
+          "type": "string"
+        },
+        "opacity": {
+          "description": "不透明度（0~1）",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        }
+      }
+    },
+    "Autofit": {
+      "description": "文本自适应设置（bodyPr 的 normAutofit / spAutoFit / noAutofit）",
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "description": "none | shape | normal",
+          "type": "string"
+        },
+        "font_scale": {
+          "description": "字号缩放比例（0~1，normal 时）",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "ln_spc_reduction": {
+          "description": "行距缩减比例（0~1，normal 时）",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        }
+      }
+    },
+    "Animation": {
+      "description": "元素动画效果\n\n支持进入、退出、强调和路径动画四大类。 触发方式支持：onClick（点击）、afterPrevious（之后）、withPrevious（同时）。",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "description": "动画类型：appear, fadeIn, fadeOut, flyIn, flyOut, zoomIn, zoomOut, wipeIn, wipeOut, bounceIn, floatIn, floatOut, swivel, dissolveIn, dissolveOut, splitIn, pulse, spin, growShrink, colorChange, transparency, teeter, blink, motionPath",
+          "type": "string"
+        },
+        "duration": {
+          "description": "动画持续时间（毫秒）",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint64",
+          "minimum": 0.0
+        },
+        "delay": {
+          "description": "动画延迟（毫秒）",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint64",
+          "minimum": 0.0
+        },
+        "trigger": {
+          "description": "触发方式：onClick, afterPrevious, withPrevious",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "direction": {
+          "description": "方向：top, bottom, left, right 等",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "order": {
+          "description": "动画执行顺序",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "scale": {
+          "description": "缩放比例（百分比）",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "degrees": {
+          "description": "旋转角度（度）",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "color": {
+          "description": "颜色变化目标色",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "opacity": {
+          "description": "透明度变化目标值",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "points": {
+          "description": "路径动画的关键点",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "format": "double"
+            }
+          }
+        },
+        "distance": {
+          "description": "动画移动距离（英寸）",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "repeat": {
+          "description": "重复次数（数字字符串或 \"indefinite\"）",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "restart": {
+          "description": "重启方式（如 \"whenNotActive\"）",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "auto_reverse": {
+          "description": "是否自动反向播放",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "Crop": {
+      "description": "图片裁剪参数（EMU 单位）",
+      "type": "object",
+      "properties": {
+        "left": {
+          "description": "左侧裁剪距离",
+          "default": 0,
+          "type": "integer",
+          "format": "int64"
+        },
+        "top": {
+          "description": "顶部裁剪距离",
+          "default": 0,
+          "type": "integer",
+          "format": "int64"
+        },
+        "right": {
+          "description": "右侧裁剪距离",
+          "default": 0,
+          "type": "integer",
+          "format": "int64"
+        },
+        "bottom": {
+          "description": "底部裁剪距离",
+          "default": 0,
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "MediaRef": {
+      "description": "媒体引用（视频 / 音频）",
+      "type": "object",
+      "required": [
+        "kind",
+        "src"
+      ],
+      "properties": {
+        "kind": {
+          "description": "类型：video / audio",
+          "type": "string"
+        },
+        "src": {
+          "description": "媒体文件路径或 URL",
+          "type": "string"
+        }
+      }
+    },
+    "Cell": {
+      "description": "表格单元格",
+      "type": "object",
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "description": "单元格文字内容",
+          "type": "string"
+        },
+        "font_size": {
+          "description": "字体大小",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "bold": {
+          "description": "加粗",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "color": {
+          "description": "文字颜色",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fill": {
+          "description": "单元格背景色",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "align": {
+          "description": "对齐方式：left, center, right",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "colspan": {
+          "description": "横向合并的列数（缺省 1）",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "rowspan": {
+          "description": "纵向合并的行数（缺省 1）",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "border": {
+          "description": "单元格边框",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/CellBorder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "vert": {
+          "description": "文字方向：horz（默认）/ vert",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "margin": {
+          "description": "单元格内边距 [left, top, right, bottom]（英寸）",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "number",
+            "format": "double"
+          },
+          "maxItems": 4,
+          "minItems": 4
+        },
+        "fill_image": {
+          "description": "单元格图片填充（图片路径/URL）",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "anchor": {
+          "description": "单元格垂直对齐：t（默认）/ ctr / b",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "CellBorder": {
+      "description": "单元格边框（四边同色同宽）",
+      "type": "object",
+      "required": [
+        "color"
+      ],
+      "properties": {
+        "color": {
+          "description": "边框颜色",
+          "type": "string"
+        },
+        "width": {
+          "description": "边框宽度（磅）",
+          "default": 1.0,
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "ChartSeries": {
+      "description": "图表数据系列",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "系列名称",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "values": {
+          "description": "系列数值",
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "color": {
+          "description": "系列颜色（十六进制）",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "OpaqueRel": {
+      "description": "元素引用的关系（生成时按新 rId 重写，Target 保持不变）",
+      "type": "object",
+      "required": [
+        "old_id",
+        "rel_type",
+        "target"
+      ],
+      "properties": {
+        "old_id": {
+          "description": "原始关系 Id（如 rId5）",
+          "type": "string"
+        },
+        "rel_type": {
+          "description": "关系类型（完整 URI）",
+          "type": "string"
+        },
+        "target": {
+          "description": "目标（相对路径或外部 URL）",
+          "type": "string"
+        },
+        "external": {
+          "description": "是否外部关系",
+          "default": false,
+          "type": "boolean"
+        }
+      }
+    },
+    "OpaquePart": {
+      "description": "关系指向的内部部件（含传递闭包）",
+      "type": "object",
+      "required": [
+        "content_type",
+        "data",
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "description": "包内路径（如 ppt/diagrams/data1.xml）",
+          "type": "string"
+        },
+        "content_type": {
+          "description": "内容类型",
+          "type": "string"
+        },
+        "data": {
+          "description": "字节内容（base64）",
+          "type": "string"
+        },
+        "rels_xml": {
+          "description": "该部件自身的关系文件内容（若有）",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Transition": {
+      "description": "幻灯片切换时的过渡动画",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "description": "过渡类型：fade, push, wipe, split, cover, cut, dissolve, random",
+          "type": "string"
+        },
+        "speed": {
+          "description": "过渡速度：slow, med, fast",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "advance_on_click": {
+          "description": "是否点击鼠标时切换",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "advance_after": {
+          "description": "自动切换延时（毫秒）",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint64",
+          "minimum": 0.0
+        }
+      }
+    }
+  }
+}

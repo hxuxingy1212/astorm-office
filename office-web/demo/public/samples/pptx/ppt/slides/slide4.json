@@ -1,0 +1,206 @@
+{
+  "elements": [
+    {
+      "type": "text",
+      "id": 2,
+      "text": [
+        {
+          "runs": [
+            {
+              "text": "Content Layouts",
+              "font_size": 36.0,
+              "bold": true,
+              "color": "accent1",
+              "lang": "en-US"
+            }
+          ],
+          "align": "left"
+        }
+      ],
+      "position": {
+        "x": 0.8,
+        "y": 0.4,
+        "w": 11.733,
+        "h": 1.0
+      },
+      "name": "TextBox 2",
+      "font_size": 36.0,
+      "color": "accent1",
+      "align": "left",
+      "vert_align": "middle",
+      "wrap": true
+    },
+    {
+      "type": "shape",
+      "id": 3,
+      "shape_type": "rect",
+      "position": {
+        "x": 0.8,
+        "y": 1.3,
+        "w": 3.0,
+        "h": 0.04
+      },
+      "name": "Shape 3",
+      "fill": "accent2"
+    },
+    {
+      "type": "table",
+      "id": 4,
+      "position": {
+        "x": 0.8,
+        "y": 1.8,
+        "w": 11.733,
+        "h": 3.0
+      },
+      "name": "Data Table",
+      "rows": [
+        [
+          {
+            "text": "Quarter",
+            "font_size": 13.0,
+            "bold": true,
+            "color": "lt1",
+            "fill": "accent1",
+            "align": "center"
+          },
+          {
+            "text": "Revenue",
+            "font_size": 13.0,
+            "bold": true,
+            "color": "lt1",
+            "fill": "accent1",
+            "align": "center"
+          },
+          {
+            "text": "Growth",
+            "font_size": 13.0,
+            "bold": true,
+            "color": "lt1",
+            "fill": "accent1",
+            "align": "center"
+          },
+          {
+            "text": "Status",
+            "font_size": 13.0,
+            "bold": true,
+            "color": "lt1",
+            "fill": "accent1",
+            "align": "center"
+          }
+        ],
+        [
+          {
+            "text": "Q1 2026",
+            "font_size": 12.0,
+            "color": "000000",
+            "align": "left"
+          },
+          {
+            "text": "$1.2M",
+            "font_size": 12.0,
+            "color": "000000",
+            "align": "right"
+          },
+          {
+            "text": "+8.5%",
+            "font_size": 12.0,
+            "bold": true,
+            "color": "accent5",
+            "align": "right"
+          },
+          {
+            "text": "On Track",
+            "font_size": 12.0,
+            "bold": true,
+            "color": "accent5",
+            "align": "center"
+          }
+        ],
+        [
+          {
+            "text": "Q2 2026",
+            "font_size": 12.0,
+            "color": "000000",
+            "align": "left"
+          },
+          {
+            "text": "$1.5M",
+            "font_size": 12.0,
+            "color": "000000",
+            "align": "right"
+          },
+          {
+            "text": "+25.0%",
+            "font_size": 12.0,
+            "bold": true,
+            "color": "accent5",
+            "align": "right"
+          },
+          {
+            "text": "Exceeded",
+            "font_size": 12.0,
+            "bold": true,
+            "color": "accent5",
+            "align": "center"
+          }
+        ],
+        [
+          {
+            "text": "Q3 2026",
+            "font_size": 12.0,
+            "color": "000000",
+            "align": "left"
+          },
+          {
+            "text": "$1.1M",
+            "font_size": 12.0,
+            "color": "000000",
+            "align": "right"
+          },
+          {
+            "text": "-6.7%",
+            "font_size": 12.0,
+            "bold": true,
+            "color": "accent6",
+            "align": "right"
+          },
+          {
+            "text": "At Risk",
+            "font_size": 12.0,
+            "bold": true,
+            "color": "accent6",
+            "align": "center"
+          }
+        ]
+      ],
+      "column_widths": [
+        2.933,
+        2.933,
+        2.933,
+        2.933
+      ],
+      "header_row": true,
+      "style_id": "{5C22544A-7EE6-4342-B048-85BDC9FD1C3A}",
+      "row_heights": [
+        0.75,
+        0.75,
+        0.75,
+        0.75
+      ],
+      "tbl_attrs": "firstRow=\"1\" bandRow=\"1\""
+    },
+    {
+      "type": "group",
+      "id": 5,
+      "position": {
+        "x": 0.8,
+        "y": 5.5,
+        "w": 11.733,
+        "h": 0.8
+      },
+      "name": "Component 5",
+      "children": []
+    }
+  ],
+  "background": "FFF8F8"
+}

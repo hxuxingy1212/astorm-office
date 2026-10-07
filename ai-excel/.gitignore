@@ -1,0 +1,6 @@
+/target
+.DS_Store
+*.xlsx
+!examples/**/*.xlsx
+!tests/corpus/**/*.xlsx
+examples/out/reports/*/

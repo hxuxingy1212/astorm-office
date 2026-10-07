@@ -1,0 +1,895 @@
+{
+  "name": "Sheet1",
+  "default_row_height": 13.0,
+  "base_col_width": 10.0,
+  "tab_selected": true,
+  "columns": [
+    {
+      "width": 11.0
+    },
+    {
+      "width": 31.0
+    },
+    {
+      "width": 10.7109375
+    },
+    {
+      "width": 10.7109375
+    },
+    {
+      "width": 12.7109375
+    },
+    {
+      "width": 10.85546875
+    }
+  ],
+  "print": {
+    "margin_left": 0.75,
+    "margin_right": 0.75,
+    "margin_top": 1.0,
+    "margin_bottom": 1.0,
+    "margin_header": 0.5,
+    "margin_footer": 0.5
+  },
+  "rows": [
+    {
+      "index": 1,
+      "height": 16.0,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "#"
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "Snarf",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 12.0
+            }
+          }
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "Status ",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 12.0
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D1",
+          "type": "string",
+          "value": "Priority",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 12.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        },
+        {
+          "ref": "E1",
+          "type": "string",
+          "value": "Due Date",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 12.0
+            }
+          }
+        },
+        {
+          "ref": "F1",
+          "type": "string",
+          "value": "Assigned To",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 12.0
+            }
+          }
+        },
+        {
+          "ref": "G1",
+          "type": "string",
+          "value": "Complete?",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 12.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "height": 20.0,
+      "cells": [
+        {
+          "ref": "A2",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 16.0
+            }
+          }
+        },
+        {
+          "ref": "B2",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "C2",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 12.0
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D2",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 10.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        },
+        {
+          "ref": "E2",
+          "number_format": "mm-dd-yy"
+        },
+        {
+          "ref": "F2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "G2"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "height": 20.0,
+      "cells": [
+        {
+          "ref": "A3",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 16.0
+            }
+          }
+        },
+        {
+          "ref": "B3",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "C3",
+          "style": {
+            "font": {
+              "name": "Arial",
+              "size": 12.0
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D3",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 10.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        },
+        {
+          "ref": "E3",
+          "number_format": "mm-dd-yy"
+        },
+        {
+          "ref": "F3",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "G3"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "height": 20.0,
+      "cells": [
+        {
+          "ref": "A4",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 16.0
+            }
+          }
+        },
+        {
+          "ref": "B4",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "C4",
+          "style": {
+            "font": {
+              "name": "Times New Roman",
+              "size": 12.0
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D4",
+          "style": {
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        },
+        {
+          "ref": "E4",
+          "number_format": "mm-dd-yy"
+        },
+        {
+          "ref": "F4"
+        },
+        {
+          "ref": "G4"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "height": 53.0,
+      "cells": [
+        {
+          "ref": "A5",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 16.0
+            }
+          }
+        },
+        {
+          "ref": "B5",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 10.0
+            },
+            "alignment": {
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "C5",
+          "style": {
+            "font": {
+              "name": "Tahoma",
+              "size": 12.0
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D5",
+          "style": {
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        },
+        {
+          "ref": "E5",
+          "number_format": "mm-dd-yy"
+        },
+        {
+          "ref": "F5"
+        },
+        {
+          "ref": "G5"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "height": 20.0,
+      "cells": [
+        {
+          "ref": "A6",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 16.0
+            }
+          }
+        },
+        {
+          "ref": "B6",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "C6",
+          "style": {
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D6",
+          "style": {
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        },
+        {
+          "ref": "E6",
+          "number_format": "mm-dd-yy"
+        },
+        {
+          "ref": "F6"
+        },
+        {
+          "ref": "G6"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "height": 20.0,
+      "cells": [
+        {
+          "ref": "A7",
+          "style": {
+            "font": {
+              "strike": true,
+              "name": "Verdana",
+              "size": 16.0
+            }
+          }
+        },
+        {
+          "ref": "B7",
+          "style": {
+            "font": {
+              "italic": true,
+              "strike": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "C7",
+          "style": {
+            "font": {
+              "strike": true,
+              "name": "Verdana",
+              "size": 10.0
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D7",
+          "style": {
+            "font": {
+              "strike": true,
+              "name": "Verdana",
+              "size": 10.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        },
+        {
+          "ref": "E7",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "strike": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "F7",
+          "style": {
+            "font": {
+              "strike": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "G7",
+          "style": {
+            "font": {
+              "strike": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "height": 20.0,
+      "cells": [
+        {
+          "ref": "A8",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 16.0
+            }
+          }
+        },
+        {
+          "ref": "B8",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "C8",
+          "style": {
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D8",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 10.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        },
+        {
+          "ref": "E8",
+          "number_format": "d-mmm"
+        },
+        {
+          "ref": "F8"
+        },
+        {
+          "ref": "G8",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "height": 20.0,
+      "cells": [
+        {
+          "ref": "A9",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 16.0
+            }
+          }
+        },
+        {
+          "ref": "B9",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "C9",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Verdana",
+              "size": 10.0
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D9",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 10.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        },
+        {
+          "ref": "E9"
+        },
+        {
+          "ref": "F9"
+        },
+        {
+          "ref": "G9",
+          "style": {
+            "font": {
+              "underline": "double",
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "height": 22.0,
+      "cells": [
+        {
+          "ref": "A10",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 16.0
+            }
+          }
+        },
+        {
+          "ref": "B10",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "C10",
+          "style": {
+            "font": {
+              "underline": "double",
+              "name": "Verdana",
+              "size": 10.0
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D10",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 10.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        },
+        {
+          "ref": "E10"
+        },
+        {
+          "ref": "F10"
+        },
+        {
+          "ref": "G10",
+          "style": {
+            "font": {
+              "italic": true,
+              "underline": "singleAccounting",
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "height": 22.0,
+      "cells": [
+        {
+          "ref": "A11",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 16.0
+            }
+          }
+        },
+        {
+          "ref": "B11",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "C11",
+          "style": {
+            "font": {
+              "underline": "singleAccounting",
+              "name": "Verdana",
+              "size": 10.0
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D11",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 10.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        },
+        {
+          "ref": "E11"
+        },
+        {
+          "ref": "F11"
+        },
+        {
+          "ref": "G11",
+          "style": {
+            "font": {
+              "underline": "doubleAccounting",
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "height": 22.0,
+      "cells": [
+        {
+          "ref": "A12",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 16.0
+            }
+          }
+        },
+        {
+          "ref": "B12",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "C12",
+          "style": {
+            "font": {
+              "underline": "doubleAccounting",
+              "name": "Verdana",
+              "size": 10.0
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D12",
+          "style": {
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        },
+        {
+          "ref": "E12",
+          "number_format": "mm-dd-yy"
+        },
+        {
+          "ref": "F12"
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "height": 20.0,
+      "cells": [
+        {
+          "ref": "A13",
+          "number_format": "\"$\"#,##0.00",
+          "style": {
+            "font": {
+              "name": "Verdana",
+              "size": 16.0
+            }
+          }
+        },
+        {
+          "ref": "B13",
+          "number_format": "[$$-409]#,##0.00_);[Red]\\([$$-409]#,##0.00\\)",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "C13",
+          "number_format": "0.00%",
+          "style": {
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D13",
+          "number_format": "0.00_);[Red]\\(0.00\\)",
+          "style": {
+            "font": {
+              "italic": true,
+              "name": "Verdana",
+              "size": 10.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        },
+        {
+          "ref": "E13",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "F13",
+          "number_format": "#,##0.00\\ [$€-40C]"
+        },
+        {
+          "ref": "G13",
+          "number_format": "mm-dd-yy"
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "cells": [
+        {
+          "ref": "D14",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

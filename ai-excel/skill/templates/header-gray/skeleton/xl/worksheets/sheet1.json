@@ -1,0 +1,2051 @@
+{
+  "name": "Sheet1",
+  "gridlines": false,
+  "default_col_width": 9.0,
+  "default_row_height": 14.4,
+  "tab_selected": true,
+  "columns": [
+    {
+      "width": 11.0
+    },
+    {
+      "width": 8.66666666666667
+    },
+    {
+      "width": 20.5833333333333
+    }
+  ],
+  "protect": true,
+  "print": {
+    "orientation": "landscape",
+    "paper_size": 1,
+    "scale": 69,
+    "fit_to_page": true,
+    "margin_left": 0.31496062992126,
+    "margin_right": 0.31496062992126,
+    "margin_top": 0.354330708661417,
+    "margin_bottom": 0.354330708661417,
+    "margin_header": 0.0,
+    "margin_footer": 0.0
+  },
+  "print_area": "A1:C54",
+  "rows": [
+    {
+      "index": 1,
+      "height": 28.8,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "DATE",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial",
+              "size": 9.0,
+              "color": "FFFFFF"
+            },
+            "fill": "000000",
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "right": "medium",
+              "color": "FFFFFF"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "STD",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial",
+              "size": 9.0,
+              "color": "FFFFFF"
+            },
+            "fill": "000000",
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "right": "medium",
+              "color": "FFFFFF"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "CUT OFF",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial",
+              "size": 9.0,
+              "color": "FFFFFF"
+            },
+            "fill": "FF0000",
+            "border": {
+              "top": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FFFFFF"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "A2",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B2",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C2",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "cells": [
+        {
+          "ref": "A3",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B3",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C3",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "cells": [
+        {
+          "ref": "A4",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B4",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C4",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "cells": [
+        {
+          "ref": "A5",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B5",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C5",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "cells": [
+        {
+          "ref": "A6",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B6",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C6",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "cells": [
+        {
+          "ref": "A7",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B7",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C7",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "cells": [
+        {
+          "ref": "A8",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B8",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C8",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "cells": [
+        {
+          "ref": "A9",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B9",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C9",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "cells": [
+        {
+          "ref": "A10",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B10",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C10",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "cells": [
+        {
+          "ref": "A11",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B11",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C11",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "cells": [
+        {
+          "ref": "A12",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B12",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C12",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "cells": [
+        {
+          "ref": "A13",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B13",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C13",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "cells": [
+        {
+          "ref": "A14",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B14",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C14",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "cells": [
+        {
+          "ref": "A15",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B15",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C15",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "cells": [
+        {
+          "ref": "A16",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B16",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C16",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "cells": [
+        {
+          "ref": "A17",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B17",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C17",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "cells": [
+        {
+          "ref": "A18",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B18",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C18",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 19,
+      "cells": [
+        {
+          "ref": "A19",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B19",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C19",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "cells": [
+        {
+          "ref": "A20",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B20",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C20",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 21,
+      "cells": [
+        {
+          "ref": "A21",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B21",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C21",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 22,
+      "cells": [
+        {
+          "ref": "A22",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B22",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C22",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 23,
+      "cells": [
+        {
+          "ref": "A23",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B23",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C23",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 24,
+      "cells": [
+        {
+          "ref": "A24",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B24",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C24",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 25,
+      "cells": [
+        {
+          "ref": "A25",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B25",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C25",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 26,
+      "cells": [
+        {
+          "ref": "A26",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B26",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C26",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 27,
+      "cells": [
+        {
+          "ref": "A27",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B27",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C27",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 28,
+      "cells": [
+        {
+          "ref": "A28",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B28",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C28",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 29,
+      "cells": [
+        {
+          "ref": "A29",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B29",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C29",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    },
+    {
+      "index": 30,
+      "cells": [
+        {
+          "ref": "A30",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium",
+              "right": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "B30",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "border": {
+              "bottom": "medium"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        },
+        {
+          "ref": "C30",
+          "number_format": "h:mm",
+          "style": {
+            "font": {
+              "name": "等线",
+              "size": 11.0,
+              "color": "FF0000"
+            },
+            "border": {
+              "top": "medium",
+              "bottom": "medium",
+              "left": "medium",
+              "right": "medium",
+              "color": "FF0000"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            },
+            "locked": false
+          }
+        }
+      ]
+    }
+  ]
+}

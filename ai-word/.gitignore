@@ -1,0 +1,7 @@
+/target
+/examples/out
+*.docx
+*.html
+!tests/**/*.docx
+
+/templates_catalog

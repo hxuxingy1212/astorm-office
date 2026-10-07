@@ -1,0 +1,659 @@
+{
+  "name": "经营看板",
+  "freeze": "A3",
+  "gridlines": false,
+  "default_col_width": 9.0,
+  "default_row_height": 18.0,
+  "columns": [
+    {
+      "width": 10.0
+    },
+    {
+      "width": 14.0
+    },
+    {
+      "width": 11.0
+    },
+    {
+      "width": 14.0
+    }
+  ],
+  "merges": [
+    "A1:D1"
+  ],
+  "print": {
+    "orientation": "portrait",
+    "margin_left": 0.5,
+    "margin_right": 0.5
+  },
+  "rows": [
+    {
+      "index": 1,
+      "height": 30.0,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "2026 年度经营看板（演示）",
+          "style": {
+            "font": {
+              "bold": true,
+              "size": 16.0,
+              "color": "1F4E79"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "height": 22.0,
+      "cells": [
+        {
+          "ref": "A2",
+          "type": "string",
+          "value": "月份",
+          "style": {
+            "font": {
+              "bold": true,
+              "size": 11.0,
+              "color": "FFFFFF"
+            },
+            "fill": "1F4E79",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "9AA3AD"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B2",
+          "type": "string",
+          "value": "收入",
+          "style": {
+            "font": {
+              "bold": true,
+              "size": 11.0,
+              "color": "FFFFFF"
+            },
+            "fill": "1F4E79",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "9AA3AD"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C2",
+          "type": "string",
+          "value": "增长率",
+          "style": {
+            "font": {
+              "bold": true,
+              "size": 11.0,
+              "color": "FFFFFF"
+            },
+            "fill": "1F4E79",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "9AA3AD"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D2",
+          "type": "string",
+          "value": "净利",
+          "style": {
+            "font": {
+              "bold": true,
+              "size": 11.0,
+              "color": "FFFFFF"
+            },
+            "fill": "1F4E79",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "9AA3AD"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "height": 20.0,
+      "cells": [
+        {
+          "ref": "A3",
+          "type": "string",
+          "value": "1月",
+          "number_format": "#,##0",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "B3",
+          "type": "number",
+          "value": 1280000,
+          "number_format": "#,##0",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "C3",
+          "type": "number",
+          "value": 0.082,
+          "number_format": "0.0%",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "D3",
+          "type": "number",
+          "value": 236000,
+          "number_format": "_(* #,##0.00_);_(* \\(#,##0.00\\);_(* \"-\"??_);_(@_)",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "height": 20.0,
+      "cells": [
+        {
+          "ref": "A4",
+          "type": "string",
+          "value": "2月",
+          "number_format": "#,##0",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "B4",
+          "type": "number",
+          "value": 1435000,
+          "number_format": "#,##0",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "C4",
+          "type": "number",
+          "value": 0.121,
+          "number_format": "0.0%",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "D4",
+          "type": "number",
+          "value": 288000,
+          "number_format": "_(* #,##0.00_);_(* \\(#,##0.00\\);_(* \"-\"??_);_(@_)",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "height": 20.0,
+      "cells": [
+        {
+          "ref": "A5",
+          "type": "string",
+          "value": "3月",
+          "number_format": "#,##0",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "B5",
+          "type": "number",
+          "value": 1312000,
+          "number_format": "#,##0",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "C5",
+          "type": "number",
+          "value": -0.086,
+          "number_format": "0.0%",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "D5",
+          "type": "number",
+          "value": 205000,
+          "number_format": "_(* #,##0.00_);_(* \\(#,##0.00\\);_(* \"-\"??_);_(@_)",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "height": 20.0,
+      "cells": [
+        {
+          "ref": "A6",
+          "type": "string",
+          "value": "4月",
+          "number_format": "#,##0",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "B6",
+          "type": "number",
+          "value": 1687000,
+          "number_format": "#,##0",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "C6",
+          "type": "number",
+          "value": 0.286,
+          "number_format": "0.0%",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "D6",
+          "type": "number",
+          "value": 402000,
+          "number_format": "_(* #,##0.00_);_(* \\(#,##0.00\\);_(* \"-\"??_);_(@_)",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "height": 20.0,
+      "cells": [
+        {
+          "ref": "A7",
+          "type": "string",
+          "value": "5月",
+          "number_format": "#,##0",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "B7",
+          "type": "number",
+          "value": 1824000,
+          "number_format": "#,##0",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "C7",
+          "type": "number",
+          "value": 0.081,
+          "number_format": "0.0%",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "D7",
+          "type": "number",
+          "value": 455000,
+          "number_format": "_(* #,##0.00_);_(* \\(#,##0.00\\);_(* \"-\"??_);_(@_)",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "height": 20.0,
+      "cells": [
+        {
+          "ref": "A8",
+          "type": "string",
+          "value": "6月",
+          "number_format": "#,##0",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "B8",
+          "type": "number",
+          "value": 1745000,
+          "number_format": "#,##0",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "C8",
+          "type": "number",
+          "value": -0.043,
+          "number_format": "0.0%",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        },
+        {
+          "ref": "D8",
+          "type": "number",
+          "value": 418000,
+          "number_format": "_(* #,##0.00_);_(* \\(#,##0.00\\);_(* \"-\"??_);_(@_)",
+          "style": {
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "D0D0D0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "height": 22.0,
+      "cells": [
+        {
+          "ref": "A9",
+          "type": "string",
+          "value": "合计",
+          "number_format": "#,##0",
+          "style": {
+            "font": {
+              "bold": true
+            },
+            "fill": "DCE6F1",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "9AA3AD"
+            }
+          }
+        },
+        {
+          "ref": "B9",
+          "type": "number",
+          "value": 9283000,
+          "number_format": "#,##0",
+          "style": {
+            "font": {
+              "bold": true
+            },
+            "fill": "DCE6F1",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "9AA3AD"
+            }
+          }
+        },
+        {
+          "ref": "C9",
+          "number_format": "#,##0",
+          "style": {
+            "font": {
+              "bold": true
+            },
+            "fill": "DCE6F1",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "9AA3AD"
+            }
+          }
+        },
+        {
+          "ref": "D9",
+          "type": "number",
+          "value": 2004000,
+          "number_format": "#,##0",
+          "style": {
+            "font": {
+              "bold": true
+            },
+            "fill": "DCE6F1",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin",
+              "color": "9AA3AD"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "charts": [
+    {
+      "type": "column",
+      "data_range": "B3:B8",
+      "categories": "A3:A8",
+      "title": "月度收入",
+      "anchor": "F2",
+      "size": {
+        "w": 4.6,
+        "h": 3.2
+      },
+      "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<c:chartSpace xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><c:chart><c:title><c:tx><c:rich><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr lang=\"en-US\" dirty=\"0\"/><a:t>月度收入</a:t></a:r></a:p></c:rich></c:tx><c:overlay val=\"0\"/></c:title><c:plotArea><c:layout/><c:barChart><c:barDir val=\"col\"/><c:grouping val=\"clustered\"/><c:ser><c:idx val=\"0\"/><c:order val=\"0\"/><c:tx><c:strRef><c:f>经营看板!$B$2</c:f></c:strRef></c:tx><c:cat><c:strRef><c:f>经营看板!$A$3:$A$8</c:f></c:strRef></c:cat><c:val><c:numRef><c:f>经营看板!$B$3:$B$8</c:f></c:numRef></c:val></c:ser><c:axId val=\"111111111\"/><c:axId val=\"222222222\"/></c:barChart><c:catAx><c:axId val=\"111111111\"/><c:scaling><c:orientation val=\"minMax\"/></c:scaling><c:delete val=\"0\"/><c:axPos val=\"b\"/><c:crossAx val=\"222222222\"/></c:catAx><c:valAx><c:axId val=\"222222222\"/><c:scaling><c:orientation val=\"minMax\"/></c:scaling><c:majorGridlines/><c:delete val=\"0\"/><c:axPos val=\"l\"/><c:crossAx val=\"111111111\"/></c:valAx></c:plotArea><c:plotVisOnly val=\"1\"/></c:chart></c:chartSpace>",
+      "snapshot": "{\"type\":\"column\",\"data_range\":\"B3:B8\",\"categories\":\"A3:A8\",\"title\":\"月度收入\",\"anchor\":\"F2\",\"size\":{\"w\":4.6,\"h\":3.2}}"
+    },
+    {
+      "type": "line",
+      "data_range": "C3:C8",
+      "categories": "A3:A8",
+      "title": "增长率",
+      "anchor": "F13",
+      "size": {
+        "w": 4.6,
+        "h": 3.0
+      },
+      "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<c:chartSpace xmlns:c=\"http://schemas.openxmlformats.org/drawingml/2006/chart\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\"><c:chart><c:title><c:tx><c:rich><a:bodyPr/><a:lstStyle/><a:p><a:r><a:rPr lang=\"en-US\" dirty=\"0\"/><a:t>增长率</a:t></a:r></a:p></c:rich></c:tx><c:overlay val=\"0\"/></c:title><c:plotArea><c:layout/><c:lineChart><c:grouping val=\"standard\"/><c:ser><c:idx val=\"0\"/><c:order val=\"0\"/><c:tx><c:strRef><c:f>经营看板!$C$2</c:f></c:strRef></c:tx><c:cat><c:strRef><c:f>经营看板!$A$3:$A$8</c:f></c:strRef></c:cat><c:val><c:numRef><c:f>经营看板!$C$3:$C$8</c:f></c:numRef></c:val></c:ser><c:axId val=\"111111111\"/><c:axId val=\"222222222\"/></c:lineChart><c:catAx><c:axId val=\"111111111\"/><c:scaling><c:orientation val=\"minMax\"/></c:scaling><c:delete val=\"0\"/><c:axPos val=\"b\"/><c:crossAx val=\"222222222\"/></c:catAx><c:valAx><c:axId val=\"222222222\"/><c:scaling><c:orientation val=\"minMax\"/></c:scaling><c:majorGridlines/><c:delete val=\"0\"/><c:axPos val=\"l\"/><c:crossAx val=\"111111111\"/></c:valAx></c:plotArea><c:plotVisOnly val=\"1\"/></c:chart></c:chartSpace>",
+      "snapshot": "{\"type\":\"line\",\"data_range\":\"C3:C8\",\"categories\":\"A3:A8\",\"title\":\"增长率\",\"anchor\":\"F13\",\"size\":{\"w\":4.6,\"h\":3.0}}"
+    }
+  ]
+}

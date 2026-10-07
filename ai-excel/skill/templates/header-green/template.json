@@ -1,0 +1,77 @@
+{
+  "name": "DataValidation",
+  "source": "/tmp/ec3/closedxml/ClosedXML-develop/ClosedXML.Tests/Resource/Examples/Misc/DataValidation.xlsx",
+  "default_font": {
+    "name": "Calibri",
+    "size": 11.0,
+    "color": "000000"
+  },
+  "palette": [
+    {
+      "hex": "E32636",
+      "count": 42,
+      "usage": "fill"
+    },
+    {
+      "hex": "00FFFF",
+      "count": 36,
+      "usage": "fill"
+    },
+    {
+      "hex": "9ACD32",
+      "count": 33,
+      "usage": "fill"
+    },
+    {
+      "hex": "EFDECD",
+      "count": 33,
+      "usage": "fill"
+    },
+    {
+      "hex": "9966CC",
+      "count": 6,
+      "usage": "fill"
+    },
+    {
+      "hex": "E52B50",
+      "count": 6,
+      "usage": "fill"
+    },
+    {
+      "hex": "FBCEB1",
+      "count": 6,
+      "usage": "fill"
+    },
+    {
+      "hex": "FFBF00",
+      "count": 6,
+      "usage": "fill"
+    }
+  ],
+  "header": {
+    "sheet": "Validate Ranges",
+    "row": 1,
+    "style": {
+      "fill": "9ACD32"
+    },
+    "values": [
+      "",
+      "",
+      ""
+    ]
+  },
+  "default_row_height": 15.0,
+  "sheets": [
+    "Data Validation",
+    "Validate Ranges",
+    "Data Validation - Copy",
+    "Validate Ranges - Copy",
+    "Copy From Range 1",
+    "Copy From Range 2"
+  ],
+  "notes": [
+    "检测到表头：Validate Ranges 第 1 行（保持该行样式即可得到一致外观）",
+    "工作簿默认字体：Calibri 11",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "name": "HedgingBonds",
+  "default_row_height": 15.0,
+  "columns": [
+    {
+      "width": 10.42578125
+    },
+    {
+      "width": 6.140625
+    },
+    {
+      "width": 12.85546875
+    }
+  ],
+  "print": {
+    "orientation": "portrait",
+    "paper_size": 9,
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "tables": [
+    {
+      "range": "A1:C2",
+      "name": "HedgingBonds",
+      "style": "TableStyleMedium2",
+      "show_banded_rows": true,
+      "columns": [
+        "CurveType",
+        "Code",
+        "MaturityDate"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "CurveType",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "Code"
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "MaturityDate",
+          "number_format": "yyyy/mm/dd;@"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "A2",
+          "number_format": "yyyy/mm/dd;@"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "title": "タイトル値",
+    "author": ""
+  },
+  "default_font": {
+    "name": "ＭＳ Ｐゴシック",
+    "size": 11.0,
+    "color": "000000"
+  },
+  "active_tab": 1,
+  "named_ranges": [
+    {
+      "name": "名前",
+      "ref": "Sheet2!$O$3"
+    }
+  ],
+  "sheets": [
+    "xl/worksheets/sheet1.json",
+    "xl/worksheets/sheet2.json",
+    "xl/worksheets/sheet3.json",
+    "xl/worksheets/sheet4.json",
+    "xl/worksheets/sheet5.json",
+    "xl/worksheets/sheet6.json",
+    "xl/worksheets/sheet7.json"
+  ],
+  "extra_parts": [
+    "xl/pivotTables/pivotTable1.xml",
+    "xl/pivotTables/pivotTable2.xml",
+    "xl/pivotTables/_rels/pivotTable1.xml.rels",
+    "xl/pivotTables/_rels/pivotTable2.xml.rels",
+    "xl/pivotCache/pivotCacheDefinition1.xml",
+    "xl/pivotCache/pivotCacheRecords1.xml",
+    "xl/printerSettings/printerSettings1.bin",
+    "xl/printerSettings/printerSettings3.bin",
+    "xl/printerSettings/printerSettings4.bin",
+    "xl/printerSettings/printerSettings5.bin",
+    "xl/printerSettings/printerSettings6.bin",
+    "xl/calcChain.xml",
+    "xl/pivotCache/_rels/pivotCacheDefinition1.xml.rels",
+    "docProps/app.xml",
+    "docProps/custom.xml",
+    "xl/printerSettings/printerSettings2.bin"
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "page": {
+    "size": "A4"
+  },
+  "parts": [
+    {
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 1,
+          "text": "{{title}}",
+          "align": "center"
+        },
+        {
+          "type": "paragraph",
+          "text": "客户：{{client}}    日期：{{date}}"
+        },
+        {
+          "type": "table",
+          "header_row": true,
+          "widths": [
+            180,
+            120
+          ],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "blocks": [
+                    {
+                      "type": "paragraph",
+                      "text": "项目"
+                    }
+                  ]
+                },
+                {
+                  "blocks": [
+                    {
+                      "type": "paragraph",
+                      "text": "金额"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "blocks": [
+                    {
+                      "type": "paragraph",
+                      "text": "{{item}}"
+                    }
+                  ]
+                },
+                {
+                  "blocks": [
+                    {
+                      "type": "paragraph",
+                      "text": "{{amount}}"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "合计：{{total}} 元"
+        },
+        {
+          "type": "shape",
+          "shape_type": "rect",
+          "width": 300,
+          "height": 40,
+          "fill": "FFF2CC",
+          "text": "备注：{{note}}"
+        }
+      ]
+    }
+  ]
+}

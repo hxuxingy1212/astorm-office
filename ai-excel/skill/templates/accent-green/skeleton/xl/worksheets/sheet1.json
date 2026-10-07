@@ -1,0 +1,1152 @@
+{
+  "name": "International Settings",
+  "default_row_height": 12.75,
+  "columns": [
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "value": "false",
+          "type": "string",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "B1",
+          "value": "Show the Create Templates Toolbar",
+          "type": "string",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "C1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "D1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "E1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "F1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "G1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "H1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "I1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "J1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "K1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "L1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "M1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "N1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "O1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "P1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "Q1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "R1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "S1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "T1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "U1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "V1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "W1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "X1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "Y1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "Z1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AA1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AB1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AC1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AD1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AE1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AF1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AG1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AH1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AI1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AJ1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AK1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AL1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AM1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AN1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AO1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AP1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AQ1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AR1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AS1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AT1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AU1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AV1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AW1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AX1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AY1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "AZ1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BA1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BB1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BC1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BD1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BE1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BF1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BG1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BH1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BI1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BJ1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BK1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BL1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BM1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BN1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BO1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BP1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BQ1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        },
+        {
+          "ref": "BR1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Verdana",
+              "size": 10.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+      ]
+    },
+    {
+      "index": 3,
+      "cells": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+      ]
+    },
+    {
+      "index": 4,
+      "cells": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+      ]
+    }
+  ]
+}

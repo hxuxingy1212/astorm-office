@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "author": "Adrienne Tozier de la Poterie"
+  },
+  "sheets": [
+    "xl/worksheets/sheet1.json",
+    "xl/worksheets/sheet2.json"
+  ]
+}

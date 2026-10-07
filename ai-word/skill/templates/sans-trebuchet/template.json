@@ -1,0 +1,84 @@
+{
+  "_notes": [
+    "正文西文字体：Verdana；中文字体：Wingdings",
+    "标题字体：Trebuchet MS",
+    "正文字号：9 pt",
+    "一级标题字号：24 pt",
+    "正文首行缩进：21 pt",
+    "标题颜色：#E18F8F"
+  ],
+  "page": {
+    "margins": {
+      "bottom": 54.0,
+      "footer": 36.0,
+      "header": 36.0,
+      "left": 72.0,
+      "right": 72.0,
+      "top": 54.0
+    },
+    "orientation": "portrait",
+    "size": "Letter"
+  },
+  "styles": {
+    "Heading1": {
+      "bold": true,
+      "color": "E18F8F",
+      "east_asia_font": "Times New Roman",
+      "font_family": "Trebuchet MS",
+      "font_size": 24.0,
+      "space_after": 5.0,
+      "space_before": 5.0
+    },
+    "Heading2": {
+      "bold": true,
+      "color": "8080C0",
+      "east_asia_font": "Times New Roman",
+      "font_family": "Trebuchet MS",
+      "font_size": 16.0,
+      "space_after": 5.0,
+      "space_before": 5.0
+    },
+    "Heading3": {
+      "bold": true,
+      "color": "000000",
+      "first_line_indent": 34.5,
+      "font_family": "Trebuchet MS",
+      "font_size": 13.5,
+      "space_after": 5.0,
+      "space_before": 5.0
+    },
+    "Heading4": {
+      "bold": true,
+      "color": "000000",
+      "east_asia_font": "Times New Roman",
+      "font_family": "Verdana",
+      "space_after": 5.0,
+      "space_before": 5.0
+    },
+    "Normal": {
+      "color": "808080",
+      "east_asia_font": "Wingdings",
+      "first_line_indent": 21.0,
+      "font_family": "Verdana",
+      "font_size": 9.0
+    },
+    "TOC1": {
+      "bold": false,
+      "east_asia_font": "Times New Roman",
+      "font_family": "Verdana",
+      "font_size": 10.5,
+      "italic": false,
+      "space_after": 6.0,
+      "space_before": 6.0
+    }
+  },
+  "theme": {
+    "colors": {
+      "heading": "E18F8F"
+    },
+    "east_asia_font": "Wingdings",
+    "heading_font": "Trebuchet MS",
+    "major_font": "Trebuchet MS",
+    "minor_font": "Verdana"
+  }
+}

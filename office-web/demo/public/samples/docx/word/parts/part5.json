@@ -1,0 +1,38 @@
+{
+  "section": {
+    "page": {
+      "size": "A4",
+      "orientation": "portrait",
+      "margins": {
+        "top": 72.0,
+        "bottom": 72.0,
+        "left": 90.0,
+        "right": 90.0,
+        "header": 42.0,
+        "footer": 42.0
+      }
+    },
+    "title_page": false
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "参考文献"
+    },
+    {
+      "type": "paragraph",
+      "text": "张三, 李四. 多模态信息检索综述[J]. 计算机学报, 2024.",
+      "style": "Reference",
+      "indent": 36.0,
+      "hanging_indent": 36.0
+    },
+    {
+      "type": "paragraph",
+      "text": "Wang, L.. Unified Multimodal Retrieval[C]. NeurIPS, 2023.",
+      "style": "Reference",
+      "indent": 36.0,
+      "hanging_indent": 36.0
+    }
+  ]
+}

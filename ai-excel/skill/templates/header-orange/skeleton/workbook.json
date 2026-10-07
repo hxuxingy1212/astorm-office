@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "author": "Francois Botha (SI)"
+  },
+  "named_ranges": [
+    {
+      "name": "assets_effective_date",
+      "ref": "Input!$B$5"
+    },
+    {
+      "name": "calculation_id",
+      "ref": "Input!$B$1"
+    },
+    {
+      "name": "current_portfolio",
+      "ref": "Input!$B$3"
+    },
+    {
+      "name": "date_calculated",
+      "ref": "Input!$B$6"
+    },
+    {
+      "name": "localhost_sqlexpress_SILPEN_Portfolio",
+      "ref": "Portfolios!$A$1:$C$2"
+    },
+    {
+      "name": "Query_from_SILPEN",
+      "ref": "AssetRandsPerPoint!$A$1:$O$3"
+    },
+    {
+      "name": "valuation_date",
+      "ref": "Input!$B$4"
+    }
+  ],
+  "sheets": [
+    "xl/worksheets/sheet1.json",
+    "xl/worksheets/sheet2.json",
+    "xl/worksheets/sheet3.json",
+    "xl/worksheets/sheet4.json",
+    "xl/worksheets/sheet5.json",
+    "xl/worksheets/sheet6.json",
+    "xl/worksheets/sheet7.json",
+    "xl/worksheets/sheet8.json",
+    "xl/worksheets/sheet9.json",
+    "xl/worksheets/sheet10.json",
+    "xl/worksheets/sheet11.json",
+    "xl/worksheets/sheet12.json",
+    "xl/worksheets/sheet13.json",
+    "xl/worksheets/sheet14.json",
+    "xl/worksheets/sheet15.json",
+    "xl/worksheets/sheet16.json",
+    "xl/worksheets/sheet17.json",
+    "xl/worksheets/sheet18.json",
+    "xl/worksheets/sheet19.json",
+    "xl/worksheets/sheet20.json",
+    "xl/worksheets/sheet21.json",
+    "xl/worksheets/sheet22.json",
+    "xl/worksheets/sheet23.json",
+    "xl/worksheets/sheet24.json",
+    "xl/worksheets/sheet25.json",
+    "xl/worksheets/sheet26.json",
+    "xl/worksheets/sheet27.json",
+    "xl/worksheets/sheet28.json"
+  ]
+}

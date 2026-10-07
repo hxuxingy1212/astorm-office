@@ -1,0 +1,627 @@
+{
+  "name": "3_53062_input",
+  "source": "/tmp/excel_corpus/sample_data_200/spreadsheet/53062/3_53062_input.xlsx",
+  "default_font": {
+    "name": "等线",
+    "size": 11.0
+  },
+  "palette": [
+    {
+      "hex": "333333",
+      "count": 2454,
+      "usage": "font"
+    },
+    {
+      "hex": "FF0000",
+      "count": 354,
+      "usage": "font"
+    },
+    {
+      "hex": "FFFF00",
+      "count": 20,
+      "usage": "fill"
+    },
+    {
+      "hex": "000000",
+      "count": 9,
+      "usage": "font"
+    },
+    {
+      "hex": "92D050",
+      "count": 1,
+      "usage": "font"
+    },
+    {
+      "hex": "FFC000",
+      "count": 1,
+      "usage": "font"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "count": 25087
+    },
+    {
+      "name": "Arial",
+      "size": 9.0,
+      "count": 4215
+    },
+    {
+      "name": "Verdana",
+      "size": 9.0,
+      "color": "333333",
+      "count": 1890
+    },
+    {
+      "name": "Verdana",
+      "size": 9.0,
+      "count": 1624
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "color": "333333",
+      "count": 564
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "color": "FF0000",
+      "count": 316
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "bold": true,
+      "count": 65
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "count": 33
+    },
+    {
+      "name": "等线",
+      "size": 11.0,
+      "count": 31
+    },
+    {
+      "name": "等线",
+      "size": 11.0,
+      "color": "FF0000",
+      "count": 25
+    },
+    {
+      "name": "等线",
+      "size": 11.0,
+      "bold": true,
+      "count": 9
+    },
+    {
+      "name": "Segoe UI",
+      "size": 8.0,
+      "color": "000000",
+      "count": 7
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "color": "FF0000",
+      "count": 6
+    },
+    {
+      "name": "Verdana",
+      "size": 9.0,
+      "color": "FF0000",
+      "count": 6
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "bold": true,
+      "count": 5
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "count": 2
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "color": "000000",
+      "count": 2
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "count": 2
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "color": "92D050",
+      "count": 1
+    },
+    {
+      "name": "Segoe UI",
+      "size": 8.0,
+      "color": "FF0000",
+      "count": 1
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "color": "FFC000",
+      "count": 1
+    }
+  ],
+  "number_formats": [
+    "#,##0.00",
+    "0.0",
+    "0.0%",
+    "0.00",
+    "0.00%",
+    "0.000",
+    "0.000%",
+    "0.00E+00",
+    "[$-F400]h:mm:ss\\ AM/PM"
+  ],
+  "columns": [
+    {
+      "width": 9.1640625
+    },
+    {
+      "width": 7.5
+    },
+    {
+      "width": 18.33203125
+    },
+    {
+      "width": 5.83203125
+    },
+    {
+      "width": 7.5
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 2.1640625
+    },
+    {
+      "width": 2.1640625
+    },
+    {
+      "width": 2.1640625
+    },
+    {
+      "width": 2.1640625
+    },
+    {
+      "width": 2.1640625
+    },
+    {
+      "width": 2.1640625
+    },
+    {
+      "width": 2.1640625
+    },
+    {
+      "width": 2.1640625
+    },
+    {
+      "width": 2.1640625,
+      "hidden": true
+    },
+    {
+      "width": 12.0
+    },
+    {
+      "width": 2.83203125,
+      "hidden": true
+    },
+    {
+      "width": 2.83203125,
+      "hidden": true
+    },
+    {
+      "width": 2.83203125,
+      "hidden": true
+    },
+    {
+      "width": 2.83203125,
+      "hidden": true
+    },
+    {
+      "width": 2.83203125,
+      "hidden": true
+    },
+    {
+      "width": 2.83203125,
+      "hidden": true
+    },
+    {
+      "width": 2.83203125,
+      "hidden": true
+    },
+    {
+      "width": 2.83203125,
+      "hidden": true
+    },
+    {
+      "width": 2.83203125,
+      "hidden": true
+    },
+    {
+      "width": 2.83203125,
+      "hidden": true
+    },
+    {
+      "width": 2.83203125,
+      "hidden": true
+    },
+    {
+      "width": 2.83203125,
+      "hidden": true
+    },
+    {
+      "width": 2.83203125,
+      "hidden": true
+    },
+    {
+      "width": 3.5,
+      "hidden": true
+    },
+    {
+      "width": 3.5,
+      "hidden": true
+    },
+    {
+      "width": 3.5,
+      "hidden": true
+    },
+    {
+      "width": 3.5,
+      "hidden": true
+    },
+    {
+      "width": 3.5,
+      "hidden": true
+    },
+    {
+      "width": 3.5,
+      "hidden": true
+    },
+    {
+      "width": 3.5,
+      "hidden": true
+    },
+    {
+      "width": 3.5,
+      "hidden": true
+    },
+    {
+      "width": 3.5,
+      "hidden": true
+    },
+    {
+      "width": 3.5,
+      "hidden": true
+    },
+    {
+      "width": 3.5,
+      "hidden": true
+    },
+    {
+      "width": 3.5,
+      "hidden": true
+    },
+    {
+      "width": 3.5,
+      "hidden": true
+    },
+    {
+      "width": 3.5,
+      "hidden": true
+    },
+    {
+      "width": 5.33203125,
+      "hidden": true
+    },
+    {
+      "width": 3.0,
+      "hidden": true
+    },
+    {
+      "width": 3.0,
+      "hidden": true
+    },
+    {
+      "width": 3.0,
+      "hidden": true
+    },
+    {
+      "width": 3.0,
+      "hidden": true
+    },
+    {
+      "width": 3.0,
+      "hidden": true
+    },
+    {
+      "width": 3.0,
+      "hidden": true
+    },
+    {
+      "width": 3.0,
+      "hidden": true
+    },
+    {
+      "width": 3.0,
+      "hidden": true
+    },
+    {
+      "width": 3.0,
+      "hidden": true
+    },
+    {
+      "width": 3.0,
+      "hidden": true
+    },
+    {
+      "width": 3.0,
+      "hidden": true
+    },
+    {
+      "width": 3.0,
+      "hidden": true
+    },
+    {
+      "width": 5.1640625
+    },
+    {
+      "width": 3.0
+    },
+    {
+      "width": 2.6640625
+    },
+    {
+      "width": 3.0
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.0
+    },
+    {
+      "width": 3.0
+    },
+    {
+      "width": 3.0
+    },
+    {
+      "width": 4.83203125
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 2.5
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.1640625
+    },
+    {
+      "width": 3.0
+    },
+    {
+      "width": 3.0
+    },
+    {
+      "width": 8.6640625
+    }
+  ],
+  "default_col_width": 8.6640625,
+  "default_row_height": 13.0,
+  "sheets": [
+    "formamspnc (7)",
+    "Sheet1"
+  ],
+  "notes": [
+    "工作簿默认字体：等线 11",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

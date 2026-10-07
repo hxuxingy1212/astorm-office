@@ -1,0 +1,29 @@
+[package]
+name = "json2pdf-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Command line tool for json2pdf: JSON 产物目录与 PDF 双向转换及 PDF 工具集"
+keywords = ["pdf", "json", "cli"]
+categories = ["command-line-utilities"]
+
+[[bin]]
+name = "json2pdf"
+path = "src/main.rs"
+
+[dependencies]
+json2pdf = { path = ".." }
+# convert docx/pptx/xlsx：跨格式生成由各格式 crate 承担
+json2docx = { path = "../../ai-word" }
+json2pptx = { path = "../../ai-ppt" }
+json2xlsx = { path = "../../ai-excel" }
+office-core = { workspace = true }
+clap = { workspace = true }
+serde_json = { workspace = true }
+schemars = { workspace = true }
+lopdf = { workspace = true }
+base64 = { workspace = true }
+anyhow = { workspace = true }
+
+[lints]
+workspace = true

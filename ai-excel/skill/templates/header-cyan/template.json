@@ -1,0 +1,249 @@
+{
+  "name": "3d5fcc3a_FillWithoutColor",
+  "source": "/tmp/excel_corpus2/npoi/3d5fcc3a_FillWithoutColor.xlsx",
+  "palette": [
+    {
+      "hex": "99FF66",
+      "count": 13,
+      "usage": "fill"
+    },
+    {
+      "hex": "CC99FF",
+      "count": 12,
+      "usage": "fill"
+    },
+    {
+      "hex": "CC0000",
+      "count": 9,
+      "usage": "font"
+    },
+    {
+      "hex": "195A84",
+      "count": 8,
+      "usage": "font"
+    },
+    {
+      "hex": "FFFF66",
+      "count": 8,
+      "usage": "fill"
+    },
+    {
+      "hex": "39C19D",
+      "count": 7,
+      "usage": "fill"
+    },
+    {
+      "hex": "FFF99D",
+      "count": 6,
+      "usage": "fill"
+    },
+    {
+      "hex": "CCFFFF",
+      "count": 5,
+      "usage": "fill"
+    },
+    {
+      "hex": "195A84",
+      "count": 4,
+      "usage": "font"
+    },
+    {
+      "hex": "99CCFF",
+      "count": 4,
+      "usage": "fill"
+    },
+    {
+      "hex": "FF0000",
+      "count": 3,
+      "usage": "font"
+    },
+    {
+      "hex": "FFCC00",
+      "count": 2,
+      "usage": "fill"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Calibri Light",
+      "size": 11.0,
+      "count": 443
+    },
+    {
+      "name": "Calibri Light",
+      "size": 9.0,
+      "count": 25
+    },
+    {
+      "name": "Calibri Light",
+      "size": 10.0,
+      "count": 17
+    },
+    {
+      "name": "Calibri",
+      "size": 30.0,
+      "count": 15
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "bold": true,
+      "count": 9
+    },
+    {
+      "name": "Calibri Light",
+      "size": 11.0,
+      "bold": true,
+      "color": "CC0000",
+      "count": 9
+    },
+    {
+      "name": "Calibri Light",
+      "size": 11.0,
+      "bold": true,
+      "count": 8
+    },
+    {
+      "name": "Calibri",
+      "size": 12.0,
+      "bold": true,
+      "color": "195A84",
+      "count": 8
+    },
+    {
+      "name": "Calibri Light",
+      "size": 12.0,
+      "bold": true,
+      "count": 7
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "count": 5
+    },
+    {
+      "name": "Calibri Light",
+      "size": 11.0,
+      "bold": true,
+      "color": "FF0000",
+      "count": 3
+    },
+    {
+      "name": "Calibri Light",
+      "size": 14.0,
+      "bold": true,
+      "count": 3
+    },
+    {
+      "name": "Calibri",
+      "size": 14.0,
+      "bold": true,
+      "count": 2
+    },
+    {
+      "name": "Calibri",
+      "size": 12.0,
+      "bold": true,
+      "count": 2
+    },
+    {
+      "name": "Calibri",
+      "size": 16.0,
+      "bold": true,
+      "count": 1
+    },
+    {
+      "name": "Calibri Light",
+      "size": 10.0,
+      "count": 1
+    }
+  ],
+  "number_formats": [
+    "0",
+    "0%",
+    "0_);[Red]\\(0\\)",
+    "[$-409]mmm\\-yy;@",
+    "[$-409]mmmm\\-yy;@",
+    "mmm-yy",
+    "mmmm"
+  ],
+  "header": {
+    "sheet": "LPH",
+    "row": 3,
+    "style": {
+      "font": {
+        "bold": true,
+        "name": "Calibri Light",
+        "size": 14.0
+      },
+      "fill": "CCFFFF"
+    },
+    "values": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "columns": [
+    {
+      "width": 0.85546875
+    },
+    {
+      "width": 22.5703125
+    },
+    {
+      "width": 15.140625
+    },
+    {
+      "width": 15.140625
+    },
+    {
+      "width": 15.140625
+    },
+    {
+      "width": 15.140625
+    },
+    {
+      "width": 15.140625
+    },
+    {
+      "width": 15.140625
+    },
+    {
+      "width": 15.140625
+    },
+    {
+      "width": 15.140625
+    },
+    {
+      "width": 15.140625
+    },
+    {
+      "width": 15.140625
+    },
+    {
+      "width": 11.42578125
+    },
+    {
+      "width": 8.5703125
+    },
+    {
+      "width": 0.85546875
+    }
+  ],
+  "default_col_width": 9.140625,
+  "default_row_height": 15.0,
+  "sheets": [
+    "LPH",
+    "User Guide"
+  ],
+  "notes": [
+    "检测到表头：LPH 第 3 行（保持该行样式即可得到一致外观）",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

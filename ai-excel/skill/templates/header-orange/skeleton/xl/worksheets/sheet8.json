@@ -1,0 +1,145 @@
+{
+  "name": "StressedLiabilities",
+  "default_col_width": 30.28515625,
+  "default_row_height": 15.0,
+  "columns": [
+    {
+      "width": 9.7109375
+    },
+    {
+      "width": 55.42578125
+    },
+    {
+      "width": 10.5703125
+    },
+    {
+      "width": 12.140625
+    },
+    {
+      "width": 12.28515625
+    },
+    {
+      "width": 10.140625
+    },
+    {
+      "width": 10.42578125
+    },
+    {
+      "width": 8.85546875
+    },
+    {
+      "width": 15.0
+    }
+  ],
+  "print": {
+    "orientation": "portrait",
+    "paper_size": 9,
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "tables": [
+    {
+      "range": "A1:I2",
+      "name": "StressedLiabilities",
+      "style": "TableStyleMedium2",
+      "show_banded_rows": true,
+      "columns": [
+        "SchemeId",
+        "SchemeName",
+        "StressType",
+        "LowerBound",
+        "UpperBound",
+        "Increment",
+        "CurveType",
+        "Step",
+        "Liability"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "SchemeId"
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "SchemeName"
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "StressType"
+        },
+        {
+          "ref": "D1",
+          "type": "string",
+          "value": "LowerBound",
+          "number_format": "0.0000%"
+        },
+        {
+          "ref": "E1",
+          "type": "string",
+          "value": "UpperBound",
+          "number_format": "0.0000%"
+        },
+        {
+          "ref": "F1",
+          "type": "string",
+          "value": "Increment",
+          "number_format": "0.0000%"
+        },
+        {
+          "ref": "G1",
+          "type": "string",
+          "value": "CurveType"
+        },
+        {
+          "ref": "H1",
+          "type": "string",
+          "value": "Step",
+          "number_format": "0.0000%"
+        },
+        {
+          "ref": "I1",
+          "type": "string",
+          "value": "Liability",
+          "number_format": "#,##0.00"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "D2",
+          "number_format": "0.0000%"
+        },
+        {
+          "ref": "E2",
+          "number_format": "0.0000%"
+        },
+        {
+          "ref": "F2",
+          "number_format": "0.0000%"
+        },
+        {
+          "ref": "H2",
+          "number_format": "0.0000%"
+        },
+        {
+          "ref": "I2",
+          "number_format": "#,##0.00"
+        }
+      ]
+    }
+  ]
+}

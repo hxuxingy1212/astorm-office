@@ -1,0 +1,55 @@
+{
+  "elements": [
+    {
+      "type": "rect",
+      "x": 0,
+      "y": 622,
+      "w": 595.28,
+      "h": 220,
+      "fill": "#1b2a4a"
+    },
+    {
+      "type": "rect",
+      "x": 0,
+      "y": 812,
+      "w": 595.28,
+      "h": 30,
+      "fill": "#2e74b5"
+    },
+    {
+      "type": "text",
+      "text": "Aurora 智能文档平台",
+      "x": 60,
+      "y": 740,
+      "size": 32,
+      "font": "system:PingFang SC",
+      "color": "#ffffff"
+    },
+    {
+      "type": "text",
+      "text": "JSON-driven PDF generation & editing",
+      "x": 62,
+      "y": 706,
+      "size": 14,
+      "font": "Helvetica",
+      "color": "#9fc3f0"
+    },
+    {
+      "type": "text",
+      "text": "astorm-office · json2pdf 0.1",
+      "x": 62,
+      "y": 660,
+      "size": 11,
+      "font": "Helvetica",
+      "color": "#6b84ad"
+    },
+    {
+      "type": "image",
+      "src": "media/img-001.png",
+      "x": 470,
+      "y": 700,
+      "w": 72,
+      "h": 72
+    }
+  ]
+}

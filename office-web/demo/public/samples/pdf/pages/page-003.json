@@ -1,0 +1,60 @@
+{
+  "elements": [
+    {
+      "type": "shading",
+      "kind": "radial",
+      "coords": [
+        297,
+        450,
+        297,
+        450,
+        60,
+        420
+      ],
+      "bbox": [
+        0,
+        0,
+        595.28,
+        842
+      ],
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#eaf3ff"
+        },
+        {
+          "offset": 1,
+          "color": "#c4d9f5"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "第 3 页 · 渐变背景",
+      "x": 200,
+      "y": 460,
+      "size": 24,
+      "font": "system:PingFang SC",
+      "color": "#1b2a4a"
+    },
+    {
+      "type": "polyline",
+      "points": [
+        [
+          120,
+          400
+        ],
+        [
+          297,
+          340
+        ],
+        [
+          474,
+          400
+        ]
+      ],
+      "stroke": "#2e74b5",
+      "line_width": 3
+    }
+  ]
+}

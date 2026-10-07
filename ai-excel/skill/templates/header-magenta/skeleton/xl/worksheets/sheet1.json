@@ -1,0 +1,7575 @@
+{
+  "name": "Malaga",
+  "default_col_width": 9.0,
+  "default_row_height": 20.15,
+  "tab_selected": true,
+  "columns": [
+    {
+      "width": 4.59765625
+    },
+    {
+      "width": 5.59765625
+    },
+    {
+      "width": 24.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 3.59765625
+    },
+    {
+      "width": 4.59765625
+    },
+    {
+      "width": 5.59765625
+    },
+    {
+      "width": 24.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 19.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    }
+  ],
+  "merges": [
+    "B11:B12",
+    "B13:B14",
+    "B15:B16",
+    "B18:B19",
+    "I9:I10",
+    "I11:I12",
+    "I13:I14",
+    "I15:I16",
+    "I17:I18",
+    "A7:G7",
+    "O7:P7",
+    "O8:Q8",
+    "O9:Q9",
+    "O10:Q10",
+    "B9:B10",
+    "A5:G5",
+    "J5:K5",
+    "L5:M5",
+    "O5:P5",
+    "A6:M6",
+    "O6:P6",
+    "A3:M3",
+    "O3:Q3",
+    "A4:F4",
+    "G4:I4",
+    "J4:K4",
+    "L4:M4",
+    "O4:Q4",
+    "A1:M1",
+    "O1:Q1",
+    "S1:W1",
+    "A2:M2",
+    "O2:Q2"
+  ],
+  "conditional_formats": [
+    {
+      "range": "M9:M18 F9:F19 Q12:Q22",
+      "type": "cellIs",
+      "operator": "equal",
+      "formulas": [
+        "\"PAID\""
+      ],
+      "font": {
+        "color": "D569B6"
+      }
+    }
+  ],
+  "print": {
+    "orientation": "portrait",
+    "paper_size": 9,
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "rows": [
+    {
+      "index": 1,
+      "height": 36.0,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "Holiday in Malaga, Spain",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 28.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick",
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 28.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 28.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 28.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 28.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 28.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 28.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 28.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 28.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 28.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 28.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 28.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 28.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O1",
+          "type": "string",
+          "value": "Holiday in Malaga, Spain",
+          "formula": "A1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick",
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thick",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "S1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 20.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "T1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 20.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "U1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 20.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "V1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 20.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "W1",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 20.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "AJ1",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 8.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "text_rotation": 180
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "height": 30.0,
+      "cells": [
+        {
+          "ref": "A2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 24.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 24.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 24.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 24.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 24.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 24.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 24.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 24.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 24.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 24.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 24.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 24.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 24.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A3",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B3",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C3",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D3",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E3",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F3",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G3",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H3",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I3",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J3",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K3",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L3",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M3",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O3",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 8.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P3",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 8.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q3",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 8.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "height": 30.0,
+      "cells": [
+        {
+          "ref": "A4",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B4",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C4",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D4",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E4",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F4",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G4",
+          "number_format": "\"£\"#,##0;[Red]\\-\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 20.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H4",
+          "number_format": "\"£\"#,##0;[Red]\\-\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 20.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I4",
+          "number_format": "\"£\"#,##0;[Red]\\-\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 20.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J4",
+          "number_format": "\"£\"#,##0;[Red]\\-\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K4",
+          "number_format": "\"£\"#,##0;[Red]\\-\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L4",
+          "number_format": "\"£\"#,##0;[Red]\\-\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 20.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M4",
+          "number_format": "\"£\"#,##0;[Red]\\-\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 20.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O4",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 8.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "P4",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 8.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "Q4",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 8.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A5",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B5",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C5",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D5",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E5",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F5",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G5",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H5",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I5",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J5",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K5",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L5",
+          "number_format": "\"£\"#,##0;[Red]\\-\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 20.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M5",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 20.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O5",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "P5",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "Q5",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A6",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B6",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C6",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D6",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E6",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F6",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G6",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H6",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I6",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J6",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K6",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L6",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M6",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O6",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "P6",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "Q6",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A7",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "right",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B7",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "right",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C7",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "right",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D7",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "right",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E7",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "right",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F7",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "right",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G7",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "right",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H7",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I7",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J7",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K7",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L7",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M7",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "right": "thick"
+            },
+            "alignment": {
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O7",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 9.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "P7",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 9.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "Q7",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A8",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B8",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "D569B6"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C8",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "D569B6"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D8",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "D569B6"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E8",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "D569B6"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F8",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "bottom": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G8",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "D569B6"
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H8",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "D569B6"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I8",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "D569B6"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J8",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "D569B6"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K8",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "D569B6"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L8",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "D569B6"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M8",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "bottom": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O8",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "P8",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "Q8",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "underline": "single",
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A9",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B9",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C9",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D9",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E9",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F9",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G9",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H9",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I9",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J9",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K9",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L9",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M9",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "N9",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O9",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "P9",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "Q9",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A10",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B10",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C10",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D10",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E10",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F10",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G10",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H10",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I10",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J10",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K10",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L10",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M10",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "N10",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O10",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "P10",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        },
+        {
+          "ref": "Q10",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center",
+              "wrap_text": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A11",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B11",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C11",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D11",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E11",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F11",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G11",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H11",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I11",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J11",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K11",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L11",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M11",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "N11",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O11",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P11",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q11",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 8.0,
+              "color": "D569B6"
+            },
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A12",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B12",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C12",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D12",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E12",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F12",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G12",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H12",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I12",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J12",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K12",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L12",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M12",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "N12",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O12",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P12",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q12",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A13",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B13",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C13",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D13",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E13",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F13",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G13",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H13",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I13",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J13",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K13",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L13",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M13",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "N13",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O13",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P13",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q13",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A14",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B14",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C14",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D14",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E14",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F14",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G14",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H14",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I14",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J14",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K14",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L14",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M14",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "N14",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O14",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P14",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q14",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A15",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B15",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C15",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D15",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E15",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F15",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G15",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H15",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I15",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J15",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K15",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L15",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M15",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "N15",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O15",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P15",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q15",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A16",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B16",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C16",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D16",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E16",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F16",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G16",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H16",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I16",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J16",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K16",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L16",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M16",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "N16",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O16",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P16",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q16",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A17",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B17",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C17",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D17",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E17",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F17",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G17",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H17",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I17",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J17",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K17",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L17",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M17",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "N17",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O17",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P17",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q17",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A18",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B18",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C18",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D18",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E18",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F18",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G18",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H18",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I18",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J18",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K18",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L18",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M18",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "N18",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O18",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P18",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q18",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 19,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "A19",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thick",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "B19",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thick",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "C19",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D19",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E19",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F19",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "G19",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thick",
+              "left": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H19",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I19",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J19",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K19",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L19",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M19",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thick",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O19",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P19",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q19",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "C20",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "D20",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "E20",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "F20",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H20",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I20",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J20",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K20",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L20",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M20",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O20",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P20",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q20",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 21,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "G21",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "H21",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I21",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J21",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K21",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L21",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M21",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O21",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P21",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q21",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 22,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "H22",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "I22",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "J22",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K22",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L22",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M22",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 16.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O22",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P22",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q22",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 23,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "J23",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K23",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 14.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L23",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M23",
+          "number_format": "\"£\"#,##0.00",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O23",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P23",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q23",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 24,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "J24",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K24",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L24",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M24",
+          "number_format": "\"£\"#,##0.00",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O24",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P24",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q24",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 25,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "J25",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K25",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L25",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M25",
+          "number_format": "\"£\"#,##0.00",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O25",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P25",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q25",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 26,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "J26",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K26",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L26",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M26",
+          "number_format": "\"£\"#,##0.00",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O26",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P26",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q26",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 27,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "J27",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K27",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L27",
+          "number_format": "mm-dd-yy",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M27",
+          "number_format": "\"£\"#,##0.00",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O27",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P27",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q27",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 28,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "J28",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K28",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L28",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M28",
+          "number_format": "\"£\"#,##0.00",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O28",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P28",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q28",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 29,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "J29",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "K29",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "L29",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 10.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "M29",
+          "number_format": "\"£\"#,##0.00",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 12.0,
+              "color": "8C021B"
+            },
+            "fill": "D569B6",
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "O29",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P29",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q29",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 30,
+      "height": 28.0,
+      "cells": [
+        {
+          "ref": "O30",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "bottom": "thin",
+              "left": "thick",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "P30",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thin"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        },
+        {
+          "ref": "Q30",
+          "number_format": "\"£\"#,##0",
+          "style": {
+            "font": {
+              "name": "Arial Narrow",
+              "size": 11.0
+            },
+            "fill": "D569B6",
+            "border": {
+              "top": "thin",
+              "bottom": "thin",
+              "left": "thin",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center",
+              "vertical": "center"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "_notes": [
+    "正文西文字体：Times New Roman；中文字体：Times New Roman",
+    "标题字体：Cambria",
+    "正文字号：11 pt"
+  ],
+  "page": {
+    "margins": {
+      "bottom": 56.7,
+      "footer": 36.0,
+      "header": 36.0,
+      "left": 70.9,
+      "right": 63.8,
+      "top": 70.9
+    },
+    "orientation": "portrait",
+    "size": "A4"
+  },
+  "styles": {
+    "Normal": {
+      "east_asia_font": "Times New Roman",
+      "font_family": "Times New Roman",
+      "font_size": 11.0
+    }
+  },
+  "theme": {
+    "east_asia_font": "Times New Roman",
+    "heading_font": "Cambria",
+    "major_font": "Cambria",
+    "minor_font": "Times New Roman"
+  }
+}

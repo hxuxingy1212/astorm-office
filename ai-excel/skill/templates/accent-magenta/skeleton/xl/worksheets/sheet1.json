@@ -1,0 +1,387 @@
+{
+  "name": "Sheet1",
+  "default_row_height": 15.0,
+  "tab_selected": true,
+  "columns": [
+    {},
+    {},
+    {},
+    {},
+    {},
+    {
+      "width": 11.85546875
+    },
+    {
+      "width": 12.42578125
+    },
+    {
+      "width": 7.0
+    }
+  ],
+  "conditional_formats": [
+    {
+      "range": "H13:H15 H11 H17 H19:H20",
+      "type": "iconSet",
+      "icon_style": "3Symbols2"
+    }
+  ],
+  "print": {
+    "orientation": "portrait",
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "rows": [
+    {
+      "index": 10,
+      "cells": [
+        {
+          "ref": "F10",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0
+            }
+          }
+        },
+        {
+          "ref": "G10",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0
+            }
+          }
+        },
+        {
+          "ref": "H10",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "cells": [
+        {
+          "ref": "F11",
+          "style": {
+            "fill": "FFFF00"
+          }
+        },
+        {
+          "ref": "G11",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "0000FF"
+            }
+          }
+        },
+        {
+          "ref": "H11",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "cells": [
+        {
+          "ref": "F12",
+          "style": {
+            "fill": "FFA500"
+          }
+        },
+        {
+          "ref": "G12",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "800080"
+            }
+          }
+        },
+        {
+          "ref": "H12",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "cells": [
+        {
+          "ref": "F13",
+          "style": {
+            "fill": "FF0000"
+          }
+        },
+        {
+          "ref": "G13"
+        },
+        {
+          "ref": "H13",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "cells": [
+        {
+          "ref": "F14"
+        },
+        {
+          "ref": "G14",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "008000"
+            }
+          }
+        },
+        {
+          "ref": "H14",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "cells": [
+        {
+          "ref": "F15",
+          "style": {
+            "fill": "FFFF00"
+          }
+        },
+        {
+          "ref": "G15",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "008000"
+            }
+          }
+        },
+        {
+          "ref": "H15",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "cells": [
+        {
+          "ref": "F16",
+          "style": {
+            "fill": "0000FF"
+          }
+        },
+        {
+          "ref": "G16",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "800080"
+            }
+          }
+        },
+        {
+          "ref": "H16",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "cells": [
+        {
+          "ref": "F17",
+          "style": {
+            "fill": "FFA500"
+          }
+        },
+        {
+          "ref": "G17",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "FFA500"
+            }
+          }
+        },
+        {
+          "ref": "H17",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "cells": [
+        {
+          "ref": "F18",
+          "style": {
+            "fill": "0000FF"
+          }
+        },
+        {
+          "ref": "G18",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "800080"
+            }
+          }
+        },
+        {
+          "ref": "H18",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 19,
+      "cells": [
+        {
+          "ref": "F19",
+          "style": {
+            "fill": "FF0000"
+          }
+        },
+        {
+          "ref": "G19",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "800080"
+            }
+          }
+        },
+        {
+          "ref": "H19",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "cells": [
+        {
+          "ref": "F20",
+          "style": {
+            "fill": "FF0000"
+          }
+        },
+        {
+          "ref": "G20"
+        },
+        {
+          "ref": "H20",
+          "style": {
+            "font": {
+              "name": "Calibri",
+              "size": 11.0
+            },
+            "alignment": {
+              "horizontal": "right"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

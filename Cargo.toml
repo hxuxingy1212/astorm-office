@@ -1,0 +1,73 @@
+[workspace]
+resolver = "2"
+members = [
+    "office-core",
+    "ai-word",
+    "ai-word/cli",
+    "ai-excel",
+    "ai-excel/cli",
+    "ai-ppt",
+    "ai-ppt/cli",
+    "ai-ppt/web-server",
+    "ai-pdf",
+    "ai-pdf/cli",
+]
+default-members = [
+    "office-core",
+    "ai-word",
+    "ai-word/cli",
+    "ai-excel",
+    "ai-excel/cli",
+    "ai-ppt",
+    "ai-ppt/cli",
+    "ai-pdf",
+    "ai-pdf/cli",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[workspace.dependencies]
+# 序列化
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+schemars = { version = "0.8", features = ["preserve_order"] }
+# OOXML 底层
+zip = "2"
+quick-xml = "0.36"
+base64 = "0.22"
+# 图片 / 网络
+image = { version = "0.25", default-features = false, features = ["png", "jpeg"] }
+ureq = "2"
+# CLI
+clap = { version = "4", features = ["derive"] }
+resvg = "0.45"
+tiny_http = "0.12"
+# web-server
+axum = { version = "0.7", features = ["multipart"] }
+tokio = { version = "1", features = ["full"] }
+tower-http = { version = "0.5", features = ["fs", "cors"] }
+# 其它
+chrono = "0.4"
+anyhow = "1"
+# PDF（json2pdf）
+lopdf = "0.34"
+brotli = "7"
+flate2 = "1"
+png = "0.17"
+ttf-parser = { version = "0.25", default-features = false, features = ["std"] }
+# 老式中文 PDF 常用非内嵌「宋体」+ GBK 码位（无 ToUnicode/Encoding 可依）
+encoding_rs = "0.8"
+unicode-normalization = "0.1"
+tempfile = "3"
+# 内部 crate
+office-core = { path = "office-core" }
+
+[workspace.lints.clippy]
+# Default::default() + 逐字段赋值是本仓库（尤其是测试与构建代码）的常见构造风格
+field_reassign_with_default = "allow"
+
+[profile.release]
+strip = true

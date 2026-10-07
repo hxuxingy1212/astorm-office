@@ -1,0 +1,667 @@
+{
+  "elements": [
+    {
+      "type": "text",
+      "id": 2,
+      "text": [
+        {
+          "runs": [
+            {
+              "text": "Data Visualization",
+              "font_size": 36.0,
+              "bold": true,
+              "color": "accent1",
+              "lang": "en-US"
+            }
+          ],
+          "align": "left"
+        }
+      ],
+      "position": {
+        "x": 0.8,
+        "y": 0.4,
+        "w": 11.733,
+        "h": 1.0
+      },
+      "name": "TextBox 2",
+      "font_size": 36.0,
+      "color": "accent1",
+      "align": "left",
+      "vert_align": "middle",
+      "wrap": true
+    },
+    {
+      "type": "shape",
+      "id": 3,
+      "shape_type": "rect",
+      "position": {
+        "x": 0.8,
+        "y": 1.3,
+        "w": 3.0,
+        "h": 0.04
+      },
+      "name": "Shape 3",
+      "fill": "accent2"
+    },
+    {
+      "type": "group",
+      "id": 4,
+      "position": {
+        "x": 0.8,
+        "y": 1.8,
+        "w": 3.5,
+        "h": 2.0
+      },
+      "name": "Component 4",
+      "children": [
+        {
+          "type": "shape",
+          "id": 6,
+          "shape_type": "roundRect",
+          "position": {
+            "x": 0.8,
+            "y": 1.8,
+            "w": 3.5,
+            "h": 2.0
+          },
+          "name": "KpiBg 6",
+          "fill": "lt2"
+        },
+        {
+          "type": "shape",
+          "id": 7,
+          "shape_type": "rect",
+          "position": {
+            "x": 0.8,
+            "y": 3.74,
+            "w": 3.5,
+            "h": 0.06
+          },
+          "name": "KpiAccent 7",
+          "fill": "accent1"
+        },
+        {
+          "type": "text",
+          "id": 8,
+          "text": [
+            {
+              "runs": [
+                {
+                  "text": "89%",
+                  "font_size": 36.0,
+                  "bold": true,
+                  "color": "dk1",
+                  "lang": "en-US"
+                }
+              ],
+              "align": "left"
+            }
+          ],
+          "position": {
+            "x": 1.15,
+            "y": 2.3,
+            "w": 2.8,
+            "h": 0.8
+          },
+          "name": "KpiVal 8",
+          "font_size": 36.0,
+          "color": "dk1",
+          "align": "left",
+          "vert_align": "middle",
+          "wrap": true
+        },
+        {
+          "type": "text",
+          "id": 9,
+          "text": [
+            {
+              "runs": [
+                {
+                  "text": "Customer Satisfaction",
+                  "font_size": 14.0,
+                  "color": "dk1",
+                  "lang": "en-US"
+                }
+              ],
+              "align": "left"
+            }
+          ],
+          "position": {
+            "x": 1.15,
+            "y": 3.1,
+            "w": 2.8,
+            "h": 0.4
+          },
+          "name": "KpiLbl 9",
+          "font_size": 14.0,
+          "color": "dk1",
+          "align": "left",
+          "vert_align": "top",
+          "wrap": true
+        },
+        {
+          "type": "text",
+          "id": 10,
+          "text": [
+            {
+              "runs": [
+                {
+                  "text": "+12.5%",
+                  "font_size": 16.0,
+                  "color": "2ecc71",
+                  "lang": "en-US"
+                }
+              ],
+              "align": "left"
+            }
+          ],
+          "position": {
+            "x": 2.9,
+            "y": 2.3,
+            "w": 0.98,
+            "h": 0.8
+          },
+          "name": "KpiDelta 10",
+          "font_size": 16.0,
+          "color": "2ecc71",
+          "align": "left",
+          "vert_align": "top",
+          "wrap": true
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "id": 11,
+      "position": {
+        "x": 4.8,
+        "y": 1.8,
+        "w": 3.5,
+        "h": 2.0
+      },
+      "name": "Component 11",
+      "children": [
+        {
+          "type": "shape",
+          "id": 13,
+          "shape_type": "roundRect",
+          "position": {
+            "x": 4.8,
+            "y": 1.8,
+            "w": 3.5,
+            "h": 2.0
+          },
+          "name": "KpiBg 13",
+          "fill": "lt2"
+        },
+        {
+          "type": "shape",
+          "id": 14,
+          "shape_type": "rect",
+          "position": {
+            "x": 4.8,
+            "y": 3.74,
+            "w": 3.5,
+            "h": 0.06
+          },
+          "name": "KpiAccent 14",
+          "fill": "accent2"
+        },
+        {
+          "type": "text",
+          "id": 15,
+          "text": [
+            {
+              "runs": [
+                {
+                  "text": "$2.4M",
+                  "font_size": 36.0,
+                  "bold": true,
+                  "color": "dk1",
+                  "lang": "en-US"
+                }
+              ],
+              "align": "left"
+            }
+          ],
+          "position": {
+            "x": 5.15,
+            "y": 2.3,
+            "w": 2.8,
+            "h": 0.8
+          },
+          "name": "KpiVal 15",
+          "font_size": 36.0,
+          "color": "dk1",
+          "align": "left",
+          "vert_align": "middle",
+          "wrap": true
+        },
+        {
+          "type": "text",
+          "id": 16,
+          "text": [
+            {
+              "runs": [
+                {
+                  "text": "Revenue Growth",
+                  "font_size": 14.0,
+                  "color": "dk1",
+                  "lang": "en-US"
+                }
+              ],
+              "align": "left"
+            }
+          ],
+          "position": {
+            "x": 5.15,
+            "y": 3.1,
+            "w": 2.8,
+            "h": 0.4
+          },
+          "name": "KpiLbl 16",
+          "font_size": 14.0,
+          "color": "dk1",
+          "align": "left",
+          "vert_align": "top",
+          "wrap": true
+        },
+        {
+          "type": "text",
+          "id": 17,
+          "text": [
+            {
+              "runs": [
+                {
+                  "text": "+8.3%",
+                  "font_size": 16.0,
+                  "color": "2ecc71",
+                  "lang": "en-US"
+                }
+              ],
+              "align": "left"
+            }
+          ],
+          "position": {
+            "x": 6.9,
+            "y": 2.3,
+            "w": 0.98,
+            "h": 0.8
+          },
+          "name": "KpiDelta 17",
+          "font_size": 16.0,
+          "color": "2ecc71",
+          "align": "left",
+          "vert_align": "top",
+          "wrap": true
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "id": 18,
+      "position": {
+        "x": 8.8,
+        "y": 1.8,
+        "w": 3.5,
+        "h": 2.0
+      },
+      "name": "Component 18",
+      "children": [
+        {
+          "type": "shape",
+          "id": 20,
+          "shape_type": "roundRect",
+          "position": {
+            "x": 8.8,
+            "y": 1.8,
+            "w": 3.5,
+            "h": 2.0
+          },
+          "name": "KpiBg 20",
+          "fill": "lt2"
+        },
+        {
+          "type": "shape",
+          "id": 21,
+          "shape_type": "rect",
+          "position": {
+            "x": 8.8,
+            "y": 3.74,
+            "w": 3.5,
+            "h": 0.06
+          },
+          "name": "KpiAccent 21",
+          "fill": "accent3"
+        },
+        {
+          "type": "text",
+          "id": 22,
+          "text": [
+            {
+              "runs": [
+                {
+                  "text": "1,247",
+                  "font_size": 36.0,
+                  "bold": true,
+                  "color": "dk1",
+                  "lang": "en-US"
+                }
+              ],
+              "align": "left"
+            }
+          ],
+          "position": {
+            "x": 9.15,
+            "y": 2.3,
+            "w": 2.8,
+            "h": 0.8
+          },
+          "name": "KpiVal 22",
+          "font_size": 36.0,
+          "color": "dk1",
+          "align": "left",
+          "vert_align": "middle",
+          "wrap": true
+        },
+        {
+          "type": "text",
+          "id": 23,
+          "text": [
+            {
+              "runs": [
+                {
+                  "text": "Active Users",
+                  "font_size": 14.0,
+                  "color": "dk1",
+                  "lang": "en-US"
+                }
+              ],
+              "align": "left"
+            }
+          ],
+          "position": {
+            "x": 9.15,
+            "y": 3.1,
+            "w": 2.8,
+            "h": 0.4
+          },
+          "name": "KpiLbl 23",
+          "font_size": 14.0,
+          "color": "dk1",
+          "align": "left",
+          "vert_align": "top",
+          "wrap": true
+        },
+        {
+          "type": "text",
+          "id": 24,
+          "text": [
+            {
+              "runs": [
+                {
+                  "text": "+32.1%",
+                  "font_size": 16.0,
+                  "color": "2ecc71",
+                  "lang": "en-US"
+                }
+              ],
+              "align": "left"
+            }
+          ],
+          "position": {
+            "x": 10.9,
+            "y": 2.3,
+            "w": 0.98,
+            "h": 0.8
+          },
+          "name": "KpiDelta 24",
+          "font_size": 16.0,
+          "color": "2ecc71",
+          "align": "left",
+          "vert_align": "top",
+          "wrap": true
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "id": 25,
+      "position": {
+        "x": 0.8,
+        "y": 4.3,
+        "w": 11.733,
+        "h": 0.6
+      },
+      "name": "Component 25",
+      "children": [
+        {
+          "type": "shape",
+          "id": 27,
+          "shape_type": "roundRect",
+          "position": {
+            "x": 0.8,
+            "y": 4.3,
+            "w": 11.733,
+            "h": 0.6
+          },
+          "name": "Track 27",
+          "fill": "lt2"
+        },
+        {
+          "type": "shape",
+          "id": 28,
+          "shape_type": "roundRect",
+          "position": {
+            "x": 0.8,
+            "y": 4.3,
+            "w": 8.8,
+            "h": 0.6
+          },
+          "name": "Fill 28",
+          "fill": "accent1"
+        },
+        {
+          "type": "text",
+          "id": 29,
+          "text": [
+            {
+              "runs": [
+                {
+                  "text": "Project Progress",
+                  "font_size": 12.0,
+                  "color": "dk1",
+                  "lang": "en-US"
+                }
+              ],
+              "align": "left"
+            }
+          ],
+          "position": {
+            "x": 12.633,
+            "y": 4.3,
+            "w": 1.5,
+            "h": 0.6
+          },
+          "name": "Label 29",
+          "font_size": 12.0,
+          "color": "dk1",
+          "align": "left",
+          "vert_align": "top",
+          "wrap": true
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "id": 30,
+      "position": {
+        "x": 0.8,
+        "y": 5.3,
+        "w": 1.5,
+        "h": 1.5
+      },
+      "name": "Component 30",
+      "children": [
+        {
+          "type": "shape",
+          "id": 32,
+          "shape_type": "ellipse",
+          "position": {
+            "x": 0.8,
+            "y": 5.3,
+            "w": 1.5,
+            "h": 1.5
+          },
+          "name": "RingTrack 32",
+          "no_fill": true,
+          "line": {
+            "color": "lt2",
+            "width": 8.0
+          }
+        },
+        {
+          "type": "shape",
+          "id": 33,
+          "shape_type": "blockArc",
+          "position": {
+            "x": 0.8,
+            "y": 5.3,
+            "w": 1.5,
+            "h": 1.5
+          },
+          "name": "RingFill 33",
+          "fill": "accent2",
+          "line": {
+            "color": "accent2",
+            "width": 8.0
+          },
+          "adjust": {
+            "adj": 21600.0
+          }
+        },
+        {
+          "type": "text",
+          "id": 34,
+          "text": [
+            {
+              "runs": [
+                {
+                  "text": "60%",
+                  "font_size": 16.0,
+                  "bold": true,
+                  "color": "dk1",
+                  "lang": "en-US"
+                }
+              ],
+              "align": "center"
+            }
+          ],
+          "position": {
+            "x": 1.025,
+            "y": 5.75,
+            "w": 1.05,
+            "h": 0.6
+          },
+          "name": "RingLabel 34",
+          "font_size": 16.0,
+          "color": "dk1",
+          "align": "center",
+          "vert_align": "middle",
+          "wrap": true
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "id": 35,
+      "position": {
+        "x": 3.0,
+        "y": 5.0,
+        "w": 5.0,
+        "h": 2.0
+      },
+      "name": "Component 35",
+      "children": []
+    },
+    {
+      "type": "group",
+      "id": 37,
+      "position": {
+        "x": 8.5,
+        "y": 5.5,
+        "w": 4.0,
+        "h": 0.6
+      },
+      "name": "Component 37",
+      "children": [
+        {
+          "type": "shape",
+          "id": 39,
+          "shape_type": "star5",
+          "position": {
+            "x": 8.5,
+            "y": 5.545,
+            "w": 0.51,
+            "h": 0.51
+          },
+          "name": "Star 39",
+          "fill": "lt2"
+        },
+        {
+          "type": "shape",
+          "id": 40,
+          "shape_type": "star5",
+          "position": {
+            "x": 9.087,
+            "y": 5.545,
+            "w": 0.51,
+            "h": 0.51
+          },
+          "name": "Star 40",
+          "fill": "lt2"
+        },
+        {
+          "type": "shape",
+          "id": 41,
+          "shape_type": "star5",
+          "position": {
+            "x": 9.673,
+            "y": 5.545,
+            "w": 0.51,
+            "h": 0.51
+          },
+          "name": "Star 41",
+          "fill": "lt2"
+        },
+        {
+          "type": "shape",
+          "id": 42,
+          "shape_type": "star5",
+          "position": {
+            "x": 10.26,
+            "y": 5.545,
+            "w": 0.51,
+            "h": 0.51
+          },
+          "name": "Star 42",
+          "fill": "lt2"
+        },
+        {
+          "type": "shape",
+          "id": 43,
+          "shape_type": "star5",
+          "position": {
+            "x": 10.846,
+            "y": 5.545,
+            "w": 0.51,
+            "h": 0.51
+          },
+          "name": "Star 43",
+          "fill": "lt2"
+        }
+      ]
+    }
+  ],
+  "background": "FFF8F8"
+}

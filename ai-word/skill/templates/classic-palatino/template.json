@@ -1,0 +1,75 @@
+{
+  "_notes": [
+    "正文西文字体：Times New Roman；中文字体：Times New Roman",
+    "标题字体：Palatino Linotype",
+    "正文字号：12 pt",
+    "一级标题字号：12 pt"
+  ],
+  "page": {
+    "margins": {
+      "bottom": 72.0,
+      "footer": 36.0,
+      "header": 36.0,
+      "left": 72.0,
+      "right": 72.0,
+      "top": 72.0
+    },
+    "orientation": "portrait",
+    "size": "Letter"
+  },
+  "styles": {
+    "Caption": {
+      "bold": true,
+      "east_asia_font": "Times New Roman",
+      "font_family": "Palatino Linotype",
+      "font_size": 10.0,
+      "space_after": 6.0,
+      "space_before": 6.0
+    },
+    "Heading1": {
+      "align": "center",
+      "bold": true,
+      "east_asia_font": "Times New Roman",
+      "font_family": "Palatino Linotype",
+      "font_size": 12.0,
+      "space_after": 12.0,
+      "space_before": 12.0
+    },
+    "Heading3": {
+      "align": "center",
+      "bold": true,
+      "east_asia_font": "Times New Roman",
+      "font_family": "Palatino Linotype",
+      "font_size": 14.0,
+      "space_after": 12.0,
+      "space_before": 12.0
+    },
+    "Heading5": {
+      "bold": true,
+      "east_asia_font": "Times New Roman",
+      "font_family": "Garamond",
+      "font_size": 16.0,
+      "space_after": 3.0,
+      "space_before": 12.0
+    },
+    "Normal": {
+      "east_asia_font": "Times New Roman",
+      "font_family": "Times New Roman",
+      "font_size": 12.0,
+      "space_after": 12.0,
+      "space_before": 6.0
+    },
+    "TOC1": {
+      "east_asia_font": "MS Mincho",
+      "font_family": "Times New Roman",
+      "font_size": 12.0,
+      "space_after": 12.0
+    }
+  },
+  "theme": {
+    "east_asia_font": "Times New Roman",
+    "heading_font": "Palatino Linotype",
+    "major_font": "Palatino Linotype",
+    "minor_font": "Times New Roman"
+  }
+}

@@ -1,0 +1,3149 @@
+{
+ "summary": {
+  "format": "doc",
+  "round": 1,
+  "samples": 100,
+  "convert_ok": 96,
+  "oracle_ok": 100,
+  "compared": 96,
+  "sim_median": 0.8737,
+  "sim_mean": 0.7178,
+  "sim_min": 0.0,
+  "convert_ms_median": 24,
+  "elapsed_s": 248
+ },
+ "results": [
+  {
+   "i": 0,
+   "file": "016_016046.doc",
+   "src_bytes": 26624,
+   "convert": {
+    "ok": true,
+    "ms": 803,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/016_016046.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-31la99r_/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 2363,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.9235,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 1,
+   "file": "002_002514.doc",
+   "src_bytes": 4829696,
+   "convert": {
+    "ok": true,
+    "ms": 196,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/002_002514.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-m5yg79ts/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 4850,
+    "struct": {
+     "tables": 26,
+     "images": 4
+    }
+   },
+   "sim": 0.4159,
+   "struct": {
+    "tables": {
+     "mine": 26,
+     "oracle": 26
+    },
+    "images": {
+     "mine": 4,
+     "oracle": 7
+    }
+   }
+  },
+  {
+   "i": 2,
+   "file": "000_000276.doc",
+   "src_bytes": 232448,
+   "convert": {
+    "ok": true,
+    "ms": 17,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/000_000276.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-uo5l1hdi/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 24281,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.1752,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 3,
+   "file": "018_018388.doc",
+   "src_bytes": 160256,
+   "convert": {
+    "ok": true,
+    "ms": 26,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/018_018388.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-imjx0x9m/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 98,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.8193,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 4,
+   "file": "006_006412.doc",
+   "src_bytes": 291840,
+   "convert": {
+    "ok": true,
+    "ms": 20,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/006_006412.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-l_oct12r/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 0,
+    "struct": {
+     "tables": 45,
+     "images": 0
+    }
+   },
+   "sim": 0.0,
+   "struct": {
+    "tables": {
+     "mine": 45,
+     "oracle": 45
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 5,
+   "file": "005_005461.doc",
+   "src_bytes": 41984,
+   "convert": {
+    "ok": true,
+    "ms": 32,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/005_005461.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-m7u4srcx/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 4353,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.7936,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 6,
+   "file": "005_005144.doc",
+   "src_bytes": 31232,
+   "convert": {
+    "ok": true,
+    "ms": 12,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/005_005144.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-y7eysi83/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 7926,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 7,
+   "file": "003_003331.doc",
+   "src_bytes": 155136,
+   "convert": {
+    "ok": true,
+    "ms": 15,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/003_003331.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-our_wsp4/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 4005,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.7911,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 8,
+   "file": "018_018378.doc",
+   "src_bytes": 100864,
+   "convert": {
+    "ok": true,
+    "ms": 15,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/018_018378.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-vr5qf6zi/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 21243,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.7886,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 9,
+   "file": "002_002386.doc",
+   "src_bytes": 96256,
+   "convert": {
+    "ok": true,
+    "ms": 32,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/002_002386.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-yf0k1sgg/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 4325,
+    "struct": {
+     "tables": 2,
+     "images": 0
+    }
+   },
+   "sim": 0.9371,
+   "struct": {
+    "tables": {
+     "mine": 2,
+     "oracle": 2
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 10,
+   "file": "016_016723.doc",
+   "src_bytes": 69632,
+   "convert": {
+    "ok": true,
+    "ms": 16,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/016_016723.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-2p8i8kyf/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 12666,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.8811,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 11,
+   "file": "018_018386.doc",
+   "src_bytes": 76288,
+   "convert": {
+    "ok": true,
+    "ms": 15,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/018_018386.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-26ypldeu/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 0,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 12,
+   "file": "014_014036.doc",
+   "src_bytes": 71680,
+   "convert": {
+    "ok": true,
+    "ms": 11,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/014_014036.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-egyxl7yx/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 5832,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.2862,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 13,
+   "file": "001_001877.doc",
+   "src_bytes": 336896,
+   "convert": {
+    "ok": true,
+    "ms": 29,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/001_001877.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-ww4v563d/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 832,
+    "struct": {
+     "tables": 5,
+     "images": 0
+    }
+   },
+   "sim": 0.392,
+   "struct": {
+    "tables": {
+     "mine": 5,
+     "oracle": 5
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 14,
+   "file": "014_014912.doc",
+   "src_bytes": 164352,
+   "convert": {
+    "ok": true,
+    "ms": 23,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/014_014912.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-029mkd7n/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 1554,
+    "struct": {
+     "tables": 0,
+     "images": 6
+    }
+   },
+   "sim": 0.9847,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 6,
+     "oracle": 6
+    }
+   }
+  },
+  {
+   "i": 15,
+   "file": "010_010642.doc",
+   "src_bytes": 551936,
+   "convert": {
+    "ok": true,
+    "ms": 26,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/010_010642.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-a62v0xc5/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 5512,
+    "struct": {
+     "tables": 2,
+     "images": 0
+    }
+   },
+   "sim": 0.2457,
+   "struct": {
+    "tables": {
+     "mine": 2,
+     "oracle": 2
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 16,
+   "file": "000_000687.doc",
+   "src_bytes": 64000,
+   "convert": {
+    "ok": true,
+    "ms": 10,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/000_000687.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-ayz3fiza/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 9637,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.468,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 17,
+   "file": "000_000675.doc",
+   "src_bytes": 124416,
+   "convert": {
+    "ok": true,
+    "ms": 16,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/000_000675.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-hi4ombch/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 19629,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.9146,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 18,
+   "file": "002_002142.doc",
+   "src_bytes": 23552,
+   "convert": {
+    "ok": true,
+    "ms": 16,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/002_002142.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-5yn7o8ll/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 0,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 19,
+   "file": "004_004961.doc",
+   "src_bytes": 790528,
+   "convert": {
+    "ok": true,
+    "ms": 53,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/004_004961.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-00a0ltag/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 8657,
+    "struct": {
+     "tables": 0,
+     "images": 1
+    }
+   },
+   "sim": 0.7929,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 1,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 20,
+   "file": "005_005304.doc",
+   "src_bytes": 190976,
+   "convert": {
+    "ok": true,
+    "ms": 72,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/005_005304.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-03n5ikig/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 0,
+    "struct": {
+     "tables": 13,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 13,
+     "oracle": 13
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 21,
+   "file": "012_012592.doc",
+   "src_bytes": 46592,
+   "convert": {
+    "ok": true,
+    "ms": 21,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/012_012592.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-82ulxprh/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 45,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 22,
+   "file": "015_015140.doc",
+   "src_bytes": 82432,
+   "convert": {
+    "ok": true,
+    "ms": 14,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/015_015140.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-avala4ye/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 4126,
+    "struct": {
+     "tables": 2,
+     "images": 0
+    }
+   },
+   "sim": 0.3835,
+   "struct": {
+    "tables": {
+     "mine": 2,
+     "oracle": 2
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 23,
+   "file": "000_000279.doc",
+   "src_bytes": 29184,
+   "convert": {
+    "ok": true,
+    "ms": 13,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/000_000279.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-4mmwgx64/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 2029,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.8007,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 24,
+   "file": "014_014150.doc",
+   "src_bytes": 144896,
+   "convert": {
+    "ok": true,
+    "ms": 17,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/014_014150.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-sk2jwanb/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 23159,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.6785,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 25,
+   "file": "004_004549.doc",
+   "src_bytes": 76288,
+   "convert": {
+    "ok": true,
+    "ms": 37,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/004_004549.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-r0ickd66/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 1199,
+    "struct": {
+     "tables": 2,
+     "images": 1
+    }
+   },
+   "sim": 0.4821,
+   "struct": {
+    "tables": {
+     "mine": 2,
+     "oracle": 2
+    },
+    "images": {
+     "mine": 1,
+     "oracle": 5
+    }
+   }
+  },
+  {
+   "i": 26,
+   "file": "017_017523.doc",
+   "src_bytes": 52736,
+   "convert": {
+    "ok": false,
+    "ms": 20,
+    "err": "错误: convert 需要 OLE2/CFB 旧版文件（.doc）"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "sim": null
+  },
+  {
+   "i": 27,
+   "file": "016_016364.doc",
+   "src_bytes": 135168,
+   "convert": {
+    "ok": true,
+    "ms": 25,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/016_016364.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-9suon2av/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 243,
+    "struct": {
+     "tables": 0,
+     "images": 1
+    }
+   },
+   "sim": 0.9833,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 1,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 28,
+   "file": "017_017253.doc",
+   "src_bytes": 111616,
+   "convert": {
+    "ok": true,
+    "ms": 17,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/017_017253.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-5xnzfx6e/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 10027,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.6958,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 29,
+   "file": "010_010629.doc",
+   "src_bytes": 446976,
+   "convert": {
+    "ok": true,
+    "ms": 41,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/010_010629.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-pa6r9jqq/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 72218,
+    "struct": {
+     "tables": 4,
+     "images": 0
+    }
+   },
+   "sim": 0.7601,
+   "struct": {
+    "tables": {
+     "mine": 4,
+     "oracle": 4
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 30,
+   "file": "004_004965.doc",
+   "src_bytes": 728653,
+   "convert": {
+    "ok": true,
+    "ms": 48,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/004_004965.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-va7lmd9r/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 28501,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.371,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 31,
+   "file": "011_011551.doc",
+   "src_bytes": 245760,
+   "convert": {
+    "ok": true,
+    "ms": 41,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/011_011551.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-rpn4o9dc/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 18170,
+    "struct": {
+     "tables": 27,
+     "images": 3
+    }
+   },
+   "sim": 0.6203,
+   "struct": {
+    "tables": {
+     "mine": 27,
+     "oracle": 4
+    },
+    "images": {
+     "mine": 3,
+     "oracle": 3
+    }
+   }
+  },
+  {
+   "i": 32,
+   "file": "014_014909.doc",
+   "src_bytes": 135168,
+   "convert": {
+    "ok": true,
+    "ms": 13,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/014_014909.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-pg8t5lp0/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 975,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.36,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 33,
+   "file": "006_006418.doc",
+   "src_bytes": 1036288,
+   "convert": {
+    "ok": true,
+    "ms": 69,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/006_006418.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-vzun661g/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 3410,
+    "struct": {
+     "tables": 3,
+     "images": 22
+    }
+   },
+   "sim": 0.0306,
+   "struct": {
+    "tables": {
+     "mine": 3,
+     "oracle": 3
+    },
+    "images": {
+     "mine": 22,
+     "oracle": 23
+    }
+   }
+  },
+  {
+   "i": 34,
+   "file": "023_023437.doc",
+   "src_bytes": 259584,
+   "convert": {
+    "ok": true,
+    "ms": 29,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/023_023437.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-m7lpjfao/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 5049,
+    "struct": {
+     "tables": 5,
+     "images": 0
+    }
+   },
+   "sim": 0.9676,
+   "struct": {
+    "tables": {
+     "mine": 5,
+     "oracle": 5
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 35,
+   "file": "000_000118.doc",
+   "src_bytes": 141312,
+   "convert": {
+    "ok": true,
+    "ms": 42,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/000_000118.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-lnd8aa2m/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 23981,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.9438,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 36,
+   "file": "018_018882.doc",
+   "src_bytes": 50176,
+   "convert": {
+    "ok": true,
+    "ms": 75,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/018_018882.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-w0flnr21/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 2729,
+    "struct": {
+     "tables": 2,
+     "images": 0
+    }
+   },
+   "sim": 0.9673,
+   "struct": {
+    "tables": {
+     "mine": 2,
+     "oracle": 2
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 37,
+   "file": "023_023277.doc",
+   "src_bytes": 7713280,
+   "convert": {
+    "ok": true,
+    "ms": 477,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/023_023277.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-gxcqdvcj/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 6813,
+    "struct": {
+     "tables": 0,
+     "images": 179
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 179,
+     "oracle": 176
+    }
+   }
+  },
+  {
+   "i": 38,
+   "file": "003_003636.doc",
+   "src_bytes": 510464,
+   "convert": {
+    "ok": true,
+    "ms": 38,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/003_003636.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-d8v7jhv6/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 144043,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.3699,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 61
+    }
+   }
+  },
+  {
+   "i": 39,
+   "file": "017_017117.doc",
+   "src_bytes": 118784,
+   "convert": {
+    "ok": true,
+    "ms": 16,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/017_017117.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-lemrezed/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 15044,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.952,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 40,
+   "file": "010_010643.doc",
+   "src_bytes": 39936,
+   "convert": {
+    "ok": true,
+    "ms": 16,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/010_010643.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-lj9q6247/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 33,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 41,
+   "file": "008_008318.doc",
+   "src_bytes": 125440,
+   "convert": {
+    "ok": true,
+    "ms": 11,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/008_008318.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-hbazwdb4/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 8749,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.9636,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 42,
+   "file": "003_003624.doc",
+   "src_bytes": 55808,
+   "convert": {
+    "ok": true,
+    "ms": 16,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/003_003624.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-j733zip8/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 0,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 43,
+   "file": "004_004860.doc",
+   "src_bytes": 70656,
+   "convert": {
+    "ok": true,
+    "ms": 31,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/004_004860.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-v9cygtr7/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 3503,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.5838,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 44,
+   "file": "018_018927.doc",
+   "src_bytes": 1041920,
+   "convert": {
+    "ok": true,
+    "ms": 39,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/018_018927.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-kbp9iix_/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 109133,
+    "struct": {
+     "tables": 19,
+     "images": 1
+    }
+   },
+   "sim": 0.0792,
+   "struct": {
+    "tables": {
+     "mine": 19,
+     "oracle": 7
+    },
+    "images": {
+     "mine": 1,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 45,
+   "file": "008_008210.doc",
+   "src_bytes": 728576,
+   "convert": {
+    "ok": true,
+    "ms": 57,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/008_008210.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-g4lt01fd/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 220819,
+    "struct": {
+     "tables": 2,
+     "images": 0
+    }
+   },
+   "sim": 0.8737,
+   "struct": {
+    "tables": {
+     "mine": 2,
+     "oracle": 2
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 46,
+   "file": "001_001966.doc",
+   "src_bytes": 136192,
+   "convert": {
+    "ok": true,
+    "ms": 53,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/001_001966.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-s0xyw920/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 4869,
+    "struct": {
+     "tables": 1,
+     "images": 1
+    }
+   },
+   "sim": 0.9075,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 1,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 47,
+   "file": "009_009676.doc",
+   "src_bytes": 19968,
+   "convert": {
+    "ok": true,
+    "ms": 17,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/009_009676.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-2pgxr6if/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 148,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 48,
+   "file": "002_002151.doc",
+   "src_bytes": 217600,
+   "convert": {
+    "ok": true,
+    "ms": 48,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/002_002151.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-igfi6ivu/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 20168,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.6541,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 49,
+   "file": "008_008703.doc",
+   "src_bytes": 62464,
+   "convert": {
+    "ok": true,
+    "ms": 34,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/008_008703.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-kqp8mky6/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 2485,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.0034,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 50,
+   "file": "008_008333.doc",
+   "src_bytes": 57344,
+   "convert": {
+    "ok": true,
+    "ms": 22,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/008_008333.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-v1vgqwjd/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 10165,
+    "struct": {
+     "tables": 0,
+     "images": 1
+    }
+   },
+   "sim": 0.0261,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 1,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 51,
+   "file": "015_015144.doc",
+   "src_bytes": 233984,
+   "convert": {
+    "ok": true,
+    "ms": 28,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/015_015144.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-9tjjq5mz/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 58073,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.2823,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 52,
+   "file": "006_006238.doc",
+   "src_bytes": 56320,
+   "convert": {
+    "ok": true,
+    "ms": 12,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/006_006238.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-dbl88t32/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 13272,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.8537,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 53,
+   "file": "023_023279.doc",
+   "src_bytes": 19996672,
+   "convert": {
+    "ok": true,
+    "ms": 440,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/023_023279.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-j_tj84e2/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 95676,
+    "struct": {
+     "tables": 4,
+     "images": 24
+    }
+   },
+   "sim": 0.9853,
+   "struct": {
+    "tables": {
+     "mine": 4,
+     "oracle": 3
+    },
+    "images": {
+     "mine": 24,
+     "oracle": 29
+    }
+   }
+  },
+  {
+   "i": 54,
+   "file": "000_000946.doc",
+   "src_bytes": 31232,
+   "convert": {
+    "ok": true,
+    "ms": 32,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/000_000946.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-2zxh5y02/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 7834,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 55,
+   "file": "018_018047.doc",
+   "src_bytes": 91136,
+   "convert": {
+    "ok": true,
+    "ms": 50,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/018_018047.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-4z0gu3a2/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 180,
+    "struct": {
+     "tables": 28,
+     "images": 0
+    }
+   },
+   "sim": 0.7234,
+   "struct": {
+    "tables": {
+     "mine": 28,
+     "oracle": 2
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 56,
+   "file": "011_011696.doc",
+   "src_bytes": 296448,
+   "convert": {
+    "ok": true,
+    "ms": 36,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/011_011696.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-0ueacr2z/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 4264,
+    "struct": {
+     "tables": 18,
+     "images": 0
+    }
+   },
+   "sim": 0.8525,
+   "struct": {
+    "tables": {
+     "mine": 18,
+     "oracle": 18
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 57,
+   "file": "013_013770.doc",
+   "src_bytes": 200192,
+   "convert": {
+    "ok": true,
+    "ms": 17,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/013_013770.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-ms9vukm6/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 9832,
+    "struct": {
+     "tables": 19,
+     "images": 0
+    }
+   },
+   "sim": 0.9596,
+   "struct": {
+    "tables": {
+     "mine": 19,
+     "oracle": 12
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 58,
+   "file": "003_003044.doc",
+   "src_bytes": 180736,
+   "convert": {
+    "ok": true,
+    "ms": 20,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/003_003044.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-iailllo6/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 64483,
+    "struct": {
+     "tables": 0,
+     "images": 2
+    }
+   },
+   "sim": 0.9965,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 2,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 59,
+   "file": "009_009650.doc",
+   "src_bytes": 76288,
+   "convert": {
+    "ok": true,
+    "ms": 22,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/009_009650.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-12gezjf1/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 7003,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.6674,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 60,
+   "file": "001_001851.doc",
+   "src_bytes": 107520,
+   "convert": {
+    "ok": true,
+    "ms": 18,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/001_001851.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-hig014ks/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 722,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 61,
+   "file": "014_014131.doc",
+   "src_bytes": 19968,
+   "convert": {
+    "ok": true,
+    "ms": 8,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/014_014131.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-i0am2q7f/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 0,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 62,
+   "file": "006_006822.doc",
+   "src_bytes": 123392,
+   "convert": {
+    "ok": true,
+    "ms": 51,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/006_006822.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-jyxffyiw/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 34046,
+    "struct": {
+     "tables": 3,
+     "images": 0
+    }
+   },
+   "sim": 0.9816,
+   "struct": {
+    "tables": {
+     "mine": 3,
+     "oracle": 3
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 63,
+   "file": "023_023871.doc",
+   "src_bytes": 70144,
+   "convert": {
+    "ok": true,
+    "ms": 46,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/023_023871.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-y52x32ki/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 7439,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.1293,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 64,
+   "file": "015_015729.doc",
+   "src_bytes": 65024,
+   "convert": {
+    "ok": true,
+    "ms": 56,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/015_015729.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-nvoml3hc/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 10955,
+    "struct": {
+     "tables": 0,
+     "images": 1
+    }
+   },
+   "sim": 0.4992,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 1,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 65,
+   "file": "015_015705.doc",
+   "src_bytes": 54272,
+   "convert": {
+    "ok": true,
+    "ms": 11,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/015_015705.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-d4ll2d0_/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 92,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 66,
+   "file": "008_008831.doc",
+   "src_bytes": 519680,
+   "convert": {
+    "ok": true,
+    "ms": 22,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/008_008831.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-6drwlw3q/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 3245,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 67,
+   "file": "014_014800.doc",
+   "src_bytes": 80384,
+   "convert": {
+    "ok": false,
+    "ms": 13,
+    "err": "错误: 输入非法: 旧版 .doc 解析失败: malformed FIB: bad wIdent (not 0xA5EC)"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "sim": null
+  },
+  {
+   "i": 68,
+   "file": "004_004419.doc",
+   "src_bytes": 373760,
+   "convert": {
+    "ok": true,
+    "ms": 28,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/004_004419.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-ehyvfk16/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 18522,
+    "struct": {
+     "tables": 7,
+     "images": 0
+    }
+   },
+   "sim": 0.9969,
+   "struct": {
+    "tables": {
+     "mine": 7,
+     "oracle": 7
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 69,
+   "file": "017_017361.doc",
+   "src_bytes": 34816,
+   "convert": {
+    "ok": true,
+    "ms": 12,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/017_017361.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-xbnk7zxd/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 273,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.7361,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 70,
+   "file": "001_001631.doc",
+   "src_bytes": 366080,
+   "convert": {
+    "ok": true,
+    "ms": 14,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/001_001631.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-vryb4w58/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 25975,
+    "struct": {
+     "tables": 2,
+     "images": 0
+    }
+   },
+   "sim": 0.6599,
+   "struct": {
+    "tables": {
+     "mine": 2,
+     "oracle": 2
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 71,
+   "file": "000_000953.doc",
+   "src_bytes": 101376,
+   "convert": {
+    "ok": true,
+    "ms": 24,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/000_000953.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-6uyr941m/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 8927,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.8833,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 72,
+   "file": "016_016413.doc",
+   "src_bytes": 2075648,
+   "convert": {
+    "ok": true,
+    "ms": 106,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/016_016413.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-khmuuws7/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 21000,
+    "struct": {
+     "tables": 0,
+     "images": 15
+    }
+   },
+   "sim": 0.9196,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 15,
+     "oracle": 14
+    }
+   }
+  },
+  {
+   "i": 73,
+   "file": "005_005162.doc",
+   "src_bytes": 35328,
+   "convert": {
+    "ok": true,
+    "ms": 10,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/005_005162.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-lmbnhj94/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 0,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 74,
+   "file": "021_021209.doc",
+   "src_bytes": 52736,
+   "convert": {
+    "ok": true,
+    "ms": 11,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/021_021209.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-t487ffzw/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 6400,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.9619,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 75,
+   "file": "006_006494.doc",
+   "src_bytes": 454144,
+   "convert": {
+    "ok": true,
+    "ms": 28,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/006_006494.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-na0jol9z/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 56213,
+    "struct": {
+     "tables": 19,
+     "images": 0
+    }
+   },
+   "sim": 0.4333,
+   "struct": {
+    "tables": {
+     "mine": 19,
+     "oracle": 7
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 76,
+   "file": "001_001855.doc",
+   "src_bytes": 48640,
+   "convert": {
+    "ok": true,
+    "ms": 11,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/001_001855.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-9_od7yyd/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 1700,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.1671,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 77,
+   "file": "002_002380.doc",
+   "src_bytes": 3911168,
+   "convert": {
+    "ok": true,
+    "ms": 323,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/002_002380.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-alm5980k/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 4977,
+    "struct": {
+     "tables": 0,
+     "images": 11
+    }
+   },
+   "sim": 0.8763,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 11,
+     "oracle": 11
+    }
+   }
+  },
+  {
+   "i": 78,
+   "file": "011_011679.doc",
+   "src_bytes": 53760,
+   "convert": {
+    "ok": true,
+    "ms": 37,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/011_011679.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-jwrfpk5l/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 11518,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 79,
+   "file": "016_016031.doc",
+   "src_bytes": 50688,
+   "convert": {
+    "ok": true,
+    "ms": 28,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/016_016031.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-w8sk3auh/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 24094,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.944,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 80,
+   "file": "009_009117.doc",
+   "src_bytes": 76800,
+   "convert": {
+    "ok": true,
+    "ms": 26,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/009_009117.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-knzn_rfp/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 13934,
+    "struct": {
+     "tables": 0,
+     "images": 1
+    }
+   },
+   "sim": 0.2844,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 1,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 81,
+   "file": "003_003649.doc",
+   "src_bytes": 131072,
+   "convert": {
+    "ok": true,
+    "ms": 14,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/003_003649.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-cyzvtvg3/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 12708,
+    "struct": {
+     "tables": 1,
+     "images": 0
+    }
+   },
+   "sim": 0.9693,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 82,
+   "file": "009_009372.doc",
+   "src_bytes": 88064,
+   "convert": {
+    "ok": true,
+    "ms": 13,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/009_009372.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-jtheh9n_/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 29,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 83,
+   "file": "008_008469.doc",
+   "src_bytes": 125440,
+   "convert": {
+    "ok": true,
+    "ms": 25,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/008_008469.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-_iw9ee61/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 1255,
+    "struct": {
+     "tables": 3,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 3,
+     "oracle": 3
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 84,
+   "file": "004_004576.doc",
+   "src_bytes": 292352,
+   "convert": {
+    "ok": true,
+    "ms": 23,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/004_004576.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-v43h_k62/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 5689,
+    "struct": {
+     "tables": 2,
+     "images": 0
+    }
+   },
+   "sim": 0.2714,
+   "struct": {
+    "tables": {
+     "mine": 2,
+     "oracle": 2
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 85,
+   "file": "016_016706.doc",
+   "src_bytes": 84992,
+   "convert": {
+    "ok": true,
+    "ms": 12,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/016_016706.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-8_u4q8no/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 1886,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.9615,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 86,
+   "file": "006_006245.doc",
+   "src_bytes": 87552,
+   "convert": {
+    "ok": true,
+    "ms": 18,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/006_006245.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-5prq5g0o/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 22528,
+    "struct": {
+     "tables": 1,
+     "images": 1
+    }
+   },
+   "sim": 0.9553,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 1,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 87,
+   "file": "017_017254.doc",
+   "src_bytes": 862208,
+   "convert": {
+    "ok": true,
+    "ms": 49,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/017_017254.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-29e1p623/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 18196,
+    "struct": {
+     "tables": 24,
+     "images": 3
+    }
+   },
+   "sim": 0.9858,
+   "struct": {
+    "tables": {
+     "mine": 24,
+     "oracle": 16
+    },
+    "images": {
+     "mine": 3,
+     "oracle": 2
+    }
+   }
+  },
+  {
+   "i": 88,
+   "file": "016_016788.doc",
+   "src_bytes": 420864,
+   "convert": {
+    "ok": true,
+    "ms": 40,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/016_016788.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-gosersrb/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 68,
+    "struct": {
+     "tables": 10,
+     "images": 0
+    }
+   },
+   "sim": 0.7727,
+   "struct": {
+    "tables": {
+     "mine": 10,
+     "oracle": 9
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 89,
+   "file": "016_016358.doc",
+   "src_bytes": 84992,
+   "convert": {
+    "ok": true,
+    "ms": 18,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/016_016358.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-8tnc5skw/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 21575,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.9629,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 90,
+   "file": "001_001635.doc",
+   "src_bytes": 43008,
+   "convert": {
+    "ok": true,
+    "ms": 24,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/001_001635.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-zzru97ga/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 12162,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.9985,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 91,
+   "file": "015_015298.doc",
+   "src_bytes": 996864,
+   "convert": {
+    "ok": true,
+    "ms": 44,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/015_015298.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-6f5yymjv/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 1730,
+    "struct": {
+     "tables": 26,
+     "images": 1
+    }
+   },
+   "sim": 0.0,
+   "struct": {
+    "tables": {
+     "mine": 26,
+     "oracle": 3
+    },
+    "images": {
+     "mine": 1,
+     "oracle": 1
+    }
+   }
+  },
+  {
+   "i": 92,
+   "file": "016_016030.doc",
+   "src_bytes": 695808,
+   "convert": {
+    "ok": false,
+    "ms": 10,
+    "err": "错误: 输入非法: 旧版 .doc 解析失败: malformed FIB: bad wIdent (not 0xA5EC)"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "sim": null
+  },
+  {
+   "i": 93,
+   "file": "004_004055.doc",
+   "src_bytes": 1091584,
+   "convert": {
+    "ok": true,
+    "ms": 46,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/004_004055.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-c6i_ufn2/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 3272,
+    "struct": {
+     "tables": 0,
+     "images": 9
+    }
+   },
+   "sim": 0.8955,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 9,
+     "oracle": 11
+    }
+   }
+  },
+  {
+   "i": 94,
+   "file": "013_013549.doc",
+   "src_bytes": 526336,
+   "convert": {
+    "ok": true,
+    "ms": 23,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/013_013549.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-xm7xo9r8/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 17111,
+    "struct": {
+     "tables": 2,
+     "images": 2
+    }
+   },
+   "sim": 0.7009,
+   "struct": {
+    "tables": {
+     "mine": 2,
+     "oracle": 2
+    },
+    "images": {
+     "mine": 2,
+     "oracle": 2
+    }
+   }
+  },
+  {
+   "i": 95,
+   "file": "017_017973.doc",
+   "src_bytes": 244736,
+   "convert": {
+    "ok": true,
+    "ms": 42,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/017_017973.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-7ydtmes0/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 3008,
+    "struct": {
+     "tables": 1,
+     "images": 1
+    }
+   },
+   "sim": 0.8872,
+   "struct": {
+    "tables": {
+     "mine": 1,
+     "oracle": 1
+    },
+    "images": {
+     "mine": 1,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 96,
+   "file": "003_003817.doc",
+   "src_bytes": 38400,
+   "convert": {
+    "ok": false,
+    "ms": 18,
+    "err": "错误: 输入非法: 旧版 .doc 解析失败: malformed FIB: bad wIdent (not 0xA5EC)"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "sim": null
+  },
+  {
+   "i": 97,
+   "file": "011_011813.doc",
+   "src_bytes": 1134080,
+   "convert": {
+    "ok": true,
+    "ms": 27,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/011_011813.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-e24sgtx2/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 35669,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.8567,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 4
+    }
+   }
+  },
+  {
+   "i": 98,
+   "file": "009_009675.doc",
+   "src_bytes": 203264,
+   "convert": {
+    "ok": true,
+    "ms": 33,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/009_009675.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-hkqbu0nv/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 0,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 1.0,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  },
+  {
+   "i": 99,
+   "file": "006_006252.doc",
+   "src_bytes": 102912,
+   "convert": {
+    "ok": true,
+    "ms": 23,
+    "err": "已转换: /Users/xuxin/office-legacy-corpus/doc/006_006252.doc → /var/folders/j_/k9qc2jcs6tx95938m619pgrc0000gn/T/legacy-eval-2fbammv2/cand.docx"
+   },
+   "oracle": {
+    "ok": true,
+    "err": ""
+   },
+   "mine_view": {
+    "text_len": 12473,
+    "struct": {
+     "tables": 0,
+     "images": 0
+    }
+   },
+   "sim": 0.833,
+   "struct": {
+    "tables": {
+     "mine": 0,
+     "oracle": 0
+    },
+    "images": {
+     "mine": 0,
+     "oracle": 0
+    }
+   }
+  }
+ ]
+}

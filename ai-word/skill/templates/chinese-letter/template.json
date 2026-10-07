@@ -1,0 +1,32 @@
+{
+  "_notes": [
+    "正文西文字体：SimSun；中文字体：MS Mincho",
+    "标题字体：Calibri Light",
+    "正文字号：8 pt"
+  ],
+  "page": {
+    "margins": {
+      "bottom": 72.0,
+      "footer": 36.0,
+      "header": 36.0,
+      "left": 72.0,
+      "right": 72.0,
+      "top": 72.0
+    },
+    "orientation": "portrait",
+    "size": "Letter"
+  },
+  "styles": {
+    "Normal": {
+      "east_asia_font": "MS Mincho",
+      "font_family": "SimSun",
+      "font_size": 8.0
+    }
+  },
+  "theme": {
+    "east_asia_font": "MS Mincho",
+    "heading_font": "Calibri Light",
+    "major_font": "Calibri Light",
+    "minor_font": "SimSun"
+  }
+}

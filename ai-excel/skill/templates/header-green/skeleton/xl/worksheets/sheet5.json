@@ -1,0 +1,122 @@
+{
+  "name": "Copy From Range 1",
+  "default_row_height": 15.0,
+  "validations": [
+    {
+      "range": "A1:A1",
+      "type": "decimal",
+      "operator": "between",
+      "formula1": "1",
+      "formula2": "5",
+      "allow_blank": true,
+      "show_error": true,
+      "error_title": "",
+      "error_message": "",
+      "prompt_title": "",
+      "prompt_message": ""
+    },
+    {
+      "range": "A2:A3",
+      "type": "whole",
+      "operator": "equal",
+      "formula1": "2",
+      "allow_blank": true,
+      "show_error": true,
+      "error_title": "Number out of range",
+      "error_message": "This cell only allows the number 2.",
+      "prompt_title": "",
+      "prompt_message": ""
+    },
+    {
+      "range": "A4:A4",
+      "type": "date",
+      "operator": "greaterThanOrEqual",
+      "formula1": "36526",
+      "allow_blank": true,
+      "show_error": true,
+      "error_title": "",
+      "error_message": "",
+      "prompt_title": "Can't party like it's 1999.",
+      "prompt_message": "Please enter a date in this century."
+    },
+    {
+      "range": "A6:A6",
+      "type": "list",
+      "operator": "between",
+      "formula1": "=YesNo",
+      "allow_blank": true,
+      "show_error": true,
+      "error_title": "",
+      "error_message": "",
+      "prompt_title": "",
+      "prompt_message": ""
+    },
+    {
+      "range": "B1:B2",
+      "type": "whole",
+      "operator": "equal",
+      "formula1": "1",
+      "allow_blank": true,
+      "show_error": true,
+      "error_title": "",
+      "error_message": "",
+      "prompt_title": "",
+      "prompt_message": ""
+    },
+    {
+      "range": "B3:B4",
+      "type": "whole",
+      "operator": "equal",
+      "formula1": "2",
+      "allow_blank": true,
+      "show_error": true,
+      "error_title": "",
+      "error_message": "",
+      "prompt_title": "",
+      "prompt_message": ""
+    },
+    {
+      "range": "",
+      "type": "list",
+      "operator": "between",
+      "formula1": "'Data Validation'!$C$1:$C$2",
+      "allow_blank": true,
+      "show_error": true,
+      "error_title": "",
+      "error_message": "",
+      "prompt_title": "",
+      "prompt_message": ""
+    }
+  ],
+  "print": {
+    "orientation": "default",
+    "paper_size": 1,
+    "scale": 100,
+    "margin_left": 0.75,
+    "margin_right": 0.75,
+    "margin_top": 0.75,
+    "margin_bottom": 0.5,
+    "margin_header": 0.5,
+    "margin_footer": 0.75
+  },
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "Yes"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "C2"
+        }
+      ]
+    }
+  ]
+}

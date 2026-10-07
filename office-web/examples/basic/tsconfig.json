@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noUnusedLocals": true,
+    "jsx": "preserve",
+    "types": [],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      // 真实项目无需 paths：包安装后由 package.json exports 提供类型。
+      // 这里映射到库构建产物 dist/index.d.ts，验证声明文件确实可被消费者解析。
+      "@astorm/office-viewer": ["../../dist/index.d.ts"],
+      "@astorm/office-viewer/style.css": ["../../dist/office-viewer.css"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue"]
+}

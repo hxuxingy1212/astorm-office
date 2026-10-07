@@ -1,0 +1,286 @@
+{
+  "name": "TemplateWithTableSourcePivotTables",
+  "source": "/tmp/ec3/closedxml/ClosedXML-develop/ClosedXML.Tests/Resource/TryToLoad/TemplateWithTableSourcePivotTables.xlsx",
+  "palette": [
+    {
+      "hex": "FF0000",
+      "count": 23,
+      "usage": "font"
+    },
+    {
+      "hex": "3F3F76",
+      "count": 5,
+      "usage": "font"
+    },
+    {
+      "hex": "FFCC99",
+      "count": 5,
+      "usage": "fill"
+    },
+    {
+      "hex": "C00000",
+      "count": 2,
+      "usage": "font"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Calibri",
+      "size": 13.0,
+      "bold": true,
+      "count": 132
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "bold": true,
+      "count": 56
+    },
+    {
+      "name": "Calibri",
+      "size": 15.0,
+      "bold": true,
+      "count": 24
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "FF0000",
+      "count": 21
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "3F3F76",
+      "count": 5
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "FF0000",
+      "count": 2
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "bold": true,
+      "color": "C00000",
+      "count": 2
+    }
+  ],
+  "number_formats": [
+    "#,##0",
+    "#,##0.00",
+    "#,##0.0000",
+    "#,##0.00000",
+    "#,##0.000000000",
+    "0.00%",
+    "0.0000%",
+    "0.000000%",
+    "_ * #,##0.00000000_ ;_ * \\-#,##0.00000000_ ;_ * \"-\"????????_ ;_ @_ ",
+    "_ * #,##0.00_ ;_ * \\-#,##0.00_ ;_ * \"-\"??_ ;_ @_ ",
+    "_ * #,##0_ ;_ * \\-#,##0_ ;_ * \"-\"_ ;_ @_ ",
+    "m/d/yy h:mm",
+    "mm-dd-yy",
+    "yyyy/mm/dd;@",
+    "yyyy/mm/dd\\ hh:mm:ss;@",
+    "yyyy\\-mm\\-dd"
+  ],
+  "header": {
+    "sheet": "Input",
+    "row": 1,
+    "style": {
+      "font": {
+        "name": "Calibri",
+        "size": 11.0,
+        "color": "3F3F76"
+      },
+      "fill": "FFCC99"
+    },
+    "values": [
+      "Calculation",
+      "0"
+    ]
+  },
+  "columns": [
+    {
+      "width": 21.5703125
+    },
+    {
+      "width": 17.28515625
+    },
+    {
+      "width": 20.5703125
+    },
+    {
+      "width": 18.28515625
+    },
+    {
+      "width": 25.42578125
+    },
+    {
+      "width": 23.85546875
+    },
+    {
+      "width": 15.7109375
+    },
+    {
+      "width": 14.85546875
+    },
+    {
+      "width": 14.85546875
+    },
+    {
+      "width": 15.28515625
+    },
+    {
+      "width": 15.28515625
+    },
+    {
+      "width": 15.28515625
+    },
+    {
+      "width": 15.7109375
+    },
+    {
+      "width": 12.85546875
+    },
+    {
+      "width": 13.0
+    },
+    {
+      "width": 13.0
+    },
+    {
+      "width": 13.0
+    },
+    {
+      "width": 13.0
+    },
+    {
+      "width": 13.0
+    },
+    {
+      "width": 13.42578125
+    },
+    {
+      "width": 13.0
+    },
+    {
+      "width": 14.28515625
+    },
+    {
+      "width": 13.0
+    },
+    {
+      "width": 14.5703125
+    },
+    {
+      "width": 15.7109375
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 16.85546875
+    }
+  ],
+  "default_row_height": 15.0,
+  "tab_colors": [
+    "C00000"
+  ],
+  "sheets": [
+    "Input",
+    "Final liability",
+    "Liability Detail",
+    "LiabilityChanges",
+    "LiabilityOutput",
+    "SchemeIncreases",
+    "StressedLiabilityPivot",
+    "StressedLiabilities",
+    "BondsOverview",
+    "AssetsDetail",
+    "AssetRandsPerPoint",
+    "StressedAssetsPivot",
+    "StressedAssets",
+    "HedgeSummary",
+    "HedgeResults",
+    "PerSchemeRequiredBonds",
+    "Hedge detail - Nominal",
+    "Hedge detail - ILB",
+    "StressedHedgesPvt",
+    "StressedHedges",
+    "ShockedCurvePivot",
+    "GeneratedYieldCurveEntries",
+    "StressedYieldCurvePivot",
+    "StressedYieldCurvesFull",
+    "StressedYieldCurveEntries",
+    "HedgingBonds",
+    "Portfolios",
+    "Checks"
+  ],
+  "notes": [
+    "检测到表头：Input 第 1 行（保持该行样式即可得到一致外观）",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

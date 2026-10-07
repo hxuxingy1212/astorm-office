@@ -1,0 +1,55 @@
+{
+ "corpus_total": 1463,
+ "unpack_ok": 1321,
+ "roundtrip_ok": 1301,
+ "by_source": {
+  "ocrmypdf": {
+   "n": 41,
+   "unpack_ok": 41,
+   "roundtrip_ok": 39
+  },
+  "pdf.js": {
+   "n": 983,
+   "unpack_ok": 922,
+   "roundtrip_ok": 910
+  },
+  "pdf20examples": {
+   "n": 7,
+   "unpack_ok": 6,
+   "roundtrip_ok": 6
+  },
+  "pdfbox": {
+   "n": 162,
+   "unpack_ok": 150,
+   "roundtrip_ok": 150
+  },
+  "pdfminer": {
+   "n": 56,
+   "unpack_ok": 42,
+   "roundtrip_ok": 42
+  },
+  "pdfplumber": {
+   "n": 84,
+   "unpack_ok": 60,
+   "roundtrip_ok": 59
+  },
+  "pikepdf": {
+   "n": 60,
+   "unpack_ok": 54,
+   "roundtrip_ok": 49
+  },
+  "pypdf": {
+   "n": 70,
+   "unpack_ok": 46,
+   "roundtrip_ok": 46
+  }
+ },
+ "failure_types": {
+  "other": 81,
+  "encrypted": 61
+ },
+ "repack_failures": {
+  "other": 11,
+  "page-error": 9
+ }
+}

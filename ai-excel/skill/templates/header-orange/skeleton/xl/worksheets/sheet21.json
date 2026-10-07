@@ -1,0 +1,225 @@
+{
+  "name": "ShockedCurvePivot",
+  "default_row_height": 15.0,
+  "columns": [
+    {
+      "width": 15.7109375
+    },
+    {
+      "width": 16.28515625
+    },
+    {
+      "width": 12.28515625
+    },
+    {
+      "width": 12.28515625
+    },
+    {
+      "width": 12.28515625
+    },
+    {
+      "width": 12.28515625
+    },
+    {
+      "width": 12.28515625
+    },
+    {
+      "width": 12.28515625
+    },
+    {
+      "width": 12.28515625
+    },
+    {
+      "width": 12.28515625
+    },
+    {
+      "width": 12.28515625
+    },
+    {
+      "width": 12.28515625
+    },
+    {
+      "width": 12.28515625
+    },
+    {
+      "width": 12.7109375
+    },
+    {
+      "width": 12.7109375
+    },
+    {
+      "width": 12.7109375
+    },
+    {
+      "width": 12.7109375
+    },
+    {
+      "width": 12.7109375
+    },
+    {
+      "width": 12.7109375
+    },
+    {
+      "width": 12.7109375
+    },
+    {
+      "width": 12.7109375
+    },
+    {
+      "width": 12.7109375
+    }
+  ],
+  "print": {
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "EffectiveDate"
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "(All)"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "A2"
+        },
+        {
+          "ref": "B2"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "cells": [
+        {
+          "ref": "A4"
+        },
+        {
+          "ref": "B4"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "cells": [
+        {
+          "ref": "B5",
+          "number_format": "yyyy/mm/dd;@"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "cells": [
+        {
+          "ref": "A6"
+        },
+        {
+          "ref": "B6"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "cells": [
+        {
+          "ref": "A7",
+          "number_format": "yyyy/mm/dd;@",
+          "style": {
+            "alignment": {
+              "horizontal": "left"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 8
+    },
+    {
+      "index": 9
+    },
+    {
+      "index": 10
+    },
+    {
+      "index": 11
+    },
+    {
+      "index": 12
+    },
+    {
+      "index": 13
+    },
+    {
+      "index": 14
+    },
+    {
+      "index": 15
+    },
+    {
+      "index": 16
+    },
+    {
+      "index": 17
+    },
+    {
+      "index": 18
+    },
+    {
+      "index": 19
+    },
+    {
+      "index": 20
+    },
+    {
+      "index": 21
+    },
+    {
+      "index": 22
+    },
+    {
+      "index": 23
+    },
+    {
+      "index": 24
+    },
+    {
+      "index": 25
+    },
+    {
+      "index": 26
+    },
+    {
+      "index": 27
+    },
+    {
+      "index": 28
+    },
+    {
+      "index": 29
+    },
+    {
+      "index": 30
+    },
+    {
+      "index": 31
+    }
+  ]
+}

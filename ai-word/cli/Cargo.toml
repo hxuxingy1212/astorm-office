@@ -1,0 +1,21 @@
+[package]
+name = "json2docx-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "JSON <-> DOCX command line tool"
+
+[[bin]]
+name = "json2docx"
+path = "src/main.rs"
+
+[dependencies]
+json2docx = { path = ".." }
+office-core = { workspace = true }
+serde_json = { workspace = true }
+zip = { workspace = true }
+schemars = { workspace = true }
+clap = { workspace = true }
+
+[lints]
+workspace = true

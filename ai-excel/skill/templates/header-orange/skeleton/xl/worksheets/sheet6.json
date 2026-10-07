@@ -1,0 +1,113 @@
+{
+  "name": "SchemeIncreases",
+  "default_row_height": 15.0,
+  "columns": [
+    {
+      "width": 12.0
+    },
+    {
+      "width": 15.7109375
+    },
+    {
+      "width": 14.85546875
+    },
+    {
+      "width": 14.7109375
+    },
+    {
+      "width": 17.28515625
+    },
+    {
+      "width": 25.85546875
+    },
+    {
+      "width": 17.0
+    }
+  ],
+  "print": {
+    "orientation": "portrait",
+    "paper_size": 9,
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "tables": [
+    {
+      "range": "A1:G2",
+      "name": "SchemeIncreases",
+      "style": "TableStyleMedium2",
+      "show_banded_rows": true,
+      "columns": [
+        "SchemeId",
+        "SchemeName",
+        "IncreaseDate",
+        "IncreaseRate",
+        "IncreaseType",
+        "DeclarationEffectiveDate",
+        "KnownIncrease"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "SchemeId"
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "SchemeName"
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "IncreaseDate",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "D1",
+          "type": "string",
+          "value": "IncreaseRate",
+          "number_format": "0.0000%"
+        },
+        {
+          "ref": "E1",
+          "type": "string",
+          "value": "IncreaseType",
+          "style": {
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "F1",
+          "type": "string",
+          "value": "DeclarationEffectiveDate",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "G1",
+          "type": "string",
+          "value": "KnownIncrease",
+          "number_format": "0.0000%"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "A2"
+        }
+      ]
+    }
+  ]
+}

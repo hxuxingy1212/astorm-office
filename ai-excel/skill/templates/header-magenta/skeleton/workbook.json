@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "author": "john"
+  },
+  "default_font": {
+    "name": "等线",
+    "size": 12.0
+  },
+  "named_ranges": [
+    {
+      "name": "OofM",
+      "ref": "[1]Results!$AV$3:$BD$28"
+    },
+    {
+      "name": "Result_List",
+      "ref": "[2]result!$B$2:$C$111"
+    },
+    {
+      "name": "TEAM",
+      "ref": "[1]Results!$AJ$4:$AS$16"
+    },
+    {
+      "name": "WALES",
+      "ref": "[1]Results!$A$78:$F$102"
+    }
+  ],
+  "sheets": [
+    "xl/worksheets/sheet1.json"
+  ]
+}

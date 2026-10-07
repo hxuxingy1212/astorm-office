@@ -1,0 +1,1526 @@
+[
+ {
+  "file": "ocrmypdf/cardinal.pdf",
+  "source": "ocrmypdf",
+  "size": 76875,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 3,
+  "diff_pages": [
+   7.67,
+   7.67,
+   7.67
+  ],
+  "diff_mean": 7.67,
+  "diff_max": 7.67
+ },
+ {
+  "file": "ocrmypdf/2400dpi.pdf",
+  "source": "ocrmypdf",
+  "size": 164306,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   6.14
+  ],
+  "diff_mean": 6.14,
+  "diff_max": 6.14
+ },
+ {
+  "file": "ocrmypdf/lichtenstein.pdf",
+  "source": "ocrmypdf",
+  "size": 44040,
+  "elements": 1,
+  "images": 1,
+  "warnings": 1,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   12.76
+  ],
+  "diff_mean": 12.76,
+  "diff_max": 12.76
+ },
+ {
+  "file": "pdf.js/bug2035197_1.pdf",
+  "source": "pdf.js",
+  "size": 784,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.0
+  ],
+  "diff_mean": 0.0,
+  "diff_max": 0.0
+ },
+ {
+  "file": "pdf.js/bug1918115.pdf",
+  "source": "pdf.js",
+  "size": 13150,
+  "elements": 4,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.41
+  ],
+  "diff_mean": 0.41,
+  "diff_max": 0.41
+ },
+ {
+  "file": "pdf.js/bitmap-template2-customat-tpgdon.pdf",
+  "source": "pdf.js",
+  "size": 1065,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   6.86
+  ],
+  "diff_mean": 6.86,
+  "diff_max": 6.86
+ },
+ {
+  "file": "pdf.js/issue8111.pdf",
+  "source": "pdf.js",
+  "size": 1272,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.26
+  ],
+  "diff_mean": 0.26,
+  "diff_max": 0.26
+ },
+ {
+  "file": "pdf.js/bitmap-symbol-empty.pdf",
+  "source": "pdf.js",
+  "size": 1133,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   6.86
+  ],
+  "diff_mean": 6.86,
+  "diff_max": 6.86
+ },
+ {
+  "file": "pdf.js/issue6151.pdf",
+  "source": "pdf.js",
+  "size": 979,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.0
+  ],
+  "diff_mean": 0.0,
+  "diff_max": 0.0
+ },
+ {
+  "file": "pdf.js/issue8061.pdf",
+  "source": "pdf.js",
+  "size": 87672,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   7.3
+  ],
+  "diff_mean": 7.3,
+  "diff_max": 7.3
+ },
+ {
+  "file": "pdf.js/issue1985.pdf",
+  "source": "pdf.js",
+  "size": 9884,
+  "elements": 3,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   1.25
+  ],
+  "diff_mean": 1.25,
+  "diff_max": 1.25
+ },
+ {
+  "file": "pdf.js/bitmap-refine-customat-tpgron.pdf",
+  "source": "pdf.js",
+  "size": 1146,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   100.0
+  ],
+  "diff_mean": 100.0,
+  "diff_max": 100.0
+ },
+ {
+  "file": "pdf.js/issue3214.pdf",
+  "source": "pdf.js",
+  "size": 11139,
+  "elements": 15,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 3,
+  "diff_pages": [
+   0.03,
+   0.0,
+   0.0
+  ],
+  "diff_mean": 0.01,
+  "diff_max": 0.03
+ },
+ {
+  "file": "pdf.js/issue14256.pdf",
+  "source": "pdf.js",
+  "size": 15125,
+  "elements": 16,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   3.74
+  ],
+  "diff_mean": 3.74,
+  "diff_max": 3.74
+ },
+ {
+  "file": "pdf.js/annotation-line-without-appearance.pdf",
+  "source": "pdf.js",
+  "size": 14170,
+  "elements": 2,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   99.81
+  ],
+  "diff_mean": 99.81,
+  "diff_max": 99.81
+ },
+ {
+  "file": "pdf.js/annotation-highlight-without-appearance.pdf",
+  "source": "pdf.js",
+  "size": 16302,
+  "elements": 3,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   99.75
+  ],
+  "diff_mean": 99.75,
+  "diff_max": 99.75
+ },
+ {
+  "file": "pdf.js/bitmap-stripe-initially-unknown-height.pdf",
+  "source": "pdf.js",
+  "size": 1271,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   6.86
+  ],
+  "diff_mean": 6.86,
+  "diff_max": 6.86
+ },
+ {
+  "file": "pdf.js/bug1529502.pdf",
+  "source": "pdf.js",
+  "size": 42652,
+  "elements": 65,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.68
+  ],
+  "diff_mean": 0.68,
+  "diff_max": 0.68
+ },
+ {
+  "file": "pdf.js/bug1963407.pdf",
+  "source": "pdf.js",
+  "size": 6483,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.07
+  ],
+  "diff_mean": 0.07,
+  "diff_max": 0.07
+ },
+ {
+  "file": "pdf.js/issue15012.pdf",
+  "source": "pdf.js",
+  "size": 108381,
+  "elements": 150,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   12.32
+  ],
+  "diff_mean": 12.32,
+  "diff_max": 12.32
+ },
+ {
+  "file": "pdf.js/issue3521.pdf",
+  "source": "pdf.js",
+  "size": 4486,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.4
+  ],
+  "diff_mean": 0.4,
+  "diff_max": 0.4
+ },
+ {
+  "file": "pdf.js/annotation-fileattachment.pdf",
+  "source": "pdf.js",
+  "size": 93322,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.09
+  ],
+  "diff_mean": 0.09,
+  "diff_max": 0.09
+ },
+ {
+  "file": "pdf.js/issue20324.pdf",
+  "source": "pdf.js",
+  "size": 11151,
+  "elements": 36,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.21
+  ],
+  "diff_mean": 0.21,
+  "diff_max": 0.21
+ },
+ {
+  "file": "pdf.js/bug1796741.pdf",
+  "source": "pdf.js",
+  "size": 7068,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.05
+  ],
+  "diff_mean": 0.05,
+  "diff_max": 0.05
+ },
+ {
+  "file": "pdf.js/issue7454.pdf",
+  "source": "pdf.js",
+  "size": 101777,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   5.39
+  ],
+  "diff_mean": 5.39,
+  "diff_max": 5.39
+ },
+ {
+  "file": "pdf.js/issue5421.pdf",
+  "source": "pdf.js",
+  "size": 3209,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   7.44
+  ],
+  "diff_mean": 7.44,
+  "diff_max": 7.44
+ },
+ {
+  "file": "pdf.js/issue6931_reduced.pdf",
+  "source": "pdf.js",
+  "size": 56202,
+  "elements": 7,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.78
+  ],
+  "diff_mean": 0.78,
+  "diff_max": 0.78
+ },
+ {
+  "file": "pdf.js/issue14130.pdf",
+  "source": "pdf.js",
+  "size": 79706,
+  "elements": 5,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.0
+  ],
+  "diff_mean": 0.0,
+  "diff_max": 0.0
+ },
+ {
+  "file": "pdf.js/bug1898053_minimal.pdf",
+  "source": "pdf.js",
+  "size": 741,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.0
+  ],
+  "diff_mean": 0.0,
+  "diff_max": 0.0
+ },
+ {
+  "file": "pdf.js/issue15053.pdf",
+  "source": "pdf.js",
+  "size": 108405,
+  "elements": 2,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   4.21
+  ],
+  "diff_mean": 4.21,
+  "diff_max": 4.21
+ },
+ {
+  "file": "pdf.js/issue3025.pdf",
+  "source": "pdf.js",
+  "size": 7467,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   1.61
+  ],
+  "diff_mean": 1.61,
+  "diff_max": 1.61
+ },
+ {
+  "file": "pdf.js/canvas.pdf",
+  "source": "pdf.js",
+  "size": 150904,
+  "elements": 230,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 2,
+  "diff_pages": [
+   8.24,
+   11.67
+  ],
+  "diff_mean": 9.95,
+  "diff_max": 11.67
+ },
+ {
+  "file": "pdf.js/opt_demo.pdf",
+  "source": "pdf.js",
+  "size": 5642,
+  "elements": 14,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.47
+  ],
+  "diff_mean": 0.47,
+  "diff_max": 0.47
+ },
+ {
+  "file": "pdf.js/transparency_group.pdf",
+  "source": "pdf.js",
+  "size": 347690,
+  "elements": 2,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   87.71
+  ],
+  "diff_mean": 87.71,
+  "diff_max": 87.71
+ },
+ {
+  "file": "pdf.js/S2.pdf",
+  "source": "pdf.js",
+  "size": 478490,
+  "elements": 43,
+  "images": 6,
+  "warnings": 6,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   72.4
+  ],
+  "diff_mean": 72.4,
+  "diff_max": 72.4
+ },
+ {
+  "file": "pdf.js/issue9017_reduced.pdf",
+  "source": "pdf.js",
+  "size": 6118,
+  "elements": 2,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.29
+  ],
+  "diff_mean": 0.29,
+  "diff_max": 0.29
+ },
+ {
+  "file": "pdf.js/noembed-sjis.pdf",
+  "source": "pdf.js",
+  "size": 1472,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.14
+  ],
+  "diff_mean": 0.14,
+  "diff_max": 0.14
+ },
+ {
+  "file": "pdf.js/bug1019475_2.pdf",
+  "source": "pdf.js",
+  "size": 27694,
+  "elements": 3,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.13
+  ],
+  "diff_mean": 0.13,
+  "diff_max": 0.13
+ },
+ {
+  "file": "pdf.js/issue6721_reduced.pdf",
+  "source": "pdf.js",
+  "size": 103344,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   5.07
+  ],
+  "diff_mean": 5.07,
+  "diff_max": 5.07
+ },
+ {
+  "file": "pdf.js/bug1992868.pdf",
+  "source": "pdf.js",
+  "size": 1017948,
+  "elements": 1956,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 3,
+  "diff_pages": [
+   12.33,
+   13.69,
+   6.3
+  ],
+  "diff_mean": 10.77,
+  "diff_max": 13.69
+ },
+ {
+  "file": "pdf.js/annotation-text-without-popup.pdf",
+  "source": "pdf.js",
+  "size": 24281,
+  "elements": 3,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.35
+  ],
+  "diff_mean": 0.35,
+  "diff_max": 0.35
+ },
+ {
+  "file": "pdf.js/bug1811668_reduced.pdf",
+  "source": "pdf.js",
+  "size": 11894,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   4.55
+  ],
+  "diff_mean": 4.55,
+  "diff_max": 4.55
+ },
+ {
+  "file": "pdf.js/issue8960_reduced.pdf",
+  "source": "pdf.js",
+  "size": 8414,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   8.72
+  ],
+  "diff_mean": 8.72,
+  "diff_max": 8.72
+ },
+ {
+  "file": "pdf.js/highlight_popup.pdf",
+  "source": "pdf.js",
+  "size": 12160,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   2.16
+  ],
+  "diff_mean": 2.16,
+  "diff_max": 2.16
+ },
+ {
+  "file": "pdf.js/bitmap-refine-tpgron.pdf",
+  "source": "pdf.js",
+  "size": 1251,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   100.0
+  ],
+  "diff_mean": 100.0,
+  "diff_max": 100.0
+ },
+ {
+  "file": "pdf.js/issue11768_reduced.pdf",
+  "source": "pdf.js",
+  "size": 81167,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   5.63
+  ],
+  "diff_mean": 5.63,
+  "diff_max": 5.63
+ },
+ {
+  "file": "pdf.js/attachment.pdf",
+  "source": "pdf.js",
+  "size": 15299,
+  "elements": 2,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   99.85
+  ],
+  "diff_mean": 99.85,
+  "diff_max": 99.85
+ },
+ {
+  "file": "pdf.js/issue11279.pdf",
+  "source": "pdf.js",
+  "size": 2369,
+  "elements": 3,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.65
+  ],
+  "diff_mean": 0.65,
+  "diff_max": 0.65
+ },
+ {
+  "file": "pdf.js/smask_alpha_bc.pdf",
+  "source": "pdf.js",
+  "size": 945,
+  "elements": 3,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   29.41
+  ],
+  "diff_mean": 29.41,
+  "diff_max": 29.41
+ },
+ {
+  "file": "pdf.js/issue10542_reduced.pdf",
+  "source": "pdf.js",
+  "size": 930,
+  "elements": 4,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.94
+  ],
+  "diff_mean": 0.94,
+  "diff_max": 0.94
+ },
+ {
+  "file": "pdf.js/issue4246.pdf",
+  "source": "pdf.js",
+  "size": 7068,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   2.93
+  ],
+  "diff_mean": 2.93,
+  "diff_max": 2.93
+ },
+ {
+  "file": "pdf.js/bug894572.pdf",
+  "source": "pdf.js",
+  "size": 41937,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   7.74
+  ],
+  "diff_mean": 7.74,
+  "diff_max": 7.74
+ },
+ {
+  "file": "pdf.js/operator-in-TJ-array.pdf",
+  "source": "pdf.js",
+  "size": 1004,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.0
+  ],
+  "diff_mean": 0.0,
+  "diff_max": 0.0
+ },
+ {
+  "file": "pdf.js/annotation-square-circle.pdf",
+  "source": "pdf.js",
+  "size": 88740,
+  "elements": 2,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.71
+  ],
+  "diff_mean": 0.71,
+  "diff_max": 0.71
+ },
+ {
+  "file": "pdf.js/issue7891_bc0.pdf",
+  "source": "pdf.js",
+  "size": 59755,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   7.53
+  ],
+  "diff_mean": 7.53,
+  "diff_max": 7.53
+ },
+ {
+  "file": "pdf.js/issue15516_reduced.pdf",
+  "source": "pdf.js",
+  "size": 35146,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   5.04
+  ],
+  "diff_mean": 5.04,
+  "diff_max": 5.04
+ },
+ {
+  "file": "pdf.js/issue19505.pdf",
+  "source": "pdf.js",
+  "size": 6528,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.94
+  ],
+  "diff_mean": 0.94,
+  "diff_max": 0.94
+ },
+ {
+  "file": "pdf.js/bitmap-symbol-texthuffrefinecustomdims.pdf",
+  "source": "pdf.js",
+  "size": 1318,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   100.0
+  ],
+  "diff_mean": 100.0,
+  "diff_max": 100.0
+ },
+ {
+  "file": "pdf.js/issue12010_reduced.pdf",
+  "source": "pdf.js",
+  "size": 795,
+  "elements": 3,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.0
+  ],
+  "diff_mean": 0.0,
+  "diff_max": 0.0
+ },
+ {
+  "file": "pdf.js/bitmap-halftone.pdf",
+  "source": "pdf.js",
+  "size": 1287,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   6.86
+  ],
+  "diff_mean": 6.86,
+  "diff_max": 6.86
+ },
+ {
+  "file": "pdf.js/issue19971.pdf",
+  "source": "pdf.js",
+  "size": 1729186,
+  "elements": 14,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 3,
+  "diff_pages": [
+   87.75,
+   64.54,
+   88.75
+  ],
+  "diff_mean": 80.34,
+  "diff_max": 88.75
+ },
+ {
+  "file": "pdf.js/cidfont_cmap_overflow.pdf",
+  "source": "pdf.js",
+  "size": 94168,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   6.94
+  ],
+  "diff_mean": 6.94,
+  "diff_max": 6.94
+ },
+ {
+  "file": "pdf.js/pr7352.pdf",
+  "source": "pdf.js",
+  "size": 1648,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.21
+  ],
+  "diff_mean": 0.21,
+  "diff_max": 0.21
+ },
+ {
+  "file": "pdf.js/issue4706.pdf",
+  "source": "pdf.js",
+  "size": 10527,
+  "elements": 2,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   3.59
+  ],
+  "diff_mean": 3.59,
+  "diff_max": 3.59
+ },
+ {
+  "file": "pdf.js/issue3928.pdf",
+  "source": "pdf.js",
+  "size": 31272,
+  "elements": 2,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 2,
+  "diff_pages": [
+   9.8,
+   9.81
+  ],
+  "diff_mean": 9.81,
+  "diff_max": 9.81
+ },
+ {
+  "file": "pdf.js/tracemonkey_freetext.pdf",
+  "source": "pdf.js",
+  "size": 1017319,
+  "elements": 1956,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 3,
+  "diff_pages": [
+   12.31,
+   13.69,
+   6.3
+  ],
+  "diff_mean": 10.77,
+  "diff_max": 13.69
+ },
+ {
+  "file": "pdf.js/tiling-pattern-large-steps.pdf",
+  "source": "pdf.js",
+  "size": 983,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   36.79
+  ],
+  "diff_mean": 36.79,
+  "diff_max": 36.79
+ },
+ {
+  "file": "pdf.js/issue11473.pdf",
+  "source": "pdf.js",
+  "size": 15028,
+  "elements": 9,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.32
+  ],
+  "diff_mean": 0.32,
+  "diff_max": 0.32
+ },
+ {
+  "file": "pdf.js/issue2128r.pdf",
+  "source": "pdf.js",
+  "size": 1525,
+  "elements": 2,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.37
+  ],
+  "diff_mean": 0.37,
+  "diff_max": 0.37
+ },
+ {
+  "file": "pdf.js/bug1650302_reduced.pdf",
+  "source": "pdf.js",
+  "size": 38857,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   6.28
+  ],
+  "diff_mean": 6.28,
+  "diff_max": 6.28
+ },
+ {
+  "file": "pdf.js/issue6962.pdf",
+  "source": "pdf.js",
+  "size": 79762,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   6.67
+  ],
+  "diff_mean": 6.67,
+  "diff_max": 6.67
+ },
+ {
+  "file": "pdf.js/annotation_hidden_print.pdf",
+  "source": "pdf.js",
+  "size": 6539,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.0
+  ],
+  "diff_mean": 0.0,
+  "diff_max": 0.0
+ },
+ {
+  "file": "pdfbox/PDFBOX-3038-001033-p2.pdf",
+  "source": "pdfbox",
+  "size": 56750,
+  "elements": 41,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   3.28
+  ],
+  "diff_mean": 3.28,
+  "diff_max": 3.28
+ },
+ {
+  "file": "pdfbox/PDFBOX-3833-reduced.pdf",
+  "source": "pdfbox",
+  "size": 101823,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.01
+  ],
+  "diff_mean": 0.01,
+  "diff_max": 0.01
+ },
+ {
+  "file": "pdfbox/Annotations.pdf",
+  "source": "pdfbox",
+  "size": 222690,
+  "elements": 6,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 3,
+  "diff_pages": [
+   10.84,
+   0.0,
+   0.0
+  ],
+  "diff_mean": 3.61,
+  "diff_max": 10.84
+ },
+ {
+  "file": "pdfbox/PDFBOX-3062-N2MOQ7YZICIYGTPLQJAWJ4HLN6CCEMHZ-reduced.pdf",
+  "source": "pdfbox",
+  "size": 111124,
+  "elements": 2,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.53
+  ],
+  "diff_mean": 0.53,
+  "diff_max": 0.53
+ },
+ {
+  "file": "pdfbox/FillFormField.pdf",
+  "source": "pdfbox",
+  "size": 7771,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.15
+  ],
+  "diff_mean": 0.15,
+  "diff_max": 0.15
+ },
+ {
+  "file": "pdfbox/PDSquareAnnotationTest.pdf",
+  "source": "pdfbox",
+  "size": 952,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.01
+  ],
+  "diff_mean": 0.01,
+  "diff_max": 0.01
+ },
+ {
+  "file": "pdfbox/PDFBOX-4532-reduced.pdf",
+  "source": "pdfbox",
+  "size": 86730,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.09
+  ],
+  "diff_mean": 0.09,
+  "diff_max": 0.09
+ },
+ {
+  "file": "pdfbox/png_demo.pdf",
+  "source": "pdfbox",
+  "size": 13476,
+  "elements": 29,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   3.59
+  ],
+  "diff_mean": 3.59,
+  "diff_max": 3.59
+ },
+ {
+  "file": "pdfbox/PDFBox.GlobalResourceMergeTest.Doc01.pdf",
+  "source": "pdfbox",
+  "size": 9511,
+  "elements": 127,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 2,
+  "diff_pages": [
+   3.97,
+   0.57
+  ],
+  "diff_mean": 2.27,
+  "diff_max": 3.97
+ },
+ {
+  "file": "pdfbox/OverlayTestBaseRot0.pdf",
+  "source": "pdfbox",
+  "size": 936,
+  "elements": 31,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.0
+  ],
+  "diff_mean": 0.0,
+  "diff_max": 0.0
+ },
+ {
+  "file": "pdfbox/PDFBox.GlobalResourceMergeTest.Doc02.decoded.pdf",
+  "source": "pdfbox",
+  "size": 14336,
+  "elements": 127,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 2,
+  "diff_pages": [
+   3.97,
+   0.57
+  ],
+  "diff_mean": 2.27,
+  "diff_max": 3.97
+ },
+ {
+  "file": "pdfbox/PDFBOX-5920-4MQTG6ZXOYSMTQ444KGQOVC6ZFQHWFNY-spaces-reduced.pdf",
+  "source": "pdfbox",
+  "size": 5821,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   1.1
+  ],
+  "diff_mean": 1.1,
+  "diff_max": 1.1
+ },
+ {
+  "file": "pdfminer/issue-1062-filters.pdf",
+  "source": "pdfminer",
+  "size": 35750,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 2,
+  "diff_pages": [
+   3.38,
+   2.3
+  ],
+  "diff_mean": 2.84,
+  "diff_max": 3.38
+ },
+ {
+  "file": "pdfminer/issue-449-vertical.pdf",
+  "source": "pdfminer",
+  "size": 34505,
+  "elements": 21,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   99.64
+  ],
+  "diff_mean": 99.64,
+  "diff_max": 99.64
+ },
+ {
+  "file": "pdfminer/issue-1061-colour-space-stack.pdf",
+  "source": "pdfminer",
+  "size": 228403,
+  "elements": 4500,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 3,
+  "diff_pages": [
+   16.37,
+   16.4,
+   13.59
+  ],
+  "diff_mean": 15.45,
+  "diff_max": 16.4
+ },
+ {
+  "file": "pdfplumber/2023-06-20-PV.pdf",
+  "source": "pdfplumber",
+  "size": 35535,
+  "elements": 56,
+  "images": 1,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 2,
+  "diff_pages": [
+   4.65,
+   1.21
+  ],
+  "diff_mean": 2.93,
+  "diff_max": 4.65
+ },
+ {
+  "file": "pdfplumber/issue-987-test.pdf",
+  "source": "pdfplumber",
+  "size": 8805,
+  "elements": 8,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   99.06
+  ],
+  "diff_mean": 99.06,
+  "diff_max": 99.06
+ },
+ {
+  "file": "pdfplumber/malformed-from-issue-932.pdf",
+  "source": "pdfplumber",
+  "size": 61037,
+  "elements": 3,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.65
+  ],
+  "diff_mean": 0.65,
+  "diff_max": 0.65
+ },
+ {
+  "file": "pdfplumber/background-checks.pdf",
+  "source": "pdfplumber",
+  "size": 90468,
+  "elements": 1801,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   94.06
+  ],
+  "diff_mean": 94.06,
+  "diff_max": 94.06
+ },
+ {
+  "file": "pdfplumber/issue-905.pdf",
+  "source": "pdfplumber",
+  "size": 13656,
+  "elements": 3,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   2.57
+  ],
+  "diff_mean": 2.57,
+  "diff_max": 2.57
+ },
+ {
+  "file": "pikepdf/truetype_font_nomapping.pdf",
+  "source": "pikepdf",
+  "size": 7742,
+  "elements": 587,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   8.28
+  ],
+  "diff_mean": 8.28,
+  "diff_max": 8.28
+ },
+ {
+  "file": "pikepdf/fpdf2_cjk.pdf",
+  "source": "pikepdf",
+  "size": 4451,
+  "elements": 1,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.17
+  ],
+  "diff_mean": 0.17,
+  "diff_max": 0.17
+ },
+ {
+  "file": "pikepdf/content-stream-errors.pdf",
+  "source": "pikepdf",
+  "size": 2889,
+  "elements": 4,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 3,
+  "diff_pages": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "diff_mean": 0.0,
+  "diff_max": 0.0
+ },
+ {
+  "file": "pikepdf/overlay.pdf",
+  "source": "pikepdf",
+  "size": 38153,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.36
+  ],
+  "diff_mean": 0.36,
+  "diff_max": 0.36
+ },
+ {
+  "file": "pypdf/form_evince.pdf",
+  "source": "pypdf",
+  "size": 21255,
+  "elements": 2,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   0.05
+  ],
+  "diff_mean": 0.05,
+  "diff_max": 0.05
+ },
+ {
+  "file": "pypdf/imagemagick-lzw.pdf",
+  "source": "pypdf",
+  "size": 2678,
+  "elements": 0,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   100.0
+  ],
+  "diff_mean": 100.0,
+  "diff_max": 100.0
+ },
+ {
+  "file": "pypdf/outline-without-title.pdf",
+  "source": "pypdf",
+  "size": 79232,
+  "elements": 119,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 3,
+  "diff_pages": [
+   0.39,
+   7.78,
+   8.17
+  ],
+  "diff_mean": 5.45,
+  "diff_max": 8.17
+ },
+ {
+  "file": "pypdf/side-by-side-subfig.pdf",
+  "source": "pypdf",
+  "size": 831160,
+  "elements": 16,
+  "images": 0,
+  "warnings": 0,
+  "rebuild_ok": true,
+  "pages_compared": 1,
+  "diff_pages": [
+   11.47
+  ],
+  "diff_mean": 11.47,
+  "diff_max": 11.47
+ }
+]

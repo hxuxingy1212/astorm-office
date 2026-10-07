@@ -1,0 +1,5 @@
+# 已知渲染差异（允许项）：新增差异或本文件消失都会让 render_subset.sh 失败。
+# 每行一个 tests/corpus 下的 xlsx 文件名；# 开头为注释。
+poiji__image_jpeg.xlsx
+umya__charts_images_shapes.xlsx
+rust_xlsxwriter__comments_empty_cells.xlsx

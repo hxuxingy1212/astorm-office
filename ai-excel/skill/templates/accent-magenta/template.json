@@ -1,0 +1,106 @@
+{
+  "name": "bed2ab5c_FilterByColor",
+  "source": "/tmp/excel_corpus2/openxml/bed2ab5c_FilterByColor.xlsx",
+  "palette": [
+    {
+      "hex": "800080",
+      "count": 4,
+      "usage": "font"
+    },
+    {
+      "hex": "FF0000",
+      "count": 3,
+      "usage": "fill"
+    },
+    {
+      "hex": "0000FF",
+      "count": 2,
+      "usage": "font"
+    },
+    {
+      "hex": "008000",
+      "count": 2,
+      "usage": "font"
+    },
+    {
+      "hex": "FFA500",
+      "count": 2,
+      "usage": "font"
+    },
+    {
+      "hex": "FFFF00",
+      "count": 2,
+      "usage": "fill"
+    },
+    {
+      "hex": "0000FF",
+      "count": 1,
+      "usage": "font"
+    },
+    {
+      "hex": "FFA500",
+      "count": 1,
+      "usage": "font"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "count": 10
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "800080",
+      "count": 4
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "bold": true,
+      "count": 3
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "008000",
+      "count": 2
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "0000FF",
+      "count": 1
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "FFA500",
+      "count": 1
+    }
+  ],
+  "columns": [
+    {},
+    {},
+    {},
+    {},
+    {},
+    {
+      "width": 11.85546875
+    },
+    {
+      "width": 12.42578125
+    },
+    {
+      "width": 7.0
+    }
+  ],
+  "default_row_height": 15.0,
+  "sheets": [
+    "Sheet1"
+  ],
+  "notes": [
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

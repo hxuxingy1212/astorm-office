@@ -1,0 +1,521 @@
+{
+  "name": "Validate Ranges",
+  "default_row_height": 15.0,
+  "validations": [
+    {
+      "range": "A1:B1 A2:A2 C4:D4 F4:F5 C5:C7 D7:D7",
+      "type": "decimal",
+      "operator": "equal",
+      "formula1": "1.1",
+      "show_error": true,
+      "error_title": "",
+      "error_message": "",
+      "prompt_title": "",
+      "prompt_message": ""
+    },
+    {
+      "range": "A11:A14 C11:C12 E11:E14 B13:B14 D13:D14",
+      "type": "decimal",
+      "operator": "notEqual",
+      "formula1": "2.2",
+      "show_error": true,
+      "error_title": "",
+      "error_message": "",
+      "prompt_title": "",
+      "prompt_message": ""
+    },
+    {
+      "range": "B2:B12",
+      "type": "decimal",
+      "operator": "greaterThan",
+      "formula1": "3.3",
+      "allow_blank": true,
+      "show_error": true,
+      "error_title": "",
+      "error_message": "",
+      "prompt_title": "",
+      "prompt_message": ""
+    },
+    {
+      "range": "D5:D6",
+      "type": "decimal",
+      "operator": "lessThan",
+      "formula1": "4.4",
+      "allow_blank": true,
+      "show_error": true,
+      "error_title": "",
+      "error_message": "",
+      "prompt_title": "",
+      "prompt_message": ""
+    },
+    {
+      "range": "C13:C14",
+      "type": "decimal",
+      "operator": "greaterThanOrEqual",
+      "formula1": "5.5",
+      "allow_blank": true,
+      "show_error": true,
+      "error_title": "",
+      "error_message": "",
+      "prompt_title": "",
+      "prompt_message": ""
+    },
+    {
+      "range": "D11:D12",
+      "type": "decimal",
+      "operator": "lessThanOrEqual",
+      "formula1": "6.6",
+      "allow_blank": true,
+      "show_error": true,
+      "error_title": "",
+      "error_message": "",
+      "prompt_title": "",
+      "prompt_message": ""
+    },
+    {
+      "range": "G4:G5",
+      "type": "decimal",
+      "operator": "between",
+      "formula1": "7.7",
+      "formula2": "8.8",
+      "allow_blank": true,
+      "show_error": true,
+      "error_title": "",
+      "error_message": "",
+      "prompt_title": "",
+      "prompt_message": ""
+    },
+    {
+      "range": "H1:H12",
+      "type": "decimal",
+      "operator": "notBetween",
+      "formula1": "9.9",
+      "formula2": "10.1",
+      "allow_blank": true,
+      "show_error": true,
+      "error_title": "",
+      "error_message": "",
+      "prompt_title": "",
+      "prompt_message": ""
+    }
+  ],
+  "print": {
+    "orientation": "default",
+    "paper_size": 1,
+    "scale": 100,
+    "margin_left": 0.75,
+    "margin_right": 0.75,
+    "margin_top": 0.75,
+    "margin_bottom": 0.5,
+    "margin_header": 0.5,
+    "margin_footer": 0.75
+  },
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "style": {
+            "fill": "9ACD32"
+          }
+        },
+        {
+          "ref": "B1",
+          "style": {
+            "fill": "9ACD32"
+          }
+        },
+        {
+          "ref": "H1",
+          "style": {
+            "fill": "00FFFF"
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "A2",
+          "style": {
+            "fill": "9ACD32"
+          }
+        },
+        {
+          "ref": "B2",
+          "style": {
+            "fill": "EFDECD"
+          }
+        },
+        {
+          "ref": "H2",
+          "style": {
+            "fill": "00FFFF"
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "cells": [
+        {
+          "ref": "B3",
+          "style": {
+            "fill": "EFDECD"
+          }
+        },
+        {
+          "ref": "H3",
+          "style": {
+            "fill": "00FFFF"
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "cells": [
+        {
+          "ref": "B4",
+          "style": {
+            "fill": "EFDECD"
+          }
+        },
+        {
+          "ref": "C4",
+          "style": {
+            "fill": "9ACD32"
+          }
+        },
+        {
+          "ref": "D4",
+          "style": {
+            "fill": "9ACD32"
+          }
+        },
+        {
+          "ref": "F4",
+          "style": {
+            "fill": "9ACD32"
+          }
+        },
+        {
+          "ref": "G4",
+          "style": {
+            "fill": "FBCEB1"
+          }
+        },
+        {
+          "ref": "H4",
+          "style": {
+            "fill": "00FFFF"
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "cells": [
+        {
+          "ref": "B5",
+          "style": {
+            "fill": "EFDECD"
+          }
+        },
+        {
+          "ref": "C5",
+          "style": {
+            "fill": "9ACD32"
+          }
+        },
+        {
+          "ref": "D5",
+          "style": {
+            "fill": "E52B50"
+          }
+        },
+        {
+          "ref": "F5",
+          "style": {
+            "fill": "9ACD32"
+          }
+        },
+        {
+          "ref": "G5",
+          "style": {
+            "fill": "FBCEB1"
+          }
+        },
+        {
+          "ref": "H5",
+          "style": {
+            "fill": "00FFFF"
+          }
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "cells": [
+        {
+          "ref": "B6",
+          "style": {
+            "fill": "EFDECD"
+          }
+        },
+        {
+          "ref": "C6",
+          "style": {
+            "fill": "9ACD32"
+          }
+        },
+        {
+          "ref": "D6",
+          "style": {
+            "fill": "E52B50"
+          }
+        },
+        {
+          "ref": "H6",
+          "style": {
+            "fill": "00FFFF"
+          }
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "cells": [
+        {
+          "ref": "B7",
+          "style": {
+            "fill": "EFDECD"
+          }
+        },
+        {
+          "ref": "C7",
+          "style": {
+            "fill": "9ACD32"
+          }
+        },
+        {
+          "ref": "D7",
+          "style": {
+            "fill": "9ACD32"
+          }
+        },
+        {
+          "ref": "H7",
+          "style": {
+            "fill": "00FFFF"
+          }
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "cells": [
+        {
+          "ref": "B8",
+          "style": {
+            "fill": "EFDECD"
+          }
+        },
+        {
+          "ref": "H8",
+          "style": {
+            "fill": "00FFFF"
+          }
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "cells": [
+        {
+          "ref": "B9",
+          "style": {
+            "fill": "EFDECD"
+          }
+        },
+        {
+          "ref": "H9",
+          "style": {
+            "fill": "00FFFF"
+          }
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "cells": [
+        {
+          "ref": "B10",
+          "style": {
+            "fill": "EFDECD"
+          }
+        },
+        {
+          "ref": "H10",
+          "style": {
+            "fill": "00FFFF"
+          }
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "cells": [
+        {
+          "ref": "A11",
+          "style": {
+            "fill": "E32636"
+          }
+        },
+        {
+          "ref": "B11",
+          "style": {
+            "fill": "EFDECD"
+          }
+        },
+        {
+          "ref": "C11",
+          "style": {
+            "fill": "E32636"
+          }
+        },
+        {
+          "ref": "D11",
+          "style": {
+            "fill": "9966CC"
+          }
+        },
+        {
+          "ref": "E11",
+          "style": {
+            "fill": "E32636"
+          }
+        },
+        {
+          "ref": "H11",
+          "style": {
+            "fill": "00FFFF"
+          }
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "cells": [
+        {
+          "ref": "A12",
+          "style": {
+            "fill": "E32636"
+          }
+        },
+        {
+          "ref": "B12",
+          "style": {
+            "fill": "EFDECD"
+          }
+        },
+        {
+          "ref": "C12",
+          "style": {
+            "fill": "E32636"
+          }
+        },
+        {
+          "ref": "D12",
+          "style": {
+            "fill": "9966CC"
+          }
+        },
+        {
+          "ref": "E12",
+          "style": {
+            "fill": "E32636"
+          }
+        },
+        {
+          "ref": "H12",
+          "style": {
+            "fill": "00FFFF"
+          }
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "cells": [
+        {
+          "ref": "A13",
+          "style": {
+            "fill": "E32636"
+          }
+        },
+        {
+          "ref": "B13",
+          "style": {
+            "fill": "E32636"
+          }
+        },
+        {
+          "ref": "C13",
+          "style": {
+            "fill": "FFBF00"
+          }
+        },
+        {
+          "ref": "D13",
+          "style": {
+            "fill": "E32636"
+          }
+        },
+        {
+          "ref": "E13",
+          "style": {
+            "fill": "E32636"
+          }
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "cells": [
+        {
+          "ref": "A14",
+          "style": {
+            "fill": "E32636"
+          }
+        },
+        {
+          "ref": "B14",
+          "style": {
+            "fill": "E32636"
+          }
+        },
+        {
+          "ref": "C14",
+          "style": {
+            "fill": "FFBF00"
+          }
+        },
+        {
+          "ref": "D14",
+          "style": {
+            "fill": "E32636"
+          }
+        },
+        {
+          "ref": "E14",
+          "style": {
+            "fill": "E32636"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "page": {
+    "size": "A4"
+  },
+  "parts": [
+    {
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 1,
+          "text": "原生图表样例",
+          "align": "center"
+        },
+        {
+          "type": "paragraph",
+          "text": "堆叠柱状图（含图例/轴标题/数据标签/系列色）："
+        },
+        {
+          "type": "chart",
+          "chart_type": "column",
+          "title": "季度营收（堆叠）",
+          "grouping": "stacked",
+          "legend": "r",
+          "x_title": "季度",
+          "y_title": "万元",
+          "y_min": 0,
+          "y_max": 600,
+          "data_labels": true,
+          "categories": [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4"
+          ],
+          "series": [
+            {
+              "name": "营收",
+              "values": [
+                120,
+                150,
+                180,
+                200
+              ],
+              "color": "4472C4"
+            },
+            {
+              "name": "成本",
+              "values": [
+                80,
+                90,
+                100,
+                110
+              ],
+              "color": "ED7D31"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "折线图（多系列）："
+        },
+        {
+          "type": "chart",
+          "chart_type": "line",
+          "title": "趋势",
+          "legend": "b",
+          "categories": [
+            "1月",
+            "2月",
+            "3月",
+            "4月"
+          ],
+          "series": [
+            {
+              "name": "访问",
+              "values": [
+                4.3,
+                2.5,
+                3.5,
+                4.5
+              ],
+              "color": "4472C4"
+            },
+            {
+              "name": "转化",
+              "values": [
+                2.4,
+                4.4,
+                1.8,
+                2.8
+              ],
+              "color": "ED7D31"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

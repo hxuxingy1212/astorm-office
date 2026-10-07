@@ -1,0 +1,7 @@
+# 依赖（复用 ai-ppt/web 的 node_modules：本地为软链接，不入库）
+node_modules
+# 构建产物
+dist
+dist-demo
+# 单测编译输出
+.test-out

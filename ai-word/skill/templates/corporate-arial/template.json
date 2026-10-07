@@ -1,0 +1,35 @@
+{
+  "_notes": [
+    "正文西文字体：Arial；中文字体：Droid Sans Fallback",
+    "标题字体：Cambria",
+    "正文字号：12 pt",
+    "正文首行缩进：35.4 pt"
+  ],
+  "page": {
+    "margins": {
+      "bottom": 56.7,
+      "footer": 0.0,
+      "header": 0.0,
+      "left": 56.7,
+      "right": 56.7,
+      "top": 56.7
+    },
+    "orientation": "portrait",
+    "size": "A4"
+  },
+  "styles": {
+    "Normal": {
+      "align": "justify",
+      "east_asia_font": "Droid Sans Fallback",
+      "first_line_indent": 35.4,
+      "font_family": "Arial",
+      "font_size": 12.0
+    }
+  },
+  "theme": {
+    "east_asia_font": "Droid Sans Fallback",
+    "heading_font": "Cambria",
+    "major_font": "Cambria",
+    "minor_font": "Arial"
+  }
+}

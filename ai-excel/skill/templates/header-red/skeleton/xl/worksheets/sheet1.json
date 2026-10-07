@@ -1,0 +1,95 @@
+{
+  "name": "Walking Cells",
+  "default_row_height": 15.0,
+  "print": {
+    "orientation": "default",
+    "paper_size": 1,
+    "scale": 100,
+    "margin_left": 0.75,
+    "margin_right": 0.75,
+    "margin_top": 0.75,
+    "margin_bottom": 0.5,
+    "margin_header": 0.5,
+    "margin_footer": 0.75
+  },
+  "rows": [
+    {
+      "index": 3,
+      "cells": [
+        {
+          "ref": "E3",
+          "type": "string",
+          "value": "(3,5)",
+          "style": {
+            "fill": "FFA07A"
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "cells": [
+        {
+          "ref": "E4",
+          "style": {
+            "fill": "FFA07A"
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "cells": [
+        {
+          "ref": "C5",
+          "style": {
+            "fill": "ADD8E6"
+          }
+        },
+        {
+          "ref": "D5",
+          "style": {
+            "fill": "ADD8E6"
+          }
+        },
+        {
+          "ref": "E5"
+        },
+        {
+          "ref": "F5",
+          "style": {
+            "fill": "A2A2D0"
+          }
+        },
+        {
+          "ref": "G5",
+          "style": {
+            "fill": "A2A2D0"
+          }
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "cells": [
+        {
+          "ref": "E6",
+          "style": {
+            "fill": "FA8072"
+          }
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "cells": [
+        {
+          "ref": "E7",
+          "style": {
+            "fill": "FA8072"
+          }
+        }
+      ]
+    }
+  ]
+}

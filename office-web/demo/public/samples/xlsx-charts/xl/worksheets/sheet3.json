@@ -1,0 +1,33 @@
+{
+  "name": "Sheet3",
+  "freeze": "E10",
+  "default_row_height": 13.5,
+  "columns": [
+    {
+      "width": 10.5
+    }
+  ],
+  "print": {
+    "orientation": "portrait",
+    "paper_size": 9,
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "date",
+          "value": "2024-05-24",
+          "number_format": "mm-dd-yy"
+        }
+      ]
+    }
+  ]
+}

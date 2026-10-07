@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "meta": {
+    "title": "Aurora 智能文档平台",
+    "author": "Z.ai"
+  },
+  "page_size": {
+    "width": 595.28,
+    "height": 841.89
+  },
+  "pages": [
+    "pages/page-001.json",
+    "pages/page-002.json",
+    "pages/page-003.json"
+  ]
+}

@@ -1,0 +1,449 @@
+{
+  "name": "HedgeResults",
+  "zoom": 85,
+  "default_row_height": 15.0,
+  "columns": [
+    {
+      "width": 13.140625
+    },
+    {
+      "width": 19.0
+    },
+    {
+      "width": 11.5703125
+    },
+    {
+      "width": 14.28515625
+    },
+    {
+      "width": 6.42578125
+    },
+    {
+      "width": 10.42578125
+    },
+    {
+      "width": 10.5703125
+    },
+    {
+      "width": 21.42578125
+    },
+    {
+      "width": 18.42578125
+    },
+    {
+      "width": 15.5703125
+    },
+    {
+      "width": 18.7109375
+    },
+    {
+      "width": 18.7109375
+    },
+    {
+      "width": 18.7109375
+    },
+    {
+      "width": 26.0
+    },
+    {
+      "width": 16.85546875
+    },
+    {
+      "width": 11.7109375
+    },
+    {
+      "width": 14.85546875
+    },
+    {
+      "width": 15.7109375
+    },
+    {
+      "width": 14.5703125
+    },
+    {
+      "width": 16.0
+    },
+    {
+      "width": 13.7109375
+    },
+    {
+      "width": 11.28515625
+    }
+  ],
+  "conditional_formats": [
+    {
+      "range": "A2:V2",
+      "type": "expression",
+      "formulas": [
+        "$F2=\"Real\""
+      ],
+      "font": {}
+    },
+    {
+      "range": "A2:V2",
+      "type": "expression",
+      "formulas": [
+        "$F2=\"Nominal\""
+      ],
+      "font": {}
+    }
+  ],
+  "print": {
+    "orientation": "portrait",
+    "paper_size": 9,
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "tables": [
+    {
+      "range": "A1:V2",
+      "name": "HedgeResults",
+      "style": "TableStyleMedium2",
+      "show_banded_rows": true,
+      "columns": [
+        "EffectiveDate",
+        "AssetsEffectiveDate",
+        "Portfolio_Id",
+        "PortfolioName",
+        "Code",
+        "CurveType",
+        "ShockDate",
+        "LiabilityRandsPerPoint",
+        "BaseRandsPerPoint",
+        "CurrentHoldings",
+        "CurrentHoldingsRandsPerPoint",
+        "FictionalTradeNominalValue",
+        "FictionalTradeRandsPerPoint",
+        "NetRandsPerPointRequired",
+        "NotionalsPerR100",
+        "HedgeDV01",
+        "NotionalsPerR1",
+        "LatestClosePrice",
+        "Price",
+        "ShockMethod",
+        "Calculation_Id",
+        "Username"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "EffectiveDate",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "AssetsEffectiveDate",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "Portfolio_Id"
+        },
+        {
+          "ref": "D1",
+          "type": "string",
+          "value": "PortfolioName",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "E1",
+          "type": "string",
+          "value": "Code",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "F1",
+          "type": "string",
+          "value": "CurveType",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "G1",
+          "type": "string",
+          "value": "ShockDate",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "H1",
+          "type": "string",
+          "value": "LiabilityRandsPerPoint",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "I1",
+          "type": "string",
+          "value": "BaseRandsPerPoint"
+        },
+        {
+          "ref": "J1",
+          "type": "string",
+          "value": "CurrentHoldings",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "K1",
+          "type": "string",
+          "value": "CurrentHoldingsRandsPerPoint",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "L1",
+          "type": "string",
+          "value": "FictionalTradeNominalValue",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "M1",
+          "type": "string",
+          "value": "FictionalTradeRandsPerPoint",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "N1",
+          "type": "string",
+          "value": "NetRandsPerPointRequired",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "O1",
+          "type": "string",
+          "value": "NotionalsPerR100",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "P1",
+          "type": "string",
+          "value": "HedgeDV01",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "Q1",
+          "type": "string",
+          "value": "NotionalsPerR1",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "R1",
+          "type": "string",
+          "value": "LatestClosePrice",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "S1",
+          "type": "string",
+          "value": "Price",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "T1",
+          "type": "string",
+          "value": "ShockMethod",
+          "number_format": "#,##0.00",
+          "comment": "Francois Botha:\r\nUnderlyingBond (new method) shocks the YTM of the applicable bond and bootstraps a new yield curve which is applied to the liabilities.\r\n\r\nMonthlyEntry (old method) shocks a single entry on the yield curve and applies it to both liabilities and bond valuation."
+        },
+        {
+          "ref": "U1",
+          "type": "string",
+          "value": "Calculation_Id"
+        },
+        {
+          "ref": "V1",
+          "type": "string",
+          "value": "Username",
+          "number_format": "#,##0.00"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "cells": [
+        {
+          "ref": "I3",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "J3",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "N3",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "O3",
+          "number_format": "#,##0"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "cells": [
+        {
+          "ref": "I4",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "J4",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "N4",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "O4",
+          "number_format": "#,##0"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "cells": [
+        {
+          "ref": "I5",
+          "number_format": "#,##0",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0
+            }
+          }
+        },
+        {
+          "ref": "J5",
+          "number_format": "#,##0",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0
+            }
+          }
+        },
+        {
+          "ref": "N5",
+          "number_format": "#,##0",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0
+            }
+          }
+        },
+        {
+          "ref": "O5",
+          "number_format": "#,##0",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 6
+    },
+    {
+      "index": 7,
+      "cells": [
+        {
+          "ref": "K7",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "L7",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "M7",
+          "number_format": "#,##0.00"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "cells": [
+        {
+          "ref": "K8",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "L8",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "M8",
+          "number_format": "#,##0.00"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "cells": [
+        {
+          "ref": "K9",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "L9",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "M9",
+          "number_format": "#,##0.00"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "cells": [
+        {
+          "ref": "K10",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "L10",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "M10",
+          "number_format": "#,##0.00"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "cells": [
+        {
+          "ref": "K11",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "L11",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "M11",
+          "number_format": "#,##0.00"
+        }
+      ]
+    }
+  ]
+}

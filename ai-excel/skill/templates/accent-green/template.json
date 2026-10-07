@@ -1,0 +1,424 @@
+{
+  "name": "DrawingSizeInPx",
+  "source": "/tmp/ec3/closedxml/ClosedXML-develop/ClosedXML.Tests/Resource/TryToLoad/DrawingSizeInPx.xlsx",
+  "palette": [
+    {
+      "hex": "FFFFFF",
+      "count": 465,
+      "usage": "fill"
+    },
+    {
+      "hex": "92D050",
+      "count": 169,
+      "usage": "fill"
+    },
+    {
+      "hex": "FCD5B4",
+      "count": 121,
+      "usage": "fill"
+    },
+    {
+      "hex": "CC9999",
+      "count": 115,
+      "usage": "fill"
+    },
+    {
+      "hex": "FF0000",
+      "count": 87,
+      "usage": "font"
+    },
+    {
+      "hex": "8DB4E2",
+      "count": 35,
+      "usage": "fill"
+    },
+    {
+      "hex": "BBA680",
+      "count": 35,
+      "usage": "fill"
+    },
+    {
+      "hex": "FFFF00",
+      "count": 32,
+      "usage": "fill"
+    },
+    {
+      "hex": "0FFF66",
+      "count": 28,
+      "usage": "fill"
+    },
+    {
+      "hex": "F8A45E",
+      "count": 25,
+      "usage": "fill"
+    },
+    {
+      "hex": "FFCC66",
+      "count": 24,
+      "usage": "fill"
+    },
+    {
+      "hex": "CCCC99",
+      "count": 20,
+      "usage": "fill"
+    },
+    {
+      "hex": "FFCC99",
+      "count": 17,
+      "usage": "fill"
+    },
+    {
+      "hex": "FF0000",
+      "count": 16,
+      "usage": "font"
+    },
+    {
+      "hex": "C0C0C0",
+      "count": 9,
+      "usage": "fill"
+    },
+    {
+      "hex": "ABD27F",
+      "count": 8,
+      "usage": "fill"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "count": 2446
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "count": 669
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "bold": true,
+      "count": 348
+    },
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "bold": true,
+      "count": 229
+    },
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "count": 140
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "count": 32
+    },
+    {
+      "name": "Verdana",
+      "size": 11.0,
+      "count": 29
+    },
+    {
+      "name": "Calibri",
+      "size": 10.0,
+      "count": 24
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "FF0000",
+      "count": 16
+    },
+    {
+      "name": "Verdana",
+      "size": 11.0,
+      "bold": true,
+      "count": 12
+    },
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "bold": true,
+      "count": 8
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "count": 3
+    },
+    {
+      "name": "Verdana",
+      "size": 18.0,
+      "count": 1
+    },
+    {
+      "name": "Calibri",
+      "size": 20.0,
+      "count": 1
+    },
+    {
+      "name": "Verdana",
+      "size": 10.0,
+      "count": 1
+    }
+  ],
+  "number_formats": [
+    "@",
+    "mmmm\\ d\\,\\ yyyy\\ \\-\\ h:mm:ss\\ AM/PM;@",
+    "mmmm\\ d\\,\\ yyyy\\ h:mmAM/PM"
+  ],
+  "header": {
+    "sheet": "International Settings",
+    "row": 1,
+    "style": {
+      "font": {
+        "bold": true,
+        "name": "Verdana",
+        "size": 10.0
+      }
+    },
+    "values": [
+      "false",
+      "Show the Create Templates Toolbar"
+    ]
+  },
+  "columns": [
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    }
+  ],
+  "default_col_width": 9.0,
+  "default_row_height": 12.75,
+  "sheets": [
+    "icons",
+    "International URLs",
+    "International Settings",
+    "DropdownSizer",
+    "Instructions",
+    "Images",
+    "International Translations",
+    "Data Validation",
+    "International Data",
+    "Example",
+    "Data Definitions",
+    "Template",
+    "Browse Data",
+    "Valid Values",
+    "Dropdown Lists",
+    "AttributePTDMAP"
+  ],
+  "notes": [
+    "检测到表头：International Settings 第 1 行（保持该行样式即可得到一致外观）",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

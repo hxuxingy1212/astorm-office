@@ -1,0 +1,50 @@
+{
+  "page": {
+    "size": "A4",
+    "orientation": "portrait",
+    "margins": {
+      "top": 72.0,
+      "bottom": 72.0,
+      "left": 90.0,
+      "right": 90.0,
+      "header": 42.0,
+      "footer": 42.0
+    }
+  },
+  "theme": {
+    "minor_font": "Calibri",
+    "major_font": "Calibri",
+    "east_asia_font": "微软雅黑",
+    "heading_font": "Calibri",
+    "colors": {
+      "heading": "2E74B5"
+    }
+  },
+  "styles": {
+    "Normal": {
+      "font_size": 10.5,
+      "line_spacing": 1.15,
+      "font_family": "Calibri",
+      "east_asia_font": "微软雅黑"
+    },
+    "Heading1": {
+      "font_size": 22.0,
+      "bold": true,
+      "color": "2E74B5",
+      "align": "center",
+      "space_before": 6.0,
+      "space_after": 8.0,
+      "font_family": "Calibri",
+      "east_asia_font": "微软雅黑"
+    },
+    "Heading2": {
+      "font_size": 13.0,
+      "bold": true,
+      "color": "2E74B5",
+      "space_before": 10.0,
+      "space_after": 4.0,
+      "font_family": "Calibri",
+      "east_asia_font": "微软雅黑"
+    }
+  }
+}

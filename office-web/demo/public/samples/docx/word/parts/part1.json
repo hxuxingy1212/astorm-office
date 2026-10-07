@@ -1,0 +1,25 @@
+{
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "摘要"
+    },
+    {
+      "type": "paragraph",
+      "text": "本文提出了一种基于大模型的多模态检索方法，通过统一表征与跨模态对齐，在多个基准上取得了领先效果。"
+    },
+    {
+      "type": "paragraph",
+      "runs": [
+        {
+          "text": "关键词：",
+          "bold": true
+        },
+        {
+          "text": "大模型；多模态；信息检索"
+        }
+      ]
+    }
+  ]
+}

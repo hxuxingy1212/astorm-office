@@ -1,0 +1,1266 @@
+{
+  "generated_by": "json2xlsx template extract over ~2120 real-world xlsx (SpreadsheetBench, ClosedXML, pandas, LibreOffice, excelize, Microsoft 官方样例等) + LibreOffice 渲染/图像识别色板",
+  "total_sampled": 2120,
+  "templates": [
+    {
+      "skeleton": true,
+      "slug": "plain-report",
+      "cluster": "plain",
+      "sample_count": 1442,
+      "header_fill": null,
+      "style_palette": [],
+      "visual_palette": [
+        {
+          "hex": "FAF240",
+          "share": 0.0055
+        },
+        {
+          "hex": "B2B0AE",
+          "share": 0.0053
+        },
+        {
+          "hex": "726C69",
+          "share": 0.005
+        },
+        {
+          "hex": "9F9C99",
+          "share": 0.0048
+        },
+        {
+          "hex": "007F7F",
+          "share": 0.0047
+        },
+        {
+          "hex": "E6EBED",
+          "share": 0.0044
+        }
+      ],
+      "number_formats": [
+        "\"$\"#,##0.00",
+        "#,##0",
+        "#,##0.00\\ [$€-40C]",
+        "0.00%",
+        "0.00_);[Red]\\(0.00\\)",
+        "[$$-409]#,##0.00_);[Red]\\([$$-409]#,##0.00\\)",
+        "d-mmm",
+        "mm-dd-yy"
+      ],
+      "columns": [
+        {
+          "width": 11.0
+        },
+        {
+          "width": 31.0
+        },
+        {
+          "width": 10.7109375
+        },
+        {
+          "width": 10.7109375
+        },
+        {
+          "width": 12.7109375
+        },
+        {
+          "width": 10.85546875
+        }
+      ],
+      "default_font": {
+        "name": "Verdana",
+        "size": 10.0
+      },
+      "header_values": [],
+      "source": "/tmp/excel_corpus2/npoi/ef682e39_48962.xlsx",
+      "path": "templates/plain-report"
+    },
+    {
+      "skeleton": true,
+      "slug": "accent-yellow",
+      "cluster": "plain-yellow",
+      "sample_count": 186,
+      "header_fill": null,
+      "style_palette": [
+        "808080",
+        "B3CAC7",
+        "B7B3CA",
+        "E8F2A1",
+        "FFD7D7",
+        "3465A4",
+        "FFFFFF",
+        "00A933"
+      ],
+      "visual_palette": [
+        {
+          "hex": "FFD7D7",
+          "share": 0.0068
+        },
+        {
+          "hex": "FEF1F1",
+          "share": 0.0006
+        },
+        {
+          "hex": "4B4A4A",
+          "share": 0.0006
+        },
+        {
+          "hex": "1A1A1A",
+          "share": 0.0005
+        },
+        {
+          "hex": "6F6E6F",
+          "share": 0.0003
+        },
+        {
+          "hex": "B1B3B6",
+          "share": 0.0003
+        }
+      ],
+      "number_formats": [],
+      "columns": [
+        {
+          "width": 10.625
+        },
+        {
+          "width": 10.625
+        },
+        {
+          "width": 10.625
+        }
+      ],
+      "default_font": {
+        "name": "Liberation Sans",
+        "size": 11.0
+      },
+      "header_values": [
+        "Background",
+        "Foreground",
+        "Both"
+      ],
+      "source": "/tmp/excel_corpus/lo/autofilter-colors.xlsx",
+      "path": "templates/accent-yellow"
+    },
+    {
+      "skeleton": false,
+      "slug": "header-yellow",
+      "cluster": "hdr-yellow",
+      "sample_count": 154,
+      "header_fill": "FFFF00",
+      "style_palette": [
+        "FFFF99",
+        "3F3F76",
+        "92D050",
+        "A5A5A5",
+        "FFCC99",
+        "00B0F0",
+        "FFC000"
+      ],
+      "visual_palette": [
+        {
+          "hex": "B9CDE5",
+          "share": 0.0335
+        },
+        {
+          "hex": "FFFF99",
+          "share": 0.0315
+        },
+        {
+          "hex": "4A4E50",
+          "share": 0.0184
+        },
+        {
+          "hex": "8BABB5",
+          "share": 0.0168
+        },
+        {
+          "hex": "CCDAE9",
+          "share": 0.0113
+        },
+        {
+          "hex": "F1F4EB",
+          "share": 0.006
+        }
+      ],
+      "number_formats": [
+        "\" Excellent\"",
+        "\" Fair\"",
+        "\" Good\"",
+        "\" Poor\"",
+        "\" Very Good\"",
+        "\"$\"#,##0",
+        "\"$\"#,##0.00",
+        "0"
+      ],
+      "columns": [
+        {
+          "width": 9.0
+        },
+        {
+          "width": 7.5703125
+        },
+        {
+          "width": 7.5703125
+        },
+        {
+          "width": 8.28515625
+        },
+        {
+          "width": 7.5703125
+        },
+        {
+          "width": 9.28515625
+        },
+        {
+          "width": 10.42578125
+        },
+        {},
+        {
+          "width": 11.42578125
+        }
+      ],
+      "default_font": null,
+      "header_values": [
+        "To navigate to the  worksheet you want to see, click the worksheet name button in the Worksheet column.",
+        "",
+        ""
+      ],
+      "source": "/tmp/excel_corpus2/npoi/b3fc8504_ConditionalFormattingSamples.xlsx",
+      "path": "templates/header-yellow"
+    },
+    {
+      "skeleton": false,
+      "slug": "accent-red",
+      "cluster": "plain-red",
+      "sample_count": 113,
+      "header_fill": null,
+      "style_palette": [
+        "333333",
+        "FF0000",
+        "FFFF00",
+        "000000",
+        "92D050",
+        "FFC000"
+      ],
+      "visual_palette": [
+        {
+          "hex": "ACB2B0",
+          "share": 0.0106
+        },
+        {
+          "hex": "273249",
+          "share": 0.0102
+        },
+        {
+          "hex": "D1D1CF",
+          "share": 0.0097
+        },
+        {
+          "hex": "727578",
+          "share": 0.0096
+        },
+        {
+          "hex": "705551",
+          "share": 0.0095
+        },
+        {
+          "hex": "8E8E8F",
+          "share": 0.0089
+        }
+      ],
+      "number_formats": [
+        "#,##0.00",
+        "0.0",
+        "0.0%",
+        "0.00",
+        "0.00%",
+        "0.000",
+        "0.000%",
+        "0.00E+00"
+      ],
+      "columns": [
+        {
+          "width": 9.1640625
+        },
+        {
+          "width": 7.5
+        },
+        {
+          "width": 18.33203125
+        },
+        {
+          "width": 5.83203125
+        },
+        {
+          "width": 7.5
+        },
+        {
+          "width": 2.5
+        },
+        {
+          "width": 2.5
+        },
+        {
+          "width": 2.1640625
+        },
+        {
+          "width": 2.1640625
+        },
+        {
+          "width": 2.1640625
+        },
+        {
+          "width": 2.1640625
+        },
+        {
+          "width": 2.1640625
+        }
+      ],
+      "default_font": {
+        "name": "等线",
+        "size": 11.0
+      },
+      "header_values": [],
+      "source": "/tmp/excel_corpus/sample_data_200/spreadsheet/53062/3_53062_input.xlsx",
+      "path": "templates/accent-red"
+    },
+    {
+      "skeleton": false,
+      "slug": "accent-green",
+      "cluster": "plain-green",
+      "sample_count": 46,
+      "header_fill": null,
+      "style_palette": [
+        "FFFFFF",
+        "92D050",
+        "FCD5B4",
+        "CC9999",
+        "FF0000",
+        "8DB4E2",
+        "BBA680",
+        "FFFF00"
+      ],
+      "visual_palette": [],
+      "number_formats": [
+        "@",
+        "mmmm\\ d\\,\\ yyyy\\ \\-\\ h:mm:ss\\ AM/PM;@",
+        "mmmm\\ d\\,\\ yyyy\\ h:mmAM/PM"
+      ],
+      "columns": [
+        {
+          "width": 9.0
+        },
+        {
+          "width": 9.0
+        },
+        {
+          "width": 9.0
+        },
+        {
+          "width": 9.0
+        },
+        {
+          "width": 9.0
+        },
+        {
+          "width": 9.0
+        },
+        {
+          "width": 9.0
+        },
+        {
+          "width": 9.0
+        },
+        {
+          "width": 9.0
+        },
+        {
+          "width": 9.0
+        },
+        {
+          "width": 9.0
+        },
+        {
+          "width": 9.0
+        }
+      ],
+      "default_font": null,
+      "header_values": [
+        "false",
+        "Show the Create Templates Toolbar"
+      ],
+      "source": "/tmp/ec3/closedxml/ClosedXML-develop/ClosedXML.Tests/Resource/TryToLoad/DrawingSizeInPx.xlsx",
+      "path": "templates/accent-green"
+    },
+    {
+      "skeleton": false,
+      "slug": "header-light",
+      "cluster": "hdr-light",
+      "sample_count": 36,
+      "header_fill": "FFFFFF",
+      "style_palette": [
+        "000000",
+        "FFFF00",
+        "B7B7B7",
+        "C0C0C0",
+        "FFFF00",
+        "CCFFCC",
+        "CCFFFF",
+        "3366FF"
+      ],
+      "visual_palette": [
+        {
+          "hex": "FFFF00",
+          "share": 0.2753
+        },
+        {
+          "hex": "B7B7B7",
+          "share": 0.1294
+        },
+        {
+          "hex": "C0C0C0",
+          "share": 0.0606
+        },
+        {
+          "hex": "5B2016",
+          "share": 0.0418
+        },
+        {
+          "hex": "557566",
+          "share": 0.0212
+        },
+        {
+          "hex": "BFC005",
+          "share": 0.0077
+        }
+      ],
+      "number_formats": [
+        "#,##0.00",
+        "0.00",
+        "m/d/yyyy;@",
+        "mmm\\-yy;@"
+      ],
+      "columns": [
+        {
+          "width": 16.5703125
+        },
+        {
+          "width": 6.85546875
+        },
+        {},
+        {},
+        {
+          "width": 5.0
+        },
+        {
+          "width": 7.42578125
+        },
+        {
+          "width": 6.42578125
+        },
+        {
+          "width": 4.7109375
+        },
+        {
+          "width": 6.85546875
+        },
+        {},
+        {
+          "width": 4.7109375
+        },
+        {
+          "width": 6.85546875
+        }
+      ],
+      "default_font": {
+        "name": "Arial",
+        "size": 10.0,
+        "color": "000000"
+      },
+      "header_values": [
+        "2012-11-16",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "source": "/tmp/excel_corpus2/npoi/cea27c2b_54288-ref.xlsx",
+      "path": "templates/header-light"
+    },
+    {
+      "skeleton": true,
+      "slug": "header-blue",
+      "cluster": "hdr-blue",
+      "sample_count": 33,
+      "header_fill": "004477",
+      "style_palette": [
+        "000000",
+        "00008B",
+        "00FFFF",
+        "6495ED"
+      ],
+      "visual_palette": [
+        {
+          "hex": "DCE6F2",
+          "share": 0.0124
+        },
+        {
+          "hex": "6B98E5",
+          "share": 0.0069
+        },
+        {
+          "hex": "00FFFF",
+          "share": 0.0064
+        },
+        {
+          "hex": "485669",
+          "share": 0.0044
+        },
+        {
+          "hex": "111523",
+          "share": 0.0038
+        },
+        {
+          "hex": "84888C",
+          "share": 0.0016
+        }
+      ],
+      "number_formats": [
+        "$ #,##0",
+        "d-mmm-yy"
+      ],
+      "columns": [
+        {
+          "width": 9.140625
+        },
+        {
+          "width": 9.567768
+        },
+        {
+          "width": 9.139196
+        },
+        {
+          "width": 10.282054
+        },
+        {
+          "width": 9.567768
+        },
+        {
+          "width": 9.996339
+        }
+      ],
+      "default_font": {
+        "name": "Calibri",
+        "size": 11.0,
+        "color": "000000"
+      },
+      "header_values": [
+        "Contacts",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "source": "/tmp/ec3/closedxml/ClosedXML-develop/ClosedXML.Tests/Resource/Examples/Misc/ShowCase.xlsx",
+      "path": "templates/header-blue"
+    },
+    {
+      "skeleton": true,
+      "slug": "header-cyan",
+      "cluster": "hdr-cyan",
+      "sample_count": 22,
+      "header_fill": "00FFFF",
+      "style_palette": [
+        "99FF66",
+        "CC99FF",
+        "CC0000",
+        "195A84",
+        "FFFF66",
+        "39C19D",
+        "FFF99D",
+        "CCFFFF"
+      ],
+      "visual_palette": [
+        {
+          "hex": "C0C0C0",
+          "share": 0.0393
+        },
+        {
+          "hex": "858583",
+          "share": 0.025
+        },
+        {
+          "hex": "000000",
+          "share": 0.0231
+        },
+        {
+          "hex": "FFFF66",
+          "share": 0.023
+        },
+        {
+          "hex": "62615D",
+          "share": 0.0197
+        },
+        {
+          "hex": "B4A2C1",
+          "share": 0.019
+        }
+      ],
+      "number_formats": [
+        "0",
+        "0%",
+        "0_);[Red]\\(0\\)",
+        "[$-409]mmm\\-yy;@",
+        "[$-409]mmmm\\-yy;@",
+        "mmm-yy",
+        "mmmm"
+      ],
+      "columns": [
+        {
+          "width": 0.85546875
+        },
+        {
+          "width": 22.5703125
+        },
+        {
+          "width": 15.140625
+        },
+        {
+          "width": 15.140625
+        },
+        {
+          "width": 15.140625
+        },
+        {
+          "width": 15.140625
+        },
+        {
+          "width": 15.140625
+        },
+        {
+          "width": 15.140625
+        },
+        {
+          "width": 15.140625
+        },
+        {
+          "width": 15.140625
+        },
+        {
+          "width": 15.140625
+        },
+        {
+          "width": 15.140625
+        }
+      ],
+      "default_font": null,
+      "header_values": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "source": "/tmp/excel_corpus2/npoi/3d5fcc3a_FillWithoutColor.xlsx",
+      "path": "templates/header-cyan"
+    },
+    {
+      "skeleton": true,
+      "slug": "header-red",
+      "cluster": "hdr-red",
+      "sample_count": 20,
+      "header_fill": "FF0000",
+      "style_palette": [
+        "A2A2D0",
+        "FA8072",
+        "FFA07A",
+        "0000FF",
+        "ADD8E6"
+      ],
+      "visual_palette": [
+        {
+          "hex": "FA7F72",
+          "share": 0.0026
+        },
+        {
+          "hex": "FFA07A",
+          "share": 0.0025
+        },
+        {
+          "hex": "A2A2D0",
+          "share": 0.0025
+        },
+        {
+          "hex": "ADD8E6",
+          "share": 0.0024
+        },
+        {
+          "hex": "724F4D",
+          "share": 0.0011
+        },
+        {
+          "hex": "EFBCB3",
+          "share": 0.0005
+        }
+      ],
+      "number_formats": [],
+      "columns": [],
+      "default_font": {
+        "name": "Calibri",
+        "size": 11.0,
+        "color": "000000"
+      },
+      "header_values": [
+        "(3,5)"
+      ],
+      "source": "/tmp/ec3/closedxml/ClosedXML-develop/ClosedXML.Tests/Resource/Examples/Ranges/WalkingRanges.xlsx",
+      "path": "templates/header-red"
+    },
+    {
+      "skeleton": true,
+      "slug": "header-orange",
+      "cluster": "hdr-orange",
+      "sample_count": 16,
+      "header_fill": "FFCC99",
+      "style_palette": [
+        "FF0000",
+        "3F3F76",
+        "FFCC99",
+        "C00000"
+      ],
+      "visual_palette": [
+        {
+          "hex": "FFCC99",
+          "share": 0.0117
+        },
+        {
+          "hex": "B19F90",
+          "share": 0.0012
+        },
+        {
+          "hex": "58545B",
+          "share": 0.0011
+        },
+        {
+          "hex": "887B81",
+          "share": 0.0011
+        },
+        {
+          "hex": "E8BD94",
+          "share": 0.001
+        },
+        {
+          "hex": "B6B3B0",
+          "share": 0.0007
+        }
+      ],
+      "number_formats": [
+        "#,##0",
+        "#,##0.00",
+        "#,##0.0000",
+        "#,##0.00000",
+        "#,##0.000000000",
+        "0.00%",
+        "0.0000%",
+        "0.000000%"
+      ],
+      "columns": [
+        {
+          "width": 21.5703125
+        },
+        {
+          "width": 17.28515625
+        },
+        {
+          "width": 20.5703125
+        },
+        {
+          "width": 18.28515625
+        },
+        {
+          "width": 25.42578125
+        },
+        {
+          "width": 23.85546875
+        },
+        {
+          "width": 15.7109375
+        },
+        {
+          "width": 14.85546875
+        },
+        {
+          "width": 14.85546875
+        },
+        {
+          "width": 15.28515625
+        },
+        {
+          "width": 15.28515625
+        },
+        {
+          "width": 15.28515625
+        }
+      ],
+      "default_font": null,
+      "header_values": [
+        "Calculation",
+        "0"
+      ],
+      "source": "/tmp/ec3/closedxml/ClosedXML-develop/ClosedXML.Tests/Resource/TryToLoad/TemplateWithTableSourcePivotTables.xlsx",
+      "path": "templates/header-orange"
+    },
+    {
+      "skeleton": true,
+      "slug": "accent-blue",
+      "cluster": "plain-blue",
+      "sample_count": 15,
+      "header_fill": null,
+      "style_palette": [
+        "FFFFFF",
+        "000000",
+        "000000",
+        "0000FF",
+        "002060",
+        "002060",
+        "0070C0",
+        "00B050"
+      ],
+      "visual_palette": [
+        {
+          "hex": "C4D0C7",
+          "share": 0.005
+        },
+        {
+          "hex": "000000",
+          "share": 0.0044
+        },
+        {
+          "hex": "0D1C55",
+          "share": 0.0027
+        },
+        {
+          "hex": "E5F1E8",
+          "share": 0.0027
+        },
+        {
+          "hex": "92B9A7",
+          "share": 0.0024
+        },
+        {
+          "hex": "0000F3",
+          "share": 0.0024
+        }
+      ],
+      "number_formats": [],
+      "columns": [
+        {
+          "width": 31.140625
+        },
+        {},
+        {},
+        {},
+        {
+          "width": 13.85546875
+        }
+      ],
+      "default_font": null,
+      "header_values": [
+        "Theme Colours",
+        "Theme",
+        "Explicit",
+        "Background",
+        "CF"
+      ],
+      "source": "/tmp/excel_corpus2/npoi/0b256859_Themes2.xlsx",
+      "path": "templates/accent-blue"
+    },
+    {
+      "skeleton": true,
+      "slug": "header-gray",
+      "cluster": "hdr-gray",
+      "sample_count": 11,
+      "header_fill": "000000",
+      "style_palette": [
+        "FF0000",
+        "000000",
+        "FFFFFF",
+        "000000",
+        "FF0000"
+      ],
+      "visual_palette": [
+        {
+          "hex": "FF0E0E",
+          "share": 0.0106
+        },
+        {
+          "hex": "1C1212",
+          "share": 0.0093
+        },
+        {
+          "hex": "686868",
+          "share": 0.009
+        },
+        {
+          "hex": "D1D1D1",
+          "share": 0.0084
+        },
+        {
+          "hex": "ABABAB",
+          "share": 0.0081
+        },
+        {
+          "hex": "F2B2B2",
+          "share": 0.0077
+        }
+      ],
+      "number_formats": [
+        "d-mmm-yy",
+        "h:mm"
+      ],
+      "columns": [
+        {
+          "width": 11.0
+        },
+        {
+          "width": 8.66666666666667
+        },
+        {
+          "width": 20.5833333333333
+        }
+      ],
+      "default_font": {
+        "name": "等线",
+        "size": 11.0
+      },
+      "header_values": [
+        "DATE",
+        "STD",
+        "CUT OFF"
+      ],
+      "source": "/tmp/excel_corpus/sample_data_200/spreadsheet/35739/2_35739_input.xlsx",
+      "path": "templates/header-gray"
+    },
+    {
+      "skeleton": true,
+      "slug": "header-green",
+      "cluster": "hdr-green",
+      "sample_count": 10,
+      "header_fill": "92D050",
+      "style_palette": [
+        "E32636",
+        "00FFFF",
+        "9ACD32",
+        "EFDECD",
+        "9966CC",
+        "E52B50",
+        "FBCEB1",
+        "FFBF00"
+      ],
+      "visual_palette": [
+        {
+          "hex": "585858",
+          "share": 0.0
+        },
+        {
+          "hex": "7E7E7E",
+          "share": 0.0
+        },
+        {
+          "hex": "C1C1C1",
+          "share": 0.0
+        },
+        {
+          "hex": "3B3B3B",
+          "share": 0.0
+        },
+        {
+          "hex": "F2F2F2",
+          "share": 0.0
+        },
+        {
+          "hex": "D6D6D6",
+          "share": 0.0
+        }
+      ],
+      "number_formats": [],
+      "columns": [],
+      "default_font": {
+        "name": "Calibri",
+        "size": 11.0,
+        "color": "000000"
+      },
+      "header_values": [
+        "",
+        "",
+        ""
+      ],
+      "source": "/tmp/ec3/closedxml/ClosedXML-develop/ClosedXML.Tests/Resource/Examples/Misc/DataValidation.xlsx",
+      "path": "templates/header-green"
+    },
+    {
+      "skeleton": true,
+      "slug": "header-magenta",
+      "cluster": "hdr-magenta",
+      "sample_count": 6,
+      "header_fill": "D569B6",
+      "style_palette": [
+        "D569B6",
+        "8C021B",
+        "D569B6"
+      ],
+      "visual_palette": [
+        {
+          "hex": "D569B6",
+          "share": 0.4951
+        },
+        {
+          "hex": "222A35",
+          "share": 0.059
+        },
+        {
+          "hex": "674267",
+          "share": 0.013
+        },
+        {
+          "hex": "A45892",
+          "share": 0.0097
+        },
+        {
+          "hex": "894E7F",
+          "share": 0.009
+        },
+        {
+          "hex": "BE60A5",
+          "share": 0.0082
+        }
+      ],
+      "number_formats": [
+        "\"£\"#,##0",
+        "\"£\"#,##0.00",
+        "\"£\"#,##0;[Red]\\-\"£\"#,##0",
+        "mm-dd-yy"
+      ],
+      "columns": [
+        {
+          "width": 4.59765625
+        },
+        {
+          "width": 5.59765625
+        },
+        {
+          "width": 24.59765625
+        },
+        {
+          "width": 7.59765625
+        },
+        {
+          "width": 7.59765625
+        },
+        {
+          "width": 7.59765625
+        },
+        {
+          "width": 3.59765625
+        },
+        {
+          "width": 4.59765625
+        },
+        {
+          "width": 5.59765625
+        },
+        {
+          "width": 24.59765625
+        },
+        {
+          "width": 7.59765625
+        },
+        {
+          "width": 7.59765625
+        }
+      ],
+      "default_font": {
+        "name": "等线",
+        "size": 12.0
+      },
+      "header_values": [
+        "Holiday in Malaga, Spain",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "source": "/tmp/excel_corpus/sample_data_200/spreadsheet/40809/2_40809_input.xlsx",
+      "path": "templates/header-magenta"
+    },
+    {
+      "skeleton": true,
+      "slug": "accent-magenta",
+      "cluster": "plain-magenta",
+      "sample_count": 4,
+      "header_fill": null,
+      "style_palette": [
+        "800080",
+        "FF0000",
+        "0000FF",
+        "008000",
+        "FFA500",
+        "FFFF00",
+        "0000FF",
+        "FFA500"
+      ],
+      "visual_palette": [
+        {
+          "hex": "FF0000",
+          "share": 0.0052
+        },
+        {
+          "hex": "FFA40E",
+          "share": 0.0039
+        },
+        {
+          "hex": "0000EF",
+          "share": 0.0037
+        },
+        {
+          "hex": "FFFF18",
+          "share": 0.0034
+        },
+        {
+          "hex": "B1CEAD",
+          "share": 0.0023
+        },
+        {
+          "hex": "F9EAC9",
+          "share": 0.0021
+        }
+      ],
+      "number_formats": [],
+      "columns": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {
+          "width": 11.85546875
+        },
+        {
+          "width": 12.42578125
+        },
+        {
+          "width": 7.0
+        }
+      ],
+      "default_font": null,
+      "header_values": [],
+      "source": "/tmp/excel_corpus2/openxml/bed2ab5c_FilterByColor.xlsx",
+      "path": "templates/accent-magenta"
+    },
+    {
+      "skeleton": true,
+      "slug": "accent-cyan",
+      "cluster": "plain-cyan",
+      "sample_count": 4,
+      "header_fill": null,
+      "style_palette": [
+        "00B0F0",
+        "FFFF00",
+        "DC0000",
+        "F2F2F2"
+      ],
+      "visual_palette": [
+        {
+          "hex": "BFBFBF",
+          "share": 0.0468
+        },
+        {
+          "hex": "F2F2F2",
+          "share": 0.0196
+        },
+        {
+          "hex": "DCDCDC",
+          "share": 0.0035
+        },
+        {
+          "hex": "E9E9E9",
+          "share": 0.0017
+        },
+        {
+          "hex": "717171",
+          "share": 0.0012
+        },
+        {
+          "hex": "D1D1D1",
+          "share": 0.001
+        }
+      ],
+      "number_formats": [
+        "0.0",
+        "0.00"
+      ],
+      "columns": [
+        {
+          "width": 27.125
+        },
+        {
+          "width": 19.125
+        },
+        {
+          "width": 15.0
+        },
+        {
+          "width": 14.625
+        },
+        {
+          "width": 14.625
+        },
+        {
+          "width": 19.0
+        },
+        {
+          "width": 17.75
+        },
+        {
+          "width": 17.0
+        },
+        {
+          "width": 17.875
+        },
+        {
+          "width": 18.25
+        },
+        {
+          "width": 14.625
+        },
+        {
+          "width": 14.625
+        }
+      ],
+      "default_font": {
+        "name": "Arial",
+        "size": 11.0
+      },
+      "header_values": [
+        "",
+        ""
+      ],
+      "source": "/tmp/ec3/closedxml/ClosedXML-develop/ClosedXML.Tests/Resource/TryToLoad/PivotTableWithMissingReference.xlsx",
+      "path": "templates/accent-cyan"
+    }
+  ]
+}

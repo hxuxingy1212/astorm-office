@@ -1,0 +1,85 @@
+{
+  "page": {
+    "size": "A4"
+  },
+  "parts": [
+    {
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 1,
+          "text": "表单域样例",
+          "align": "center"
+        },
+        {
+          "type": "paragraph",
+          "runs": [
+            {
+              "text": "姓名：",
+              "bold": true
+            },
+            {
+              "text": "张三",
+              "form_field": {
+                "kind": "text",
+                "name": "Name"
+              }
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "runs": [
+            {
+              "text": "是否同意：",
+              "bold": true
+            },
+            {
+              "text": "",
+              "form_field": {
+                "kind": "checkbox",
+                "name": "Agree",
+                "checked": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "runs": [
+            {
+              "text": "部门：",
+              "bold": true
+            },
+            {
+              "text": "研发",
+              "form_field": {
+                "kind": "dropdown",
+                "name": "Dept",
+                "items": [
+                  "研发",
+                  "市场",
+                  "运营"
+                ],
+                "default": "研发"
+              }
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "runs": [
+            {
+              "text": "提交日期（域）：",
+              "bold": true
+            },
+            {
+              "text": "2026-01-01",
+              "field": "DATE"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

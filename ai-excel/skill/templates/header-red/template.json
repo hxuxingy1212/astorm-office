@@ -1,0 +1,57 @@
+{
+  "name": "WalkingRanges",
+  "source": "/tmp/ec3/closedxml/ClosedXML-develop/ClosedXML.Tests/Resource/Examples/Ranges/WalkingRanges.xlsx",
+  "default_font": {
+    "name": "Calibri",
+    "size": 11.0,
+    "color": "000000"
+  },
+  "palette": [
+    {
+      "hex": "A2A2D0",
+      "count": 8,
+      "usage": "fill"
+    },
+    {
+      "hex": "FA8072",
+      "count": 8,
+      "usage": "fill"
+    },
+    {
+      "hex": "FFA07A",
+      "count": 8,
+      "usage": "fill"
+    },
+    {
+      "hex": "0000FF",
+      "count": 6,
+      "usage": "fill"
+    },
+    {
+      "hex": "ADD8E6",
+      "count": 2,
+      "usage": "fill"
+    }
+  ],
+  "header": {
+    "sheet": "Walking Cells",
+    "row": 3,
+    "style": {
+      "fill": "FFA07A"
+    },
+    "values": [
+      "(3,5)"
+    ]
+  },
+  "default_row_height": 15.0,
+  "sheets": [
+    "Walking Cells",
+    "Walking rows",
+    "Walking columns"
+  ],
+  "notes": [
+    "检测到表头：Walking Cells 第 3 行（保持该行样式即可得到一致外观）",
+    "工作簿默认字体：Calibri 11",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

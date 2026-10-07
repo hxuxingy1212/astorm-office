@@ -1,0 +1,154 @@
+{
+  "name": "HedgeSummary",
+  "default_row_height": 15.0,
+  "columns": [
+    {
+      "width": 14.140625
+    },
+    {
+      "width": 21.7109375
+    },
+    {
+      "width": 7.85546875
+    },
+    {
+      "width": 21.7109375
+    },
+    {
+      "width": 12.0
+    }
+  ],
+  "print": {
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "CurveType"
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "ShockDate"
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "Code"
+        },
+        {
+          "ref": "D1",
+          "type": "string",
+          "value": "Sum of NotionalsPerR1",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "E1",
+          "type": "string",
+          "value": "Sum of Price",
+          "number_format": "#,##0"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "A2"
+        },
+        {
+          "ref": "B2",
+          "number_format": "yyyy\\-mm\\-dd"
+        },
+        {
+          "ref": "C2"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "cells": [
+        {
+          "ref": "A3"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "cells": [
+        {
+          "ref": "A4"
+        }
+      ]
+    },
+    {
+      "index": 5
+    },
+    {
+      "index": 6
+    },
+    {
+      "index": 7
+    },
+    {
+      "index": 8
+    },
+    {
+      "index": 9
+    },
+    {
+      "index": 10
+    },
+    {
+      "index": 11
+    },
+    {
+      "index": 12
+    },
+    {
+      "index": 13
+    },
+    {
+      "index": 14
+    },
+    {
+      "index": 15
+    },
+    {
+      "index": 16
+    },
+    {
+      "index": 17
+    },
+    {
+      "index": 18
+    },
+    {
+      "index": 19
+    },
+    {
+      "index": 20
+    },
+    {
+      "index": 21
+    },
+    {
+      "index": 22
+    },
+    {
+      "index": 23
+    },
+    {
+      "index": 24
+    }
+  ]
+}

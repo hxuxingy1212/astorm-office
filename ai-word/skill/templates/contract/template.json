@@ -1,0 +1,48 @@
+{
+  "page": {
+    "size": "A4",
+    "orientation": "portrait",
+    "margins": {
+      "top": 72.0,
+      "bottom": 72.0,
+      "left": 90.0,
+      "right": 90.0,
+      "header": 42.0,
+      "footer": 42.0
+    }
+  },
+  "theme": {
+    "minor_font": "Times New Roman",
+    "major_font": "Times New Roman",
+    "east_asia_font": "宋体",
+    "heading_font": "黑体",
+    "colors": {
+      "heading": "000000"
+    }
+  },
+  "styles": {
+    "Normal": {
+      "font_size": 12.0,
+      "line_spacing": 1.5,
+      "font_family": "Times New Roman",
+      "east_asia_font": "宋体"
+    },
+    "Heading1": {
+      "font_size": 16.0,
+      "bold": true,
+      "align": "center",
+      "space_before": 6.0,
+      "space_after": 12.0,
+      "font_family": "黑体",
+      "east_asia_font": "黑体"
+    },
+    "Heading2": {
+      "font_size": 12.0,
+      "bold": true,
+      "space_before": 8.0,
+      "space_after": 4.0,
+      "font_family": "黑体",
+      "east_asia_font": "黑体"
+    }
+  }
+}

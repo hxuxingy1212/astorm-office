@@ -1,0 +1,58 @@
+{
+  "name": "Portfolios",
+  "default_row_height": 15.0,
+  "columns": [
+    {
+      "width": 4.85546875
+    },
+    {
+      "width": 8.42578125
+    },
+    {
+      "width": 11.0
+    }
+  ],
+  "print": {
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "tables": [
+    {
+      "range": "A1:C2",
+      "name": "Portfolios",
+      "style": "TableStyleMedium2",
+      "show_banded_rows": true,
+      "columns": [
+        "Id",
+        "Name",
+        "DSSCode"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "Id"
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "Name"
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "DSSCode"
+        }
+      ]
+    }
+  ]
+}

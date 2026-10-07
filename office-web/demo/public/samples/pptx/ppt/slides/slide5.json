@@ -1,0 +1,238 @@
+{
+  "elements": [
+    {
+      "type": "text",
+      "id": 2,
+      "text": [
+        {
+          "runs": [
+            {
+              "text": "Timeline & Process",
+              "font_size": 36.0,
+              "bold": true,
+              "color": "accent1",
+              "lang": "en-US"
+            }
+          ],
+          "align": "left"
+        }
+      ],
+      "position": {
+        "x": 0.8,
+        "y": 0.4,
+        "w": 11.733,
+        "h": 1.0
+      },
+      "name": "TextBox 2",
+      "font_size": 36.0,
+      "color": "accent1",
+      "align": "left",
+      "vert_align": "middle",
+      "wrap": true
+    },
+    {
+      "type": "shape",
+      "id": 3,
+      "shape_type": "rect",
+      "position": {
+        "x": 0.8,
+        "y": 1.3,
+        "w": 3.0,
+        "h": 0.04
+      },
+      "name": "Shape 3",
+      "fill": "accent2"
+    },
+    {
+      "type": "group",
+      "id": 4,
+      "position": {
+        "x": 0.8,
+        "y": 2.0,
+        "w": 11.733,
+        "h": 1.5
+      },
+      "name": "Component 4",
+      "children": []
+    },
+    {
+      "type": "shape",
+      "id": 6,
+      "shape_type": "rect",
+      "position": {
+        "x": 0.8,
+        "y": 4.0,
+        "w": 5.5,
+        "h": 2.5
+      },
+      "name": "Shape 6",
+      "fill": "lt2",
+      "fill_alpha": 0.0015,
+      "shadow": {
+        "blur": 8.0,
+        "distance": 4.0,
+        "angle": 45.0,
+        "opacity": 0.4,
+        "color": "000000"
+      }
+    },
+    {
+      "type": "text",
+      "id": 7,
+      "text": [
+        {
+          "runs": [
+            {
+              "text": "Key Insight",
+              "font_size": 20.0,
+              "bold": true,
+              "color": "accent1",
+              "lang": "en-US"
+            }
+          ],
+          "align": "left"
+        }
+      ],
+      "position": {
+        "x": 1.3,
+        "y": 4.2,
+        "w": 4.5,
+        "h": 0.6
+      },
+      "name": "TextBox 7",
+      "font_size": 20.0,
+      "color": "accent1",
+      "align": "left",
+      "vert_align": "middle",
+      "wrap": true
+    },
+    {
+      "type": "text",
+      "id": 8,
+      "text": [
+        {
+          "runs": [
+            {
+              "text": "Early user feedback showed 94% adoption rate within the first month, validating our product-market fit strategy.",
+              "font_size": 14.0,
+              "color": "dk2",
+              "lang": "en-US"
+            }
+          ],
+          "align": "left"
+        }
+      ],
+      "position": {
+        "x": 1.3,
+        "y": 4.9,
+        "w": 4.5,
+        "h": 1.2
+      },
+      "name": "TextBox 8",
+      "font_size": 14.0,
+      "color": "dk2",
+      "align": "left",
+      "vert_align": "top",
+      "wrap": true
+    },
+    {
+      "type": "shape",
+      "id": 9,
+      "shape_type": "rect",
+      "position": {
+        "x": 7.0,
+        "y": 4.0,
+        "w": 5.5,
+        "h": 2.5
+      },
+      "name": "Shape 9",
+      "fill": "accent1",
+      "fill_alpha": 0.002,
+      "shadow": {
+        "blur": 8.0,
+        "distance": 4.0,
+        "angle": 45.0,
+        "opacity": 0.4,
+        "color": "000000"
+      }
+    },
+    {
+      "type": "text",
+      "id": 10,
+      "text": [
+        {
+          "runs": [
+            {
+              "text": "Next Steps",
+              "font_size": 20.0,
+              "bold": true,
+              "color": "lt1",
+              "lang": "en-US"
+            }
+          ],
+          "align": "left"
+        }
+      ],
+      "position": {
+        "x": 7.5,
+        "y": 4.2,
+        "w": 4.5,
+        "h": 0.6
+      },
+      "name": "TextBox 10",
+      "font_size": 20.0,
+      "color": "lt1",
+      "align": "left",
+      "vert_align": "middle",
+      "wrap": true
+    },
+    {
+      "type": "text",
+      "id": 11,
+      "text": [
+        {
+          "runs": [
+            {
+              "text": "• Expand to APAC market",
+              "font_size": 14.0,
+              "color": "lt1",
+              "lang": "en-US"
+            },
+            {
+              "text": "\n• Hire 15 new engineers",
+              "font_size": 14.0,
+              "color": "lt1",
+              "lang": "en-US"
+            },
+            {
+              "text": "\n• Launch v2.0 in Q2",
+              "font_size": 14.0,
+              "color": "lt1",
+              "lang": "en-US"
+            },
+            {
+              "text": "\n• Reach $5M ARR by year end",
+              "font_size": 14.0,
+              "color": "lt1",
+              "lang": "en-US"
+            }
+          ],
+          "align": "left"
+        }
+      ],
+      "position": {
+        "x": 7.5,
+        "y": 4.9,
+        "w": 4.5,
+        "h": 1.4
+      },
+      "name": "TextBox 11",
+      "font_size": 14.0,
+      "color": "lt1",
+      "align": "left",
+      "vert_align": "top",
+      "wrap": true
+    }
+  ],
+  "background": "FFF8F8"
+}

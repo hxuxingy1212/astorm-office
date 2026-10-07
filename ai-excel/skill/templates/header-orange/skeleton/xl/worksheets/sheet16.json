@@ -1,0 +1,142 @@
+{
+  "name": "PerSchemeRequiredBonds",
+  "default_row_height": 15.0,
+  "columns": [
+    {
+      "width": 13.7109375
+    },
+    {
+      "width": 22.140625
+    },
+    {
+      "width": 15.42578125
+    },
+    {
+      "width": 15.42578125
+    },
+    {
+      "width": 17.7109375
+    },
+    {
+      "width": 22.5703125
+    },
+    {
+      "width": 15.42578125
+    }
+  ],
+  "conditional_formats": [
+    {
+      "range": "A2:G2",
+      "type": "expression",
+      "formulas": [
+        "$F2=\"Real\""
+      ],
+      "font": {}
+    }
+  ],
+  "print": {
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "tables": [
+    {
+      "range": "A1:G2",
+      "name": "PerSchemeRequiredBonds",
+      "style": "TableStyleMedium2",
+      "show_banded_rows": true,
+      "columns": [
+        "Calculation_id",
+        "SchemeName",
+        "Liability",
+        "RequiredAssets",
+        "RequiredCPIBonds",
+        "RequiredNominalBonds",
+        "Cash"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "Calculation_id"
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "SchemeName",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "Liability",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "D1",
+          "type": "string",
+          "value": "RequiredAssets",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "E1",
+          "type": "string",
+          "value": "RequiredCPIBonds",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "F1",
+          "type": "string",
+          "value": "RequiredNominalBonds",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "G1",
+          "type": "string",
+          "value": "Cash",
+          "number_format": "#,##0"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "A2"
+        },
+        {
+          "ref": "B2",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "C2",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "D2",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "E2",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "F2",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "G2",
+          "number_format": "#,##0"
+        }
+      ]
+    }
+  ]
+}

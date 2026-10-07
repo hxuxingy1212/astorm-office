@@ -1,0 +1,104 @@
+{
+  "name": "2_35739_input",
+  "source": "/tmp/excel_corpus/sample_data_200/spreadsheet/35739/2_35739_input.xlsx",
+  "default_font": {
+    "name": "等线",
+    "size": 11.0
+  },
+  "palette": [
+    {
+      "hex": "FF0000",
+      "count": 99,
+      "usage": "font"
+    },
+    {
+      "hex": "000000",
+      "count": 82,
+      "usage": "font"
+    },
+    {
+      "hex": "FFFFFF",
+      "count": 3,
+      "usage": "font"
+    },
+    {
+      "hex": "000000",
+      "count": 2,
+      "usage": "font"
+    },
+    {
+      "hex": "FF0000",
+      "count": 1,
+      "usage": "font"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "等线",
+      "size": 11.0,
+      "color": "FF0000",
+      "count": 99
+    },
+    {
+      "name": "等线",
+      "size": 11.0,
+      "color": "000000",
+      "count": 82
+    },
+    {
+      "name": "等线",
+      "size": 11.0,
+      "count": 4
+    },
+    {
+      "name": "Arial",
+      "size": 9.0,
+      "bold": true,
+      "color": "FFFFFF",
+      "count": 3
+    }
+  ],
+  "number_formats": [
+    "d-mmm-yy",
+    "h:mm"
+  ],
+  "header": {
+    "sheet": "Sheet1",
+    "row": 1,
+    "style": {
+      "font": {
+        "bold": true,
+        "name": "Arial",
+        "size": 9.0,
+        "color": "FFFFFF"
+      },
+      "fill": "000000"
+    },
+    "values": [
+      "DATE",
+      "STD",
+      "CUT OFF"
+    ]
+  },
+  "columns": [
+    {
+      "width": 11.0
+    },
+    {
+      "width": 8.66666666666667
+    },
+    {
+      "width": 20.5833333333333
+    }
+  ],
+  "default_col_width": 9.0,
+  "default_row_height": 14.4,
+  "sheets": [
+    "Sheet1"
+  ],
+  "notes": [
+    "检测到表头：Sheet1 第 1 行（保持该行样式即可得到一致外观）",
+    "工作簿默认字体：等线 11",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

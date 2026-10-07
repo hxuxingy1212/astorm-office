@@ -1,0 +1,23 @@
+/target
+**/*.rs.bk
+web/node_modules/
+web/dist/
+web-server/data/
+.DS_Store
+.zcode/
+
+# IDE / editor state
+.idea/
+.json2pptx/
+.opencode/
+
+# scratch, probe and build artifacts
+tmp/
+skill/_probe*.txt
+skill/json2pptx.exe
+
+# stray accidental outputs at repo root
+/0
+/1.1
+/best\[2\]
+/dummy.png

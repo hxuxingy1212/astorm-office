@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Rust
+target/
+
+# Node
+node_modules/
+
+# ZCode 工作区本地配置
+.zcodeignore
+
+# ZCode 会话内部文件
+.zcode/
+
+office-web/.vite/
+__pycache__/

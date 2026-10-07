@@ -1,0 +1,11 @@
+{
+  "default_font": {
+    "name": "Verdana",
+    "size": 10.0,
+    "color": "000000"
+  },
+  "active_tab": 0,
+  "sheets": [
+    "xl/worksheets/sheet1.json"
+  ]
+}

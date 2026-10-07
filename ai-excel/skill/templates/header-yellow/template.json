@@ -1,0 +1,188 @@
+{
+  "name": "b3fc8504_ConditionalFormattingSamples",
+  "source": "/tmp/excel_corpus2/npoi/b3fc8504_ConditionalFormattingSamples.xlsx",
+  "palette": [
+    {
+      "hex": "FFFF99",
+      "count": 6,
+      "usage": "fill"
+    },
+    {
+      "hex": "3F3F76",
+      "count": 2,
+      "usage": "font"
+    },
+    {
+      "hex": "92D050",
+      "count": 2,
+      "usage": "fill"
+    },
+    {
+      "hex": "A5A5A5",
+      "count": 2,
+      "usage": "fill"
+    },
+    {
+      "hex": "FFCC99",
+      "count": 2,
+      "usage": "fill"
+    },
+    {
+      "hex": "00B0F0",
+      "count": 1,
+      "usage": "fill"
+    },
+    {
+      "hex": "FFC000",
+      "count": 1,
+      "usage": "fill"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "count": 610
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "bold": true,
+      "count": 265
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "count": 242
+    },
+    {
+      "name": "Calibri",
+      "size": 10.0,
+      "count": 220
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "count": 215
+    },
+    {
+      "name": "Calibri",
+      "size": 10.0,
+      "bold": true,
+      "count": 20
+    },
+    {
+      "name": "Tahoma",
+      "size": 10.0,
+      "count": 17
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "bold": true,
+      "count": 11
+    },
+    {
+      "name": "Arial",
+      "size": 8.0,
+      "count": 5
+    },
+    {
+      "name": "Calibri",
+      "size": 9.0,
+      "count": 3
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "color": "3F3F76",
+      "count": 2
+    },
+    {
+      "name": "Arial",
+      "size": 11.0,
+      "count": 1
+    }
+  ],
+  "number_formats": [
+    "\" Excellent\"",
+    "\" Fair\"",
+    "\" Good\"",
+    "\" Poor\"",
+    "\" Very Good\"",
+    "\"$\"#,##0",
+    "\"$\"#,##0.00",
+    "0",
+    "0%",
+    "@",
+    "_(* #,##0_);_(* \\(#,##0\\);_(* \"-\"??_);_(@_)",
+    "d-mmm",
+    "mm-dd-yy",
+    "mm/dd",
+    "mm/dd/yyyy"
+  ],
+  "header": {
+    "sheet": "Home",
+    "row": 5,
+    "style": {
+      "fill": "FFFF99"
+    },
+    "values": [
+      "To navigate to the  worksheet you want to see, click the worksheet name button in the Worksheet column.",
+      "",
+      ""
+    ]
+  },
+  "columns": [
+    {
+      "width": 9.0
+    },
+    {
+      "width": 7.5703125
+    },
+    {
+      "width": 7.5703125
+    },
+    {
+      "width": 8.28515625
+    },
+    {
+      "width": 7.5703125
+    },
+    {
+      "width": 9.28515625
+    },
+    {
+      "width": 10.42578125
+    },
+    {},
+    {
+      "width": 11.42578125
+    }
+  ],
+  "default_row_height": 15.0,
+  "sheets": [
+    "Home",
+    "Products1",
+    "Products2",
+    "Book tour",
+    "Grades",
+    "Customers1",
+    "Quarters",
+    "Bike rating",
+    "FY months",
+    "Regional sales",
+    "Regional sales2",
+    "Regional sales3",
+    "Mountains",
+    "Category sales",
+    "Banded rows",
+    "Compare to totals",
+    "Products3",
+    "Customers2"
+  ],
+  "notes": [
+    "检测到表头：Home 第 5 行（保持该行样式即可得到一致外观）",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

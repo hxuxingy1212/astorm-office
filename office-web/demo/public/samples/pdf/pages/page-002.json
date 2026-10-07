@@ -1,0 +1,142 @@
+{
+  "elements": [
+    {
+      "type": "text",
+      "text": "功能总览",
+      "x": 60,
+      "y": 760,
+      "size": 22,
+      "font": "system:PingFang SC",
+      "color": "#1b2a4a"
+    },
+    {
+      "type": "rect",
+      "x": 60,
+      "y": 748,
+      "w": 88,
+      "h": 3,
+      "fill": "#2e74b5"
+    },
+    {
+      "type": "text",
+      "text": "unpack 将任意 PDF 解析为产物目录：每页一个 JSON 分片，\n文本、矢量、图片与渐变按绘制顺序列元素。",
+      "x": 60,
+      "y": 700,
+      "size": 12,
+      "font": "system:PingFang SC",
+      "color": "#333333"
+    },
+    {
+      "type": "shading",
+      "kind": "axial",
+      "coords": [
+        60,
+        560,
+        280,
+        560
+      ],
+      "bbox": [
+        60,
+        540,
+        280,
+        600
+      ],
+      "stops": [
+        {
+          "offset": 0,
+          "color": "#2e74b5"
+        },
+        {
+          "offset": 1,
+          "color": "#7fd0ff"
+        }
+      ]
+    },
+    {
+      "type": "rect",
+      "x": 320,
+      "y": 540,
+      "w": 215,
+      "h": 60,
+      "stroke": "#2e74b5",
+      "line_width": 1.2
+    },
+    {
+      "type": "text",
+      "text": "repack 反向重建：字形/字宽与原文一致",
+      "x": 330,
+      "y": 575,
+      "size": 11,
+      "font": "system:PingFang SC",
+      "color": "#2e74b5"
+    },
+    {
+      "type": "polyline",
+      "points": [
+        [
+          60,
+          460
+        ],
+        [
+          160,
+          500
+        ],
+        [
+          260,
+          440
+        ],
+        [
+          360,
+          490
+        ],
+        [
+          460,
+          430
+        ],
+        [
+          535,
+          470
+        ]
+      ],
+      "stroke": "#d64545",
+      "line_width": 2
+    },
+    {
+      "type": "text",
+      "text": "渲染核对：render html / png / pdf",
+      "x": 60,
+      "y": 400,
+      "size": 12,
+      "font": "system:PingFang SC",
+      "color": "#333333"
+    },
+    {
+      "type": "rect",
+      "x": 60,
+      "y": 300,
+      "w": 475,
+      "h": 70,
+      "fill": "#f2f6fb",
+      "stroke": "#c8d8ea",
+      "line_width": 1
+    },
+    {
+      "type": "text",
+      "text": "edit 按路径精准修改：/page[1]/text[2] set --prop text=新内容",
+      "x": 75,
+      "y": 345,
+      "size": 12,
+      "font": "system:PingFang SC",
+      "color": "#444444"
+    },
+    {
+      "type": "text",
+      "text": "悬浮本页任意元素，路径卡片会显示它的 CLI 寻址。",
+      "x": 75,
+      "y": 318,
+      "size": 11,
+      "font": "system:PingFang SC",
+      "color": "#777777"
+    }
+  ]
+}

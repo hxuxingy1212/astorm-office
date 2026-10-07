@@ -1,0 +1,96 @@
+{
+  "_notes": [
+    "正文西文字体：Times New Roman；中文字体：宋体",
+    "标题字体：Times New Roman",
+    "正文字号：12 pt",
+    "一级标题字号：18 pt",
+    "正文行距：2.00 倍",
+    "正文首行缩进：24 pt"
+  ],
+  "page": {
+    "margins": {
+      "bottom": 72.0,
+      "footer": 36.0,
+      "header": 36.0,
+      "left": 90.0,
+      "right": 90.0,
+      "top": 72.0
+    },
+    "orientation": "portrait",
+    "size": "A4"
+  },
+  "styles": {
+    "Code": {
+      "bold": true,
+      "color": "007020",
+      "east_asia_font": "宋体",
+      "font_family": "Consolas",
+      "font_size": 11.0,
+      "line_spacing": 1.5
+    },
+    "Heading1": {
+      "align": "center",
+      "bold": true,
+      "east_asia_font": "黑体",
+      "font_family": "Times New Roman",
+      "font_size": 18.0,
+      "line_spacing": 1.5,
+      "space_before": 24.0
+    },
+    "Heading2": {
+      "bold": true,
+      "east_asia_font": "黑体",
+      "font_family": "Times New Roman",
+      "font_size": 16.0,
+      "line_spacing": 1.5,
+      "space_before": 15.0
+    },
+    "Heading3": {
+      "bold": true,
+      "east_asia_font": "黑体",
+      "font_family": "Times New Roman",
+      "font_size": 14.0,
+      "line_spacing": 1.5,
+      "space_before": 10.0
+    },
+    "Heading4": {
+      "bold": true,
+      "east_asia_font": "黑体",
+      "font_family": "Times New Roman",
+      "font_size": 12.0,
+      "line_spacing": 1.5,
+      "space_before": 10.0
+    },
+    "Heading5": {
+      "bold": true,
+      "east_asia_font": "黑体",
+      "font_family": "Times New Roman",
+      "font_size": 12.0,
+      "line_spacing": 1.5,
+      "space_before": 10.0
+    },
+    "Heading6": {
+      "bold": true,
+      "east_asia_font": "黑体",
+      "font_family": "Times New Roman",
+      "font_size": 12.0,
+      "line_spacing": 1.5,
+      "space_before": 10.0
+    },
+    "Normal": {
+      "east_asia_font": "宋体",
+      "first_line_indent": 24.0,
+      "font_family": "Times New Roman",
+      "font_size": 12.0,
+      "line_spacing": 2.0,
+      "space_after": 3.0,
+      "space_before": 9.0
+    }
+  },
+  "theme": {
+    "east_asia_font": "宋体",
+    "heading_font": "Times New Roman",
+    "major_font": "Times New Roman",
+    "minor_font": "Times New Roman"
+  }
+}

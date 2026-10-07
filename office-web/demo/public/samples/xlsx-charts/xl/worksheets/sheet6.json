@@ -1,0 +1,58 @@
+{
+  "name": "Sheet6",
+  "zoom": 85,
+  "default_row_height": 13.5,
+  "print": {
+    "orientation": "landscape",
+    "paper_size": 9,
+    "scale": 120,
+    "margin_left": 1.1023622047244095,
+    "margin_right": 1.1023622047244095,
+    "margin_top": 0.35433070866141736,
+    "margin_bottom": 0.35433070866141736,
+    "margin_header": 0.11811023622047245,
+    "margin_footer": 0.5118110236220472,
+    "h_center": true,
+    "v_center": true,
+    "row_breaks": [
+      13
+    ],
+    "col_breaks": [
+      9
+    ],
+    "odd_header": "&P ページ",
+    "odd_footer": "&L&B 社外秘&B&C&D&R&P ページ"
+  },
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "TEST"
+        }
+      ]
+    },
+    {
+      "index": 22,
+      "cells": [
+        {
+          "ref": "A22",
+          "type": "string",
+          "value": "TEST"
+        }
+      ]
+    },
+    {
+      "index": 29,
+      "cells": [
+        {
+          "ref": "K29",
+          "type": "string",
+          "value": "TEST"
+        }
+      ]
+    }
+  ]
+}

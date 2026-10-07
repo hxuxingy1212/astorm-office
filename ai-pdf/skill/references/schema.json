@@ -1,0 +1,1479 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "unpack（PDF→JSON）与 repack（JSON→PDF）的统一中间形态：document.json + pages/*.json + media/ + fonts/。坐标一律 pt、y 向上，文本 y 为基线。",
+  "document": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+      "Meta": {
+        "description": "元信息",
+        "properties": {
+          "author": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "creator": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "producer": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "subject": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "PageSize": {
+        "description": "页面尺寸（pt）",
+        "properties": {
+          "height": {
+            "format": "double",
+            "type": "number"
+          },
+          "width": {
+            "format": "double",
+            "type": "number"
+          }
+        },
+        "required": [
+          "height",
+          "width"
+        ],
+        "type": "object"
+      }
+    },
+    "description": "顶层文档模型（document.json）",
+    "properties": {
+      "fonts": {
+        "description": "字体元数据文件路径数组（相对产物根，如 \"fonts/font-001.json\"）",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "meta": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/Meta"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "description": "文档元信息"
+      },
+      "page_size": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/PageSize"
+          }
+        ],
+        "default": {
+          "height": 841.89,
+          "width": 595.28
+        },
+        "description": "默认页面尺寸（pt）；页面可覆盖"
+      },
+      "pages": {
+        "description": "页面文件路径数组（相对产物根，如 \"pages/page-001.json\"）",
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "version": {
+        "default": 2,
+        "description": "产物目录格式版本",
+        "format": "uint32",
+        "minimum": 0.0,
+        "type": "integer"
+      }
+    },
+    "required": [
+      "pages"
+    ],
+    "title": "DocumentModel",
+    "type": "object"
+  },
+  "page": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+      "Element": {
+        "description": "页面元素。坐标一律 pt、y 向上；text 的 y 为基线。",
+        "oneOf": [
+          {
+            "description": "文本",
+            "properties": {
+              "alpha": {
+                "description": "不透明度 0-1",
+                "format": "double",
+                "type": "number"
+              },
+              "blend": {
+                "description": "混合模式（/BM，如 Multiply/Screen/Overlay）",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "bold": {
+                "type": "boolean"
+              },
+              "char_spacing": {
+                "description": "字间距（Tc，pt）",
+                "format": "double",
+                "type": "number"
+              },
+              "code_bytes": {
+                "description": "每个码的字节数（1 或 2）",
+                "format": "uint8",
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              "codes": {
+                "description": "原始码位（十六进制；仅复杂文种整形文本记录）。 连写/连字由 shaper 决定，按 unicode 回写会退化为孤立形， 位置随之漂移（fpdf2 bidi_arabic_lorem_ipsum）",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "color": {
+                "default": "#000000",
+                "description": "文字颜色 \"#RRGGBB\"",
+                "type": "string"
+              },
+              "font": {
+                "default": "Helvetica",
+                "description": "字体名：标准 14（Helvetica/Times-Roman/Courier…）或系统字体名 （如 \"system:PingFang SC\"，repack 时查找并嵌入）",
+                "type": "string"
+              },
+              "font_id": {
+                "description": "内嵌字体资源 id（fonts/*.json 的 id）；存在时优先使用原字体",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "h_scale": {
+                "description": "水平缩放（Tz，1.0 = 100%）",
+                "format": "double",
+                "type": "number"
+              },
+              "italic": {
+                "type": "boolean"
+              },
+              "mirror": {
+                "description": "文本基镜像（文本基线性部分行列式 < 0，如水平翻转、转置）。 与 rotation 联合可精确重构全部纯镜像基 R(θ)·diag(1,-1)",
+                "type": "boolean"
+              },
+              "render_mode": {
+                "description": "文本渲染模式（Tr：1 描边 / 2 填充+描边；0 缺省填充）",
+                "format": "uint8",
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              "rotation": {
+                "description": "逆时针旋转角度（度）",
+                "format": "double",
+                "type": "number"
+              },
+              "size": {
+                "default": 12.0,
+                "description": "字号（pt）",
+                "format": "double",
+                "type": "number"
+              },
+              "smask": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/SoftMask"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "ExtGState /SMask 软掩膜"
+              },
+              "stroke_color": {
+                "description": "文本描边色（Tr=1/2 时有效）",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "stroke_width": {
+                "description": "文本描边线宽",
+                "format": "double",
+                "type": "number"
+              },
+              "text": {
+                "description": "文本内容（\\n 表示强制换行，生成时按行落 Td）",
+                "type": "string"
+              },
+              "tm": {
+                "description": "文本基线性部分（设备空间，按行推进向量归一到单位长）。 `size` 只含推进方向的缩放，正交基以外的情形（剪切、 两轴缩放不等，如 Tm `1.4 -0.7 0.7 0.7`）靠它精确还原、 否则字形会被拉高（pdf.js/bug946506）。缺省 = 纯旋转/镜像基",
+                "items": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "maxItems": 4,
+                "minItems": 4,
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              "type": {
+                "enum": [
+                  "text"
+                ],
+                "type": "string"
+              },
+              "word_spacing": {
+                "description": "词间距（Tw，pt）",
+                "format": "double",
+                "type": "number"
+              },
+              "x": {
+                "description": "基线起点 x",
+                "format": "double",
+                "type": "number"
+              },
+              "y": {
+                "description": "基线 y",
+                "format": "double",
+                "type": "number"
+              }
+            },
+            "required": [
+              "text",
+              "type",
+              "x",
+              "y"
+            ],
+            "type": "object"
+          },
+          {
+            "description": "矩形",
+            "properties": {
+              "alpha": {
+                "description": "填充不透明度 0-1",
+                "format": "double",
+                "type": "number"
+              },
+              "blend": {
+                "description": "混合模式（/BM）",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "fill": {
+                "description": "填充色；null 或缺省 = 不填充",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "h": {
+                "format": "double",
+                "type": "number"
+              },
+              "line_width": {
+                "format": "double",
+                "type": "number"
+              },
+              "rotation": {
+                "description": "逆时针旋转角度（度），绕左下角",
+                "format": "double",
+                "type": "number"
+              },
+              "smask": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/SoftMask"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "ExtGState /SMask 软掩膜"
+              },
+              "stroke": {
+                "description": "描边色；null = 不描边",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "stroke_alpha": {
+                "description": "描边不透明度（与填充不同时记录；缺省 = alpha）",
+                "format": "double",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "type": {
+                "enum": [
+                  "rect"
+                ],
+                "type": "string"
+              },
+              "w": {
+                "format": "double",
+                "type": "number"
+              },
+              "x": {
+                "description": "左下角 x",
+                "format": "double",
+                "type": "number"
+              },
+              "y": {
+                "description": "左下角 y",
+                "format": "double",
+                "type": "number"
+              }
+            },
+            "required": [
+              "h",
+              "type",
+              "w",
+              "x",
+              "y"
+            ],
+            "type": "object"
+          },
+          {
+            "description": "平铺图案填充的矩形",
+            "properties": {
+              "alpha": {
+                "format": "double",
+                "type": "number"
+              },
+              "blend": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "h": {
+                "format": "double",
+                "type": "number"
+              },
+              "pattern": {
+                "$ref": "#/definitions/PatternDef"
+              },
+              "type": {
+                "enum": [
+                  "pattern_rect"
+                ],
+                "type": "string"
+              },
+              "w": {
+                "format": "double",
+                "type": "number"
+              },
+              "x": {
+                "format": "double",
+                "type": "number"
+              },
+              "y": {
+                "format": "double",
+                "type": "number"
+              }
+            },
+            "required": [
+              "h",
+              "pattern",
+              "type",
+              "w",
+              "x",
+              "y"
+            ],
+            "type": "object"
+          },
+          {
+            "description": "路径（折线/曲线，保留贝塞尔控制点）",
+            "properties": {
+              "alpha": {
+                "format": "double",
+                "type": "number"
+              },
+              "blend": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "clip": {
+                "description": "裁剪路径（设备空间）",
+                "items": {
+                  "$ref": "#/definitions/PathSegment"
+                },
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              "dash": {
+                "description": "虚线模式（PDF `d` 操作数；空 = 实线）",
+                "items": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              "dash_phase": {
+                "description": "虚线段相位",
+                "format": "double",
+                "type": "number"
+              },
+              "even_odd": {
+                "description": "奇偶填充规则",
+                "type": "boolean"
+              },
+              "fill": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "line_cap": {
+                "description": "线端样式（J：0 平帽/1 圆帽/2 方帽）；虚线外观由它决定",
+                "format": "double",
+                "type": "number"
+              },
+              "line_join": {
+                "description": "线连接样式（j：0 尖角/1 圆角/2 斜切）",
+                "format": "double",
+                "type": "number"
+              },
+              "line_width": {
+                "format": "double",
+                "type": "number"
+              },
+              "segments": {
+                "description": "子路径段：{\"op\":\"m\"|\"l\"|\"c\"|\"h\", \"points\":[[x,y],…]}",
+                "items": {
+                  "$ref": "#/definitions/PathSegment"
+                },
+                "type": "array"
+              },
+              "smask": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/SoftMask"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "ExtGState /SMask 软掩膜"
+              },
+              "stroke": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "stroke_alpha": {
+                "description": "描边不透明度（与填充不同时记录；缺省 = alpha）",
+                "format": "double",
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "type": {
+                "enum": [
+                  "path"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "segments",
+              "type"
+            ],
+            "type": "object"
+          },
+          {
+            "description": "折线（两点即线段）；兼容旧格式，unpack 现在输出 path",
+            "properties": {
+              "close": {
+                "type": "boolean"
+              },
+              "dash": {
+                "items": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              "dash_phase": {
+                "format": "double",
+                "type": "number"
+              },
+              "line_width": {
+                "format": "double",
+                "type": "number"
+              },
+              "points": {
+                "description": "[[x1,y1],[x2,y2],…]",
+                "items": {
+                  "items": {
+                    "format": "double",
+                    "type": "number"
+                  },
+                  "maxItems": 2,
+                  "minItems": 2,
+                  "type": "array"
+                },
+                "type": "array"
+              },
+              "stroke": {
+                "default": "#000000",
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "polyline"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "points",
+              "type"
+            ],
+            "type": "object"
+          },
+          {
+            "description": "渐变着色（轴向/径向）",
+            "properties": {
+              "alpha": {
+                "description": "不透明度 0-1",
+                "format": "double",
+                "type": "number"
+              },
+              "bbox": {
+                "description": "绘制区域（裁剪框；缺省 = 整页）",
+                "items": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "maxItems": 4,
+                "minItems": 4,
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              "clip": {
+                "description": "裁剪路径（设备空间；缺省只用 bbox）",
+                "items": {
+                  "$ref": "#/definitions/PathSegment"
+                },
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              "coords": {
+                "description": "轴向 [x0,y0,x1,y1]；径向 [x0,y0,r0,x1,y1,r1]",
+                "items": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "extend": {
+                "description": "extend [start, end]",
+                "items": {
+                  "type": "boolean"
+                },
+                "type": "array"
+              },
+              "func0": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/Func0Data"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "采样函数（FunctionType 0）：几千个采样点直通，重建时原样写回。 按色标抽样会漏掉条纹（pdf.js/issue14165 的 5120 采样条纹渐变）"
+              },
+              "kind": {
+                "description": "\"axial\"（轴向）| \"radial\"（径向）",
+                "type": "string"
+              },
+              "mask": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/ShadingDef"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "亮度软掩膜渐变（ExtGState /SMask /S /Luminosity /G 表单内的渐变， 设备空间）。重建为 DeviceGray 表单 + /SMask，还原渐变透明度 （fpdf2 gradient_opacity：掩膜白→黑，丢失时整块变实心）"
+              },
+              "matrix": {
+                "description": "着色空间 → 设备空间矩阵 [a,b,c,d,e,f]。仅在**非相似变换**（各向异性 缩放/剪切）时记录：此时 coords 保持着色空间坐标，由矩阵把圆压成椭圆 （径向渐变的半径无法单独表达椭圆；pdf.js/issue7847_radial）",
+                "items": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "maxItems": 6,
+                "minItems": 6,
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              "mesh": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/MeshShading"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "网格渐变（ShadingType 4-7）：码流直通，重建时原样写回"
+              },
+              "stops": {
+                "description": "色标（位置 0-1 → 颜色 \"#RRGGBB\"）",
+                "items": {
+                  "$ref": "#/definitions/ShadingStop"
+                },
+                "type": "array"
+              },
+              "type": {
+                "enum": [
+                  "shading"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "coords",
+              "kind",
+              "stops",
+              "type"
+            ],
+            "type": "object"
+          },
+          {
+            "description": "图片",
+            "properties": {
+              "alpha": {
+                "description": "不透明度 0-1",
+                "format": "double",
+                "type": "number"
+              },
+              "blend": {
+                "description": "混合模式（/BM）",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "clip": {
+                "description": "裁剪路径（设备空间）",
+                "items": {
+                  "$ref": "#/definitions/PathSegment"
+                },
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              "h": {
+                "format": "double",
+                "type": "number"
+              },
+              "passthrough": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/ImagePassthrough"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "直通参数（无法解码时原样嵌入）"
+              },
+              "preview": {
+                "description": "预览图（产物根相对路径）。仅对无法被浏览器直接解码的原图 （JPX/JBIG2/CCITT）生成，render/预览优先使用；repack 始终 用原字节（passthrough），此字段不参与重建。",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "rotation": {
+                "description": "逆时针旋转角度（度），绕左下角",
+                "format": "double",
+                "type": "number"
+              },
+              "smask": {
+                "description": "软掩膜图片（media/ 相对路径；PNG/JPEG 路径也会带）",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "smask_params": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/ImagePassthrough"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "软掩膜的直通参数"
+              },
+              "src": {
+                "description": "图片文件：产物根的相对路径（如 \"media/img-001.png\"）或绝对路径",
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "image"
+                ],
+                "type": "string"
+              },
+              "w": {
+                "format": "double",
+                "type": "number"
+              },
+              "x": {
+                "description": "左下角 x",
+                "format": "double",
+                "type": "number"
+              },
+              "y": {
+                "description": "左下角 y",
+                "format": "double",
+                "type": "number"
+              }
+            },
+            "required": [
+              "h",
+              "src",
+              "type",
+              "w",
+              "x",
+              "y"
+            ],
+            "type": "object"
+          },
+          {
+            "description": "透明组/Form XObject：子元素在组空间，重建为 Form XObject",
+            "properties": {
+              "alpha": {
+                "format": "double",
+                "type": "number"
+              },
+              "bbox": {
+                "items": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "maxItems": 4,
+                "minItems": 4,
+                "type": "array"
+              },
+              "blend": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "children": {
+                "items": {
+                  "$ref": "#/definitions/Element"
+                },
+                "type": "array"
+              },
+              "group": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/GroupInfo"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "matrix": {
+                "items": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "maxItems": 6,
+                "minItems": 6,
+                "type": "array"
+              },
+              "smask": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/SoftMask"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "ExtGState /SMask 软掩膜（组作为整体合成时的掩膜）"
+              },
+              "type": {
+                "enum": [
+                  "group"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "bbox",
+              "children",
+              "matrix",
+              "type"
+            ],
+            "type": "object"
+          }
+        ]
+      },
+      "Func0Data": {
+        "description": "FunctionType 0 采样函数的直通数据。",
+        "properties": {
+          "bits_per_sample": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "data": {
+            "description": "采样码流（相对产物根，如 shadings/fn-001.bin）",
+            "type": "string"
+          },
+          "decode": {
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "encode": {
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "range": {
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "size": {
+            "description": "/Size（多维时为多个，重建时原样写回）",
+            "items": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "bits_per_sample",
+          "data",
+          "size"
+        ],
+        "type": "object"
+      },
+      "FuncStreamData": {
+        "description": "网格着色函数的流形式（FunctionType 0/4 等）。",
+        "properties": {
+          "data": {
+            "type": "string"
+          },
+          "dict": true
+        },
+        "required": [
+          "data",
+          "dict"
+        ],
+        "type": "object"
+      },
+      "GroupInfo": {
+        "description": "透明组/Form XObject 的 /Group 字典（保留隔离与撞色语义）。",
+        "properties": {
+          "cs": {
+            "description": "/CS 颜色空间名（如 DeviceRGB；缺失 = 继承）",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "isolated": {
+            "description": "/I（隔离组）",
+            "type": "boolean"
+          },
+          "knockout": {
+            "description": "/K（撞色组）",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "ImagePassthrough": {
+        "description": "图片直通参数：无法解码为 PNG/JPEG 时，原样保留码流并在重建时用同一滤镜嵌入。",
+        "properties": {
+          "bpc": {
+            "default": 8,
+            "format": "int64",
+            "type": "integer"
+          },
+          "color_space": {
+            "description": "颜色空间名（DeviceGray/DeviceRGB/DeviceCMYK/…）",
+            "type": "string"
+          },
+          "decode": {
+            "description": "/Decode 数组（如 CMYK JPEG 的反相）",
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "decode_parms": {
+            "description": "DecodeParms（按滤镜顺序，缺省 null）",
+            "items": true,
+            "type": "array"
+          },
+          "filter": {
+            "description": "滤镜链（PDF 名称，按顺序）",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "globals": {
+            "description": "JBIG2 /DecodeParms /JBIG2Globals 码流（media/ 相对路径）。 丢失会让解码器无法解出任何图像（pdfminer/pdf-with-jbig2 整页空白）",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "height": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "icc_components": {
+            "description": "ICCBased 分量数（无则 0）",
+            "format": "uint8",
+            "minimum": 0.0,
+            "type": "integer"
+          },
+          "image_mask": {
+            "description": "/ImageMask true（1bit 掩膜，用填充色绘制）",
+            "type": "boolean"
+          },
+          "matte": {
+            "description": "SMask 流的 /Matte（1-4 分量预乘底色；丢失会让还原颜色整体偏移， 如 pdfium/matte.pdf 色块由橙黄变灰紫）",
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "smask": {
+            "description": "软掩膜图片路径（media/ 相对路径）",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "smask_params": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/ImagePassthrough"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "软掩膜的直通参数（无法解码时原样嵌入）"
+          },
+          "width": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "color_space",
+          "filter",
+          "height",
+          "width"
+        ],
+        "type": "object"
+      },
+      "MeshShading": {
+        "description": "网格渐变（free-form/lattice Gouraud、Coons、Tensor）：码流直通。 顶点坐标在着色空间内，重建时用 matrix 把着色空间放回页面。",
+        "properties": {
+          "background": {
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "bits_per_component": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "bits_per_coordinate": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "bits_per_flag": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "color_space": {
+            "default": "DeviceRGB",
+            "description": "网格着色空间（分量数必须一致，否则顶点流解析错位； 复杂的 ICC/DeviceN 按分量数折算为设备空间）",
+            "type": "string"
+          },
+          "data": {
+            "description": "解码后的码流（相对产物根，如 shadings/mesh-001.bin）",
+            "type": "string"
+          },
+          "decode": {
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "func": {
+            "description": "/Function（字典形式，如 FunctionType 2/3）原样回写。缺失会让渲染器 按分量数直接解释颜色，流解析整体错位（pdf.js/coons-allflags-withfunction）"
+          },
+          "func_stream": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/FuncStreamData"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "/Function 为流时的字典与码流（相对产物根）"
+          },
+          "matrix": {
+            "description": "着色空间 → 设备空间矩阵 [a,b,c,d,e,f]",
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "maxItems": 6,
+            "minItems": 6,
+            "type": "array"
+          },
+          "shading_type": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "bits_per_component",
+          "bits_per_coordinate",
+          "bits_per_flag",
+          "data",
+          "matrix",
+          "shading_type"
+        ],
+        "type": "object"
+      },
+      "PathSegment": {
+        "description": "路径段",
+        "properties": {
+          "op": {
+            "description": "\"m\" 起点 | \"l\" 直线 | \"c\" 三次贝塞尔 | \"h\" 闭合",
+            "type": "string"
+          },
+          "points": {
+            "items": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "type": "object"
+      },
+      "PatternDef": {
+        "description": "平铺图案定义（PatternType 1）：以元素列表描述图块内容。",
+        "properties": {
+          "bbox": {
+            "description": "图块边界 [x0,y0,x1,y1]",
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          },
+          "elements": {
+            "description": "图块内的元素",
+            "items": {
+              "$ref": "#/definitions/Element"
+            },
+            "type": "array"
+          },
+          "matrix": {
+            "description": "图案空间 → 页面空间矩阵 [a,b,c,d,e,f]",
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "maxItems": 6,
+            "minItems": 6,
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "x_step": {
+            "format": "double",
+            "type": "number"
+          },
+          "y_step": {
+            "format": "double",
+            "type": "number"
+          }
+        },
+        "required": [
+          "bbox",
+          "elements",
+          "x_step",
+          "y_step"
+        ],
+        "type": "object"
+      },
+      "ShadingDef": {
+        "description": "着色（shading）定义。",
+        "properties": {
+          "alpha": {
+            "description": "不透明度 0-1",
+            "format": "double",
+            "type": "number"
+          },
+          "bbox": {
+            "description": "绘制区域（裁剪框；缺省 = 整页）",
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "clip": {
+            "description": "裁剪路径（设备空间；缺省只用 bbox）",
+            "items": {
+              "$ref": "#/definitions/PathSegment"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "coords": {
+            "description": "轴向 [x0,y0,x1,y1]；径向 [x0,y0,r0,x1,y1,r1]",
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "extend": {
+            "description": "extend [start, end]",
+            "items": {
+              "type": "boolean"
+            },
+            "type": "array"
+          },
+          "func0": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/Func0Data"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "采样函数（FunctionType 0）：几千个采样点直通，重建时原样写回。 按色标抽样会漏掉条纹（pdf.js/issue14165 的 5120 采样条纹渐变）"
+          },
+          "kind": {
+            "description": "\"axial\"（轴向）| \"radial\"（径向）",
+            "type": "string"
+          },
+          "mask": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/ShadingDef"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "亮度软掩膜渐变（ExtGState /SMask /S /Luminosity /G 表单内的渐变， 设备空间）。重建为 DeviceGray 表单 + /SMask，还原渐变透明度 （fpdf2 gradient_opacity：掩膜白→黑，丢失时整块变实心）"
+          },
+          "matrix": {
+            "description": "着色空间 → 设备空间矩阵 [a,b,c,d,e,f]。仅在**非相似变换**（各向异性 缩放/剪切）时记录：此时 coords 保持着色空间坐标，由矩阵把圆压成椭圆 （径向渐变的半径无法单独表达椭圆；pdf.js/issue7847_radial）",
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "maxItems": 6,
+            "minItems": 6,
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "mesh": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/MeshShading"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "网格渐变（ShadingType 4-7）：码流直通，重建时原样写回"
+          },
+          "stops": {
+            "description": "色标（位置 0-1 → 颜色 \"#RRGGBB\"）",
+            "items": {
+              "$ref": "#/definitions/ShadingStop"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "coords",
+          "kind",
+          "stops"
+        ],
+        "type": "object"
+      },
+      "ShadingStop": {
+        "properties": {
+          "color": {
+            "type": "string"
+          },
+          "offset": {
+            "format": "double",
+            "type": "number"
+          }
+        },
+        "required": [
+          "color",
+          "offset"
+        ],
+        "type": "object"
+      },
+      "SoftMask": {
+        "description": "ExtGState `/SMask` 软掩膜：掩膜表单原样直通（内容 + BBox/Matrix + 内部图片）。 缺失时掩膜区域会被画成不透明（pdf.js/smask_* 整块实心、 tika/testPDF_angles 的软阴影变成实心黑条）。",
+        "properties": {
+          "backdrop": {
+            "description": "/BC 背景色（掩膜外的取值）",
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "bbox": {
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "content": {
+            "description": "掩膜表单内容（相对产物根，如 masks/mask-001.bin，已解码）",
+            "type": "string"
+          },
+          "extgstates": {
+            "additionalProperties": true,
+            "description": "掩膜表单 /Resources /ExtGState（原样，供表单内容里的 /GSn gs 解析）",
+            "type": "object"
+          },
+          "group_cs": {
+            "description": "表单 /Group 的 /CS（色彩空间名，可空）",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "images": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "掩膜表单内引用的图片：资源名 → media 路径",
+            "type": "object"
+          },
+          "matrix": {
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "shadings": {
+            "additionalProperties": {
+              "$ref": "#/definitions/ShadingDef"
+            },
+            "description": "掩膜表单 /Resources /Shading（渐变掩膜；按着色空间坐标重建）",
+            "type": "object"
+          },
+          "subtype": {
+            "description": "\"Alpha\" | \"Luminosity\"",
+            "type": "string"
+          },
+          "transfer": {
+            "description": "/TR 传递函数（JSON 原样）"
+          }
+        },
+        "required": [
+          "content"
+        ],
+        "type": "object"
+      }
+    },
+    "description": "单页模型（pages/page-NNN.json）",
+    "properties": {
+      "crop": {
+        "description": "裁剪框（CropBox，绝对坐标 [x0,y0,x1,y1]）；缺省 = 整页",
+        "items": {
+          "format": "double",
+          "type": "number"
+        },
+        "maxItems": 4,
+        "minItems": 4,
+        "type": [
+          "array",
+          "null"
+        ]
+      },
+      "elements": {
+        "default": [],
+        "description": "页面元素（按内容流出现顺序）",
+        "items": {
+          "$ref": "#/definitions/Element"
+        },
+        "type": "array"
+      },
+      "height": {
+        "format": "double",
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "id": {
+        "description": "页面稳定 ID（unpack 不产生；dump 填充 1..N，batch 回放按 id 原位替换实现幂等）",
+        "format": "uint64",
+        "minimum": 0.0,
+        "type": [
+          "integer",
+          "null"
+        ]
+      },
+      "mediabox": {
+        "description": "页面框（MediaBox，绝对坐标）；原点非零时需原样保留",
+        "items": {
+          "format": "double",
+          "type": "number"
+        },
+        "maxItems": 4,
+        "minItems": 4,
+        "type": [
+          "array",
+          "null"
+        ]
+      },
+      "rotation": {
+        "description": "顺时针旋转角度（0/90/180/270）",
+        "format": "uint32",
+        "minimum": 0.0,
+        "type": "integer"
+      },
+      "width": {
+        "description": "页面尺寸（pt）；缺省用顶层 page_size",
+        "format": "double",
+        "type": [
+          "number",
+          "null"
+        ]
+      }
+    },
+    "title": "PageModel",
+    "type": "object"
+  },
+  "title": "json2pdf 产物目录"
+}

@@ -1,0 +1,233 @@
+{
+  "name": "StressedAssets",
+  "default_row_height": 15.0,
+  "columns": [
+    {
+      "width": 13.7109375
+    },
+    {
+      "width": 10.42578125
+    },
+    {
+      "width": 12.85546875
+    },
+    {
+      "width": 10.42578125
+    },
+    {
+      "width": 10.42578125
+    },
+    {
+      "width": 18.28515625
+    },
+    {
+      "width": 13.42578125
+    },
+    {
+      "width": 13.85546875
+    },
+    {
+      "width": 5.0
+    },
+    {
+      "width": 6.28515625
+    },
+    {
+      "width": 21.42578125
+    },
+    {
+      "width": 22.0
+    },
+    {
+      "width": 18.42578125
+    },
+    {
+      "width": 26.140625
+    },
+    {
+      "width": 20.140625
+    }
+  ],
+  "print": {
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "tables": [
+    {
+      "range": "A1:O2",
+      "name": "StressedAssets",
+      "style": "TableStyleMedium2",
+      "show_banded_rows": true,
+      "columns": [
+        "Calculation_Id",
+        "Code",
+        "MaturityDate",
+        "StressType",
+        "LowerBound",
+        "UpperBound",
+        "Increment",
+        "CurveType",
+        "Step",
+        "Stress",
+        "StressedDifference",
+        "SecurityValue",
+        "NominalValue",
+        "FictionalTradeNominalValue",
+        "StressedMarketValue"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "Calculation_Id"
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "Code"
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "MaturityDate",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "D1",
+          "type": "string",
+          "value": "StressType"
+        },
+        {
+          "ref": "E1",
+          "type": "string",
+          "value": "LowerBound",
+          "number_format": "0.00%"
+        },
+        {
+          "ref": "F1",
+          "type": "string",
+          "value": "UpperBound",
+          "number_format": "0.00%"
+        },
+        {
+          "ref": "G1",
+          "type": "string",
+          "value": "Increment",
+          "number_format": "0.00%"
+        },
+        {
+          "ref": "H1",
+          "type": "string",
+          "value": "CurveType",
+          "number_format": "_ * #,##0_ ;_ * \\-#,##0_ ;_ * \"-\"_ ;_ @_ "
+        },
+        {
+          "ref": "I1",
+          "type": "string",
+          "value": "Step",
+          "number_format": "0.00%"
+        },
+        {
+          "ref": "J1",
+          "type": "string",
+          "value": "Stress",
+          "number_format": "0.00%"
+        },
+        {
+          "ref": "K1",
+          "type": "string",
+          "value": "StressedDifference",
+          "number_format": "#,##0.0000"
+        },
+        {
+          "ref": "L1",
+          "type": "string",
+          "value": "SecurityValue",
+          "number_format": "#,##0.0000"
+        },
+        {
+          "ref": "M1",
+          "type": "string",
+          "value": "NominalValue",
+          "number_format": "_ * #,##0.00_ ;_ * \\-#,##0.00_ ;_ * \"-\"??_ ;_ @_ "
+        },
+        {
+          "ref": "N1",
+          "type": "string",
+          "value": "FictionalTradeNominalValue",
+          "number_format": "_ * #,##0.00_ ;_ * \\-#,##0.00_ ;_ * \"-\"??_ ;_ @_ "
+        },
+        {
+          "ref": "O1",
+          "type": "string",
+          "value": "StressedMarketValue"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "C2",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "D2"
+        },
+        {
+          "ref": "E2",
+          "number_format": "0.00%"
+        },
+        {
+          "ref": "F2",
+          "number_format": "0.00%"
+        },
+        {
+          "ref": "G2",
+          "number_format": "0.00%"
+        },
+        {
+          "ref": "H2",
+          "number_format": "_ * #,##0_ ;_ * \\-#,##0_ ;_ * \"-\"_ ;_ @_ "
+        },
+        {
+          "ref": "I2",
+          "number_format": "0.00%"
+        },
+        {
+          "ref": "J2",
+          "number_format": "0.00%"
+        },
+        {
+          "ref": "K2",
+          "number_format": "#,##0.0000"
+        },
+        {
+          "ref": "L2",
+          "number_format": "#,##0.0000"
+        },
+        {
+          "ref": "M2",
+          "number_format": "_ * #,##0.00_ ;_ * \\-#,##0.00_ ;_ * \"-\"??_ ;_ @_ "
+        },
+        {
+          "ref": "N2",
+          "number_format": "_ * #,##0.00_ ;_ * \\-#,##0.00_ ;_ * \"-\"??_ ;_ @_ "
+        },
+        {
+          "ref": "O2",
+          "number_format": "#,##0"
+        }
+      ]
+    }
+  ]
+}

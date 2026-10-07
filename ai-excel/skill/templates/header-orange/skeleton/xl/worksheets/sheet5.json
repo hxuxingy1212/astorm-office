@@ -1,0 +1,185 @@
+{
+  "name": "LiabilityOutput",
+  "default_row_height": 15.0,
+  "columns": [
+    {
+      "width": 13.85546875
+    },
+    {
+      "width": 14.28515625
+    },
+    {
+      "width": 15.7109375
+    },
+    {
+      "width": 22.140625
+    },
+    {
+      "width": 22.140625
+    },
+    {
+      "width": 11.85546875
+    },
+    {
+      "width": 12.7109375
+    },
+    {
+      "width": 16.42578125
+    },
+    {
+      "width": 16.42578125
+    },
+    {
+      "width": 18.28515625
+    },
+    {
+      "width": 31.0
+    },
+    {
+      "width": 13.7109375
+    },
+    {
+      "width": 10.5703125
+    },
+    {
+      "width": 32.28515625
+    }
+  ],
+  "print": {
+    "orientation": "portrait",
+    "paper_size": 9,
+    "margin_left": 0.7,
+    "margin_right": 0.7,
+    "margin_top": 0.75,
+    "margin_bottom": 0.75,
+    "margin_header": 0.3,
+    "margin_footer": 0.3
+  },
+  "tables": [
+    {
+      "range": "A1:M2",
+      "name": "LiabilityBuildup",
+      "style": "TableStyleMedium2",
+      "show_banded_rows": true,
+      "columns": [
+        "ValuationDate",
+        "PortfolioName",
+        "SchemeGroup",
+        "Scheme",
+        "IncludeInLiabilityReporting",
+        "BuildupStep",
+        "Liability",
+        "ChangeInLiability",
+        "AdditionalPreliminaryLiability",
+        "DateCalculated",
+        "Description",
+        "Calculation_Id",
+        "Username"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "type": "string",
+          "value": "ValuationDate",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "B1",
+          "type": "string",
+          "value": "PortfolioName"
+        },
+        {
+          "ref": "C1",
+          "type": "string",
+          "value": "SchemeGroup"
+        },
+        {
+          "ref": "D1",
+          "type": "string",
+          "value": "Scheme"
+        },
+        {
+          "ref": "E1",
+          "type": "string",
+          "value": "IncludeInLiabilityReporting"
+        },
+        {
+          "ref": "F1",
+          "type": "string",
+          "value": "BuildupStep",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "G1",
+          "type": "string",
+          "value": "Liability",
+          "number_format": "#,##0"
+        },
+        {
+          "ref": "H1",
+          "type": "string",
+          "value": "ChangeInLiability",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "I1",
+          "type": "string",
+          "value": "AdditionalPreliminaryLiability",
+          "number_format": "#,##0.00"
+        },
+        {
+          "ref": "J1",
+          "type": "string",
+          "value": "DateCalculated",
+          "number_format": "yyyy/mm/dd\\ hh:mm:ss;@"
+        },
+        {
+          "ref": "K1",
+          "type": "string",
+          "value": "Description",
+          "number_format": "yyyy/mm/dd;@"
+        },
+        {
+          "ref": "L1",
+          "type": "string",
+          "value": "Calculation_Id"
+        },
+        {
+          "ref": "M1",
+          "type": "string",
+          "value": "Username",
+          "number_format": "yyyy/mm/dd;@"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "A2",
+          "number_format": "mm-dd-yy"
+        },
+        {
+          "ref": "E2"
+        },
+        {
+          "ref": "J2",
+          "number_format": "m/d/yy h:mm"
+        },
+        {
+          "ref": "K2",
+          "number_format": "yyyy/mm/dd\\ hh:mm:ss;@"
+        },
+        {
+          "ref": "M2",
+          "number_format": "yyyy/mm/dd\\ hh:mm:ss;@"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "json2pptx-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "json2pptx PPTX 预览与编辑网页（Vue3 + Vite + pnpm）",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "gen:types": "json2ts -i ../skill/references/schema.json -o src/types/generated.ts"
+  },
+  "dependencies": {
+    "echarts": "^6.0.0",
+    "pinia": "^3.0.2",
+    "vue": "^3.5.17"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.0",
+    "json-schema-to-typescript": "^16.0.0",
+    "typescript": "~5.3.0",
+    "vite": "^5.3.5",
+    "vue-tsc": "^2.0.0"
+  }
+}

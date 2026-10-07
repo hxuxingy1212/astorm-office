@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "author": "_wwpupil"
+  },
+  "named_ranges": [
+    {
+      "name": "CellColorExpectedResults",
+      "ref": "#REF!"
+    }
+  ],
+  "sheets": [
+    "xl/worksheets/sheet1.json"
+  ]
+}

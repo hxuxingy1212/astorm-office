@@ -1,0 +1,53 @@
+{
+  "_notes": [
+    "正文西文字体：Times New Roman；中文字体：宋体",
+    "标题字体：Helvetica",
+    "正文字号：13.5 pt",
+    "一级标题字号：13.5 pt",
+    "正文行距：1.80 倍",
+    "正文首行缩进：27 pt",
+    "标题颜色：#5B9BD5"
+  ],
+  "page": {
+    "margins": {
+      "bottom": 72.0,
+      "footer": 49.6,
+      "header": 42.55,
+      "left": 90.0,
+      "right": 90.0,
+      "top": 72.0
+    },
+    "orientation": "portrait",
+    "size": "A4"
+  },
+  "styles": {
+    "Heading1": {
+      "bold": true,
+      "color": "5B9BD5",
+      "east_asia_font": "宋体",
+      "first_line_indent": 27.1,
+      "font_family": "Helvetica",
+      "font_size": 13.5,
+      "line_spacing": 1.8,
+      "space_before": 15.0
+    },
+    "Normal": {
+      "color": "333333",
+      "east_asia_font": "宋体",
+      "first_line_indent": 27.0,
+      "font_family": "Times New Roman",
+      "font_size": 13.5,
+      "line_spacing": 1.8,
+      "space_before": 15.0
+    }
+  },
+  "theme": {
+    "colors": {
+      "heading": "5B9BD5"
+    },
+    "east_asia_font": "宋体",
+    "heading_font": "Helvetica",
+    "major_font": "Helvetica",
+    "minor_font": "Times New Roman"
+  }
+}

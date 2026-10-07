@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "author": ""
+  },
+  "default_font": {
+    "name": "Arial",
+    "size": 11.0
+  },
+  "active_tab": 2,
+  "named_ranges": [
+    {
+      "name": "OLE_LINK1",
+      "ref": "'Basic Spec'!$A$30"
+    }
+  ],
+  "sheets": [
+    "xl/worksheets/sheet1.json",
+    "xl/worksheets/sheet2.json",
+    "xl/worksheets/sheet3.json"
+  ]
+}

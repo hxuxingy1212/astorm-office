@@ -1,0 +1,24 @@
+[package]
+name = "json2pptx"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "JSON to PPTX bidirectional conversion library"
+repository = "https://github.com/json2pptx/json2pptx"
+readme = "README.md"
+keywords = ["pptx", "powerpoint", "json", "ooxml", "presentation"]
+categories = ["parser-implementations", "encoding", "data-structures"]
+
+[dependencies]
+office-core = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+schemars = { workspace = true }
+zip = { workspace = true }
+quick-xml = { workspace = true }
+ureq = { workspace = true }
+office_oxide = { version = "0.1.13", default-features = false }
+base64 = { workspace = true }
+
+[lints]
+workspace = true

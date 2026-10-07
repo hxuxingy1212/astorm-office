@@ -1,0 +1,21 @@
+[package]
+name = "json2xlsx-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "JSON <-> XLSX CLI"
+
+[[bin]]
+name = "json2xlsx"
+path = "src/main.rs"
+
+[dependencies]
+json2xlsx = { path = ".." }
+office-core = { workspace = true }
+clap = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+schemars = { workspace = true }
+
+[lints]
+workspace = true

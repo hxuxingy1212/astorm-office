@@ -1,0 +1,75 @@
+{
+  "page": {
+    "size": "A4"
+  },
+  "parts": [
+    {
+      "blocks": [
+        {
+          "type": "heading",
+          "level": 1,
+          "text": "内容控件（SDT）样例",
+          "align": "center"
+        },
+        {
+          "type": "paragraph",
+          "text": "块级下拉内容控件："
+        },
+        {
+          "type": "sdt",
+          "sdt_type": "dropDownList",
+          "alias": "状态",
+          "tag": "status",
+          "items": [
+            "进行中",
+            "已完成",
+            "已取消"
+          ],
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "进行中"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "富文本内容控件："
+        },
+        {
+          "type": "sdt",
+          "sdt_type": "richText",
+          "alias": "说明",
+          "tag": "note",
+          "blocks": [
+            {
+              "type": "paragraph",
+              "runs": [
+                {
+                  "text": "可编辑富文本",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "runs": [
+            {
+              "text": "行内内容控件："
+            },
+            {
+              "text": "日期占位",
+              "sdt": {
+                "sdt_type": "date",
+                "alias": "日期",
+                "tag": "d"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

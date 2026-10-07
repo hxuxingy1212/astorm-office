@@ -1,0 +1,385 @@
+{
+  "name": "Contacts",
+  "default_row_height": 15.0,
+  "columns": [
+    {
+      "width": 9.140625
+    },
+    {
+      "width": 9.567768
+    },
+    {
+      "width": 9.139196
+    },
+    {
+      "width": 10.282054
+    },
+    {
+      "width": 9.567768
+    },
+    {
+      "width": 9.996339
+    }
+  ],
+  "merges": [
+    "B2:F2"
+  ],
+  "print": {
+    "orientation": "default",
+    "paper_size": 1,
+    "scale": 100,
+    "margin_left": 0.75,
+    "margin_right": 0.75,
+    "margin_top": 0.75,
+    "margin_bottom": 0.5,
+    "margin_header": 0.5,
+    "margin_footer": 0.75
+  },
+  "tables": [
+    {
+      "range": "B3:F7",
+      "name": "Table1",
+      "style": "TableStyleMedium2",
+      "show_banded_rows": true,
+      "columns": [
+        "FName",
+        "LName",
+        "Outcast",
+        "DOB",
+        "Income"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "B2",
+          "type": "string",
+          "value": "Contacts",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "fill": "6495ED",
+            "border": {
+              "top": "thick",
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "C2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "fill": "6495ED",
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "fill": "6495ED",
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "E2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "fill": "6495ED",
+            "border": {
+              "top": "thick"
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "F2",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "000000"
+            },
+            "fill": "6495ED",
+            "border": {
+              "top": "thick",
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "cells": [
+        {
+          "ref": "B3",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "00008B"
+            },
+            "fill": "00FFFF",
+            "border": {
+              "left": "thick"
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "C3",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "00008B"
+            },
+            "fill": "00FFFF",
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "D3",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "00008B"
+            },
+            "fill": "00FFFF",
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "E3",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "00008B"
+            },
+            "fill": "00FFFF",
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        },
+        {
+          "ref": "F3",
+          "style": {
+            "font": {
+              "bold": true,
+              "name": "Calibri",
+              "size": 11.0,
+              "color": "00008B"
+            },
+            "fill": "00FFFF",
+            "border": {
+              "right": "thick"
+            },
+            "alignment": {
+              "horizontal": "center"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "cells": [
+        {
+          "ref": "B4",
+          "style": {
+            "border": {
+              "left": "thick"
+            }
+          }
+        },
+        {
+          "ref": "C4"
+        },
+        {
+          "ref": "D4"
+        },
+        {
+          "ref": "E4",
+          "number_format": "d-mmm-yy"
+        },
+        {
+          "ref": "F4",
+          "number_format": "$ #,##0",
+          "style": {
+            "border": {
+              "right": "thick"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "cells": [
+        {
+          "ref": "B5",
+          "style": {
+            "border": {
+              "left": "thick"
+            }
+          }
+        },
+        {
+          "ref": "C5"
+        },
+        {
+          "ref": "D5"
+        },
+        {
+          "ref": "E5",
+          "number_format": "d-mmm-yy"
+        },
+        {
+          "ref": "F5",
+          "number_format": "$ #,##0",
+          "style": {
+            "border": {
+              "right": "thick"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "cells": [
+        {
+          "ref": "B6",
+          "style": {
+            "border": {
+              "left": "thick"
+            }
+          }
+        },
+        {
+          "ref": "C6"
+        },
+        {
+          "ref": "D6"
+        },
+        {
+          "ref": "E6",
+          "number_format": "d-mmm-yy"
+        },
+        {
+          "ref": "F6",
+          "number_format": "$ #,##0",
+          "style": {
+            "border": {
+              "right": "thick"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "cells": [
+        {
+          "ref": "B7",
+          "style": {
+            "border": {
+              "bottom": "thick",
+              "left": "thick"
+            }
+          }
+        },
+        {
+          "ref": "C7",
+          "style": {
+            "border": {
+              "bottom": "thick"
+            }
+          }
+        },
+        {
+          "ref": "D7",
+          "style": {
+            "border": {
+              "bottom": "thick"
+            }
+          }
+        },
+        {
+          "ref": "E7",
+          "number_format": "d-mmm-yy",
+          "style": {
+            "border": {
+              "bottom": "thick"
+            }
+          }
+        },
+        {
+          "ref": "F7",
+          "number_format": "$ #,##0",
+          "style": {
+            "border": {
+              "bottom": "thick",
+              "right": "thick"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

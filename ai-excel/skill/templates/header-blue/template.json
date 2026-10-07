@@ -1,0 +1,100 @@
+{
+  "name": "ShowCase",
+  "source": "/tmp/ec3/closedxml/ClosedXML-develop/ClosedXML.Tests/Resource/Examples/Misc/ShowCase.xlsx",
+  "default_font": {
+    "name": "Calibri",
+    "size": 11.0,
+    "color": "000000"
+  },
+  "palette": [
+    {
+      "hex": "000000",
+      "count": 5,
+      "usage": "font"
+    },
+    {
+      "hex": "00008B",
+      "count": 5,
+      "usage": "font"
+    },
+    {
+      "hex": "00FFFF",
+      "count": 5,
+      "usage": "fill"
+    },
+    {
+      "hex": "6495ED",
+      "count": 5,
+      "usage": "fill"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "bold": true,
+      "color": "00008B",
+      "count": 5
+    },
+    {
+      "name": "Calibri",
+      "size": 11.0,
+      "bold": true,
+      "color": "000000",
+      "count": 5
+    }
+  ],
+  "number_formats": [
+    "$ #,##0",
+    "d-mmm-yy"
+  ],
+  "header": {
+    "sheet": "Contacts",
+    "row": 2,
+    "style": {
+      "font": {
+        "bold": true,
+        "name": "Calibri",
+        "size": 11.0,
+        "color": "000000"
+      },
+      "fill": "6495ED"
+    },
+    "values": [
+      "Contacts",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "columns": [
+    {
+      "width": 9.140625
+    },
+    {
+      "width": 9.567768
+    },
+    {
+      "width": 9.139196
+    },
+    {
+      "width": 10.282054
+    },
+    {
+      "width": 9.567768
+    },
+    {
+      "width": 9.996339
+    }
+  ],
+  "default_row_height": 15.0,
+  "sheets": [
+    "Contacts"
+  ],
+  "notes": [
+    "检测到表头：Contacts 第 2 行（保持该行样式即可得到一致外观）",
+    "工作簿默认字体：Calibri 11",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

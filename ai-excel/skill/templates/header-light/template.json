@@ -1,0 +1,293 @@
+{
+  "name": "cea27c2b_54288-ref",
+  "source": "/tmp/excel_corpus2/npoi/cea27c2b_54288-ref.xlsx",
+  "default_font": {
+    "name": "Arial",
+    "size": 10.0,
+    "color": "000000"
+  },
+  "palette": [
+    {
+      "hex": "000000",
+      "count": 2606,
+      "usage": "font"
+    },
+    {
+      "hex": "FFFF00",
+      "count": 2026,
+      "usage": "font"
+    },
+    {
+      "hex": "B7B7B7",
+      "count": 1234,
+      "usage": "fill"
+    },
+    {
+      "hex": "C0C0C0",
+      "count": 918,
+      "usage": "fill"
+    },
+    {
+      "hex": "FFFF00",
+      "count": 51,
+      "usage": "font"
+    },
+    {
+      "hex": "CCFFCC",
+      "count": 37,
+      "usage": "fill"
+    },
+    {
+      "hex": "CCFFFF",
+      "count": 25,
+      "usage": "fill"
+    },
+    {
+      "hex": "3366FF",
+      "count": 19,
+      "usage": "fill"
+    },
+    {
+      "hex": "FF0000",
+      "count": 17,
+      "usage": "fill"
+    },
+    {
+      "hex": "38761D",
+      "count": 14,
+      "usage": "fill"
+    },
+    {
+      "hex": "1155CC",
+      "count": 12,
+      "usage": "fill"
+    },
+    {
+      "hex": "4A86E8",
+      "count": 7,
+      "usage": "fill"
+    },
+    {
+      "hex": "FFFFFF",
+      "count": 5,
+      "usage": "fill"
+    },
+    {
+      "hex": "99CC00",
+      "count": 3,
+      "usage": "fill"
+    },
+    {
+      "hex": "99CCFF",
+      "count": 3,
+      "usage": "fill"
+    },
+    {
+      "hex": "B3D580",
+      "count": 3,
+      "usage": "fill"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "bold": true,
+      "color": "000000",
+      "count": 1010
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "bold": true,
+      "color": "000000",
+      "count": 1002
+    },
+    {
+      "name": "Arial",
+      "size": 12.0,
+      "bold": true,
+      "color": "000000",
+      "count": 396
+    },
+    {
+      "name": "Arial",
+      "size": 14.0,
+      "bold": true,
+      "color": "000000",
+      "count": 70
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "color": "FFFF00",
+      "count": 50
+    },
+    {
+      "name": "Arial",
+      "size": 11.0,
+      "bold": true,
+      "color": "000000",
+      "count": 50
+    },
+    {
+      "name": "Arial",
+      "size": 9.0,
+      "bold": true,
+      "color": "000000",
+      "count": 33
+    },
+    {
+      "name": "Arial",
+      "size": 18.0,
+      "bold": true,
+      "color": "000000",
+      "count": 16
+    },
+    {
+      "name": "Arial",
+      "size": 9.0,
+      "bold": true,
+      "color": "000000",
+      "count": 8
+    },
+    {
+      "name": "Arial",
+      "size": 16.0,
+      "bold": true,
+      "color": "000000",
+      "count": 6
+    },
+    {
+      "name": "Arial",
+      "size": 14.0,
+      "color": "000000",
+      "count": 6
+    },
+    {
+      "name": "Arial",
+      "size": 12.0,
+      "bold": true,
+      "color": "000000",
+      "count": 6
+    },
+    {
+      "name": "Arial",
+      "size": 9.0,
+      "color": "000000",
+      "count": 1
+    },
+    {
+      "name": "Arial",
+      "size": 10.0,
+      "color": "FFCC00",
+      "count": 1
+    },
+    {
+      "name": "Arial",
+      "size": 12.0,
+      "color": "000000",
+      "count": 1
+    },
+    {
+      "name": "Arial",
+      "size": 11.0,
+      "bold": true,
+      "color": "000000",
+      "count": 1
+    },
+    {
+      "name": "Arial",
+      "size": 12.0,
+      "bold": true,
+      "color": "FFFF00",
+      "count": 1
+    }
+  ],
+  "number_formats": [
+    "#,##0.00",
+    "0.00",
+    "m/d/yyyy;@",
+    "mmm\\-yy;@"
+  ],
+  "header": {
+    "sheet": "MIDCON-PJM",
+    "row": 3,
+    "style": {
+      "font": {
+        "bold": true,
+        "name": "Arial",
+        "size": 18.0,
+        "color": "000000"
+      },
+      "fill": "FFFFFF"
+    },
+    "values": [
+      "2012-11-16",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "columns": [
+    {
+      "width": 16.5703125
+    },
+    {
+      "width": 6.85546875
+    },
+    {},
+    {},
+    {
+      "width": 5.0
+    },
+    {
+      "width": 7.42578125
+    },
+    {
+      "width": 6.42578125
+    },
+    {
+      "width": 4.7109375
+    },
+    {
+      "width": 6.85546875
+    },
+    {},
+    {
+      "width": 4.7109375
+    },
+    {
+      "width": 6.85546875
+    },
+    {},
+    {
+      "width": 14.0
+    },
+    {
+      "width": 7.7109375
+    },
+    {
+      "width": 6.85546875
+    }
+  ],
+  "default_col_width": 9.140625,
+  "default_row_height": 12.75,
+  "sheets": [
+    "MIDCON-PJM",
+    "SOCO-ENT",
+    "Midmarks"
+  ],
+  "notes": [
+    "检测到表头：MIDCON-PJM 第 3 行（保持该行样式即可得到一致外观）",
+    "工作簿默认字体：Arial 10",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}

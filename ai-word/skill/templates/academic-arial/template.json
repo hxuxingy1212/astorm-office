@@ -1,0 +1,71 @@
+{
+  "_notes": [
+    "正文西文字体：Arial；中文字体：Arial",
+    "标题字体：Arial",
+    "正文字号：11 pt",
+    "一级标题字号：14 pt",
+    "标题颜色：#000000"
+  ],
+  "page": {
+    "margins": {
+      "bottom": 72.0,
+      "footer": 42.0,
+      "header": 0.0,
+      "left": 72.0,
+      "right": 72.0,
+      "top": 72.0
+    },
+    "orientation": "portrait",
+    "size": "Letter"
+  },
+  "styles": {
+    "Heading1": {
+      "bold": true,
+      "color": "000000",
+      "east_asia_font": "Arial",
+      "font_family": "Arial",
+      "font_size": 14.0,
+      "italic": false
+    },
+    "Heading2": {
+      "bold": false,
+      "color": "000000",
+      "east_asia_font": "Arial",
+      "font_family": "Arial",
+      "font_size": 12.0,
+      "italic": true
+    },
+    "Heading3": {
+      "bold": true,
+      "color": "000000",
+      "east_asia_font": "Arial",
+      "font_family": "Arial",
+      "font_size": 11.0,
+      "italic": false
+    },
+    "Normal": {
+      "color": "000000",
+      "east_asia_font": "Arial",
+      "font_family": "Arial",
+      "font_size": 11.0
+    },
+    "Title": {
+      "align": "center",
+      "bold": true,
+      "color": "000000",
+      "east_asia_font": "Arial",
+      "font_family": "Arial",
+      "font_size": 18.0,
+      "italic": false
+    }
+  },
+  "theme": {
+    "colors": {
+      "heading": "000000"
+    },
+    "east_asia_font": "Arial",
+    "heading_font": "Arial",
+    "major_font": "Arial",
+    "minor_font": "Arial"
+  }
+}

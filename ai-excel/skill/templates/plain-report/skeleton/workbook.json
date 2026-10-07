@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "author": "Mark Kristensson"
+  },
+  "date1904": true,
+  "default_font": {
+    "name": "Verdana",
+    "size": 10.0
+  },
+  "sheets": [
+    "xl/worksheets/sheet1.json"
+  ]
+}

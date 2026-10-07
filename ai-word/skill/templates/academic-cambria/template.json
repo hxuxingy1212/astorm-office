@@ -1,0 +1,72 @@
+{
+  "_notes": [
+    "正文西文字体：Cambria；中文字体：",
+    "标题字体：Calibri",
+    "正文字号：12 pt",
+    "一级标题字号：16 pt",
+    "标题颜色：#345A8A"
+  ],
+  "page": {
+    "margins": {
+      "bottom": 72.0,
+      "footer": 36.0,
+      "header": 36.0,
+      "left": 90.0,
+      "right": 90.0,
+      "top": 72.0
+    },
+    "orientation": "portrait",
+    "size": "Letter"
+  },
+  "styles": {
+    "Heading1": {
+      "bold": true,
+      "color": "345A8A",
+      "font_size": 16.0,
+      "space_before": 24.0
+    },
+    "Heading2": {
+      "bold": true,
+      "color": "4F81BD",
+      "font_size": 16.0,
+      "space_before": 10.0
+    },
+    "Heading3": {
+      "bold": true,
+      "color": "4F81BD",
+      "font_size": 14.0,
+      "space_before": 10.0
+    },
+    "Heading4": {
+      "bold": true,
+      "color": "4F81BD",
+      "font_size": 12.0,
+      "space_before": 10.0
+    },
+    "Heading5": {
+      "color": "4F81BD",
+      "font_size": 12.0,
+      "italic": true,
+      "space_before": 10.0
+    },
+    "Heading6": {
+      "color": "4F81BD",
+      "font_size": 12.0,
+      "space_before": 10.0
+    },
+    "Normal": {
+      "east_asia_font": "",
+      "font_family": "Cambria",
+      "font_size": 12.0
+    }
+  },
+  "theme": {
+    "colors": {
+      "heading": "345A8A"
+    },
+    "east_asia_font": "",
+    "heading_font": "Calibri",
+    "major_font": "Calibri",
+    "minor_font": "Cambria"
+  }
+}

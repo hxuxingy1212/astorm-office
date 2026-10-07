@@ -1,0 +1,323 @@
+{
+  "name": "2_40809_input",
+  "source": "/tmp/excel_corpus/sample_data_200/spreadsheet/40809/2_40809_input.xlsx",
+  "default_font": {
+    "name": "等线",
+    "size": 12.0
+  },
+  "palette": [
+    {
+      "hex": "D569B6",
+      "count": 949,
+      "usage": "font"
+    },
+    {
+      "hex": "8C021B",
+      "count": 603,
+      "usage": "font"
+    },
+    {
+      "hex": "D569B6",
+      "count": 32,
+      "usage": "font"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Arial Narrow",
+      "size": 16.0,
+      "color": "8C021B",
+      "count": 542
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 12.0,
+      "count": 90
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 14.0,
+      "count": 56
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 12.0,
+      "color": "8C021B",
+      "count": 50
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 11.0,
+      "count": 46
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 16.0,
+      "count": 46
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 14.0,
+      "bold": true,
+      "count": 27
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 16.0,
+      "count": 26
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 10.0,
+      "count": 19
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 10.0,
+      "bold": true,
+      "color": "D569B6",
+      "count": 14
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 24.0,
+      "bold": true,
+      "count": 13
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 28.0,
+      "bold": true,
+      "color": "D569B6",
+      "count": 13
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 20.0,
+      "count": 7
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 8.0,
+      "count": 7
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 20.0,
+      "bold": true,
+      "color": "8C021B",
+      "count": 5
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 10.0,
+      "color": "8C021B",
+      "count": 4
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 16.0,
+      "bold": true,
+      "count": 3
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 14.0,
+      "count": 3
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 16.0,
+      "bold": true,
+      "color": "D569B6",
+      "count": 3
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 9.0,
+      "count": 2
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 14.0,
+      "color": "8C021B",
+      "count": 2
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 16.0,
+      "color": "D569B6",
+      "count": 1
+    },
+    {
+      "name": "Arial Narrow",
+      "size": 8.0,
+      "bold": true,
+      "color": "D569B6",
+      "count": 1
+    }
+  ],
+  "number_formats": [
+    "\"£\"#,##0",
+    "\"£\"#,##0.00",
+    "\"£\"#,##0;[Red]\\-\"£\"#,##0",
+    "mm-dd-yy"
+  ],
+  "header": {
+    "sheet": "Malaga",
+    "row": 1,
+    "style": {
+      "font": {
+        "bold": true,
+        "name": "Arial Narrow",
+        "size": 28.0,
+        "color": "D569B6"
+      },
+      "fill": "D569B6"
+    },
+    "values": [
+      "Holiday in Malaga, Spain",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "=A1",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "columns": [
+    {
+      "width": 4.59765625
+    },
+    {
+      "width": 5.59765625
+    },
+    {
+      "width": 24.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 3.59765625
+    },
+    {
+      "width": 4.59765625
+    },
+    {
+      "width": 5.59765625
+    },
+    {
+      "width": 24.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 19.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 7.59765625
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    },
+    {
+      "width": 9.0
+    }
+  ],
+  "default_col_width": 9.0,
+  "default_row_height": 20.15,
+  "sheets": [
+    "Malaga"
+  ],
+  "notes": [
+    "检测到表头：Malaga 第 1 行（保持该行样式即可得到一致外观）",
+    "工作簿默认字体：等线 12",
+    "生成同类文件时：写产物目录 → repack → render 验收。"
+  ]
+}
