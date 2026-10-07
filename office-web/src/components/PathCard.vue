@@ -32,10 +32,10 @@ defineProps<{ state: PathCardState }>()
   overflow: auto;
   padding: 10px 12px 11px;
   border-radius: var(--ov-radius-popover, 12px);
-  background: rgba(250, 250, 250, 0.82);
+  background: var(--ov-bg-popover);
   backdrop-filter: saturate(180%) blur(24px);
   -webkit-backdrop-filter: saturate(180%) blur(24px);
-  color: rgba(0, 0, 0, 0.85);
+  color: var(--ov-label);
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Helvetica Neue',
     sans-serif;
   font-size: 12px;
@@ -51,7 +51,7 @@ defineProps<{ state: PathCardState }>()
   top: -6px;
   width: 12px;
   height: 12px;
-  background: rgba(250, 250, 250, 0.86);
+  background: var(--ov-bg-popover-arrow);
   transform: rotate(45deg);
   border-radius: 2px 0 0 0;
   box-shadow: -0.5px -0.5px 0 rgba(0, 0, 0, 0.06);
@@ -65,13 +65,13 @@ defineProps<{ state: PathCardState }>()
 .ov-pathcard .pc-type {
   padding: 1px 7px;
   border-radius: 999px;
-  background: rgba(0, 122, 255, 0.14);
-  color: #0a6cd8;
+  background: var(--ov-accent-soft);
+  color: var(--ov-accent-text);
   font-weight: 590;
   font-size: 11px;
 }
 .ov-pathcard .pc-name {
-  color: rgba(0, 0, 0, 0.55);
+  color: var(--ov-label-2);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -80,15 +80,15 @@ defineProps<{ state: PathCardState }>()
   display: block;
   padding: 3px 7px;
   border-radius: 5px;
-  background: rgba(120, 120, 128, 0.12);
+  background: var(--ov-bg-segment);
   font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
   font-size: 11.5px;
-  color: #1d1d1f;
+  color: var(--ov-text-strong);
   word-break: break-all;
 }
 .ov-pathcard .pc-text {
   margin-top: 6px;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--ov-label-2);
   max-height: 96px;
   overflow: hidden;
 }

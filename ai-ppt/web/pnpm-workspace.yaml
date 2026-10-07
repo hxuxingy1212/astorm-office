@@ -1,3 +1,0 @@
-# pnpm 11 构建脚本审批
-allowBuilds:
-  esbuild: true

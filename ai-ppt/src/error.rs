@@ -18,6 +18,8 @@ pub enum Error {
     InvalidInput(String),
     /// 图片加载失败（本地路径不存在或 URL 下载失败）
     ImageLoad(String),
+    /// 文档已加密（OOXML 密码保护），CLI 层映射为 `encrypted` 错误码
+    Encrypted(String),
 }
 
 impl fmt::Display for Error {
@@ -28,6 +30,7 @@ impl fmt::Display for Error {
             Error::Zip(e) => write!(f, "PPTX ZIP 结构错误: {e}"),
             Error::InvalidInput(msg) => write!(f, "无效输入: {msg}"),
             Error::ImageLoad(src) => write!(f, "图片加载失败: {src}"),
+            Error::Encrypted(msg) => write!(f, "{msg}"),
         }
     }
 }
@@ -77,6 +80,7 @@ impl From<Error> for CliError {
             Error::Zip(_) => "zip",
             Error::InvalidInput(_) => "invalid_input",
             Error::ImageLoad(_) => "image_load",
+            Error::Encrypted(_) => "encrypted",
         };
         CliError::with_code(code, e.to_string())
     }

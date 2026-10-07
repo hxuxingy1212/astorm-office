@@ -68,6 +68,9 @@ enum Command {
     Unpack {
         /// 输入的 DOCX 文件路径
         input: PathBuf,
+        /// 输出单个自包含 JSON（分片内联、媒体转 data URI；预览/交付形态，编辑请用目录形态）
+        #[arg(long)]
+        inline: bool,
     },
     /// 从产物目录重建 DOCX（自动校验；有校验问题时退出码 3）
     Repack {
@@ -297,11 +300,33 @@ fn run(cli: &Cli, out: &Output) -> Result<i32> {
                 "engine": if use_lo { "libreoffice" } else { "rust" },
             }))?;
         }
-        Command::Unpack { input } => {
-            let out_dir = output.clone().unwrap_or_else(|| input.with_extension(""));
-            let r = json2docx::unpack(&path_str(input), &path_str(&out_dir))?;
-            out.status(&format!("已解包: {} ({} 个分片)", r.path, r.parts));
-            out.emit_result(&json!({ "ok": true, "output": r.path, "parts": r.parts }))?;
+        Command::Unpack { input, inline } => {
+            if *inline {
+                let out_file = output
+                    .clone()
+                    .unwrap_or_else(|| input.with_extension("inline.json"));
+                let r = office_core::inline::unpack_inline(input, &out_file, |i, o| {
+                    json2docx::unpack(&path_str(i), &path_str(o))
+                        .map(|_| ())
+                        .map_err(CliError::from)
+                })?;
+                out.status(&format!(
+                    "已内联解包: {} ({} 个分片)",
+                    r.output.display(),
+                    r.shards
+                ));
+                out.emit_result(&json!({
+                    "ok": true,
+                    "output": r.output.display().to_string(),
+                    "parts": r.shards,
+                    "inline": true
+                }))?;
+            } else {
+                let out_dir = output.clone().unwrap_or_else(|| input.with_extension(""));
+                let r = json2docx::unpack(&path_str(input), &path_str(&out_dir))?;
+                out.status(&format!("已解包: {} ({} 个分片)", r.path, r.parts));
+                out.emit_result(&json!({ "ok": true, "output": r.path, "parts": r.parts }))?;
+            }
         }
         Command::Repack { input } => {
             let out_docx = output

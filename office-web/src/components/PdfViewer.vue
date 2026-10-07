@@ -2,7 +2,7 @@
 //! PDF 高保真预览：渲染 json2pdf unpack 产物（pages/*.json），悬浮显示 CLI 路径
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { ptToPx } from '@/core/units'
-import { usePathHover } from '@/core/hover'
+import { usePathHover, type SelectInfo } from '@/core/hover'
 import PathCard from '@/components/PathCard.vue'
 import PdfElementView from '@/renderers/pdf/PdfElementView.vue'
 import { provideMediaResolver } from '@/renderers/pptx/media'
@@ -29,7 +29,7 @@ const props = withDefaults(
 )
 
 const emit = defineEmits<{
-  (e: 'select', path: string): void
+  (e: 'select', path: string, info?: SelectInfo): void
   (e: 'hover', path: string | null): void
   (e: 'page-change', index: number): void
 }>()
@@ -131,9 +131,8 @@ function childPath(i: number, els: PdfElement[]): string {
   return `/${t}[${k}]`
 }
 
-function onHover(ev: MouseEvent, seg: string) {
-  const path = `/page[${active.value + 1}]${seg}`
-  // 沿路径找元素（供卡片摘要）
+/** 沿 seg 路径找元素（供卡片摘要与 select 富化共用） */
+function elementAtSeg(seg: string): PdfElement | undefined {
   const parts = seg
     .split('/')
     .filter((s) => s !== '')
@@ -159,6 +158,12 @@ function onHover(ev: MouseEvent, seg: string) {
     if (!el) break
     list = el.children ?? []
   }
+  return el
+}
+
+function onHover(ev: MouseEvent, seg: string) {
+  const path = `/page[${active.value + 1}]${seg}`
+  const el = elementAtSeg(seg)
   hover.enter(
     {
       path,
@@ -177,7 +182,14 @@ function onLeave() {
 }
 
 function onSelect(seg: string) {
-  emit('select', `/page[${active.value + 1}]${seg}`)
+  const path = `/page[${active.value + 1}]${seg}`
+  const el = elementAtSeg(seg)
+  emit('select', path, {
+    path,
+    type: el ? pdfElementType(el) : 'element',
+    name: el?.src ?? undefined,
+    text: el ? pdfElementContent(el) : undefined,
+  })
 }
 
 function thumbItems(p: PdfPageT) {
@@ -308,10 +320,10 @@ defineExpose({ hover, go })
   max-height: 72vh;
   overflow-y: auto;
   padding: 8px 8px 12px;
-  background: rgba(246, 246, 246, 0.82);
+  background: var(--ov-bg-toolbar);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-right: 0.5px solid rgba(0, 0, 0, 0.1);
+  border-right: 0.5px solid var(--ov-separator);
 }
 .ov-pdf-main {
   flex: 1;
@@ -324,12 +336,12 @@ defineExpose({ hover, go })
   align-items: center;
   gap: 10px;
   padding: 7px 12px;
-  background: rgba(246, 246, 246, 0.82);
+  background: var(--ov-bg-toolbar);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-top: 0.5px solid rgba(0, 0, 0, 0.1);
+  border-top: 0.5px solid var(--ov-separator);
   font-size: 12px;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--ov-label-2);
 }
 .ov-side-title {
   padding: 4px 6px 6px;
@@ -337,7 +349,7 @@ defineExpose({ hover, go })
   font-weight: 590;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.42);
+  color: var(--ov-label-2);
 }
 /* 缩略图与舞台（与 PptxViewer 同法；此处冗余声明保证组件单独可用） */
 .ov-thumb {
@@ -353,7 +365,7 @@ defineExpose({ hover, go })
   text-align: left;
 }
 .ov-thumb:hover {
-  background: rgba(0, 0, 0, 0.04);
+  background: var(--ov-bg-fill);
 }
 .ov-thumb-canvas {
   position: relative;
@@ -369,7 +381,7 @@ defineExpose({ hover, go })
   display: block;
 }
 .ov-thumb.active .ov-thumb-canvas {
-  box-shadow: 0 0 0 2px #007aff, 0 2px 8px rgba(0, 122, 255, 0.28);
+  box-shadow: 0 0 0 2px var(--ov-accent), 0 2px 8px rgba(0, 122, 255, 0.28);
 }
 .ov-thumb-meta {
   display: flex;
@@ -382,13 +394,13 @@ defineExpose({ hover, go })
   flex: none;
   font-size: 10px;
   font-weight: 590;
-  color: rgba(0, 0, 0, 0.55);
+  color: var(--ov-label-2);
   font-variant-numeric: tabular-nums;
 }
 .ov-thumb-text {
   flex: 1;
   font-size: 10px;
-  color: rgba(0, 0, 0, 0.42);
+  color: var(--ov-label-2);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -411,31 +423,31 @@ defineExpose({ hover, go })
   overflow: auto;
   height: min(72vh, 720px);
   padding: 24px;
-  background: linear-gradient(180deg, #f3f3f5 0%, #ececf0 100%);
+  background: var(--ov-bg-stage);
 }
 .ov-nav {
   appearance: none;
   width: 26px;
   height: 24px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--ov-separator);
   border-radius: 6px;
   background: #fff;
-  color: rgba(0, 0, 0, 0.8);
+  color: var(--ov-label);
   box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.08);
   cursor: default;
   font-size: 14px;
   line-height: 1;
 }
 .ov-nav:hover:not(:disabled) {
-  background: #f7f7f7;
+  background: var(--ov-bg-control-hover);
 }
 .ov-nav:disabled {
-  color: rgba(0, 0, 0, 0.26);
+  color: var(--ov-label-3);
   box-shadow: none;
 }
 .ov-page-no {
   font-variant-numeric: tabular-nums;
-  color: rgba(0, 0, 0, 0.65);
+  color: var(--ov-label-2);
   min-width: 46px;
   text-align: center;
 }

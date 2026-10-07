@@ -21,6 +21,11 @@ pub struct UnpackResult {
 pub fn parse(input: &str) -> Result<Document> {
     // 旧版 .doc（OLE2/CFB）自动识别：先转 .docx 再解析
     if crate::legacy::is_cfb(std::path::Path::new(input)) {
+        if office_core::opc::looks_encrypted_cfb(std::path::Path::new(input)) {
+            return Err(crate::error::Error::Encrypted(
+                "文档已加密（OOXML 密码保护），暂不支持".into(),
+            ));
+        }
         let docx_bytes = crate::legacy::doc_to_docx_bytes(std::path::Path::new(input))?;
         let tmp = std::env::temp_dir().join(format!(
             "json2docx-legacy-{}-{}.docx",
@@ -43,6 +48,11 @@ pub fn parse(input: &str) -> Result<Document> {
 pub fn unpack(input: &str, out_dir: &str) -> Result<UnpackResult> {
     // 旧版 .doc（OLE2/CFB）：自动转换成 .docx 后再解包（媒体一并来自转换产物）
     if crate::legacy::is_cfb(std::path::Path::new(input)) {
+        if office_core::opc::looks_encrypted_cfb(std::path::Path::new(input)) {
+            return Err(crate::error::Error::Encrypted(
+                "文档已加密（OOXML 密码保护），暂不支持".into(),
+            ));
+        }
         let tmp = std::env::temp_dir().join(format!(
             "json2docx-legacy-unpack-{}-{}.docx",
             std::process::id(),

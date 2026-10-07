@@ -23,6 +23,27 @@
   --ov-bg-segment: rgba(120, 120, 128, 0.12);
   --ov-bg-fill: rgba(120, 120, 128, 0.08);
 
+  /* chrome 细分令牌（工具条/悬浮卡片/高亮/滚动条），暗色见 .ov-dark */
+  --ov-bg-toolbar: rgba(246, 246, 246, 0.82);
+  --ov-bg-control-hover: #f7f7f7;
+  --ov-bg-control-active: #ededed;
+  --ov-bg-popover: rgba(250, 250, 250, 0.82);
+  --ov-bg-popover-arrow: rgba(250, 250, 250, 0.86);
+  --ov-bg-stage: linear-gradient(180deg, #f3f3f5 0%, #ececf0 100%);
+  --ov-bg-stage-blur: rgba(246, 246, 246, 0.78);
+  --ov-bg-head: #f5f5f7;
+  /* 文档页面/画布面（纸张、幻灯片、表格网格）：暗色主题下仍保持白底（同 macOS 预览），
+     留令牌供宿主按需覆盖 */
+  --ov-page-bg: #ffffff;
+  --ov-hover-ring: rgba(0, 122, 255, 0.65);
+  --ov-hover-fill: rgba(0, 122, 255, 0.05);
+  --ov-accent-text: #0a6cd8;
+  --ov-text-strong: #1d1d1f;
+  --ov-border: #cccccc;
+  --ov-text-muted: #999999;
+  --ov-scrollbar: rgba(0, 0, 0, 0.24);
+  --ov-scrollbar-hover: rgba(0, 0, 0, 0.4);
+
   --ov-radius-sm: 5px;
   --ov-radius: 6px;
   --ov-radius-lg: 10px;
@@ -30,6 +51,44 @@
   --ov-shadow-control: 0 0.5px 1px rgba(0, 0, 0, 0.08);
   --ov-shadow-popover: 0 12px 32px rgba(0, 0, 0, 0.2), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
   --ov-blur: saturate(180%) blur(20px);
+}
+
+/* 暗色一组：外层容器加 .ov-dark 即生效（文档页面本身保持白底，只暗化 chrome） */
+.ov-dark {
+  --ov-accent: #0a84ff;
+  --ov-accent-soft: rgba(10, 132, 255, 0.22);
+  --ov-accent-text: #6db2ff;
+  --ov-label: rgba(255, 255, 255, 0.88);
+  --ov-label-2: rgba(255, 255, 255, 0.55);
+  --ov-label-3: rgba(255, 255, 255, 0.3);
+  --ov-separator: rgba(255, 255, 255, 0.14);
+  --ov-hairline: 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+
+  --ov-bg-window: #1e1e20;
+  --ov-bg-content: #232325;
+  --ov-bg-sidebar: rgba(40, 40, 43, 0.72);
+  --ov-bg-control: #2c2c2e;
+  --ov-bg-segment: rgba(120, 120, 128, 0.24);
+  --ov-bg-fill: rgba(120, 120, 128, 0.18);
+
+  --ov-bg-toolbar: rgba(30, 30, 32, 0.82);
+  --ov-bg-control-hover: #3a3a3c;
+  --ov-bg-control-active: #48484a;
+  --ov-bg-popover: rgba(44, 44, 46, 0.85);
+  --ov-bg-popover-arrow: rgba(44, 44, 46, 0.9);
+  --ov-bg-stage: linear-gradient(180deg, #2a2a2c 0%, #232325 100%);
+  --ov-bg-stage-blur: rgba(30, 30, 32, 0.78);
+  --ov-bg-head: #2c2c2e;
+  --ov-hover-ring: rgba(10, 132, 255, 0.8);
+  --ov-hover-fill: rgba(10, 132, 255, 0.1);
+  --ov-text-strong: rgba(255, 255, 255, 0.92);
+  --ov-border: #555555;
+  --ov-text-muted: #888888;
+  --ov-scrollbar: rgba(255, 255, 255, 0.3);
+  --ov-scrollbar-hover: rgba(255, 255, 255, 0.5);
+
+  --ov-shadow-control: 0 0.5px 1px rgba(0, 0, 0, 0.4);
+  --ov-shadow-popover: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(255, 255, 255, 0.12);
 }
 
 .ov-root,
@@ -51,13 +110,13 @@
   background: transparent;
 }
 .ov-root ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.24);
+  background: var(--ov-scrollbar);
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 .ov-root ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--ov-scrollbar-hover);
   background-clip: padding-box;
 }
 
@@ -85,7 +144,7 @@
   white-space: nowrap;
 }
 .ov-segmented > button:hover {
-  background: rgba(0, 0, 0, 0.04);
+  background: var(--ov-bg-fill);
 }
 .ov-segmented > button.active {
   background: var(--ov-bg-control);
@@ -112,10 +171,10 @@
   cursor: default;
 }
 .ov-btn:hover:not(:disabled) {
-  background: #f7f7f7;
+  background: var(--ov-bg-control-hover);
 }
 .ov-btn:active:not(:disabled) {
-  background: #ededed;
+  background: var(--ov-bg-control-active);
 }
 .ov-btn:disabled {
   color: var(--ov-label-3);
@@ -128,7 +187,7 @@
   align-items: center;
   gap: 10px;
   padding: 7px 12px;
-  background: rgba(246, 246, 246, 0.82);
+  background: var(--ov-bg-toolbar);
   backdrop-filter: var(--ov-blur);
   -webkit-backdrop-filter: var(--ov-blur);
   border-bottom: 0.5px solid var(--ov-separator);
@@ -152,11 +211,11 @@
 
 /* ---- 悬浮高亮：core/hover.enter 挂到当前悬浮元素（三格式统一） ---- */
 .ov-hovering {
-  outline: 2px solid rgba(0, 122, 255, 0.65);
+  outline: 2px solid var(--ov-hover-ring);
   outline-offset: -2px;
   border-radius: 2px;
   /* 轻蓝罩层（叠在单元格填充/图片上仍可见，不遮内容） */
-  box-shadow: inset 0 0 0 9999px rgba(0, 122, 255, 0.05);
+  box-shadow: inset 0 0 0 9999px var(--ov-hover-fill);
 }
 
 /* ---- 缩放控件（PPT / XLSX 底栏右侧共用） ---- */

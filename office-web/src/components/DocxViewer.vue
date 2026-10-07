@@ -3,7 +3,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { DocxBlock, DocxDocument, DocxPart, DocxRun, DocxSection, DocxStyle } from '@/types'
 import { ptToPx, cssColor } from '@/core/units'
-import { usePathHover, type PathCardInfo } from '@/core/hover'
+import { usePathHover, type PathCardInfo, type SelectInfo } from '@/core/hover'
 import PathCard from '@/components/PathCard.vue'
 import { latexToHtml, LATEX_CSS } from '@/renderers/docx/latex'
 
@@ -20,7 +20,7 @@ const props = withDefaults(
 )
 
 const emit = defineEmits<{
-  (e: 'select', path: string): void
+  (e: 'select', path: string, info?: SelectInfo): void
   (e: 'hover', path: string | null): void
   (e: 'page-change', index: number): void
 }>()
@@ -295,8 +295,8 @@ function leave() {
   hover.leave()
   emit('hover', null)
 }
-function clickBlock(path: string) {
-  emit('select', path)
+function clickBlock(path: string, b?: DocxBlock) {
+  emit('select', path, b ? blockInfo(b, path) : undefined)
 }
 
 const pageRef = ref<HTMLElement | null>(null)
@@ -432,7 +432,7 @@ defineExpose({ hover })
           @mouseenter="enterBlock(b, blockPath([`heading[${ordinals(part!.blocks)[bi]}]`]), $event)"
           @mousemove="hover.move($event)"
           @mouseleave="leave"
-          @click="clickBlock(blockPath([`heading[${ordinals(part!.blocks)[bi]}]`]))"
+          @click="clickBlock(blockPath([`heading[${ordinals(part!.blocks)[bi]}]`]), b)"
         >
           <template v-if="(b as any).numbering">{{ ordinals(part!.blocks)[bi] }}. </template
           >{{ (b as any).text }}
@@ -446,7 +446,7 @@ defineExpose({ hover })
           @mouseenter="enterBlock(b, blockPath([`paragraph[${ordinals(part!.blocks)[bi]}]`]), $event)"
           @mousemove="hover.move($event)"
           @mouseleave="leave"
-          @click="clickBlock(blockPath([`paragraph[${ordinals(part!.blocks)[bi]}]`]))"
+          @click="clickBlock(blockPath([`paragraph[${ordinals(part!.blocks)[bi]}]`]), b)"
         >
           <template v-if="(b as any).runs?.length">
             <span v-for="(r, ri) in (b as any).runs as DocxRun[]" :key="ri" :style="runStyle(r)">{{
@@ -705,7 +705,7 @@ defineExpose({ hover })
   align-items: stretch;
   gap: 14px;
   font-family: 'Songti SC', 'SimSun', 'Times New Roman', serif;
-  color: #1d1d1f;
+  color: var(--ov-text-strong);
 }
 /* 左侧：目录 + 翻页（毛玻璃侧栏） */
 .ov-docx-side {
@@ -715,7 +715,7 @@ defineExpose({ hover })
   flex-direction: column;
   height: min(76vh, 900px);
   border-radius: 12px;
-  background: rgba(246, 246, 246, 0.78);
+  background: var(--ov-bg-stage-blur);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
@@ -728,7 +728,7 @@ defineExpose({ hover })
   font-weight: 590;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.42);
+  color: var(--ov-label-2);
 }
 .ov-outline {
   flex: 1;
@@ -742,7 +742,7 @@ defineExpose({ hover })
   border: 0;
   border-radius: 5px;
   background: transparent;
-  color: rgba(0, 0, 0, 0.8);
+  color: var(--ov-label);
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', sans-serif;
   font-size: 12px;
   text-align: left;
@@ -752,10 +752,10 @@ defineExpose({ hover })
   cursor: default;
 }
 .ov-outline-item:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--ov-bg-fill);
 }
 .ov-outline-item.current {
-  color: rgba(0, 0, 0, 0.92);
+  color: var(--ov-text-strong);
   font-weight: 500;
 }
 .ov-outline-part {
@@ -764,17 +764,17 @@ defineExpose({ hover })
   font-size: 10.5px;
   font-weight: 590;
   letter-spacing: 0.02em;
-  color: rgba(0, 0, 0, 0.34);
+  color: var(--ov-label-3);
   text-transform: uppercase;
 }
 .ov-outline-item:active {
-  background: rgba(0, 122, 255, 0.14);
-  color: #0a6cd8;
+  background: var(--ov-accent-soft);
+  color: var(--ov-accent-text);
 }
 .ov-outline-empty {
   padding: 6px 8px;
   font-size: 11.5px;
-  color: rgba(0, 0, 0, 0.3);
+  color: var(--ov-label-3);
   font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
 }
 /* 上下翻页按钮 */
@@ -784,18 +784,18 @@ defineExpose({ hover })
   justify-content: center;
   gap: 8px;
   padding: 8px 10px;
-  border-top: 0.5px solid rgba(0, 0, 0, 0.1);
-  background: rgba(246, 246, 246, 0.9);
+  border-top: 0.5px solid var(--ov-separator);
+  background: var(--ov-bg-toolbar);
 }
 .ov-btn {
   appearance: none;
   min-width: 30px;
   height: 24px;
   padding: 0 8px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--ov-separator);
   border-radius: 6px;
-  background: #fff;
-  color: rgba(0, 0, 0, 0.8);
+  background: var(--ov-bg-control);
+  color: var(--ov-label);
   font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
   font-size: 11px;
   line-height: 1;
@@ -803,16 +803,16 @@ defineExpose({ hover })
   cursor: default;
 }
 .ov-btn:hover:not(:disabled) {
-  background: #f7f7f7;
+  background: var(--ov-bg-control-hover);
 }
 .ov-btn:disabled {
-  color: rgba(0, 0, 0, 0.26);
+  color: var(--ov-label-3);
   box-shadow: none;
 }
 .ov-page-no {
   font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
   font-size: 11.5px;
-  color: rgba(0, 0, 0, 0.55);
+  color: var(--ov-label-2);
   font-variant-numeric: tabular-nums;
 }
 /* 内容区：整体缩放画布 */
@@ -829,14 +829,14 @@ defineExpose({ hover })
   padding: 16px;
   overflow: auto;
   border-radius: 12px;
-  background: linear-gradient(180deg, #f3f3f5 0%, #ececf0 100%);
+  background: var(--ov-bg-stage);
   box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 /* 纸张（自然尺寸渲染，外层容器按缩放后尺寸占位） */
 .ov-page {
   position: relative;
   box-sizing: border-box;
-  background: #fff;
+  background: var(--ov-page-bg);
   border-radius: 4px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
   line-height: 1.75;
@@ -854,7 +854,7 @@ defineExpose({ hover })
   margin-top: 8px;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', sans-serif;
   font-size: 12px;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--ov-label-2);
 }
 .ov-docx-bar input[type='range'] {
   -webkit-appearance: none;
@@ -870,7 +870,7 @@ defineExpose({ hover })
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--ov-page-bg);
   box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(0, 0, 0, 0.1);
 }
 .ov-zoom-val {
@@ -929,7 +929,7 @@ defineExpose({ hover })
 }
 .ov-caption,
 .ov-caption-block {
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--ov-label-2);
   font-size: 13px;
   text-align: center;
   font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
@@ -952,7 +952,7 @@ defineExpose({ hover })
 .ov-eqno {
   position: absolute;
   right: 0;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--ov-label-2);
 }
 .ov-code {
   background: rgba(120, 120, 128, 0.1);
@@ -966,7 +966,7 @@ defineExpose({ hover })
   margin: 8px 0;
   padding: 6px 12px;
   border-left: 3px solid rgba(0, 122, 255, 0.5);
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--ov-label-2);
 }
 .ov-toc {
   margin: 8px 0 14px;
@@ -1002,7 +1002,7 @@ defineExpose({ hover })
   margin: 18px 0;
 }
 .ov-unknown {
-  color: rgba(0, 0, 0, 0.26);
+  color: var(--ov-label-3);
   font-size: 12px;
 }
 </style>

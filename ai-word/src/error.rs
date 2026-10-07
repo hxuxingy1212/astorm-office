@@ -17,6 +17,8 @@ pub enum Error {
     InvalidInput(String),
     /// 图片加载失败
     ImageLoad(String),
+    /// 文档已加密（OOXML 密码保护），CLI 层映射为 `encrypted` 错误码
+    Encrypted(String),
 }
 
 impl fmt::Display for Error {
@@ -28,6 +30,7 @@ impl fmt::Display for Error {
             Error::Xml(e) => write!(f, "XML 错误: {e}"),
             Error::InvalidInput(s) => write!(f, "输入非法: {s}"),
             Error::ImageLoad(s) => write!(f, "图片加载失败: {s}"),
+            Error::Encrypted(s) => write!(f, "{s}"),
         }
     }
 }
@@ -69,6 +72,7 @@ impl From<Error> for CliError {
             Error::Xml(_) => "xml",
             Error::InvalidInput(_) => "invalid_input",
             Error::ImageLoad(_) => "image_load",
+            Error::Encrypted(_) => "encrypted",
         };
         CliError::with_code(code, e.to_string())
     }

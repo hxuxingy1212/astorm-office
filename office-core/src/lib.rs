@@ -14,6 +14,7 @@ pub mod batch;
 pub mod chrome;
 pub mod error;
 pub mod guards;
+pub mod inline;
 pub mod merge;
 pub mod opc;
 pub mod output;

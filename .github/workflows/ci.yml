@@ -69,3 +69,27 @@ jobs:
         run: pnpm exec vue-tsc --noEmit
       - name: Build
         run: pnpm exec vite build
+
+  export-kit:
+    name: Export kit artifact
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install viewer deps
+        run: npm install --no-audit --no-fund
+        working-directory: office-web
+      - name: Export office-kit
+        run: node scripts/export.mjs --out dist-kit
+      - name: Verify checksums
+        run: |
+          cd dist-kit/office-kit-*
+          shasum -a 256 -c SHA256SUMS
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: office-kit-${{ github.sha }}
+          path: dist-kit/

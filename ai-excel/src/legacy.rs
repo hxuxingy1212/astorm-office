@@ -137,6 +137,12 @@ fn col_letter(mut n: usize) -> String {
 /// 旧格式自动识别与转换入口：OLE2/CFB 输入 → 内存 Workbook
 pub fn maybe_legacy_workbook(path: &Path) -> Option<Result<Workbook, Error>> {
     if is_cfb(path) {
+        // 先于 .xls 转换识别加密 OOXML（同为 CFB 容器）：给稳定的 encrypted 码而不是转换报错
+        if office_core::opc::looks_encrypted_cfb(path) {
+            return Some(Err(Error::Encrypted(
+                "文档已加密（OOXML 密码保护），暂不支持".into(),
+            )));
+        }
         Some(xls_to_workbook(path))
     } else {
         None

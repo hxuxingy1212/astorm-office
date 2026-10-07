@@ -11,7 +11,15 @@ use std::process::Command;
 use std::time::{Duration, Instant};
 
 /// 常见安装位置 + PATH 探测 soffice
+///
+/// `ASTORM_SOFFICE_PATH` 环境变量最优先（桌面端可指定自带/非标准安装路径）。
 pub fn find_soffice() -> Option<PathBuf> {
+    if let Ok(bin) = std::env::var("ASTORM_SOFFICE_PATH") {
+        let p = PathBuf::from(&bin);
+        if p.is_file() {
+            return Some(p);
+        }
+    }
     let absolute = [
         "/opt/homebrew/bin/soffice",
         "/usr/local/bin/soffice",

@@ -9,7 +9,7 @@
 
 | 命令 | 语义 | stdout（默认） | stdout（--json） |
 |---|---|---|---|
-| `unpack <input>` | 文档 → 产物目录 | 空 | `{"ok":true,"output":...}` |
+| `unpack <input>` | 文档 → 产物目录（`--inline` 输出单个自包含 JSON，见下） | 空 | `{"ok":true,"output":...}` |
 | `repack <dir>` | 产物目录 → 文档（自动校验） | 空 | `{"ok":true,"output":...,"issues":[...]}` |
 | `view <input> <path> <text\|layout>` | 省 token 的两档只读视图 | 数据 JSON | 数据 JSON |
 | `edit <input> <path> get\|set\|add\|remove` | 精准修改 | 数据 JSON | 数据 JSON |
@@ -59,7 +59,7 @@
 3. **`--json`（全局）**：写盘命令改为向 stdout 输出结果 JSON（含 `ok`/`output` 及格式相关字段）；stderr 的状态变为 JSON 事件行（`{"event":"status","message":...}`）；错误变为 `{"ok":false,"error":{"code":...,"message":...,"hint":...}}`。
 4. **`--quiet`（全局）**：抑制 stderr 状态输出（不影响 stdout 数据）。
 5. **`--verbose`（全局）**：输出更详细的诊断信息。
-6. **错误**：一律走 stderr。默认模式为一行中文（`错误: ...`，可附 `建议: ...`）；`--json` 模式为结构化 JSON `{"ok":false,"error":{"code","message","hint","suggestion"}}`。错误码：`json` / `io` / `zip` / `xml` / `invalid_input` / `image_load` / `internal`。
+6. **错误**：一律走 stderr。默认模式为一行中文（`错误: ...`，可附 `建议: ...`）；`--json` 模式为结构化 JSON `{"ok":false,"error":{"code","message","hint","suggestion"}}`。错误码：`json` / `io` / `zip` / `xml` / `invalid_input` / `image_load` / `encrypted`（密码保护的 OOXML/PDF；损坏的非加密包按 `zip`/`invalid_input` 归码）/ `internal`。
    - **suggestion（自愈建议）**：未知属性/类型/取值/索引越界类错误必须附带——最近匹配（`是否想用 "bold"？`）+ 合法取值/范围（`可选值: text/layout` 或 `索引范围 1~3`）。能力表来自 `help --json`，与实现同源（契约测试保证声明即可用）。
 7. **无状态**：命令不共享隐藏状态。对二进制文档的写操作（edit set/add/remove、raw-set、import）**必须** `-o` 显式指定输出，绝不回写输入文件；对产物目录的 edit 则原地修改。
 
@@ -82,6 +82,16 @@
 - JSON 字段命名统一 **snake_case**（pptx 元素 `type` 值亦然；历史 camelCase 值仍可读入，但不再输出）。
 - 单位：长度/字号 pt，颜色不带 `#`，行距用倍数，页面用 A4/Letter 等别名。
 - 产品目录是 CLI 与 agent 的统一载体：`unpack` 产物 = JSON 文档 + 媒体目录，人机均可直接编辑。
+- **`unpack --inline`**：输出**单个自包含 JSON**（默认 `<输入名>.inline.json`，`-o` 可指定）——
+  顶层数组分片（slides/parts/sheets/pages）内联为对象、媒体引用转 data URI
+  （`fonts/`、`embeddings/` 不内联：预览不消费，转了只是体积膨胀）。
+  该形态可直接经 IPC/内存传给 `@astorm/office-viewer` 的 `data` prop（loader 与
+  media resolver 对内联/data URI 形态直接支持），省去 1+N 次 fetch 与自定义协议；
+  适合预览/交付，**编辑流程请继续用目录形态**（repack 只认目录）。
+  注意：百万行级大表内联成单文件会抬高内存峰值，超大文档建议仍走目录 + 按需 fetch。
+- **外部引擎可用环境变量显式指定**（探测顺序在最前）：
+  `ASTORM_CHROME_BIN`（`render png`/`render pdf` 的无头 Chrome，桌面端可传自带
+  Chromium/Electron helper）、`ASTORM_SOFFICE_PATH`（`convert` 的 LibreOffice 路径）。
 
 ## 五、迁移说明（相对旧版）
 

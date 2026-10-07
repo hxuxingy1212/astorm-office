@@ -8,6 +8,8 @@ pub enum Error {
     Zip(zip::result::ZipError),
     Xml(String),
     InvalidInput(String),
+    /// 文档已加密（OOXML 密码保护），CLI 层映射为 `encrypted` 错误码
+    Encrypted(String),
 }
 
 impl fmt::Display for Error {
@@ -18,6 +20,7 @@ impl fmt::Display for Error {
             Error::Zip(e) => write!(f, "ZIP 错误: {e}"),
             Error::Xml(e) => write!(f, "XML 错误: {e}"),
             Error::InvalidInput(e) => write!(f, "输入错误: {e}"),
+            Error::Encrypted(e) => write!(f, "{e}"),
         }
     }
 }
@@ -69,6 +72,7 @@ impl From<Error> for CliError {
             Error::Zip(_) => "zip",
             Error::Xml(_) => "xml",
             Error::InvalidInput(_) => "invalid_input",
+            Error::Encrypted(_) => "encrypted",
         };
         CliError::with_code(code, e.to_string())
     }

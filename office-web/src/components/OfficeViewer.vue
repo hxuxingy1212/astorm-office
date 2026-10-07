@@ -1,6 +1,7 @@
 <script setup lang="ts">
 //! 统一入口：按 kind 分发到四格式 Viewer；也可直接用各专用组件
 import { computed } from 'vue'
+import type { SelectInfo } from '@/core/hover'
 import type { DocxDocument, XlsxSheet, XlsxWorkbook } from '@/types'
 import type { PackedSheet } from '@/renderers/xlsx/packed'
 import type { PptxDoc } from '@/renderers/pptx/presentation'
@@ -30,7 +31,7 @@ const props = withDefaults(
 )
 
 const emit = defineEmits<{
-  (e: 'select', path: string): void
+  (e: 'select', path: string, info?: SelectInfo): void
   (e: 'hover', path: string | null): void
   (e: 'page-change', index: number): void
 }>()
@@ -48,7 +49,7 @@ const asPdf = computed(() => props.data as PdfDoc)
       :presentation="asPptx"
       :resolve-media="resolveMedia"
       :slide-index="index"
-      @select="(p) => emit('select', p)"
+      @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @slide-change="(i) => emit('page-change', i)"
     />
@@ -57,7 +58,7 @@ const asPdf = computed(() => props.data as PdfDoc)
       :document="asDocx"
       :resolve-media="resolveMedia"
       :part-index="index"
-      @select="(p) => emit('select', p)"
+      @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @page-change="(i) => emit('page-change', i)"
     />
@@ -66,7 +67,7 @@ const asPdf = computed(() => props.data as PdfDoc)
       :doc="asPdf"
       :resolve-media="resolveMedia"
       :page-index="index"
-      @select="(p) => emit('select', p)"
+      @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @page-change="(i) => emit('page-change', i)"
     />
@@ -75,7 +76,7 @@ const asPdf = computed(() => props.data as PdfDoc)
       :workbook="asXlsx"
       :resolve-media="resolveMedia"
       :sheet-index="index"
-      @select="(p) => emit('select', p)"
+      @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @sheet-change="(i) => emit('page-change', i)"
     />
@@ -84,6 +85,6 @@ const asPdf = computed(() => props.data as PdfDoc)
 
 <style>
 .ov-root {
-  color: #1f2328;
+  color: var(--ov-text-strong);
 }
 </style>

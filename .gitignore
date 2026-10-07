@@ -15,3 +15,4 @@ node_modules/
 
 office-web/.vite/
 __pycache__/
+dist-kit/

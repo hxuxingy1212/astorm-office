@@ -102,6 +102,9 @@ enum Cmd {
     Unpack {
         /// 输入 PDF
         pdf: PathBuf,
+        /// 输出单个自包含 JSON（分片内联、媒体转 data URI；预览/交付形态，编辑请用目录形态）
+        #[arg(long)]
+        inline: bool,
     },
     /// 逆向生成：产物目录 → PDF（可从零手写 JSON 构建；警告为回退提示，不影响退出码）
     Repack {
@@ -525,6 +528,10 @@ fn to_cli_error(e: anyhow::Error) -> CliError {
     }
     if let Some(j) = e.downcast_ref::<serde_json::Error>() {
         return CliError::with_code("json", j.to_string());
+    }
+    // unpack 对加密 PDF 的拒绝（ai-pdf/src/unpack.rs）经 anyhow 丢失类型，按消息归码
+    if e.to_string().contains("encrypted") {
+        return CliError::with_code("encrypted", e.to_string());
     }
     CliError::new(e.to_string())
 }
@@ -969,18 +976,39 @@ fn dispatch(cli: &Cli, out: &Output) -> Result<i32, CmdError> {
             }
         }
 
-        Cmd::Unpack { pdf } => {
-            let out_dir = cli
-                .output
-                .clone()
-                .unwrap_or_else(|| pdf.with_extension("").to_path_buf());
-            let result = unpack::unpack(pdf, &out_dir)?;
-            out.status(&format!(
-                "已解包 {} 页 → {}",
-                result.pages,
-                out_dir.display()
-            ));
-            out.emit_result(&ok_payload(unpack::summary(&result, &out_dir)))?;
+        Cmd::Unpack { pdf, inline } => {
+            if *inline {
+                let out_file = cli
+                    .output
+                    .clone()
+                    .unwrap_or_else(|| pdf.with_extension("inline.json"));
+                let r = office_core::inline::unpack_inline(pdf, &out_file, |i, o| {
+                    unpack::unpack(i, o).map(|_| ()).map_err(to_cli_error)
+                })?;
+                out.status(&format!(
+                    "已内联解包 {} 页 → {}",
+                    r.shards,
+                    r.output.display()
+                ));
+                out.emit_result(&ok_payload(json!({
+                    "ok": true,
+                    "output": r.output.display().to_string(),
+                    "pages": r.shards,
+                    "inline": true
+                })))?;
+            } else {
+                let out_dir = cli
+                    .output
+                    .clone()
+                    .unwrap_or_else(|| pdf.with_extension("").to_path_buf());
+                let result = unpack::unpack(pdf, &out_dir)?;
+                out.status(&format!(
+                    "已解包 {} 页 → {}",
+                    result.pages,
+                    out_dir.display()
+                ));
+                out.emit_result(&ok_payload(unpack::summary(&result, &out_dir)))?;
+            }
         }
         Cmd::Repack { dir } => {
             let out_pdf = cli
@@ -1423,7 +1451,10 @@ fn load(file: &Path) -> Result<lopdf::Document, CliError> {
             .suggest("确认文件存在且是未加密的合法 PDF")
     })?;
     if doc.is_encrypted() {
-        return Err(CliError::new("文档已加密——不支持加密 PDF").suggest("先解密后再处理"));
+        return Err(
+            CliError::with_code("encrypted", "文档已加密——不支持加密 PDF")
+                .suggest("先解密后再处理"),
+        );
     }
     Ok(doc)
 }

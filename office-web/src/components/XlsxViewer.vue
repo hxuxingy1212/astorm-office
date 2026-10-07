@@ -7,7 +7,7 @@ import { colCharsToPx, rowPtToPx, cssColor } from '@/core/units'
 import { cellRef, colLetter } from '@/core/path'
 import { displayValue } from '@/renderers/xlsx/numberFormat'
 import { resolveStyle, styleToCss } from '@/renderers/xlsx/styles'
-import { usePathHover } from '@/core/hover'
+import { usePathHover, type SelectInfo } from '@/core/hover'
 import PathCard from '@/components/PathCard.vue'
 import XlsxChartView from '@/renderers/xlsx/XlsxChartView.vue'
 import { parseRange } from '@/renderers/xlsx/range'
@@ -30,7 +30,7 @@ const props = withDefaults(
 )
 
 const emit = defineEmits<{
-  (e: 'select', path: string): void
+  (e: 'select', path: string, info?: SelectInfo): void
   (e: 'hover', path: string | null): void
   (e: 'sheet-change', index: number): void
 }>()
@@ -352,7 +352,16 @@ function onCellLeave() {
 }
 
 function onCellClick(r: number, c: number) {
-  emit('select', `/sheet[${active.value + 1}]/cell[${cellRef(c, r)}]`)
+  const ref = cellRef(c, r)
+  const path = `/sheet[${active.value + 1}]/cell[${ref}]`
+  const cell = cellAt(r, c)
+  const f = cell ? displayValue(cell.value, cell.number_format) : undefined
+  emit('select', path, {
+    path,
+    type: 'cell',
+    name: `${sheet.value?.name ?? ''}!${ref}`,
+    text: f?.text || (cell?.comment ? `批注: ${cell.comment}` : undefined),
+  })
 }
 
 /** 锚点列号的横向偏移（列配置外的列按默认列宽推进） */
@@ -613,10 +622,10 @@ defineExpose({ hover })
   height: min(78vh, 860px);
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Helvetica Neue',
     sans-serif;
-  color: rgba(0, 0, 0, 0.85);
+  color: var(--ov-label);
   border-radius: 12px;
   overflow: hidden;
-  background: #fff;
+  background: var(--ov-page-bg);
   box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 /* 工作表标签：Numbers 底部标签栏风格（分段控件）；左侧标签滚动，右侧缩放固定 */
@@ -626,10 +635,10 @@ defineExpose({ hover })
   align-items: center;
   gap: 10px;
   padding: 6px 10px;
-  background: rgba(246, 246, 246, 0.82);
+  background: var(--ov-bg-toolbar);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-top: 0.5px solid rgba(0, 0, 0, 0.1);
+  border-top: 0.5px solid var(--ov-separator);
 }
 .ov-tabs-scroll {
   flex: 1;
@@ -642,7 +651,7 @@ defineExpose({ hover })
 .ov-sheet-tabs .ov-zoom {
   flex: none;
   font-size: 12px;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--ov-label-2);
 }
 .ov-tab {
   appearance: none;
@@ -650,27 +659,27 @@ defineExpose({ hover })
   padding: 4px 11px;
   border-radius: 5px;
   background: transparent;
-  color: rgba(0, 0, 0, 0.85);
+  color: var(--ov-label);
   font: inherit;
   font-size: 12px;
   white-space: nowrap;
   cursor: default;
 }
 .ov-tab:hover {
-  background: rgba(0, 0, 0, 0.04);
+  background: var(--ov-bg-fill);
 }
 .ov-tab.active {
-  background: #fff;
+  background: var(--ov-bg-control);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
   font-weight: 500;
-  color: #0a6cd8;
+  color: var(--ov-accent-text);
 }
 .ov-sheet-wrap {
   position: relative;
   flex: 1; /* 撑满固定高度，内容超出时在内部滚动 */
   min-height: 0;
   overflow: auto;
-  background: #fff;
+  background: var(--ov-page-bg);
 }
 .ov-sheet-zoomer {
   position: relative;
@@ -690,8 +699,8 @@ defineExpose({ hover })
 }
 /* 行列标：系统灰 + 发丝线 */
 .ov-sheet th {
-  background: #f5f5f7;
-  color: rgba(0, 0, 0, 0.45);
+  background: var(--ov-bg-head);
+  color: var(--ov-label-2);
   font-weight: 400;
   font-size: 11px;
   border: 0.5px solid rgba(0, 0, 0, 0.1);
@@ -728,7 +737,7 @@ defineExpose({ hover })
 }
 .ov-link {
   margin-left: 4px;
-  color: #007aff;
+  color: var(--ov-accent);
   text-decoration: none;
 }
 /* 浮动对象容器：定位在画布原点，子元素按锚点单元格绝对定位（Excel 浮动图表/图片） */

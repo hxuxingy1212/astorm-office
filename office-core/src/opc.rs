@@ -72,3 +72,29 @@ pub fn write_part(pkg: &Path, out: &Path, part: &str, content: &[u8]) -> Result<
     writer.finish()?;
     Ok(())
 }
+
+/// OLE/CFB 复合文档魔数（.doc/.xls/.ppt 与加密 OOXML 的共同特征）
+pub const CFB_MAGIC: [u8; 8] = [0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1];
+
+/// 文件是否为「已加密的 OOXML 包」（密码保护的 docx/xlsx/pptx）。
+///
+/// 加密 OOXML 是 CFB 容器，其中必有 `EncryptionInfo`/`EncryptedPackage` 流；
+/// 流名以 UTF-16LE 存于目录项，直接按字节扫描（目录集中在文件头部，扫前 1MB 足够）。
+/// 用于与「旧版 .doc/.xls/.ppt（同样是 CFB 但可转换）」区分，给出 `encrypted` 错误码。
+pub fn looks_encrypted_cfb(path: &std::path::Path) -> bool {
+    use std::io::Read;
+    let probe = match std::fs::File::open(path) {
+        Ok(f) => f,
+        Err(_) => return false,
+    };
+    let mut head = Vec::new();
+    let _ = probe.take(1024 * 1024).read_to_end(&mut head);
+    if head.len() < 8 || head[..8] != CFB_MAGIC {
+        return false;
+    }
+    let needle: Vec<u8> = "EncryptionInfo"
+        .encode_utf16()
+        .flat_map(|u| u.to_le_bytes())
+        .collect();
+    head.windows(needle.len()).any(|w| w == needle)
+}

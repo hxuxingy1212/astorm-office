@@ -36,10 +36,15 @@ pub fn parse(input: &Path) -> Result<Workbook> {
     let mut zip = match ZipArchive::new(file) {
         Ok(z) => z,
         Err(e) => {
-            // OLE/CFB 复合文档（含加密 xlsx）不是 zip 包，给出明确提示。
+            // OLE/CFB 复合文档不是 zip 包：区分「加密 OOXML」与「旧版/受保护格式」
             if n == 8 && magic == [0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1] {
+                if office_core::opc::looks_encrypted_cfb(Path::new(input)) {
+                    return Err(Error::Encrypted(
+                        "文档已加密（OOXML 密码保护），暂不支持".into(),
+                    ));
+                }
                 return Err(Error::InvalidInput(
-                    "文件已加密或为受保护的 OLE/CFB 格式，暂不支持".into(),
+                    "文件为 OLE/CFB 复合文档（旧版 .xls 或受保护文件），暂不支持".into(),
                 ));
             }
             return Err(e.into());

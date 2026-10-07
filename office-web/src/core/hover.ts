@@ -24,6 +24,9 @@ export interface PathCardInfo {
   json?: string
 }
 
+/** @select 事件第二参数：元素摘要（与悬浮卡片同源，向后兼容——第一参数仍是路径字符串） */
+export type SelectInfo = PathCardInfo
+
 export interface PathCardState extends PathCardInfo {
   visible: boolean
   x: number

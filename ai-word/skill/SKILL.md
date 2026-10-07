@@ -1,7 +1,7 @@
 ---
 name: ai-word
-description: 使用 json2docx（json2docx）生成与编辑专业 Word 文档（.docx）：论文、报告、信函、简历、备忘录等。工作方式：以"产物目录"（document.json + word/parts/*.json + word/media/）为中间形态，用 CLI 完成从 JSON 构建 DOCX（repack）、逐章查看（view）、精准修改（edit）、渲染核对（render）。当用户说"帮我写一篇论文""生成一份报告/Word 文档""把内容整理成 docx""修改这份 Word 的第 N 段""给这篇论文排版/加参考文献"，或需要程序化处理 DOCX 时使用，即使用户没提到 JSON 或命令行也应触发。
-version: 2.0.0
+description: 用 json2docx 生成与编辑 Word（.docx）：论文/报告/信函/简历。以产物目录 JSON 为中间形态，repack 构建、view/edit 修改、render 核对。用户要写或改 Word/论文/报告/排版/参考文献时使用，未提 JSON 也应触发。
+version: 0.2.0
 metadata:
   category: 办公自动化
   tags: docx, word, 论文, 报告, json2docx, 学术写作

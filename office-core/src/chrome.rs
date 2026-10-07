@@ -17,7 +17,15 @@ fn which(cmd: &str) -> Option<String> {
 }
 
 /// 探测 Chrome/Chromium 可执行文件
+///
+/// `ASTORM_CHROME_BIN` 环境变量最优先（桌面端可传入自带 Chromium，
+/// 如 Electron 的 helper；需指向可执行文件）。
 pub fn find_chrome() -> Result<String, String> {
+    if let Ok(bin) = std::env::var("ASTORM_CHROME_BIN") {
+        if Path::new(&bin).is_file() {
+            return Ok(bin);
+        }
+    }
     which("google-chrome")
         .or_else(|| which("chromium"))
         .or_else(|| which("chromium-browser"))

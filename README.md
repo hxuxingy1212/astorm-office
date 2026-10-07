@@ -1,19 +1,15 @@
-<div align="center">
-
 # astorm-office
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.75%2B-orange.svg)](https://www.rust-lang.org)
 [![CI](https://img.shields.io/github/actions/workflow/status/hxuxingy1212/astorm-office/ci.yml?branch=main&label=CI)](https://github.com/hxuxingy1212/astorm-office/actions/workflows/ci.yml)
-[![在线预览](https://img.shields.io/badge/预览-hxuxingy1212.github.io-2ea44f)](https://hxuxingy1212.github.io/astorm-office/)
+[![在线预览](https://img.shields.io/badge/预览-hxuxiny.gitee.io-3ca2ff)](https://hxuxiny.gitee.io/astorm-office/)
 
 **面向 AI Agent 的 Office 文档工具集**：生成 / 解析 / 精准编辑 / 高保真预览 **Word · Excel · PPT · PDF**，
 并在 PDF 与 Office 之间互转。Rust 实现，直接操作 OOXML 与 PDF 对象，零 Office 运行时依赖；
 四个 CLI 共享同一套 JSON 中间形态与命令契约，MCP / 常驻服务 / 批量回放开箱即用。
 
-在线演示（四格式预览组件 + 悬浮路径卡片）：**[hxuxingy1212.github.io/astorm-office](https://hxuxingy1212.github.io/astorm-office/)**
-
-</div>
+> 在线演示（四格式预览组件 + 悬浮路径卡片）：**[hxuxiny.gitee.io/astorm-office](https://hxuxiny.gitee.io/astorm-office/)**
 
 ## 为什么是这个样子
 
@@ -100,7 +96,7 @@ flowchart LR
 要求 Rust 1.75+：
 
 ```bash
-git clone git@github.com:hxuxingy1212/astorm-office.git    # 或 Gitee 镜像 hxuxiny/astorm-office
+git clone git@gitee.com:hxuxiny/astorm-office.git    # 或 GitHub 镜像 hxuxingy1212/astorm-office
 cd astorm-office
 
 cargo build --release          # 构建四个 CLI：target/release/json2docx|json2xlsx|json2pptx|json2pdf
@@ -114,6 +110,13 @@ json2docx unpack in.docx -o paper/           # ① 解包为 JSON 产物目录
 json2docx edit paper/ '/part[1]/paragraph[2]' set --prop text=新内容
 json2docx repack paper/ -o out.docx          # ③ 重建为二进制文档（自动校验）
 json2docx render out.docx / -o preview.pdf   # 自验：渲染出图目视核对
+```
+
+单文件产物（`unpack --inline`）：分片内联 + 媒体转 data URI 的自包含 JSON，
+可直接经 IPC/内存喂给预览组件的 `data` prop，适合桌面端预览/交付场景（编辑仍用目录形态）：
+
+```bash
+json2pptx unpack in.pptx --inline -o deck.inline.json
 ```
 
 PDF（寻址为纯索引制 `/page[N]/text[K]`）：
@@ -149,24 +152,30 @@ import { OfficeViewer, loadProduct } from '@astorm/office-viewer'
 import '@astorm/office-viewer/style.css'
 
 // 悬浮任意元素：高亮 + 路径卡片（元素名 + CLI 路径 + 内容摘要）
-// 点击：select 事件回传路径，可直接喂给 edit / batch
-<OfficeViewer kind="pptx" :data="deck" @select="(path) => editWithCli(path)" />
+// 点击：select 事件回传 (path, info)，info 含 type/name/text 摘要，引用 chip 可直接展示
+<OfficeViewer kind="pptx" :data="deck" @select="(path, info) => editWithCli(path, info)" />
 ```
 
 - **预览与命令行共享同一套寻址语法**——所见即可寻址；
 - 四格式布局：DOCX 全文目录 + 纸页、PPTX 缩略图 + 舞台、XLSX sheet 栏 + 缩放、PDF 页面缩略图 + 舞台；
 - **大表性能**：行虚拟滚动 + 列式打包 + 流式解析，100 万行 × 6 列首屏毫秒级、
   滚动渲染 6~12ms、堆占用降至约 1/3；
-- 交付形态：`dist/office-viewer.js + .css + index.d.ts`（vue / echarts 为 peer），
+- **主题**：全套设计令牌（`--ov-*` CSS variables），外层容器加 `.ov-dark` 即得暗色
+  chrome（文档页面保持白底，同 macOS 预览）；也可按令牌逐项覆盖；
+- **echarts 真可选**：PPT 图表按需动态加载 echarts，未安装时渲染占位块而不是报错
+  （不需要 PPT 图表预览的宿主可省掉这 ~1MB 依赖）；
+- 交付形态：`dist/office-viewer.js + .css + index.d.ts`（vue 为必需 peer，echarts 可选 peer），
   完整 Props / Events / 接入说明与免安装示例见 [`office-web/README.md`](office-web/README.md)。
 
-**在线预览网址**：https://hxuxingy1212.github.io/astorm-office/
+**在线预览网址**：https://hxuxiny.gitee.io/astorm-office/
 
-> 由 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) 自动发布：push `main`
-> 会构建 `office-web` 演示站并经 GitHub Actions 部署（Pages 未启用时 workflow 自动开启，
-> Source = GitHub Actions，无需网页端手动步骤）。更新演示页改完代码直接 push 即可；
-> 本地等价验证：`cd office-web && npm run build:demo && npm run preview` → http://localhost:4173。
-> Gitee 镜像（hxuxiny/astorm-office）的预览地址为 https://hxuxiny.gitee.io/astorm-office/ 。
+> 由 `pages` 分支发布（内容 = `office-web/dist-demo` 构建产物）。首次启用：仓库
+> **服务 → Gitee Pages**，部署分支选 `pages`、目录 `/`；此后 demo 更新只需跑
+> `office-web/scripts/deploy-pages.sh` → `git push origin pages` → 在 Gitee 页面点
+> "重新部署"（免费版不自动重建）。若镜像到 GitHub（`hxuxingy1212/astorm-office`），
+> push `main` 会经 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) 自动启用
+> 并发布 Pages：https://hxuxingy1212.github.io/astorm-office/ 。本地等价验证：
+> `cd office-web && npm run build:demo && npm run preview` → http://localhost:4173
 
 ## 旧版格式（.doc / .xls / .ppt）
 
@@ -226,7 +235,29 @@ npm test && npm run build      # 预览组件库：单测 + 构建（js/css/d.ts
 npm run dev                    # 演示站开发模式 http://localhost:5178
 npm run build:demo && npm run preview    # 预览构建产物 http://localhost:4173（同 Pages 线上形态）
 npm run example                # 外部接入示例 http://localhost:5188
+
+node scripts/export.mjs        # 官方导出包 → dist-kit/office-kit-<version>/
 ```
+
+### 官方导出包（office-kit）
+
+`node scripts/export.mjs`（CI 每次 push 同步产 artifact）把所有交付物收敛到一个固定结构：
+
+```text
+office-kit-<version>/
+├── bin/            # json2docx / json2xlsx / json2pptx / json2pdf（release）
+├── skill/          # 总纲 SKILL.md + 四格式分册（references/scenarios/templates 全子树）
+├── viewer/         # @astorm/office-viewer dist 三件套
+├── samples/        # 四格式样例产物目录（预览手测夹具）
+├── VERSION / SHA256SUMS / _metadata.json   # 版本 / 校验清单 / 元数据（commit、构建时间）
+```
+
+集成方只拷贝该目录 + `shasum -a 256 -c SHA256SUMS`，无需感知仓库内部布局。
+
+- **版本纪律**：kit 版本 = workspace `Cargo.toml` 的 `version`（与五本 SKILL.md frontmatter
+  一致），**每次发布必须 bump**；
+- **bin 命名**：本仓库的 `json2pptx` **完全取代**旧独立仓库 `ai-ppt` 的 `json2pptx-cli`
+  （能力为超集，契约一致）——仍在用 `json2pptx-cli` 的下游可直接切换并退役旧同步脚本。
 
 开发约定：
 

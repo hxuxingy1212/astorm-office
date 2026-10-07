@@ -53,7 +53,13 @@ struct Cli {
 #[derive(Subcommand)]
 enum Command {
     /// xlsx → 产物目录（workbook.json + xl/worksheets/sheetN.json）
-    Unpack { input: PathBuf },
+    Unpack {
+        /// 输入的 XLSX 文件路径
+        input: PathBuf,
+        /// 输出单个自包含 JSON（分片内联、媒体转 data URI；预览/交付形态，编辑请用目录形态）
+        #[arg(long)]
+        inline: bool,
+    },
     /// 旧版 Excel（.xls, BIFF8）→ 新格式 xlsx（auto 检测到 LibreOffice 用之，保真最高；rust 为纯 Rust calamine，丢样式）
     Convert {
         /// 输入的旧版文件（.xls）
@@ -213,11 +219,31 @@ fn main() {
 fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
     let output = &cli.output;
     match &cli.command {
-        Command::Unpack { input } => {
-            let dir = output.clone().unwrap_or_else(|| stem_dir(input));
-            let r = json2xlsx::unpack(input, &dir)?;
-            out.status(&format!("已解包: {} ({} 个工作表)", r.dir, r.sheets));
-            out.emit_result(&json!({ "ok": true, "output": r.dir, "sheets": r.sheets }))?;
+        Command::Unpack { input, inline } => {
+            if *inline {
+                let out_file = output
+                    .clone()
+                    .unwrap_or_else(|| input.with_extension("inline.json"));
+                let r = office_core::inline::unpack_inline(input, &out_file, |i, o| {
+                    json2xlsx::unpack(i, o).map(|_| ()).map_err(CliError::from)
+                })?;
+                out.status(&format!(
+                    "已内联解包: {} ({} 个工作表)",
+                    r.output.display(),
+                    r.shards
+                ));
+                out.emit_result(&json!({
+                    "ok": true,
+                    "output": r.output.display().to_string(),
+                    "sheets": r.shards,
+                    "inline": true
+                }))?;
+            } else {
+                let dir = output.clone().unwrap_or_else(|| stem_dir(input));
+                let r = json2xlsx::unpack(input, &dir)?;
+                out.status(&format!("已解包: {} ({} 个工作表)", r.dir, r.sheets));
+                out.emit_result(&json!({ "ok": true, "output": r.dir, "sheets": r.sheets }))?;
+            }
         }
         Command::Repack { input } => {
             let xlsx = output

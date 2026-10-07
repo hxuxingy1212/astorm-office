@@ -75,6 +75,9 @@ enum Command {
     Unpack {
         /// 输入的 PPTX 文件路径
         input: PathBuf,
+        /// 输出单个自包含 JSON（分片内联、媒体转 data URI；预览/交付形态，编辑请用目录形态）
+        #[arg(long)]
+        inline: bool,
     },
     /// 从 unpack 产物目录重建 PPTX
     Repack {
@@ -300,11 +303,33 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
                 "engine": if use_lo { "libreoffice" } else { "rust" },
             }))?;
         }
-        Command::Unpack { input } => {
-            let out_dir = output.clone().unwrap_or_else(|| input.with_extension(""));
-            let r = json2pptx::unpack(&path_str(input), &path_str(&out_dir))?;
-            out.status(&format!("已解包: {} ({} 张幻灯片)", r.path, r.slides));
-            out.emit_result(&json!({ "ok": true, "output": r.path, "slides": r.slides }))?;
+        Command::Unpack { input, inline } => {
+            if *inline {
+                let out_file = output
+                    .clone()
+                    .unwrap_or_else(|| input.with_extension("inline.json"));
+                let r = office_core::inline::unpack_inline(input, &out_file, |i, o| {
+                    json2pptx::unpack(&path_str(i), &path_str(o))
+                        .map(|_| ())
+                        .map_err(CliError::from)
+                })?;
+                out.status(&format!(
+                    "已内联解包: {} ({} 张幻灯片)",
+                    r.output.display(),
+                    r.shards
+                ));
+                out.emit_result(&json!({
+                    "ok": true,
+                    "output": r.output.display().to_string(),
+                    "slides": r.shards,
+                    "inline": true
+                }))?;
+            } else {
+                let out_dir = output.clone().unwrap_or_else(|| input.with_extension(""));
+                let r = json2pptx::unpack(&path_str(input), &path_str(&out_dir))?;
+                out.status(&format!("已解包: {} ({} 张幻灯片)", r.path, r.slides));
+                out.emit_result(&json!({ "ok": true, "output": r.path, "slides": r.slides }))?;
+            }
         }
         Command::Repack { input } => {
             let out_pptx = output

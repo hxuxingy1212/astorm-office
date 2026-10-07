@@ -1,11 +1,11 @@
 ---
 name: astorm-office
-description: 使用 astorm-office 四个 CLI（json2docx / json2xlsx / json2pptx / json2pdf）生成与编辑专业 Office 文档与 PDF：Word 论文/报告/合同（.docx）、Excel 报表/看板（.xlsx）、PPT 演示文稿（.pptx）、PDF 报告/海报（.pdf 及页操作/提取/质检），并支持 PDF 与 Word/Excel/PPT 互转（convert docx/pptx/xlsx 与 convert office）。统一工作方式：以"产物目录"（document.json / workbook.json / presentation.json / document.json + 分片 JSON + 媒体）为中间形态，repack 构建、view 查看、edit 精准修改、render 渲染核对、dump/batch 回放、serve/mcp 常驻服务；PDF 另有内容提取（extract，含版式重建/markdown/扫描件 OCR）、页操作、qa 体检与调色板设计引擎。当用户要求生成或修改 Word/Excel/PPT/PDF 文档（写论文、做表格、做 PPT、出 PDF 报告、改第 N 段/行/页、套模板、加图表公式、合并拆分 PDF、PDF 转 Word/PPT/Excel），或需要程序化处理 OOXML/PDF 文件时使用，即使用户没提到 JSON 或命令行也应触发。
-version: 2.2.0
+description: 用 astorm-office 四 CLI（json2docx/json2xlsx/json2pptx/json2pdf）生成与编辑 Word/Excel/PPT/PDF：以产物目录 JSON 为中间形态，repack 构建、view/edit 修改、render 核对，支持 PDF↔Office 互转、内容提取与 OCR。当用户要写论文/做表格/做 PPT/出 PDF 报告或修改文档时使用，未提 JSON 或命令行也应触发。
+version: 0.2.0
 metadata:
   category: 办公自动化
   tags: docx, xlsx, pptx, pdf, word, excel, ppt, office, json2docx, json2xlsx, json2pptx, json2pdf, CLI, agent, OCR, 跨格式转换
-compatibility: 需要 Rust 工具链（cargo）或已安装对应 CLI；render 输出 HTML/PDF/PNG（PNG 需 Chrome）；json2pdf 的 convert office 探测到本机 LibreOffice 走保真引擎、未装自动 native 自研渲染（chrome/tectonic 同为可选外部依赖）；OCR 免安装（macOS 系统自带 Vision）
+compatibility: 需要 Rust 工具链（cargo）或已安装对应 CLI；render 输出 HTML/PDF/PNG（PNG 需 Chrome，可用 ASTORM_CHROME_BIN 指定）；json2pdf 的 convert office 探测到本机 LibreOffice 走保真引擎（可用 ASTORM_SOFFICE_PATH 指定）、未装自动 native 自研渲染；OCR 免安装（macOS 系统自带 Vision）
 ---
 
 # astorm-office 文档技能（统一总纲）
@@ -14,12 +14,25 @@ compatibility: 需要 Rust 工具链（cargo）或已安装对应 CLI；render �
 本文件是**唯一总纲**：四格式共用的契约、工作流、命令与约束都在这里；
 **每个格式的 JSON 生成规范、设计原则与场景配方在各自的格式分册**（见文末「分层索引」，按需加载）。
 
+## 触发场景（完整枚举）
+
+当用户要求以下任何一类事情时使用本技能，**即使用户没提到 JSON 或命令行**：
+
+- **生成**：写论文/报告/合同（Word）、做表格/报表/看板（Excel）、做 PPT/演示文稿、出 PDF 报告/海报；
+- **修改**：改第 N 段/行/页、套模板、加图表/公式/参考文献、调样式排版；
+- **PDF 专项**：合并/拆分/旋转页、内容提取（text/markdown/表格/扫描件 OCR）、qa 体检、调色板；
+- **互转**：PDF ↔ Word/Excel/PPT（`convert docx/pptx/xlsx` 与 `convert office`）；
+- **程序化处理** OOXML/PDF 文件（解包/编辑/重建/批量回放）。
+
 工具是两层结构，缺一不可：
 
 1. **产物目录**（中间形态，JSON 优先）：每格式一个顶层 JSON + 分片文件 + 媒体，是 CLI 操作文档的统一载体；
 2. **CLI**（执行层）：`unpack / repack / view / edit / render / validate / dump / batch /
    serve / mcp` 等命令在产物目录与二进制文档间转换并精准修改（四 CLI 一致；
    pdf 另有一组内容提取/页操作/质检工具命令，见分册）。
+   另有 `unpack --inline`：输出**单个自包含 JSON**（分片内联、媒体转 data URI），
+   用于把产物直接交给预览组件/宿主程序（预览/交付形态；编辑流程仍用目录形态，
+   详见 `docs/cli-conventions.md`）。
 
 ## 一、通用工作流程（四格式一致）
 

@@ -40,7 +40,7 @@
 | # | 问题 | 现状 |
 |---|---|---|
 | B1 | stdout 契约不干净：中文状态行与 pretty JSON 混在 stdout（如 ai-word `edit -o` 先打"已生成:"再打 JSON，`cli/src/main.rs:237-239`），均无 stderr 日志通道、无 `--json/--quiet` 全局开关，agent 解析需文本嗅探 | 三项目共有 |
-| B2 | 退出码体系不一：ai-excel 仅 0/1；ai-word/ppt 0/1/2；ai-word repack 有 validate issues 仍退出 0 | `ai-word cli/src/main.rs:170-174` |
+| B2 | ~~退出码体系不一~~ **已修复（Phase 2 落地）**：四 CLI 统一 0/1/2/3（`office-core/src/output.rs`），`--json` 结构化错误含 `code/suggestion`，另补 `encrypted` 码（密码保护 OOXML/PDF） | `office-core/src/output.rs` |
 | B3 | view 模式名不一：world/ppt `text\|layout`，excel `values\|structure` | — |
 | B4 | 模板提取命令位置不一：world 顶层 `extract`；excel 嵌套 `template extract`；ppt 无 | — |
 | B5 | render 语义不一：world `--format html\|pdf\|png`；excel 仅 HTML；ppt `--engine browser\|native` PNG | — |

@@ -46,6 +46,11 @@ pub struct UnpackResult {
 pub fn unpack(input_path: &str, output_dir: &str) -> Result<UnpackResult, crate::error::Error> {
     // 旧版 .ppt（OLE2/CFB）：自动转换成 .pptx 后再解包（媒体一并来自转换产物）
     if crate::legacy::is_cfb(std::path::Path::new(input_path)) {
+        if office_core::opc::looks_encrypted_cfb(std::path::Path::new(input_path)) {
+            return Err(crate::error::Error::Encrypted(
+                "文档已加密（OOXML 密码保护），暂不支持".into(),
+            ));
+        }
         let tmp = std::env::temp_dir().join(format!(
             "json2pptx-legacy-unpack-{}-{}.pptx",
             std::process::id(),
@@ -621,6 +626,11 @@ pub(crate) fn parse_pos_attrs(e: &quick_xml::events::BytesStart, position: &mut 
 pub fn parse(input_path: &str) -> Result<Presentation, crate::error::Error> {
     // 旧版 .ppt（OLE2/CFB）自动识别：先转 .pptx（写入临时文件）再解析
     if crate::legacy::is_cfb(std::path::Path::new(input_path)) {
+        if office_core::opc::looks_encrypted_cfb(std::path::Path::new(input_path)) {
+            return Err(crate::error::Error::Encrypted(
+                "文档已加密（OOXML 密码保护），暂不支持".into(),
+            ));
+        }
         let tmp = std::env::temp_dir().join(format!(
             "json2pptx-legacy-{}-{}.pptx",
             std::process::id(),

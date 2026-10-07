@@ -1,14 +1,36 @@
 <script setup lang="ts">
-// 高级组件渲染：图表用 ECharts（SVG renderer），其余 div/SVG 模拟
-import { computed, onBeforeUnmount, ref, watch } from 'vue'
-import * as echarts from 'echarts/core'
-import { BarChart as EBar, LineChart as ELine, PieChart as EPie } from 'echarts/charts'
-import { LegendComponent, TooltipComponent } from 'echarts/components'
-import { SVGRenderer } from 'echarts/renderers'
+// 高级组件渲染：图表用 ECharts（SVG renderer），其余 div/SVG 模拟。
+// echarts 是可选 peerDep：按需动态加载，未安装时图表渲染为占位块而不是让整个库 import 失败。
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import type * as EChartsNS from 'echarts/core'
 import type { Element } from '.././presentation'
 import { inchToPx, ptToPx, withHash } from '.././convert'
 
-echarts.use([EBar, ELine, EPie, LegendComponent, TooltipComponent, SVGRenderer])
+let echartsMod: typeof EChartsNS | null | undefined // undefined=未尝试, null=不可用
+
+async function ensureEcharts(): Promise<typeof EChartsNS | null> {
+  if (echartsMod !== undefined) return echartsMod
+  try {
+    const [core, charts, comps, renderers] = await Promise.all([
+      import('echarts/core'),
+      import('echarts/charts'),
+      import('echarts/components'),
+      import('echarts/renderers'),
+    ])
+    core.use([
+      charts.BarChart,
+      charts.LineChart,
+      charts.PieChart,
+      comps.LegendComponent,
+      comps.TooltipComponent,
+      renderers.SVGRenderer,
+    ])
+    echartsMod = core
+  } catch {
+    echartsMod = null // 未安装 echarts：图表降级为占位
+  }
+  return echartsMod
+}
 
 const props = defineProps<{ el: Element }>()
 
@@ -27,7 +49,9 @@ const wrapStyle = computed(() => ({
 // === ECharts 图表 ===
 
 const chartRef = ref<HTMLDivElement | null>(null)
-let chart: echarts.ECharts | null = null
+const chartUnavailable = ref(false)
+const isChart = computed(() => ['barChart', 'lineChart', 'pieChart', 'ringChart'].includes(props.el.type))
+let chart: EChartsNS.ECharts | null = null
 
 const DEFAULT_COLORS = ['#4472C4', '#ED7D31', '#A5A5A5', '#FFC000', '#5B9BD5', '#70AD47', '#FF0000', '#7030A0']
 
@@ -104,17 +128,32 @@ function chartOption(el: Element) {
   }
 }
 
+async function renderChart(el: Element) {
+  if (!isChart.value) return
+  const ec = await ensureEcharts()
+  if (!ec) {
+    chartUnavailable.value = true
+    return
+  }
+  chartUnavailable.value = false
+  if (!chartRef.value) return
+  if (!chart) {
+    chart = ec.init(chartRef.value, undefined, { renderer: 'svg' })
+  }
+  chart.setOption(chartOption(el), true)
+}
+
 watch(
   () => props.el,
   (el) => {
-    if (!chartRef.value || !['barChart', 'lineChart', 'pieChart', 'ringChart'].includes(el.type)) return
-    if (!chart) {
-      chart = echarts.init(chartRef.value, undefined, { renderer: 'svg' })
-    }
-    chart.setOption(chartOption(el), true)
+    void renderChart(el)
   },
   { immediate: true, deep: true },
 )
+// immediate 回调发生在挂载前（chartRef 还没绑上），挂载后补一次首渲
+onMounted(() => {
+  void renderChart(props.el)
+})
 
 onBeforeUnmount(() => {
   chart?.dispose()
@@ -216,11 +255,10 @@ function timelineLabel(item: Record<string, unknown>): string {
     </svg>
 
     <!-- 图表组件 -->
-    <div
-      v-else-if="['barChart', 'lineChart', 'pieChart', 'ringChart'].includes(el.type)"
-      ref="chartRef"
-      :style="{ width: '100%', height: '100%' }"
-    />
+    <template v-else-if="isChart">
+      <div v-if="chartUnavailable" class="comp-chart-missing">图表 · 未安装 echarts</div>
+      <div v-else ref="chartRef" :style="{ width: '100%', height: '100%' }" />
+    </template>
 
     <!-- KPI 卡片 -->
     <div v-else-if="el.type === 'kpiCard'" class="comp-kpi" :style="{ background: kpiBg }">
@@ -404,5 +442,16 @@ function timelineLabel(item: Record<string, unknown>): string {
   border: 1px dashed #ccc;
   color: #999;
   font-size: 12px;
+}
+.comp-chart-missing {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--ov-border, #ccc);
+  color: var(--ov-text-muted, #999);
+  font-size: 12px;
+  box-sizing: border-box;
 }
 </style>

@@ -1,7 +1,7 @@
 ---
 name: ai-ppt
-description: 为 ai-ppt（json2pptx）项目生成与编辑专业 PPTX 演示文稿。工作方式：以 json2pptx 的"产物目录"为中间形态（presentation.json + 按页拆分的 ppt/slides/*.json），用 json2pptx CLI 完成从 JSON 构建 PPTX（repack）、逐页查看（view）、精准修改（edit）、渲染 PNG 预览（render）。当用户说"帮我做 PPT""生成幻灯片""写个演示文稿""把这篇文章整理成 PPT""给这个内容配个版式""修改这份 pptx 的第 N 页""渲染这一页看看效果"，或需要程序化处理 PPTX 文件（解包/编辑/重建）时使用，即使用户没有提到 JSON 或命令行也应触发。
-version: 1.0.0
+description: 用 json2pptx 生成与编辑 PPTX 演示文稿：从大纲/文章生成幻灯片，模板与版式，逐页 view/edit，render PNG 核对。用户要做 PPT/幻灯片或改第 N 页时使用，未提 JSON 也应触发。
+version: 0.2.0
 metadata:
   category: 办公自动化
   tags: pptx, 演示文稿, 幻灯片, presentation, json2pptx, 设计风格, CLI

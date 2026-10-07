@@ -3,7 +3,7 @@
 astorm-office 四格式（DOCX / XLSX / PPTX / PDF）**高保真预览 Vue3 组件库**。
 输入是四个 CLI（`json2docx` / `json2xlsx` / `json2pptx` / `json2pdf`）`unpack` 产物的 JSON；
 鼠标悬浮任意元素会**高亮该元素**并弹出**路径卡片**（元素名 + CLI 寻址路径 + 内容摘要），
-点击元素通过 `select` 事件回传路径——路径可直接用于 `edit` / `view` / `batch` 命令。
+点击元素通过 `select` 事件回传 `(path, info?)`——`path` 可直接用于 `edit` / `view` / `batch`，`info`（`{ path, type, name?, text? }`，与悬浮卡片同源）可直接做引用 chip 的展示标签。
 
 ```
 office-web/
@@ -28,7 +28,7 @@ office-web/
 pnpm install          # 或 npm i（依赖与 ai-ppt/web 相同）
 pnpm dev              # 演示站 http://localhost:5178
 pnpm test             # 核心逻辑单测
-pnpm build            # 组件库（dist/office-viewer.js + .css + index.d.ts，vue/echarts 为 peer）
+pnpm build            # 组件库（dist/office-viewer.js + .css + index.d.ts，vue 必需 peer，echarts 可选 peer：按需动态加载，未装时 PPT 图表渲染占位块）
 pnpm build:demo       # 演示站静态构建（dist-demo/）
 pnpm preview          # 预览构建产物 http://localhost:4173（与 Pages 线上形态一致）
 pnpm example          # 外部接入示例 http://localhost:5188（先跑 pnpm build）
@@ -91,7 +91,12 @@ http://localhost:5188 实测四格式渲染、悬浮路径卡片与 select 事�
 | `PptxViewer` | **左侧 = 缩略图大纲**（与 ai-ppt/web 同法：用同一套元素渲染器真实渲染整页，再按侧栏宽度 `transform: scale()` 缩放，页码 + 文本摘要，选中蓝环），右侧为幻灯片内容；舞台**自适应容器宽高**（默认适配不溢出，缩放滑杆在适配基础上 50%~220%） |
 | `XlsxViewer` | 内容为主体，**底部 = 工作表标签栏**（Numbers 式底栏，单表也保留；标签色以顶部色条呈现），**底栏最右侧为缩放控件**（50%~200%，默认 100%，与 PPT 底栏同款 `.ov-zoom`，缩放含图表/图片并可横向滚动）；组件高度固定（`min(78vh, 860px)`），**切换工作表不改变整体高度**，内容超出时在表格区内滚动；`showHeadings` 控制行列标、`showGridlines` 控制网格线 |
 
-三个查看器的事件一致：`select(path)`（点击元素）、`hover(path | null)`（悬浮进出）、`page-change(index)`（分片/幻灯片/工作表切换）。
+三个查看器的事件一致：`select(path, info?)`（点击元素；`info` 为元素摘要）、`hover(path | null)`（悬浮进出）、`page-change(index)`（分片/幻灯片/工作表切换）。
+
+**暗色主题**：`<OfficeViewer class="ov-dark" …>`（或在外层容器加 `ov-dark` 类）即得全套暗色
+chrome；亮/暗两组的全部令牌（`--ov-*`）见 `src/styles.css`，可按令牌逐项覆盖。
+文档页面（纸张/幻灯片/表格网格）在暗色下保持白底（同 macOS 预览），如需连页面一起暗，
+覆盖 `--ov-page-bg` 即可。
 
 ## Props / Events
 

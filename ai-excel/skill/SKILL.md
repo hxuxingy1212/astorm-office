@@ -1,7 +1,7 @@
 ---
 name: ai-excel
-description: 为 ai-excel（json2xlsx）项目生成与编辑专业 Excel 工作簿。工作方式：以 json2xlsx 的“产物目录”为中间形态（workbook.json + 每个工作表 xl/worksheets/sheetN.json），用 json2xlsx 完成从 JSON 构建 xlsx（repack）、查看（view）、精准修改（edit）、HTML 预览（render）。当用户说“做个表格”“生成 Excel”“导出报表”“把这份数据整理成 xlsx”“修改这个表格的第 N 行/某列”“加个汇总公式”，或需要程序化处理 xlsx 文件（解包/编辑/重建）时使用，即使用户没有提到 JSON 或命令行也应触发。
-version: 1.0.0
+description: 用 json2xlsx 生成与编辑 Excel（.xlsx）：报表/看板/数据表。以产物目录 JSON 为中间形态，repack 构建、view/edit 修改、render 预览。用户要做表格/报表/公式或改第 N 行列时使用，未提 JSON 也应触发。
+version: 0.2.0
 metadata:
   category: 办公自动化
   tags: xlsx, excel, 表格, spreadsheet, json2xlsx, 报表, CLI

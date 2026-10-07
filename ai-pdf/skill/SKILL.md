@@ -1,7 +1,7 @@
 ---
 name: ai-pdf
-description: 使用 json2pdf 生成、查看、编辑 PDF 文档并在 PDF 与 Word/Excel/PPT 间互转。工作方式：以"产物目录"（document.json + pages/*.json + media/ + fonts/）为中间形态，用 json2pdf CLI 完成 PDF 解包（unpack）、按路径精准修改（view 定位 + edit set/add/remove）、渲染核对（render）、从零构建或重建 PDF（repack）、批量回放（dump/batch）、内容提取（extract text/table/image，支持版式重建/markdown/扫描件 OCR）、成品体检（qa）、跨格式转换（convert docx/pptx/xlsx 与 convert office）。当用户说"解析这份 PDF""把 PDF 转成 JSON""把 PDF 转成 Word/Excel/PPT""把 Word/PPT/Excel 转成 PDF""按这份 JSON 生成 PDF""改一下 PDF 里的文字/图片""从零生成一个 PDF""合并/拆分/旋转 PDF"，或需要程序化处理 PDF 时使用，即使用户没提到 JSON 或命令行也应触发。
-version: 2.1.0
+description: 用 json2pdf 生成、解析、编辑 PDF 并与 Word/Excel/PPT 互转：unpack/repack/view/edit/render、页操作（合并/拆分/旋转）、内容提取（含 OCR）、qa 体检。用户要生成/修改/解析 PDF 或跨格式互转时使用，未提 JSON 也应触发。
+version: 0.2.0
 metadata:
   category: 办公自动化
   tags: pdf, json, unpack, repack, 文档处理, json2pdf, CLI, OCR, 跨格式转换
