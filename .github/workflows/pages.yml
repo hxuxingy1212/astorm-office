@@ -9,8 +9,6 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  # Pages 服务从未启用时，由本 workflow 自动启用（启用服务走管理端点）
-  administration: write
 
 concurrency:
   group: pages

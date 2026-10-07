@@ -1,15 +1,19 @@
+<div align="center">
+
 # astorm-office
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.75%2B-orange.svg)](https://www.rust-lang.org)
 [![CI](https://img.shields.io/github/actions/workflow/status/hxuxingy1212/astorm-office/ci.yml?branch=main&label=CI)](https://github.com/hxuxingy1212/astorm-office/actions/workflows/ci.yml)
-[![在线预览](https://img.shields.io/badge/预览-hxuxiny.gitee.io-3ca2ff)](https://hxuxiny.gitee.io/astorm-office/)
+[![在线预览](https://img.shields.io/badge/预览-hxuxingy1212.github.io-2ea44f)](https://hxuxingy1212.github.io/astorm-office/)
 
 **面向 AI Agent 的 Office 文档工具集**：生成 / 解析 / 精准编辑 / 高保真预览 **Word · Excel · PPT · PDF**，
 并在 PDF 与 Office 之间互转。Rust 实现，直接操作 OOXML 与 PDF 对象，零 Office 运行时依赖；
 四个 CLI 共享同一套 JSON 中间形态与命令契约，MCP / 常驻服务 / 批量回放开箱即用。
 
-> 在线演示（四格式预览组件 + 悬浮路径卡片）：**[hxuxiny.gitee.io/astorm-office](https://hxuxiny.gitee.io/astorm-office/)**
+在线演示（四格式预览组件 + 悬浮路径卡片）：**[hxuxingy1212.github.io/astorm-office](https://hxuxingy1212.github.io/astorm-office/)**
+
+</div>
 
 ## 为什么是这个样子
 
@@ -96,7 +100,7 @@ flowchart LR
 要求 Rust 1.75+：
 
 ```bash
-git clone git@gitee.com:hxuxiny/astorm-office.git    # 或 GitHub 镜像 hxuxingy1212/astorm-office
+git clone git@github.com:hxuxingy1212/astorm-office.git    # 或 Gitee 镜像 hxuxiny/astorm-office
 cd astorm-office
 
 cargo build --release          # 构建四个 CLI：target/release/json2docx|json2xlsx|json2pptx|json2pdf
@@ -156,15 +160,13 @@ import '@astorm/office-viewer/style.css'
 - 交付形态：`dist/office-viewer.js + .css + index.d.ts`（vue / echarts 为 peer），
   完整 Props / Events / 接入说明与免安装示例见 [`office-web/README.md`](office-web/README.md)。
 
-**在线预览网址**：https://hxuxiny.gitee.io/astorm-office/
+**在线预览网址**：https://hxuxingy1212.github.io/astorm-office/
 
-> 由 `pages` 分支发布（内容 = `office-web/dist-demo` 构建产物）。首次启用：仓库
-> **服务 → Gitee Pages**，部署分支选 `pages`、目录 `/`；此后 demo 更新只需跑
-> `office-web/scripts/deploy-pages.sh` → `git push origin pages` → 在 Gitee 页面点
-> "重新部署"（免费版不自动重建）。若镜像到 GitHub（`hxuxingy1212/astorm-office`），
-> push `main` 会经 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) 自动启用
-> 并发布 Pages：https://hxuxingy1212.github.io/astorm-office/ 。本地等价验证：
-> `cd office-web && npm run build:demo && npm run preview` → http://localhost:4173
+> 由 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) 自动发布：push `main`
+> 会构建 `office-web` 演示站并经 GitHub Actions 部署（Pages 未启用时 workflow 自动开启，
+> Source = GitHub Actions，无需网页端手动步骤）。更新演示页改完代码直接 push 即可；
+> 本地等价验证：`cd office-web && npm run build:demo && npm run preview` → http://localhost:4173。
+> Gitee 镜像（hxuxiny/astorm-office）的预览地址为 https://hxuxiny.gitee.io/astorm-office/ 。
 
 ## 旧版格式（.doc / .xls / .ppt）
 
