@@ -25,6 +25,8 @@ jobs:
       - name: Build office-viewer demo
         working-directory: office-web
         run: |
+          # 本地 node_modules 是指向 ai-ppt/web/node_modules 的软链（CI 中目标不存在）
+          rm -rf node_modules
           npm install
           npm run build:demo
       # Pages 未启用时自动开启（Source = GitHub Actions）
