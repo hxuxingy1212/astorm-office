@@ -26,6 +26,11 @@ const props = withDefaults(
     resolveMedia?: (src: string) => string
     /** 各格式通用：初始页/分片/工作表下标 */
     index?: number
+    /** 受控缩放:提供即受控——四 viewer 隐藏内置缩放控件,缩放跟随此值(相对适配基准的倍率;
+     *  XLSX 为相对自然尺寸)。不传保持自主模式(内置缩放滑杆)。 */
+    zoom?: number
+    /** 拾取模式:仅 true 时启用交互层(元素 hover 高亮/路径卡/选中事件);false(默认)纯只读。 */
+    pickMode?: boolean
   }>(),
   { index: 0 },
 )
@@ -34,6 +39,8 @@ const emit = defineEmits<{
   (e: 'select', path: string, info?: SelectInfo): void
   (e: 'hover', path: string | null): void
   (e: 'page-change', index: number): void
+  /** 缩放汇报(受控模式):scale=绝对倍率(展示用百分比),fitScale=适配基准(宿主换算) */
+  (e: 'zoom-change', v: { scale: number; fitScale: number }): void
 }>()
 
 const asPptx = computed(() => props.data as PptxDoc)
@@ -49,36 +56,48 @@ const asPdf = computed(() => props.data as PdfDoc)
       :presentation="asPptx"
       :resolve-media="resolveMedia"
       :slide-index="index"
+      :zoom="zoom"
+      :pick-mode="pickMode"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @slide-change="(i) => emit('page-change', i)"
+      @zoom-change="(v) => emit('zoom-change', v)"
     />
     <DocxViewer
       v-else-if="kind === 'docx'"
       :document="asDocx"
       :resolve-media="resolveMedia"
       :part-index="index"
+      :zoom="zoom"
+      :pick-mode="pickMode"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @page-change="(i) => emit('page-change', i)"
+      @zoom-change="(v) => emit('zoom-change', v)"
     />
     <PdfViewer
       v-else-if="kind === 'pdf'"
       :doc="asPdf"
       :resolve-media="resolveMedia"
       :page-index="index"
+      :zoom="zoom"
+      :pick-mode="pickMode"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @page-change="(i) => emit('page-change', i)"
+      @zoom-change="(v) => emit('zoom-change', v)"
     />
     <XlsxViewer
       v-else
       :workbook="asXlsx"
       :resolve-media="resolveMedia"
       :sheet-index="index"
+      :zoom="zoom"
+      :pick-mode="pickMode"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @sheet-change="(i) => emit('page-change', i)"
+      @zoom-change="(v) => emit('zoom-change', v)"
     />
   </div>
 </template>

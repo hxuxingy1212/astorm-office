@@ -276,13 +276,16 @@ const imgClip = computed(() => {
     @mousedown="onSelect"
   ></div>
 
-  <!-- 向量：整页 SVG（不拦截指针）+ 包围盒命中层 -->
+  <!-- 向量：整页 SVG（不拦截指针）+ 包围盒命中层。
+       SVG 用户空间 = px（viewBox 与 width 同为 pageW×ppp）：<g> 矩阵负责 pt→px（含 y 翻转
+       与视口平移）。此前 viewBox 写成 pt 值，viewBox 本身已做一次 pt→px 映射，矩阵再乘
+       ppp → 矢量元素被放大 1.77 倍、翻转偏移错位（文字 div 只乘一次 ppp，故文字是对的） -->
   <template v-else-if="vecSvg">
     <svg
       class="ov-pdf-svg"
       :width="`${pageW * ppp}px`"
       :height="`${pageH * ppp}px`"
-      :viewBox="`0 0 ${pageW} ${pageH}`"
+      :viewBox="`0 0 ${pageW * ppp} ${pageH * ppp}`"
     >
       <g :transform="vecSvg.transform">
         <polyline

@@ -122,10 +122,16 @@ export async function loadPdf(baseUrl: string): Promise<PdfDoc> {
     else pages.push(p as PdfPage) // 已内联的形态直接使用
   }
   const size = (doc.page_size ?? {}) as { width?: number; height?: number }
+  // 顶层 page_size 缺失/为 0 时回退首页实际尺寸（旧版 unpack 从不推导顶层值，
+  // 横版文档曾漏出 A4 默认导致画布竖版、内容全错位）
+  const p0 = pages[0] as { width?: number; height?: number } | undefined
   return {
     version: Number(doc.version ?? 2),
     meta: doc.meta as PdfDoc['meta'],
-    page_size: { width: Number(size.width ?? 595.28), height: Number(size.height ?? 841.89) },
+    page_size: {
+      width: Number(size.width || p0?.width || 595.28),
+      height: Number(size.height || p0?.height || 841.89),
+    },
     pages,
   }
 }

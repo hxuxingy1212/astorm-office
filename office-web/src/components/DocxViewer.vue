@@ -15,7 +15,12 @@ const props = withDefaults(
     /** 页码格式：{page} 占位（默认读取 section.footer_format） */
     pageFormat?: string
     partIndex?: number
-  }>(),
+    /** 受控缩放:相对「适配可视区基准」的用户倍率。提供即受控——隐藏内置缩放控件、
+     *  缩放只跟此值走;不传(undefined)保持自主模式(内置滑杆可用)。 */
+    zoom?: number
+    /** 拾取模式:仅 true 时启用交互层——元素 hover 高亮/路径卡/选中事件;
+     *  false(默认)为纯只读观感(无高亮、无卡片、不发 select)。 */
+    pickMode?: boolean  }>(),
   { partIndex: 0 },
 )
 
@@ -23,6 +28,8 @@ const emit = defineEmits<{
   (e: 'select', path: string, info?: SelectInfo): void
   (e: 'hover', path: string | null): void
   (e: 'page-change', index: number): void
+  /** 缩放汇报(scale 变化即发):scale=绝对倍率(展示用百分比),fitScale=适配基准(宿主换算) */
+  (e: 'zoom-change', v: { scale: number; fitScale: number }): void
 }>()
 
 const hover = usePathHover()
@@ -42,9 +49,11 @@ const PAGE_SIZES: Record<string, [number, number]> = {
   Legal: [8.5, 14],
 }
 
-/** 缩放：适配可视区（默认整体缩小到全部可见），滑杆在适配基础上放大倍率 */
+/** 缩放：适配可视区（默认整体缩小到全部可见），滑杆在适配基础上放大倍率。
+ *  宿主传 zoom 即受控跟随,否则用内部值(内置滑杆) */
 const wrapRef = ref<HTMLElement | null>(null)
-const zoom = ref(1)
+const selfZoom = ref(1)
+const zoom = computed(() => props.zoom ?? selfZoom.value)
 const wrapW = ref(0)
 const wrapH = ref(0)
 const naturalH = ref(0)
@@ -101,6 +110,7 @@ const fitScale = computed(() => {
   return Math.min(fitW, Math.max(fitH, fitW * 0.3))
 })
 const scale = computed(() => Math.max(0.05, fitScale.value * zoom.value))
+watch(scale, (s) => emit('zoom-change', { scale: s, fitScale: fitScale.value }), { immediate: true })
 
 const pageStyle = computed(() => {
   const box = pageBox.value
@@ -288,6 +298,7 @@ function blockInfo(b: DocxBlock, path: string): PathCardInfo {
 }
 
 function enterBlock(b: DocxBlock, path: string, ev: MouseEvent) {
+  if (!props.pickMode) return
   hover.enter(blockInfo(b, path), ev)
   emit('hover', path)
 }
@@ -296,6 +307,7 @@ function leave() {
   emit('hover', null)
 }
 function clickBlock(path: string, b?: DocxBlock) {
+  if (!props.pickMode) return
   emit('select', path, b ? blockInfo(b, path) : undefined)
 }
 
@@ -688,7 +700,7 @@ defineExpose({ hover })
       </div>
     </div>
 
-    <div class="ov-docx-bar">
+    <div v-if="props.zoom === undefined" class="ov-docx-bar">
       <span>缩放</span>
       <input v-model.number="zoom" type="range" min="0.5" max="3" step="0.05" />
       <span class="ov-zoom-val">{{ Math.round(scale * 100) }}%</span>

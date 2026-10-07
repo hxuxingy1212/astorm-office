@@ -1,0 +1,30 @@
+{
+  "id": "font-022",
+  "name": "LiberationSans-Bold",
+  "file": "fonts/font-022.ttf",
+  "format": "truetype",
+  "units_per_em": 2048,
+  "map": {
+    "0": 0,
+    "32": 4,
+    "65": 3,
+    "80": 2,
+    "82": 1
+  },
+  "widths": {},
+  "code_widths": {
+    "0": 0,
+    "1": 722,
+    "2": 666,
+    "3": 722,
+    "4": 277
+  },
+  "code_map": {
+    "0": 0,
+    "32": 4,
+    "65": 3,
+    "80": 2,
+    "82": 1
+  },
+  "simple_rebuild": true
+}

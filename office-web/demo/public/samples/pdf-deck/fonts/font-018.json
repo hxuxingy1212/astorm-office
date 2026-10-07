@@ -1,0 +1,27 @@
+{
+  "id": "font-018",
+  "name": "LiberationSans",
+  "file": "fonts/font-018.ttf",
+  "format": "truetype",
+  "units_per_em": 2048,
+  "map": {
+    "0": 0,
+    "32": 3,
+    "83": 1,
+    "97": 2
+  },
+  "widths": {},
+  "code_widths": {
+    "0": 0,
+    "1": 666,
+    "2": 556,
+    "3": 277
+  },
+  "code_map": {
+    "0": 0,
+    "32": 3,
+    "83": 1,
+    "97": 2
+  },
+  "simple_rebuild": true
+}

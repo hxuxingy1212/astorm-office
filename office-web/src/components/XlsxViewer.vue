@@ -25,6 +25,13 @@ const props = withDefaults(
     showGridlines?: boolean
     /** 初始工作表下标 */
     sheetIndex?: number
+    /** 受控缩放:相对自然尺寸(1 = 100%)的倍率。提供即受控——隐藏内置缩放控件、
+     *  缩放只跟此值走;不传(undefined)保持自主模式(内置滑杆可用)。
+     *  注意:其余三个 viewer 的基准是「适配可视区」,本表无适配概念,契约保持绝对%。 */
+    zoom?: number
+    /** 拾取模式:仅 true 时启用交互层——元素 hover 高亮/路径卡/选中事件;
+     *  false(默认)为纯只读观感(无高亮、无卡片、不发 select)。 */
+    pickMode?: boolean
   }>(),
   { showHeadings: true, sheetIndex: 0 },
 )
@@ -33,6 +40,8 @@ const emit = defineEmits<{
   (e: 'select', path: string, info?: SelectInfo): void
   (e: 'hover', path: string | null): void
   (e: 'sheet-change', index: number): void
+  /** 缩放汇报(zoom 变化即发):scale=绝对倍率(展示用百分比),fitScale 恒为 1(自然尺寸) */
+  (e: 'zoom-change', v: { scale: number; fitScale: number }): void
 }>()
 
 const hover = usePathHover()
@@ -142,8 +151,11 @@ const wrapRef = ref<HTMLElement | null>(null)
 const scrollTop = ref(0)
 const viewportH = ref(600)
 const wrapW = ref(0)
-/** 用户缩放（50%~200%，1 = 自然尺寸） */
-const zoom = ref(1)
+/** 用户缩放（50%~200%，1 = 自然尺寸）:宿主传 zoom 即受控跟随,否则用内部值(内置滑杆) */
+const selfZoom = ref(1)
+const zoom = computed(() => props.zoom ?? selfZoom.value)
+// 缩放汇报:fitScale 恒为 1(无适配概念),宿主拿 scale 显示百分比
+watch(zoom, (z) => emit('zoom-change', { scale: z, fitScale: 1 }), { immediate: true })
 let rafId = 0
 
 function onScroll() {
@@ -330,6 +342,7 @@ function tdStyle(r: number, c: number): Record<string, string> {
 }
 
 function onCellEnter(r: number, c: number, ev: MouseEvent) {
+  if (!props.pickMode) return
   const cell = cellAt(r, c)
   const ref = cellRef(c, r)
   const path = `/sheet[${active.value + 1}]/cell[${ref}]`
@@ -351,7 +364,14 @@ function onCellLeave() {
   emit('hover', null)
 }
 
+/** 内联入口(图片 / 图表子组件):统一走拾取门控,避免绕过 onCellEnter */
+function enterInline(info: Parameters<typeof hover.enter>[0], ev: MouseEvent): void {
+  if (!props.pickMode) return
+  hover.enter(info, ev)
+}
+
 function onCellClick(r: number, c: number) {
+  if (!props.pickMode) return
   const ref = cellRef(c, r)
   const path = `/sheet[${active.value + 1}]/cell[${ref}]`
   const cell = cellAt(r, c)
@@ -554,7 +574,7 @@ defineExpose({ hover })
             :style="imageBox(img)"
             :alt="img.src"
             @mouseenter="
-              hover.enter(
+              enterInline(
                 {
                   path: `/sheet[${active + 1}]/image[${i + 1}]`,
                   type: 'image',
@@ -577,7 +597,7 @@ defineExpose({ hover })
             :chart-index="i + 1"
             :sheet-index="active + 1"
             :style="chartBox(ch, i)"
-            @hover-cell="(info, ev) => hover.enter(info, ev)"
+            @hover-cell="(info, ev) => enterInline(info, ev)"
             @leave="onCellLeave"
             @move="hover.move($event)"
           />
@@ -603,7 +623,7 @@ defineExpose({ hover })
           {{ s.name }}
         </button>
       </div>
-      <label class="ov-zoom">
+      <label v-if="props.zoom === undefined" class="ov-zoom">
         缩放
         <input v-model.number="zoom" type="range" min="0.5" max="2" step="0.05" />
         <span>{{ Math.round(zoom * 100) }}%</span>

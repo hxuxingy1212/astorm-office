@@ -13,7 +13,7 @@ import {
   measureParseThroughput,
 } from './perf'
 
-type Kind = 'pptx' | 'docx' | 'xlsx' | 'xlsx-charts' | 'pdf' | 'perf'
+type Kind = 'pptx' | 'docx' | 'xlsx' | 'xlsx-charts' | 'pdf' | 'pdf-deck' | 'perf'
 
 const kind = ref<Kind>('pptx')
 const loading = ref(false)
@@ -31,6 +31,7 @@ const SAMPLES: Record<Kind, { dir: string; label: string }> = {
   xlsx: { dir: 'xlsx', label: 'XLSX · 经营看板（样式/数字格式/合并/图表）' },
   'xlsx-charts': { dir: 'xlsx-charts', label: 'XLSX · 多表 + 图片 + 形状（真实语料）' },
   pdf: { dir: 'pdf', label: 'PDF · 产品说明页（文本/图形/渐变/图片）' },
+  'pdf-deck': { dir: 'pdf-deck', label: 'PDF · 桌面智能体（横版 16:9 转换验证）' },
   perf: { dir: '', label: '⚡ 性能压测（虚拟滚动 · 百万行）' },
 }
 
@@ -162,7 +163,7 @@ async function probeScroll() {
 let loadSeq = 0
 
 async function load(k: Kind) {
-  const productKind = (k === 'xlsx-charts' || k === 'perf' ? 'xlsx' : k) as
+  const productKind = (k === 'xlsx-charts' || k === 'perf' ? 'xlsx' : k === 'pdf-deck' ? 'pdf' : k) as
     | 'docx'
     | 'xlsx'
     | 'pptx'
@@ -184,7 +185,8 @@ async function load(k: Kind) {
       | PdfDoc
     if (seq !== loadSeq) return // 已有更新的选择，丢弃本次结果
     data.value = loaded
-    kind.value = k
+    // 记录的是真实产品格式(pdf-deck↔pdf),OfficeViewer 的 kind prop 类型收敛到四格式
+    kind.value = productKind as typeof kind.value
     selectedPaths.value = []
   } catch (e) {
     error.value = `加载样例失败: ${(e as Error).message}`
@@ -232,7 +234,7 @@ onMounted(() => load('pptx'))
         <OfficeViewer
           v-else-if="data"
           :key="kind"
-          :kind="kind === 'xlsx-charts' || kind === 'perf' ? 'xlsx' : kind"
+          :kind="kind === 'xlsx-charts' || kind === 'perf' ? 'xlsx' : kind === 'pdf-deck' ? 'pdf' : kind === 'pptx' ? 'pptx' : kind"
           :data="data"
           :resolve-media="resolveMedia"
           @hover="(p) => (hoveredPath = p)"
