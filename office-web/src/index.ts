@@ -1,4 +1,4 @@
-//! @astorm/office-viewer — astorm-office 三格式高保真预览组件库
+//! @astorm/office-viewer — astorm-office 四格式高保真预览组件库
 //!
 //! ```ts
 //! import { OfficeViewer, PptxViewer, DocxViewer, XlsxViewer } from '@astorm/office-viewer'

@@ -34,7 +34,7 @@ const OFFSET = 16
 const CARD_W = 360
 const CARD_H = 200
 
-/** 悬浮高亮：enter 时挂到触发元素上，离开/隐藏时摘除（三格式统一观感） */
+/** 悬浮高亮：enter 时挂到触发元素上，离开/隐藏时摘除（四格式统一观感） */
 const HOVER_CLASS = 'ov-hovering'
 let highlightedEl: Element | null = null
 
