@@ -29,10 +29,10 @@ jobs:
           rm -rf node_modules
           npm install
           npm run build:demo
-      # Pages 未启用时自动开启（Source = GitHub Actions）
+      # 读取 Pages 站点元数据。站点从未启用时此步会失败——允许失败继续：
+      # 首次启用（Settings → Pages → Source 选 GitHub Actions）后的运行即可部署
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
+        continue-on-error: true
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
