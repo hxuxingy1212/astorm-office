@@ -293,7 +293,11 @@ export interface DocxStyle {
   italic?: boolean | null
   color?: string | null
   align?: string | null
+  /** 行距倍数（lineRule=auto，Word 的「1.5 倍行距」即 1.5） */
   line_spacing?: number | null
+  /** 固定行距（lineRule 非 auto）：磅值 + exact/atLeast */
+  line_pt?: number | null
+  line_rule?: string | null
   space_before?: number | null
   space_after?: number | null
   first_line_indent?: number | null
@@ -301,9 +305,20 @@ export interface DocxStyle {
   based_on?: string | null
 }
 
+/** 文档默认样式（docDefaults）：块级样式缺失时的基准排版 */
+export interface DocxDefaults {
+  font_family?: string | null
+  east_asia_font?: string | null
+  font_size?: number | null
+  line_spacing?: number | null
+  space_after?: number | null
+}
+
 export interface DocxDocument {
   parts: DocxPart[]
   styles?: Record<string, DocxStyle>
+  /** 文档默认样式（字号/行距/字体）：预览页面的基准排版 */
+  defaults?: DocxDefaults | null
   page?: { size?: string | null; orientation?: string | null; margins?: Record<string, number> | null }
   theme?: unknown
   template?: string | null

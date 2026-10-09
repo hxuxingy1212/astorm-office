@@ -27,6 +27,7 @@ import {
   canvasScale,
   refToPos,
 } from '../src/renderers/xlsx/virtual'
+import { paginateBlocks } from '../src/renderers/docx/paginate'
 
 let failed = 0
 function eq<T>(actual: T, expected: T, label: string) {
@@ -281,6 +282,65 @@ async function streamEquality() {
   eq(bb[0] < 72 && bb[3] <= 792 && bb[1] < 720, true, 'pdf 文本包围盒在基线上方')
   eq(pdfElementContent(el), 'hi', 'pdf 内容摘要')
   eq(pdfElementContent({ type: 'image', src: 'media/x.png' }), 'media/x.png', 'pdf 图片摘要')
+}
+
+// ---- docx：物理分页（硬分页符 + 按度量高度的软分页） ----
+{
+  /** 造块：top/bottom 为块自身范围（相对分片内容区顶端，自然 px）；分页符传 null */
+  const b = (
+    top: number | null,
+    h = 40,
+    extra: { breakBefore?: boolean; breakHere?: boolean } = {},
+  ) => ({ top, bottom: top === null ? null : top + h, ...extra })
+  const brk = { top: null, bottom: null, breakHere: true }
+  const span = (r: { from: number; to: number }) => [r.from, r.to]
+  const range = (r: { top: number; bottom: number }) => [r.top, r.bottom]
+
+  // 硬分页：分页符把 5 个块切成 3 段
+  {
+    const pages = paginateBlocks(
+      [b(0, 100), b(100, 100), brk, b(200, 50), brk, b(250, 20)],
+      1000,
+      270,
+    )
+    eq(pages.map(span), [[0, 2], [3, 4], [5, 6]], '硬分页：分页符切三段')
+    eq(pages.map(range), [[0, 200], [200, 250], [250, 270]], '硬分页：内容范围随分段')
+  }
+
+  // 软分页：页高 100、块高 40 —— 第 3 块（80→120）放不下时另起一页
+  {
+    const pages = paginateBlocks([b(0), b(40), b(80), b(120), b(160)], 100, 200)
+    eq(pages.map(span), [[0, 2], [2, 4], [4, 5]], '软分页：超出页高另起一页')
+    eq(pages[1].top, 80, '软分页：续页顶端 = 该块顶端')
+    eq(pages[0].bottom, 80, '软分页：底端 = 末块自身底端')
+  }
+
+  // 段前分页（page_break_before）与首块不制造空页
+  {
+    const pages = paginateBlocks([b(0, 40, { breakBefore: true }), b(40), b(80, 20, { breakBefore: true })], 1000, 100)
+    eq(pages.map(span), [[0, 2], [2, 3]], '段前分页：切页且首块不产生空页')
+  }
+
+  // 单块超过页高：独占一页（不裁切，页面随后按内容长高）
+  {
+    const pages = paginateBlocks([b(0), b(40), b(80, 620)], 100, 700)
+    eq(pages.map(span), [[0, 2], [2, 3]], '超高块：独占一页')
+    eq(pages[1].bottom, 700, '超高块：底端取块自身底端')
+  }
+
+  // 未度量（pageH = Infinity / 高度全空）：只做硬分页
+  {
+    const pages = paginateBlocks([b(null), b(null), brk, b(null)], Number.POSITIVE_INFINITY, 0)
+    eq(pages.map(span), [[0, 2], [3, 4]], '未度量：仅按分页符切')
+  }
+
+  // 尾部分页符不留空页；全分页符的分片仍给出一页可渲染
+  {
+    eq(paginateBlocks([b(0), brk], 1000, 100).map(span), [[0, 1]], '尾部分页符不留空页')
+    const empty = paginateBlocks([brk], 1000, 0)
+    eq(empty.length, 1, '全分页符：仍给出一页')
+    eq(span(empty[0]), [0, 0], '全分页符：空页区间')
+  }
 }
 
 const streamDone = streamEquality()
