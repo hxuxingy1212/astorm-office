@@ -1,5 +1,5 @@
 ---
-name: ai-excel
+name: astorm-office-excel
 description: 用 json2xlsx 生成与编辑 Excel（.xlsx）：报表/看板/数据表。以产物目录 JSON 为中间形态，repack 构建、view/edit 修改、render 预览。用户要做表格/报表/公式或改第 N 行列时使用，未提 JSON 也应触发。
 version: 0.2.0
 metadata:
@@ -11,7 +11,7 @@ compatibility: 需要 Rust 工具链（cargo）或已安装的 json2xlsx
 # Excel 分册（json2xlsx）
 
 > 通用契约、工作流、CLI 速查、edit 语义与通用约束见统一总纲
-> [../../skill/SKILL.md](../../skill/SKILL.md)。本册只含 **Excel 格式特有**内容：
+> [../SKILL.md](../SKILL.md)。本册只含 **Excel 格式特有**内容：
 > 产物目录结构、JSON 生成规范、模板库与报表自查。
 
 工具是两层结构：

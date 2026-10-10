@@ -314,7 +314,7 @@ fn call(name: &str, args: &Value) -> Result<String, String> {
             Ok(serde_json::to_string_pretty(&report).unwrap())
         }
         "schema" => Ok(
-            "完整 JSON Schema 见 skill/references/schema.json（由 `schema --json` 生成）。"
+            "完整 JSON Schema 见 skill/excel/references/schema.json（由 `schema --json` 生成）。"
                 .to_string(),
         ),
         "help" => {
@@ -332,7 +332,7 @@ fn call(name: &str, args: &Value) -> Result<String, String> {
         }
         "templates" => {
             let lib: Value =
-                serde_json::from_str(include_str!("../../skill/templates/library.json"))
+                serde_json::from_str(include_str!("../../../skill/excel/templates/library.json"))
                     .unwrap_or(Value::Null);
             Ok(serde_json::to_string_pretty(&lib).unwrap())
         }

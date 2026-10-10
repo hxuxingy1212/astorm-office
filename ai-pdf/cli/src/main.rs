@@ -1560,5 +1560,5 @@ doc/
 - image.src 用产物根相对路径或绝对路径；png/jpg 原生支持，其他类型 repack 时
   以占位图代替并记录 warning（unpack 对不可解码图保留直通参数原样回写）。
 
-完整字段与默认值以 `json2pdf schema --json`（即 skill/references/schema.json）为准。
+完整字段与默认值以 `json2pdf schema --json`（即 skill/pdf/references/schema.json）为准。
 "##;

@@ -567,14 +567,14 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
             if out.json_mode() {
                 out.emit_json(&schemars::schema_for!(json2xlsx::Workbook))?;
             } else {
-                println!("完整 JSON Schema 见 skill/references/schema.json（由 `schema --json` 生成，勿手改）。");
-                println!("工作簿 JSON 字段说明见 skill/SKILL.md 与 skill/references/cli.md。");
+                println!("完整 JSON Schema 见 skill/excel/references/schema.json（由 `schema --json` 生成，勿手改）。");
+                println!("工作簿 JSON 字段说明见 skill/excel/SKILL.md 与 skill/excel/references/cli.md。");
                 println!("分层能力帮助（元素属性面）用 `json2xlsx help [元素]`。");
             }
         }
         Command::Templates => {
             let lib: serde_json::Value =
-                serde_json::from_str(include_str!("../../skill/templates/library.json"))
+                serde_json::from_str(include_str!("../../../skill/excel/templates/library.json"))
                     .unwrap_or(serde_json::Value::Null);
             let templates = lib
                 .get("templates")
@@ -585,7 +585,7 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
                 out.emit_json(&json!({ "templates": templates }))?;
             } else {
                 println!(
-                    "内置风格模板库共 {} 套（采样 {} 份真实 Excel 聚类），索引见 skill/templates/README.md：",
+                    "内置风格模板库共 {} 套（采样 {} 份真实 Excel 聚类），索引见 skill/excel/templates/README.md：",
                     templates.len(),
                     lib.get("total_sampled").and_then(|v| v.as_u64()).unwrap_or(0)
                 );

@@ -1,5 +1,5 @@
 ---
-name: ai-word
+name: astorm-office-word
 description: 用 json2docx 生成与编辑 Word（.docx）：论文/报告/信函/简历。以产物目录 JSON 为中间形态，repack 构建、view/edit 修改、render 核对。用户要写或改 Word/论文/报告/排版/参考文献时使用，未提 JSON 也应触发。
 version: 0.2.0
 metadata:
@@ -11,7 +11,7 @@ compatibility: 需要 Rust 工具链（cargo）或已安装 json2docx；render �
 # Word 分册（json2docx）
 
 > 通用契约、工作流、CLI 速查、edit 语义与通用约束见统一总纲
-> [../../skill/SKILL.md](../../skill/SKILL.md)。本册只含 **Word 格式特有**内容：
+> [../SKILL.md](../SKILL.md)。本册只含 **Word 格式特有**内容：
 > 产物目录结构、JSON 生成规范、模板链路与场景速查。
 
 ## 产物目录结构

@@ -250,7 +250,7 @@ fn call(name: &str, args: &Value) -> Result<String, String> {
             Ok(out)
         }
         "schema" => Ok(
-            "完整 JSON Schema 见 ai-pdf/skill/references/schema.json（由 `json2pdf schema --json` 生成）。"
+            "完整 JSON Schema 见 skill/pdf/references/schema.json（由 `json2pdf schema --json` 生成）。"
                 .to_string(),
         ),
         "help" => {

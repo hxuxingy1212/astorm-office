@@ -9,7 +9,7 @@
 //
 // 产物结构（office-kit-<version>/）：
 //   bin/        四个 CLI 可执行文件（json2docx/json2xlsx/json2pptx/json2pdf）
-//   skill/      根总纲 SKILL.md + 四格式分册（ai-*/skill/ 完整子树）
+//   skill/      融合技能目录：总纲 SKILL.md + word/ excel/ ppt/ pdf/ 四分册（自包含）
 //   viewer/     @astorm/office-viewer dist 三件套（js/css/d.ts）
 //   samples/    四格式样例产物目录（预览/悬浮功能手测夹具）
 //   VERSION     kit 版本（= workspace version，发布纪律：发版必须 bump）
@@ -32,7 +32,6 @@ const outIdx = args.indexOf('--out')
 const OUT_ROOT = outIdx >= 0 ? resolve(args[outIdx + 1]) : join(ROOT, 'dist-kit')
 
 const BINS = ['json2docx', 'json2xlsx', 'json2pptx', 'json2pdf']
-const SKILL_BOOKS = ['ai-word', 'ai-excel', 'ai-ppt', 'ai-pdf']
 
 function sh(cmd, opts = {}) {
   console.log(`  $ ${cmd}`)
@@ -89,11 +88,8 @@ async function main() {
     cpSync(src, join(kitDir, 'bin', bin))
   }
 
-  // skill/：总纲 + 四格式分册（含 references/scenarios/templates/samples 子树）
+  // skill/：融合技能目录（总纲 + 四分册，目录内相对引用自包含，与 bin/ 同包分发）
   cpSync(join(ROOT, 'skill'), join(kitDir, 'skill'), { recursive: true })
-  for (const book of SKILL_BOOKS) {
-    cpSync(join(ROOT, book, 'skill'), join(kitDir, 'skill', book), { recursive: true })
-  }
 
   // viewer/：dist 三件套（vite publicDir 会把 demo 样例带进 dist，剔除——kit 根已有 samples/）
   const dist = join(ROOT, 'office-web/dist')

@@ -451,5 +451,5 @@ json2pptx help cell --json  # 机器可读能力 schema（与实现同源）
 
 - JSON 输入格式 → 仓库 `docs/JSON格式规范.md`
 - 模板详情 → 仓库 `docs/模板系统.md`
-- 设计风格 → 仓库 `docs/设计风格指南.md` 或本目录 `design-styles.md`
+- 设计风格 → 本目录 `设计风格指南.md`（中文速查）或 `design-styles.md`（英文权威）
 - 架构与扩展 → 仓库 `docs/架构与开发.md`

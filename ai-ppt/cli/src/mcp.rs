@@ -274,7 +274,7 @@ fn call(name: &str, args: &Value) -> Result<String, String> {
             Ok(serde_json::to_string_pretty(&report).unwrap())
         }
         "schema" => Ok(
-            "完整 JSON Schema 见 skill/references/schema.json（由 `schema --json` 生成）。"
+            "完整 JSON Schema 见 skill/ppt/references/schema.json（由 `schema --json` 生成）。"
                 .to_string(),
         ),
         "help" => {

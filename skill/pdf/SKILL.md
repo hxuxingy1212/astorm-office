@@ -1,5 +1,5 @@
 ---
-name: ai-pdf
+name: astorm-office-pdf
 description: 用 json2pdf 生成、解析、编辑 PDF 并与 Word/Excel/PPT 互转：unpack/repack/view/edit/render、页操作（合并/拆分/旋转）、内容提取（含 OCR）、qa 体检。用户要生成/修改/解析 PDF 或跨格式互转时使用，未提 JSON 也应触发。
 version: 0.2.0
 metadata:
@@ -12,7 +12,7 @@ compatibility: 需要 Rust 工具链（cargo）或已安装 json2pdf；convert h
 
 你负责用 **json2pdf** 完成 PDF 的**解析、查看、编辑、生成与质检**。
 通用契约（I/O 纪律、退出码、全局 flag）与四格式工作流见统一总纲
-[`skill/SKILL.md`](../../skill/SKILL.md)；本分册只讲 PDF 特有的内容。
+[`../SKILL.md`](../SKILL.md)；本分册只讲 PDF 特有的内容。
 
 两层结构，缺一不可：
 

@@ -1,5 +1,5 @@
 ---
-name: ai-ppt
+name: astorm-office-ppt
 description: 用 json2pptx 生成与编辑 PPTX 演示文稿：从大纲/文章生成幻灯片，模板与版式，逐页 view/edit，render PNG 核对。用户要做 PPT/幻灯片或改第 N 页时使用，未提 JSON 也应触发。
 version: 0.2.0
 metadata:
@@ -11,7 +11,7 @@ compatibility: 需要 Rust 工具链（cargo）或已安装的 json2pptx；rende
 # PPT 分册（json2pptx）
 
 > 通用契约、工作流、CLI 速查、edit 语义与通用约束见统一总纲
-> [../../skill/SKILL.md](../../skill/SKILL.md)。本册只含 **PPT 格式特有**内容：
+> [../SKILL.md](../SKILL.md)。本册只含 **PPT 格式特有**内容：
 > 产物目录结构、22 种元素、动画/过渡、设计原则与风格选择。
 
 ## 产物目录结构（核心概念）
@@ -298,7 +298,7 @@ run 字段：`text`、`font_size`、`bold`、`italic`、`underline`、`color`、
 
 ## 风格选择
 
-用户指定或暗示风格时，从 **12 套核心风格**（[references/design-styles.md](references/design-styles.md)）中选择；每套风格提供完整色板、字体搭配、版式规则与页面提示词。中文风格速查版见 `docs/设计风格指南.md`。
+用户指定或暗示风格时，从 **12 套核心风格**（[references/design-styles.md](references/design-styles.md)）中选择；每套风格提供完整色板、字体搭配、版式规则与页面提示词。中文风格速查版见 `references/设计风格指南.md`（随包分发）。
 
 按受众/主题/语气映射：
 
@@ -347,4 +347,4 @@ run 字段：`text`、`font_size`、`bold`、`italic`、`underline`、`color`、
 | [scenarios/pitch-deck.md](scenarios/pitch-deck.md) | 融资路演专项技能（10 页结构/组件选型/batch 工作流） | 需求命中 BP/路演/融资场景时优先 |
 | [references/cli.md](references/cli.md) | CLI 命令全参考：参数、路径语法、产物结构、组合用法 | 执行 unpack/edit/render 等命令细节不确定时 |
 
-中文版文档在仓库 `docs/` 目录：`JSON格式规范.md`、`设计风格指南.md`、`命令行工具.md`、`元素与组件参考.md`、`模板系统.md`。
+其余中文文档（JSON格式规范 / 命令行工具 / 元素与组件参考 / 模板系统）在仓库 `ai-ppt/docs/`，不随 skill 包分发。

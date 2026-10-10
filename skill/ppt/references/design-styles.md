@@ -1,6 +1,6 @@
 # Design Style System for json2pptx
 
-> **中文版**：完整翻译见 [docs/设计风格指南.md](docs/设计风格指南.md)（英文原文与中文翻译双份维护，改一处请同步另一处）。
+> **中文版**：完整翻译见 [设计风格指南.md](设计风格指南.md)（随包分发；仓库维护副本在 `ai-ppt/docs/`，改一处请同步另一处）。
 
 A comprehensive design style system merged from 10+ GitHub projects:
 - AAAAAAAJ/slides (19 styles)
