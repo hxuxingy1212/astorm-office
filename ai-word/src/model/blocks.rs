@@ -269,6 +269,9 @@ pub struct Paragraph {
     /// 段内从右到左（w:bidi）
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rtl: Option<bool>,
+    /// 段落标记的东亚语言（w:pPr/w:rPr/w:lang w:eastAsia）：西文标签时按西文行距排版
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lang_ea: Option<String>,
 }
 
 impl Paragraph {
@@ -788,6 +791,7 @@ pub enum Block {
     #[serde(rename = "sdt")]
     Sdt(ContentControlBlock),
     PageBreak,
+    ColumnBreak,
 }
 
 impl Block {
@@ -812,6 +816,7 @@ impl Block {
             Block::Raw(_) => "raw",
             Block::Sdt(_) => "sdt",
             Block::PageBreak => "page_break",
+            Block::ColumnBreak => "column_break",
         }
     }
 
@@ -883,6 +888,7 @@ impl Block {
                 .collect::<Vec<_>>()
                 .join(""),
             Block::PageBreak => String::new(),
+            Block::ColumnBreak => String::new(),
         }
     }
 }

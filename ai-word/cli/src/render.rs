@@ -314,6 +314,9 @@ fn write_block(out: &mut String, b: &Block, root: Option<&Path>) {
                     .unwrap_or_default()
             );
         }
+        Block::ColumnBreak => {
+            out.push_str("<div class=\"column-break\"></div>\n");
+        }
         Block::PageBreak => {
             let _ = writeln!(out, "<hr/>");
         }

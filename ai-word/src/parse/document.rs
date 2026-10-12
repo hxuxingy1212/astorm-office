@@ -966,6 +966,14 @@ fn parse_paragraph(p: &XmlNode, ctx: &PCtx) -> Block {
     if has_page_break && run_text_all(p).trim().is_empty() {
         return Block::PageBreak;
     }
+    // 分栏符（多栏节里换栏；单栏节里等同无效标记）
+    let has_column_break = p.children_named("w:r").any(|r| {
+        r.children_named("w:br")
+            .any(|b| b.attr("w:type") == Some("column"))
+    });
+    if has_column_break && run_text_all(p).trim().is_empty() {
+        return Block::ColumnBreak;
+    }
 
     // 公式
     if p.child("m:oMathPara").is_some() || p.child("m:oMath").is_some() {
@@ -1413,6 +1421,15 @@ fn parse_paragraph_props(p: &XmlNode, para: &mut Paragraph) {
     let Some(ppr) = p.child("w:pPr") else {
         return;
     };
+    // 段落标记的东亚语言（w:pPr/w:rPr/w:lang w:eastAsia）：西文标签按西文行距排版
+    if let Some(v) = ppr
+        .child("w:rPr")
+        .and_then(|r| r.child("w:lang"))
+        .and_then(|l| l.attr("w:eastAsia"))
+        .filter(|s| !s.is_empty())
+    {
+        para.lang_ea = Some(v.to_string());
+    }
     if let Some(jc) = ppr.child("w:jc").and_then(|j| j.attr("w:val")) {
         if jc != "left" {
             para.align = Some(if jc == "both" {
@@ -2960,6 +2977,23 @@ fn parse_sect_pr(sect: &XmlNode) -> PageSetup {
                     .attr("w:space")
                     .and_then(|v| v.parse::<i64>().ok())
                     .map(twip_to_pt);
+                // 显式栏宽（w:col w:w，等宽时不写 w:col）
+                let col_els: Vec<&XmlNode> = cols.children_named("w:col").collect();
+                let widths: Vec<f64> = col_els
+                    .iter()
+                    .filter_map(|c| c.attr("w:w").and_then(|v| v.parse::<i64>().ok()))
+                    .map(twip_to_pt)
+                    .collect();
+                if widths.len() == n as usize {
+                    page.column_widths = Some(widths);
+                    // 栏间距可能挂在 w:col/@w:space 而非 w:cols/@w:space
+                    if page.column_space.is_none() {
+                        page.column_space = col_els
+                            .iter()
+                            .find_map(|c| c.attr("w:space").and_then(|v| v.parse::<i64>().ok()))
+                            .map(twip_to_pt);
+                    }
+                }
             }
         }
     }
@@ -3257,6 +3291,13 @@ fn parse_doc_defaults(files: &Package) -> Option<Style> {
                 st.east_asia_font = Some(e.to_string());
             }
         }
+        if let Some(v) = rpr
+            .child("w:lang")
+            .and_then(|l| l.attr("w:eastAsia"))
+            .filter(|s| !s.is_empty())
+        {
+            st.lang_ea = Some(v.to_string());
+        }
     }
     if let Some(ppr) = dd.child("w:pPrDefault").and_then(|p| p.child("w:pPr")) {
         if let Some(sp) = ppr.child("w:spacing") {
@@ -3506,6 +3547,13 @@ fn parse_styles(files: &Package) -> BTreeMap<String, Style> {
                 if let Some(v) = fonts.attr("w:cs").filter(|s| !s.is_empty()) {
                     st.cs_font = Some(v.to_string());
                 }
+            }
+            if let Some(v) = rpr
+                .child("w:lang")
+                .and_then(|l| l.attr("w:eastAsia"))
+                .filter(|s| !s.is_empty())
+            {
+                st.lang_ea = Some(v.to_string());
             }
         }
         out.insert(id.to_string(), st);

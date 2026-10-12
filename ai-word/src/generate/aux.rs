@@ -90,6 +90,9 @@ pub(crate) fn styles_xml(ctx: &GenCtx) -> String {
             &[("w:val", crate::utils::xml::color_hex(c))],
         ));
     }
+    if let Some(v) = &def.lang_ea {
+        drpr.push_str(&empty("w:lang", &[("w:eastAsia", v.clone())]));
+    }
     let mut dppr = String::new();
     let mut dsp = Vec::new();
     if let Some(v) = def.space_before {
@@ -452,6 +455,9 @@ fn style_body(st: &Style, extra_ppr: &str) -> String {
     if let Some(sz) = st.font_size {
         rpr.push_str(&empty("w:sz", &[("w:val", pt_to_half(sz).to_string())]));
         rpr.push_str(&empty("w:szCs", &[("w:val", pt_to_half(sz).to_string())]));
+    }
+    if let Some(v) = &st.lang_ea {
+        rpr.push_str(&empty("w:lang", &[("w:eastAsia", v.clone())]));
     }
 
     // stylesheet 中 pPr 与 rPr 为兄弟节点（rPr 不可嵌套在 pPr 内）

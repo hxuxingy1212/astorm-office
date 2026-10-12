@@ -66,6 +66,9 @@ pub struct PageSetup {
     /// 栏间距（pt）
     #[serde(skip_serializing_if = "Option::is_none")]
     pub column_space: Option<f64>,
+    /// 各栏宽度（pt，w:cols/w:col 显式定义时给出；缺省为等宽）
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub column_widths: Option<Vec<f64>>,
     /// 页面边框（w:pgBorders）
     #[serde(skip_serializing_if = "Option::is_none")]
     pub page_border: Option<crate::model::blocks::Border>,
@@ -103,6 +106,7 @@ impl Default for PageSetup {
             height: None,
             columns: None,
             column_space: None,
+            column_widths: None,
             page_border: None,
             size_specified: None,
             doc_grid: None,
@@ -223,4 +227,7 @@ pub struct Style {
     /// 复杂脚本字体（w:rFonts cs）
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cs_font: Option<String>,
+    /// 东亚语言标签（w:lang w:eastAsia）：en-US 等西文标签时 Word 按西文行距排版
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lang_ea: Option<String>,
 }

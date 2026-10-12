@@ -103,6 +103,7 @@ fn block_xml(ctx: &GenCtx, b: &Block) -> String {
         Block::Raw(r) => raw_xml(ctx, r),
         Block::Sdt(c) => sdt_xml(ctx, c),
         Block::PageBreak => page_break_xml(),
+        Block::ColumnBreak => column_break_xml(),
     }
 }
 
@@ -277,6 +278,13 @@ fn paragraph_ppr(p: &Paragraph) -> String {
     }
     if let Some(align) = &p.align {
         ppr.push_str(&empty("w:jc", &[("w:val", jc_val(align))]));
+    }
+    // 段落标记的东亚语言（西文标签会让 Word 按西文行距排版，需原样回写）
+    if let Some(v) = &p.lang_ea {
+        ppr.push_str(&format!(
+            "<w:rPr>{}</w:rPr>",
+            empty("w:lang", &[("w:eastAsia", v.clone())])
+        ));
     }
     ppr
 }
@@ -1445,6 +1453,11 @@ fn form_field_xml(ff: &FormField, cached: &str) -> String {
          <w:r><w:fldChar w:fldCharType=\"separate\"/></w:r>{result}\
          <w:r><w:fldChar w:fldCharType=\"end\"/></w:r>"
     )
+}
+
+fn column_break_xml() -> String {
+    // 分栏符段落：run 里一个 w:br w:type="column"（空段落即换栏）
+    "<w:p><w:r><w:br w:type=\"column\"/></w:r></w:p>".to_string()
 }
 
 fn page_break_xml() -> String {
