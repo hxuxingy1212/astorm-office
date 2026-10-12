@@ -5,3 +5,5 @@ dist
 dist-demo
 # 单测编译输出
 .test-out
+# 保真标尺样张：个人简历（含真实联系方式）与其参考页图，只在本机做逐页比对，不入库
+demo/public/samples/docx-real

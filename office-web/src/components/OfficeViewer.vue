@@ -105,5 +105,8 @@ const asPdf = computed(() => props.data as PdfDoc)
 <style>
 .ov-root {
   color: var(--ov-text-strong);
+  /* 透传宿主高度：页签/Modal 给了高度就撑满（docx 目录与内容同高 relies on it）；
+     没给高度时各 viewer 自带 min-height 兜底 */
+  height: 100%;
 }
 </style>
