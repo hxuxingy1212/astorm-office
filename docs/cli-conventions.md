@@ -1,7 +1,7 @@
 # astorm-office CLI 统一契约
 
 四个 CLI（`json2docx` / `json2xlsx` / `json2pptx` / `json2pdf`）遵循同一套命令风格、I/O 契约与退出码约定。
-本文档是 agent 与脚本调用这些 CLI 的权威依据；各 CLI 的格式特有命令见各自的 `skill/references/cli.md`。
+本文档是 agent 与脚本调用这些 CLI 的权威依据；各 CLI 的格式特有命令见 `skill/<格式>/references/cli.md`（格式 = word / excel / ppt / pdf）。
 
 ## 一、命令集
 

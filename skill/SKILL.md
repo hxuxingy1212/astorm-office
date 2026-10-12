@@ -34,6 +34,10 @@ compatibility: 需要 Rust 工具链（cargo）或已安装对应 CLI；render �
    用于把产物直接交给预览组件/宿主程序（预览/交付形态；编辑流程仍用目录形态，
    详见 `docs/cli-conventions.md`）。
 
+> **分发形态**：`skill/`（本总纲 + `word/` `excel/` `ppt/` `pdf/` 四本分册）与四个 CLI
+> 二进制**同包分发**——官方 `office-kit` 包中 `bin/` 与 `skill/` 同级（本目录内所有引用
+> 均为目录内相对路径，整体拷贝即可用，不依赖仓库其余部分）。
+
 ## 一、通用工作流程（四格式一致）
 
 ```text
@@ -104,19 +108,19 @@ compatibility: 需要 Rust 工具链（cargo）或已安装对应 CLI；render �
 
 | 分册 | 内容 | 何时读 |
 |------|------|--------|
-| [ai-word/skill/SKILL.md](../ai-word/skill/SKILL.md) | document.json 结构、18 种块类型、run 字段、设计原则、11 类场景速查、学术卷规范 | 生成/编辑 **Word** 时 |
-| [ai-excel/skill/SKILL.md](../ai-excel/skill/SKILL.md) | workbook/sheet 结构、样式/数字格式/公式、图表图片、条件格式、结构化表格、16 类模板库、报表自查 | 生成/编辑 **Excel** 时 |
-| [ai-ppt/skill/SKILL.md](../ai-ppt/skill/SKILL.md) | 22 种元素类型、动画/过渡、设计原则、12 套风格、套版建议 | 生成/编辑 **PPT** 时 |
-| [ai-pdf/skill/SKILL.md](../ai-pdf/skill/SKILL.md) | 产物目录结构、8 种元素类型、字体策略（标准 14 / system: / 内嵌复用）、保真度边界、提取与质检 | 生成/编辑/**解析 PDF** 时 |
+| [word/SKILL.md](word/SKILL.md) | document.json 结构、18 种块类型、run 字段、设计原则、11 类场景速查、学术卷规范 | 生成/编辑 **Word** 时 |
+| [excel/SKILL.md](excel/SKILL.md) | workbook/sheet 结构、样式/数字格式/公式、图表图片、条件格式、结构化表格、16 类模板库、报表自查 | 生成/编辑 **Excel** 时 |
+| [ppt/SKILL.md](ppt/SKILL.md) | 22 种元素类型、动画/过渡、设计原则、12 套风格、套版建议 | 生成/编辑 **PPT** 时 |
+| [pdf/SKILL.md](pdf/SKILL.md) | 产物目录结构、8 种元素类型、字体策略（标准 14 / system: / 内嵌复用）、保真度边界、提取与质检 | 生成/编辑/**解析 PDF** 时 |
 
 ### 第 3 层 · 深度参考（字段/命令/配方的权威与细节）
 
 | 项目 | 深度参考 | 何时读 |
 |------|----------|--------|
-| Word | [references/cli.md](../ai-word/skill/references/cli.md) · [references/schema.json](../ai-word/skill/references/schema.json) · [references/design-guide.md](../ai-word/skill/references/design-guide.md) · [references/writing-guide.md](../ai-word/skill/references/writing-guide.md) · [references/doc-templates.md](../ai-word/skill/references/doc-templates.md) · [templates/INDEX.md](../ai-word/skill/templates/INDEX.md) · [scenarios/](../ai-word/skill/scenarios/) | 命令细节 / 字段权威 / 排版规范 / 写作规范 / 模板 / 论文场景 |
-| Excel | [references/cli.md](../ai-excel/skill/references/cli.md) · [references/schema.json](../ai-excel/skill/references/schema.json) · [references/recipes.md](../ai-excel/skill/references/recipes.md) · [templates/README.md](../ai-excel/skill/templates/README.md) · [scenarios/](../ai-excel/skill/scenarios/) | 命令细节 / 字段权威 / 场景配方 / 模板库 / 财务与看板场景 |
-| PPT | [references/cli.md](../ai-ppt/skill/references/cli.md) · [references/schema.json](../ai-ppt/skill/references/schema.json) · [references/design-styles.md](../ai-ppt/skill/references/design-styles.md) · [scenarios/](../ai-ppt/skill/scenarios/) | 命令细节 / 字段权威 / 12 套风格 / 路演场景 |
-| PDF | [references/schema.json](../ai-pdf/skill/references/schema.json)（`json2pdf schema --json` 生成） | 字段权威 |
+| Word | [word/references/cli.md](word/references/cli.md) · [word/references/schema.json](word/references/schema.json) · [word/references/design-guide.md](word/references/design-guide.md) · [word/references/writing-guide.md](word/references/writing-guide.md) · [word/references/doc-templates.md](word/references/doc-templates.md) · [word/templates/INDEX.md](word/templates/INDEX.md) · [word/scenarios/](word/scenarios/) | 命令细节 / 字段权威 / 排版规范 / 写作规范 / 模板 / 论文场景 |
+| Excel | [excel/references/cli.md](excel/references/cli.md) · [excel/references/schema.json](excel/references/schema.json) · [excel/references/recipes.md](excel/references/recipes.md) · [excel/templates/README.md](excel/templates/README.md) · [excel/scenarios/](excel/scenarios/) | 命令细节 / 字段权威 / 场景配方 / 模板库 / 财务与看板场景 |
+| PPT | [ppt/references/cli.md](ppt/references/cli.md) · [ppt/references/schema.json](ppt/references/schema.json) · [ppt/references/design-styles.md](ppt/references/design-styles.md) · [ppt/scenarios/](ppt/scenarios/) | 命令细节 / 字段权威 / 12 套风格 / 路演场景 |
+| PDF | [pdf/references/schema.json](pdf/references/schema.json)（`json2pdf schema --json` 生成） | 字段权威 |
 
 ### 附：格式差异速记
 

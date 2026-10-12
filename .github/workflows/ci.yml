@@ -41,10 +41,10 @@ jobs:
           ./target/debug/json2xlsx schema --json > /tmp/schema-xlsx.json
           ./target/debug/json2pptx schema --json > /tmp/schema-pptx.json
           ./target/debug/json2pdf schema --json > /tmp/schema-pdf.json
-          diff -u ai-word/skill/references/schema.json  /tmp/schema-docx.json
-          diff -u ai-excel/skill/references/schema.json /tmp/schema-xlsx.json
-          diff -u ai-ppt/skill/references/schema.json   /tmp/schema-pptx.json
-          diff -u ai-pdf/skill/references/schema.json   /tmp/schema-pdf.json
+          diff -u skill/word/references/schema.json  /tmp/schema-docx.json
+          diff -u skill/excel/references/schema.json /tmp/schema-xlsx.json
+          diff -u skill/ppt/references/schema.json   /tmp/schema-pptx.json
+          diff -u skill/pdf/references/schema.json   /tmp/schema-pdf.json
           echo "schemas are in sync"
 
   web:

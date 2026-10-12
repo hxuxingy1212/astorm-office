@@ -109,6 +109,7 @@ fn block_node(b: &Block) -> Value {
             "series": ch.series.iter().map(|s| json!({"name": s.name, "values": s.values})).collect::<Vec<_>>(),
         }),
         Block::PageBreak => json!({ "type": "page_break" }),
+        Block::ColumnBreak => json!({ "type": "column_break" }),
         Block::Raw(r) => json!({
             "type": "raw",
             "rels": r.rels.len(),

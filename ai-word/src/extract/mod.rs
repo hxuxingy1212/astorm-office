@@ -468,6 +468,7 @@ fn aggregate(samples: &[Fmt]) -> Style {
         num_id: None,
         rtl: None,
         cs_font: None,
+        lang_ea: None,
     }
 }
 

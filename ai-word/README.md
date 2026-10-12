@@ -249,7 +249,7 @@ json2docx render paper.docx / -o paper.png
 
 `text`（必填）、`bold`、`italic`、`underline`、`strike`、`color`、`highlight`、`shading`、`font_family`、`font_size`、`superscript`、`subscript`、`code`、`hyperlink`、`footnote`、`endnote`、`comment`（+`comment_author`）、`revision`（`ins`/`del`，+`revision_author`）、`bookmark`、`ref_target`、`pageref`。
 
-完整字段以 `json2docx schema` 或 [skill/references/schema.json](skill/references/schema.json) 为准。
+完整字段以 `json2docx schema` 或 [skill/references/schema.json](../skill/word/references/schema.json) 为准。
 
 ---
 
@@ -294,7 +294,7 @@ json2docx extract 样张.docx -o tpl/
 
 - 解析 `styles.xml` 的样式继承链（`basedOn` + `docDefaults`），并聚合文档中段落/run 的实际格式。
 - 用法：把 `page` / `theme` / `styles` 合并进新文档的 `document.json` → `repack` 生成 → `render` 核对。
-- 仓库内 `skill/templates/` 提供从真实文档提取的**存量模板库**（21 套：中/英/日文，学术/公文/商务/企业/技术/设计/简历/合同/纪要等），见 [skill/templates/INDEX.md](skill/templates/INDEX.md)。
+- 仓库内 `skill/templates/` 提供从真实文档提取的**存量模板库**（21 套：中/英/日文，学术/公文/商务/企业/技术/设计/简历/合同/纪要等），见 [skill/templates/INDEX.md](../skill/word/templates/INDEX.md)。
 - 批量采集与提取：`./scripts/collect_docs.sh`（多仓库 docx，已汇集 **1431 份**并全部通过回环校验）→ `./scripts/collect_templates.sh`。
 
 ---
@@ -358,12 +358,12 @@ cargo test                  # 库回环 + CLI 集成测试
 
 | 文件 | 内容 |
 |------|------|
-| [skill/SKILL.md](skill/SKILL.md) | 触发条件、工作流、JSON 规范、块示例、写作与排版原则 |
-| [skill/references/schema.json](skill/references/schema.json) | 完整 JSON Schema（draft 2020-12） |
-| [skill/references/cli.md](skill/references/cli.md) | CLI 全参考与组合用法 |
-| [skill/references/doc-templates.md](skill/references/doc-templates.md) | 5 套模板细则 |
-| [skill/references/writing-guide.md](skill/references/writing-guide.md) | 学术写作规范（结构/引用/图表/公式） |
-| [skill/references/design-guide.md](skill/references/design-guide.md) | 排版设计规范 |
+| [skill/SKILL.md](../skill/word/SKILL.md) | 触发条件、工作流、JSON 规范、块示例、写作与排版原则 |
+| [skill/references/schema.json](../skill/word/references/schema.json) | 完整 JSON Schema（draft 2020-12） |
+| [skill/references/cli.md](../skill/word/references/cli.md) | CLI 全参考与组合用法 |
+| [skill/references/doc-templates.md](../skill/word/references/doc-templates.md) | 5 套模板细则 |
+| [skill/references/writing-guide.md](../skill/word/references/writing-guide.md) | 学术写作规范（结构/引用/图表/公式） |
+| [skill/references/design-guide.md](../skill/word/references/design-guide.md) | 排版设计规范 |
 
 ---
 

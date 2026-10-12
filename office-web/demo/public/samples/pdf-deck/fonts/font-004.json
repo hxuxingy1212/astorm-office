@@ -1,0 +1,27 @@
+{
+  "id": "font-004",
+  "name": "LiberationSans",
+  "file": "fonts/font-004.ttf",
+  "format": "truetype",
+  "units_per_em": 2048,
+  "map": {
+    "0": 0,
+    "32": 3,
+    "65": 1,
+    "73": 2
+  },
+  "widths": {},
+  "code_widths": {
+    "0": 0,
+    "1": 666,
+    "2": 277,
+    "3": 277
+  },
+  "code_map": {
+    "0": 0,
+    "32": 3,
+    "65": 1,
+    "73": 2
+  },
+  "simple_rebuild": true
+}

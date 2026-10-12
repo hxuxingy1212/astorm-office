@@ -18,13 +18,17 @@ const props = defineProps<{
   path: string
   /** 交互模式：edit 可选中/拖拽；view 只读（组件库默认只读） */
   mode?: 'edit' | 'view'
+  /** view 模式下的「拾取」放行：宿主预览开启拾取时由 viewer 传入,
+   *  使 mousedown 照常上报 element-mousedown（此前 view 模式被 interactive 门拦死,
+   *  点击元素永远不发 select——预览拾取在 PPT 上完全失效的直接原因） */
+  pick?: boolean
 }>()
 
 const interactive = computed(() => props.mode === 'edit')
 
-/** 点击元素（选中），叶子元素与组件可交互；group 容器穿透 */
+/** 点击元素（选中）：edit 模式或 view+拾取放行；group 容器穿透 */
 function onMouseDown(e: MouseEvent) {
-  if (!interactive.value) return
+  if (!interactive.value && !props.pick) return
   if (props.el.type === 'group') return
   e.stopPropagation()
   emit('element-mousedown', e, props.path)

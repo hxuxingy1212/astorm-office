@@ -161,6 +161,10 @@ pub fn unpack_doc_with_raw(
     let mut warnings = Vec::new();
     let mut image_count = 0usize;
     let mut shared = DocState::default();
+    // 首页实际尺寸 → 顶层 page_size（DocumentModel::default 是 A4；此前从未用真实页面
+    // 覆盖，横版 PDF（如 PPT 转出的 960×540）的 document.json 一直漏出 A4 竖版，
+    // web 端 loadPdf/PdfViewer 按顶层 page_size 画布渲染 → 版面全错）
+    let mut first_size: Option<(f64, f64)> = None;
 
     for (pno, page_id) in &page_map {
         let page_no = *pno as usize;
@@ -170,6 +174,9 @@ pub fn unpack_doc_with_raw(
         if let Some((w, h, mb)) = crate::page_ops::page_mediabox(doc, *page_id) {
             page.width = Some(round_f(w, 2));
             page.height = Some(round_f(h, 2));
+            if first_size.is_none() {
+                first_size = Some((w, h));
+            }
             if mb[0].abs() > 1e-6 || mb[1].abs() > 1e-6 {
                 page.mediabox = Some([
                     round_f(mb[0], 2),
@@ -222,6 +229,14 @@ pub fn unpack_doc_with_raw(
             serde_json::to_string_pretty(&page)?,
         )?;
         model.pages.push(page_json);
+    }
+
+    // 顶层 page_size = 首页实际尺寸（页面缺 MediaBox/CropBox 的病态文件才落到 A4 默认）
+    if let Some((w, h)) = first_size {
+        model.page_size = crate::model::PageSize {
+            width: w,
+            height: h,
+        };
     }
 
     std::fs::write(

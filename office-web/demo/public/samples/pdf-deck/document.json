@@ -1,0 +1,56 @@
+{
+  "version": 2,
+  "meta": {
+    "title": "桌面智能体",
+    "author": "astorm",
+    "creator": "Impress",
+    "producer": "LibreOffice 26.8.0.3 (AARCH64)"
+  },
+  "page_size": {
+    "width": 959.9810791015625,
+    "height": 540.0
+  },
+  "pages": [
+    "pages/page-001.json",
+    "pages/page-002.json",
+    "pages/page-003.json",
+    "pages/page-004.json",
+    "pages/page-005.json",
+    "pages/page-006.json",
+    "pages/page-007.json",
+    "pages/page-008.json",
+    "pages/page-009.json",
+    "pages/page-010.json"
+  ],
+  "fonts": [
+    "fonts/font-001.json",
+    "fonts/font-002.json",
+    "fonts/font-003.json",
+    "fonts/font-004.json",
+    "fonts/font-005.json",
+    "fonts/font-006.json",
+    "fonts/font-007.json",
+    "fonts/font-008.json",
+    "fonts/font-009.json",
+    "fonts/font-010.json",
+    "fonts/font-011.json",
+    "fonts/font-012.json",
+    "fonts/font-013.json",
+    "fonts/font-014.json",
+    "fonts/font-015.json",
+    "fonts/font-016.json",
+    "fonts/font-017.json",
+    "fonts/font-018.json",
+    "fonts/font-019.json",
+    "fonts/font-020.json",
+    "fonts/font-021.json",
+    "fonts/font-022.json",
+    "fonts/font-023.json",
+    "fonts/font-024.json",
+    "fonts/font-025.json",
+    "fonts/font-026.json",
+    "fonts/font-027.json",
+    "fonts/font-028.json",
+    "fonts/font-029.json"
+  ]
+}

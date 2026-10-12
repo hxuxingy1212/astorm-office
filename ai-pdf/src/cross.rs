@@ -1125,7 +1125,7 @@ fn docx_to_pdf(doc: &json2docx::Document, unpacked: &Path, out: &Path) -> Result
     for part in &doc.parts {
         for block in &part.blocks {
             match block {
-                Block::PageBreak => {
+                Block::PageBreak | Block::ColumnBreak => {
                     let mut np = crate::model::PageModel::default();
                     np.width = Some(pw);
                     np.height = Some(ph);

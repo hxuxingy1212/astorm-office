@@ -606,7 +606,7 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
                 out.emit_json(&schemars::schema_for!(json2pptx::model::Presentation))?;
             } else {
                 println!("分层能力帮助（元素属性面）用 `json2pptx help [元素]`。");
-                println!("完整 JSON Schema 见 skill/references/schema.json（由 `schema --json` 生成，勿手改）。");
+                println!("完整 JSON Schema 见 skill/ppt/references/schema.json（由 `schema --json` 生成，勿手改）。");
                 println!("JSON 字段规范详见 docs/JSON格式规范.md。");
             }
         }

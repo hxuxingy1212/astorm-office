@@ -61,7 +61,7 @@ json2xlsx edit deck/ '/sheet[1]/cell[A1]' set --prop value=标题 --prop font.bo
 json2xlsx render deck/ -o preview.html      # 目视验收
 ```
 
-字段规范见 [`skill/SKILL.md`](skill/SKILL.md) 与 [`skill/references/schema.json`](skill/references/schema.json)。
+字段规范见 [`skill/SKILL.md`](../skill/excel/SKILL.md) 与 [`skill/references/schema.json`](../skill/excel/references/schema.json)。
 
 ## CLI 参考
 

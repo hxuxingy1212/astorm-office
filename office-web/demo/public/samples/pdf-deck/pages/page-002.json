@@ -1,0 +1,3671 @@
+{
+  "width": 959.98,
+  "height": 540.0,
+  "elements": [
+    {
+      "type": "path",
+      "segments": [
+        {
+          "op": "m",
+          "points": [
+            [
+              0.0,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              0.0,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              0.0,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ],
+      "fill": "#ffffff",
+      "line_width": 0.1,
+      "even_odd": true,
+      "clip": [
+        {
+          "op": "m",
+          "points": [
+            [
+              0.0,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              0.0,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ]
+    },
+    {
+      "type": "path",
+      "segments": [
+        {
+          "op": "m",
+          "points": [
+            [
+              0.0,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.98,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.98,
+              0.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              0.0,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ],
+      "fill": "#ffffff",
+      "line_width": 0.1,
+      "even_odd": true,
+      "clip": [
+        {
+          "op": "m",
+          "points": [
+            [
+              0.0,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              0.0,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ]
+    },
+    {
+      "type": "path",
+      "segments": [
+        {
+          "op": "m",
+          "points": [
+            [
+              479.96,
+              530.7
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              -0.03,
+              530.7
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              -0.03,
+              540.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.92,
+              540.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.92,
+              530.7
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              479.96,
+              530.7
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ],
+      "fill": "#1f3864",
+      "line_width": 0.1,
+      "even_odd": true,
+      "clip": [
+        {
+          "op": "m",
+          "points": [
+            [
+              0.0,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              0.0,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "目",
+      "x": 64.66,
+      "y": 474.78,
+      "size": 28.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-008",
+      "color": "#1f3864",
+      "codes": "01",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "录",
+      "x": 92.61,
+      "y": 474.78,
+      "size": 28.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-008",
+      "color": "#1f3864",
+      "codes": "02",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "path",
+      "segments": [
+        {
+          "op": "m",
+          "points": [
+            [
+              93.23,
+              459.04
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              59.05,
+              459.04
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              59.05,
+              462.98
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              127.42,
+              462.98
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              127.42,
+              459.04
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              93.23,
+              459.04
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ],
+      "fill": "#2e5496",
+      "line_width": 0.1,
+      "even_odd": true,
+      "clip": [
+        {
+          "op": "m",
+          "points": [
+            [
+              0.0,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              0.0,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "C",
+      "x": 64.66,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "LiberationSans",
+      "font_id": "font-009",
+      "color": "#6b7684",
+      "codes": "01"
+    },
+    {
+      "type": "text",
+      "text": "O",
+      "x": 74.03,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "LiberationSans",
+      "font_id": "font-009",
+      "color": "#6b7684",
+      "codes": "02"
+    },
+    {
+      "type": "text",
+      "text": "N",
+      "x": 84.1,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "LiberationSans",
+      "font_id": "font-009",
+      "color": "#6b7684",
+      "codes": "03"
+    },
+    {
+      "type": "text",
+      "text": "TE",
+      "x": 93.46,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "LiberationSans",
+      "font_id": "font-009",
+      "color": "#6b7684",
+      "codes": "0405"
+    },
+    {
+      "type": "text",
+      "text": "N",
+      "x": 110.05,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "LiberationSans",
+      "font_id": "font-009",
+      "color": "#6b7684",
+      "codes": "03"
+    },
+    {
+      "type": "text",
+      "text": "T",
+      "x": 119.42,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "LiberationSans",
+      "font_id": "font-009",
+      "color": "#6b7684",
+      "codes": "04"
+    },
+    {
+      "type": "text",
+      "text": "S",
+      "x": 127.33,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "LiberationSans",
+      "font_id": "font-009",
+      "color": "#6b7684",
+      "codes": "06"
+    },
+    {
+      "type": "text",
+      "text": " ·",
+      "x": 135.98,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "LiberationSans",
+      "font_id": "font-009",
+      "color": "#6b7684",
+      "codes": "0708"
+    },
+    {
+      "type": "text",
+      "text": "四",
+      "x": 150.58,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#6b7684",
+      "codes": "09"
+    },
+    {
+      "type": "text",
+      "text": "个",
+      "x": 163.53,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#6b7684",
+      "codes": "0A"
+    },
+    {
+      "type": "text",
+      "text": "问",
+      "x": 176.49,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#6b7684",
+      "codes": "0B"
+    },
+    {
+      "type": "text",
+      "text": "题",
+      "x": 189.45,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#6b7684",
+      "codes": "0C"
+    },
+    {
+      "type": "text",
+      "text": "，",
+      "x": 202.41,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#6b7684",
+      "codes": "0D"
+    },
+    {
+      "type": "text",
+      "text": "一",
+      "x": 215.41,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#6b7684",
+      "codes": "0E"
+    },
+    {
+      "type": "text",
+      "text": "条",
+      "x": 228.37,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#6b7684",
+      "codes": "0F"
+    },
+    {
+      "type": "text",
+      "text": "主",
+      "x": 241.33,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#6b7684",
+      "codes": "10"
+    },
+    {
+      "type": "text",
+      "text": "线",
+      "x": 254.29,
+      "y": 438.35,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#6b7684",
+      "codes": "11"
+    },
+    {
+      "type": "text",
+      "text": "桌",
+      "x": 64.66,
+      "y": 21.91,
+      "size": 10.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-010",
+      "color": "#9aa5b1",
+      "codes": "01"
+    },
+    {
+      "type": "text",
+      "text": "面",
+      "x": 74.61,
+      "y": 21.91,
+      "size": 10.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-010",
+      "color": "#9aa5b1",
+      "codes": "02"
+    },
+    {
+      "type": "text",
+      "text": "智",
+      "x": 84.57,
+      "y": 21.91,
+      "size": 10.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-010",
+      "color": "#9aa5b1",
+      "codes": "03"
+    },
+    {
+      "type": "text",
+      "text": "能",
+      "x": 94.56,
+      "y": 21.91,
+      "size": 10.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-010",
+      "color": "#9aa5b1",
+      "codes": "04"
+    },
+    {
+      "type": "text",
+      "text": "体",
+      "x": 104.51,
+      "y": 21.91,
+      "size": 10.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-010",
+      "color": "#9aa5b1",
+      "codes": "05"
+    },
+    {
+      "type": "text",
+      "text": "·",
+      "x": 120.16,
+      "y": 21.91,
+      "size": 10.01,
+      "font": "LiberationSans",
+      "font_id": "font-011",
+      "color": "#9aa5b1",
+      "codes": "01"
+    },
+    {
+      "type": "text",
+      "text": "20",
+      "x": 126.23,
+      "y": 21.91,
+      "size": 10.01,
+      "font": "LiberationSans",
+      "font_id": "font-011",
+      "color": "#9aa5b1",
+      "codes": "0304"
+    },
+    {
+      "type": "text",
+      "text": "2",
+      "x": 137.33,
+      "y": 21.91,
+      "size": 10.01,
+      "font": "LiberationSans",
+      "font_id": "font-011",
+      "color": "#9aa5b1",
+      "codes": "03"
+    },
+    {
+      "type": "text",
+      "text": "6",
+      "x": 142.86,
+      "y": 21.91,
+      "size": 10.01,
+      "font": "LiberationSans",
+      "font_id": "font-011",
+      "color": "#9aa5b1",
+      "codes": "05"
+    },
+    {
+      "type": "text",
+      "text": "0",
+      "x": 883.96,
+      "y": 21.91,
+      "size": 10.01,
+      "font": "LiberationSans",
+      "font_id": "font-011",
+      "color": "#9aa5b1",
+      "codes": "04"
+    },
+    {
+      "type": "text",
+      "text": "2",
+      "x": 889.49,
+      "y": 21.91,
+      "size": 10.01,
+      "font": "LiberationSans",
+      "font_id": "font-011",
+      "color": "#9aa5b1",
+      "codes": "03"
+    },
+    {
+      "type": "path",
+      "segments": [
+        {
+          "op": "m",
+          "points": [
+            [
+              71.97,
+              375.65
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              71.97,
+              375.65
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              71.97,
+              377.32
+            ],
+            [
+              72.43,
+              378.99
+            ],
+            [
+              73.25,
+              380.44
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              74.1,
+              381.91
+            ],
+            [
+              75.32,
+              383.13
+            ],
+            [
+              76.76,
+              383.95
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              78.24,
+              384.8
+            ],
+            [
+              79.88,
+              385.26
+            ],
+            [
+              81.58,
+              385.26
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              119.96,
+              385.23
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              119.96,
+              385.23
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              121.64,
+              385.23
+            ],
+            [
+              123.31,
+              384.78
+            ],
+            [
+              124.75,
+              383.95
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              126.23,
+              383.1
+            ],
+            [
+              127.45,
+              381.88
+            ],
+            [
+              128.27,
+              380.44
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              129.12,
+              378.96
+            ],
+            [
+              129.57,
+              377.32
+            ],
+            [
+              129.57,
+              375.62
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              129.57,
+              375.62
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              129.57,
+              337.24
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              129.57,
+              337.24
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              129.57,
+              335.57
+            ],
+            [
+              129.12,
+              333.89
+            ],
+            [
+              128.3,
+              332.45
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              127.45,
+              330.97
+            ],
+            [
+              126.23,
+              329.75
+            ],
+            [
+              124.78,
+              328.93
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              123.31,
+              328.08
+            ],
+            [
+              121.66,
+              327.63
+            ],
+            [
+              119.96,
+              327.63
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              81.55,
+              327.63
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              81.55,
+              327.63
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              79.88,
+              327.63
+            ],
+            [
+              78.21,
+              328.08
+            ],
+            [
+              76.76,
+              328.9
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              75.29,
+              329.75
+            ],
+            [
+              74.07,
+              330.97
+            ],
+            [
+              73.25,
+              332.42
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              72.4,
+              333.89
+            ],
+            [
+              71.94,
+              335.54
+            ],
+            [
+              71.94,
+              337.24
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              71.97,
+              375.65
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ],
+      "fill": "#1f3864",
+      "line_width": 0.1,
+      "even_odd": true,
+      "clip": [
+        {
+          "op": "m",
+          "points": [
+            [
+              0.0,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              0.0,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "01",
+      "x": 89.63,
+      "y": 348.44,
+      "size": 20.01,
+      "font": "LiberationSans",
+      "font_id": "font-012",
+      "color": "#ffffff",
+      "codes": "0102"
+    },
+    {
+      "type": "text",
+      "text": "为什",
+      "x": 154.66,
+      "y": 363.15,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "0102",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "么",
+      "x": 194.7,
+      "y": 363.15,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "03",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "需",
+      "x": 214.74,
+      "y": 363.15,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "04",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "要",
+      "x": 234.77,
+      "y": 363.15,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "05",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "它",
+      "x": 254.8,
+      "y": 363.15,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "06",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "大",
+      "x": 154.66,
+      "y": 331.97,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "01"
+    },
+    {
+      "type": "text",
+      "text": "模",
+      "x": 167.13,
+      "y": 331.97,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "02"
+    },
+    {
+      "type": "text",
+      "text": "型",
+      "x": 179.61,
+      "y": 331.97,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "03"
+    },
+    {
+      "type": "text",
+      "text": "能思",
+      "x": 192.09,
+      "y": 331.97,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "0405"
+    },
+    {
+      "type": "text",
+      "text": "考",
+      "x": 217.06,
+      "y": 331.97,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "06"
+    },
+    {
+      "type": "text",
+      "text": "，",
+      "x": 229.54,
+      "y": 331.97,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "07"
+    },
+    {
+      "type": "text",
+      "text": "却难",
+      "x": 242.01,
+      "y": 331.97,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "0809"
+    },
+    {
+      "type": "text",
+      "text": "以",
+      "x": 266.99,
+      "y": 331.97,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "0A"
+    },
+    {
+      "type": "text",
+      "text": "动",
+      "x": 279.47,
+      "y": 331.97,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "0B"
+    },
+    {
+      "type": "text",
+      "text": "手",
+      "x": 291.94,
+      "y": 331.97,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "0C"
+    },
+    {
+      "type": "path",
+      "segments": [
+        {
+          "op": "m",
+          "points": [
+            [
+              71.97,
+              296.45
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              71.97,
+              296.45
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              71.97,
+              298.12
+            ],
+            [
+              72.43,
+              299.79
+            ],
+            [
+              73.25,
+              301.24
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              74.1,
+              302.71
+            ],
+            [
+              75.32,
+              303.93
+            ],
+            [
+              76.76,
+              304.75
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              78.24,
+              305.6
+            ],
+            [
+              79.88,
+              306.06
+            ],
+            [
+              81.58,
+              306.06
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              119.96,
+              306.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              119.96,
+              306.03
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              121.64,
+              306.03
+            ],
+            [
+              123.31,
+              305.58
+            ],
+            [
+              124.75,
+              304.75
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              126.23,
+              303.9
+            ],
+            [
+              127.45,
+              302.68
+            ],
+            [
+              128.27,
+              301.24
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              129.12,
+              299.76
+            ],
+            [
+              129.57,
+              298.12
+            ],
+            [
+              129.57,
+              296.42
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              129.57,
+              296.42
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              129.57,
+              258.04
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              129.57,
+              258.04
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              129.57,
+              256.37
+            ],
+            [
+              129.12,
+              254.69
+            ],
+            [
+              128.3,
+              253.25
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              127.45,
+              251.77
+            ],
+            [
+              126.23,
+              250.55
+            ],
+            [
+              124.78,
+              249.73
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              123.31,
+              248.88
+            ],
+            [
+              121.66,
+              248.43
+            ],
+            [
+              119.96,
+              248.43
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              81.55,
+              248.43
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              81.55,
+              248.43
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              79.88,
+              248.43
+            ],
+            [
+              78.21,
+              248.88
+            ],
+            [
+              76.76,
+              249.7
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              75.29,
+              250.55
+            ],
+            [
+              74.07,
+              251.77
+            ],
+            [
+              73.25,
+              253.22
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              72.4,
+              254.69
+            ],
+            [
+              71.94,
+              256.34
+            ],
+            [
+              71.94,
+              258.04
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              71.97,
+              296.45
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ],
+      "fill": "#1f3864",
+      "line_width": 0.1,
+      "even_odd": true,
+      "clip": [
+        {
+          "op": "m",
+          "points": [
+            [
+              0.0,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              0.0,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "02",
+      "x": 89.63,
+      "y": 269.24,
+      "size": 20.01,
+      "font": "LiberationSans",
+      "font_id": "font-012",
+      "color": "#ffffff",
+      "codes": "0103"
+    },
+    {
+      "type": "text",
+      "text": "什么",
+      "x": 154.66,
+      "y": 283.95,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "0203",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "是",
+      "x": 194.7,
+      "y": 283.95,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "07",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "桌",
+      "x": 214.74,
+      "y": 283.95,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "08",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "面",
+      "x": 234.77,
+      "y": 283.95,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "09",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "智",
+      "x": 254.8,
+      "y": 283.95,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "0A",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "能",
+      "x": 274.84,
+      "y": 283.95,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "0B",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "体",
+      "x": 294.87,
+      "y": 283.95,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "0C",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "定",
+      "x": 154.66,
+      "y": 252.77,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "0D"
+    },
+    {
+      "type": "text",
+      "text": "义",
+      "x": 167.13,
+      "y": 252.77,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "0E"
+    },
+    {
+      "type": "text",
+      "text": "、",
+      "x": 179.61,
+      "y": 252.77,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "0F"
+    },
+    {
+      "type": "text",
+      "text": "构成",
+      "x": 192.09,
+      "y": 252.77,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "1011"
+    },
+    {
+      "type": "text",
+      "text": "与",
+      "x": 217.06,
+      "y": 252.77,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "12"
+    },
+    {
+      "type": "text",
+      "text": "同",
+      "x": 229.54,
+      "y": 252.77,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "13"
+    },
+    {
+      "type": "text",
+      "text": "类方",
+      "x": 242.01,
+      "y": 252.77,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "1415"
+    },
+    {
+      "type": "text",
+      "text": "案",
+      "x": 266.99,
+      "y": 252.77,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "16"
+    },
+    {
+      "type": "text",
+      "text": "的",
+      "x": 279.47,
+      "y": 252.77,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "17"
+    },
+    {
+      "type": "text",
+      "text": "区别",
+      "x": 291.94,
+      "y": 252.77,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "1819"
+    },
+    {
+      "type": "path",
+      "segments": [
+        {
+          "op": "m",
+          "points": [
+            [
+              71.97,
+              217.25
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              71.97,
+              217.25
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              71.97,
+              218.92
+            ],
+            [
+              72.43,
+              220.59
+            ],
+            [
+              73.25,
+              222.04
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              74.1,
+              223.51
+            ],
+            [
+              75.32,
+              224.73
+            ],
+            [
+              76.76,
+              225.55
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              78.24,
+              226.4
+            ],
+            [
+              79.88,
+              226.86
+            ],
+            [
+              81.58,
+              226.86
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              119.96,
+              226.83
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              119.96,
+              226.83
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              121.64,
+              226.83
+            ],
+            [
+              123.31,
+              226.38
+            ],
+            [
+              124.75,
+              225.55
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              126.23,
+              224.7
+            ],
+            [
+              127.45,
+              223.48
+            ],
+            [
+              128.27,
+              222.04
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              129.12,
+              220.56
+            ],
+            [
+              129.57,
+              218.92
+            ],
+            [
+              129.57,
+              217.22
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              129.57,
+              217.22
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              129.57,
+              178.84
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              129.57,
+              178.84
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              129.57,
+              177.17
+            ],
+            [
+              129.12,
+              175.49
+            ],
+            [
+              128.3,
+              174.05
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              127.45,
+              172.57
+            ],
+            [
+              126.23,
+              171.35
+            ],
+            [
+              124.78,
+              170.53
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              123.31,
+              169.68
+            ],
+            [
+              121.66,
+              169.23
+            ],
+            [
+              119.96,
+              169.23
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              81.55,
+              169.23
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              81.55,
+              169.23
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              79.88,
+              169.23
+            ],
+            [
+              78.21,
+              169.68
+            ],
+            [
+              76.76,
+              170.5
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              75.29,
+              171.35
+            ],
+            [
+              74.07,
+              172.57
+            ],
+            [
+              73.25,
+              174.02
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              72.4,
+              175.49
+            ],
+            [
+              71.94,
+              177.14
+            ],
+            [
+              71.94,
+              178.84
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              71.97,
+              217.25
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ],
+      "fill": "#1f3864",
+      "line_width": 0.1,
+      "even_odd": true,
+      "clip": [
+        {
+          "op": "m",
+          "points": [
+            [
+              0.0,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              0.0,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "03",
+      "x": 89.63,
+      "y": 190.04,
+      "size": 20.01,
+      "font": "LiberationSans",
+      "font_id": "font-012",
+      "color": "#ffffff",
+      "codes": "0104"
+    },
+    {
+      "type": "text",
+      "text": "它如",
+      "x": 154.66,
+      "y": 204.75,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "060D",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "何",
+      "x": 194.7,
+      "y": 204.75,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "0E",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "工",
+      "x": 214.74,
+      "y": 204.75,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "0F",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "作",
+      "x": 234.77,
+      "y": 204.75,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "10",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "五",
+      "x": 154.66,
+      "y": 173.57,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "1A"
+    },
+    {
+      "type": "text",
+      "text": "层",
+      "x": 167.13,
+      "y": 173.57,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "1B"
+    },
+    {
+      "type": "text",
+      "text": "架",
+      "x": 179.61,
+      "y": 173.57,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "1C"
+    },
+    {
+      "type": "text",
+      "text": "构与",
+      "x": 192.09,
+      "y": 173.57,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "1012"
+    },
+    {
+      "type": "text",
+      "text": "一",
+      "x": 217.06,
+      "y": 173.57,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "1D"
+    },
+    {
+      "type": "text",
+      "text": "次",
+      "x": 229.54,
+      "y": 173.57,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "1E"
+    },
+    {
+      "type": "text",
+      "text": "任务",
+      "x": 242.01,
+      "y": 173.57,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "1F20"
+    },
+    {
+      "type": "text",
+      "text": "的",
+      "x": 266.99,
+      "y": 173.57,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "17"
+    },
+    {
+      "type": "text",
+      "text": "完",
+      "x": 279.47,
+      "y": 173.57,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "21"
+    },
+    {
+      "type": "text",
+      "text": "整流",
+      "x": 291.94,
+      "y": 173.57,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "2223"
+    },
+    {
+      "type": "text",
+      "text": "程",
+      "x": 316.92,
+      "y": 173.57,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "24"
+    },
+    {
+      "type": "path",
+      "segments": [
+        {
+          "op": "m",
+          "points": [
+            [
+              71.97,
+              138.05
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              71.97,
+              138.05
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              71.97,
+              139.72
+            ],
+            [
+              72.43,
+              141.39
+            ],
+            [
+              73.25,
+              142.84
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              74.1,
+              144.31
+            ],
+            [
+              75.32,
+              145.53
+            ],
+            [
+              76.76,
+              146.35
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              78.24,
+              147.2
+            ],
+            [
+              79.88,
+              147.66
+            ],
+            [
+              81.58,
+              147.66
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              119.96,
+              147.63
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              119.96,
+              147.63
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              121.64,
+              147.63
+            ],
+            [
+              123.31,
+              147.18
+            ],
+            [
+              124.75,
+              146.35
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              126.23,
+              145.5
+            ],
+            [
+              127.45,
+              144.28
+            ],
+            [
+              128.27,
+              142.84
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              129.12,
+              141.36
+            ],
+            [
+              129.57,
+              139.72
+            ],
+            [
+              129.57,
+              138.02
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              129.57,
+              138.02
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              129.57,
+              99.64
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              129.57,
+              99.64
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              129.57,
+              97.97
+            ],
+            [
+              129.12,
+              96.29
+            ],
+            [
+              128.3,
+              94.85
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              127.45,
+              93.37
+            ],
+            [
+              126.23,
+              92.15
+            ],
+            [
+              124.78,
+              91.33
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              123.31,
+              90.48
+            ],
+            [
+              121.66,
+              90.03
+            ],
+            [
+              119.96,
+              90.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              81.55,
+              90.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              81.55,
+              90.03
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              79.88,
+              90.03
+            ],
+            [
+              78.21,
+              90.48
+            ],
+            [
+              76.76,
+              91.3
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              75.29,
+              92.15
+            ],
+            [
+              74.07,
+              93.37
+            ],
+            [
+              73.25,
+              94.82
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              72.4,
+              96.29
+            ],
+            [
+              71.94,
+              97.94
+            ],
+            [
+              71.94,
+              99.64
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              71.97,
+              138.05
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ],
+      "fill": "#1f3864",
+      "line_width": 0.1,
+      "even_odd": true,
+      "clip": [
+        {
+          "op": "m",
+          "points": [
+            [
+              0.0,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              0.0,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "04",
+      "x": 89.63,
+      "y": 110.84,
+      "size": 20.01,
+      "font": "LiberationSans",
+      "font_id": "font-012",
+      "color": "#ffffff",
+      "codes": "0105"
+    },
+    {
+      "type": "text",
+      "text": "价值",
+      "x": 154.66,
+      "y": 125.55,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "1112",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "与",
+      "x": 194.7,
+      "y": 125.55,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "13",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "边",
+      "x": 214.74,
+      "y": 125.55,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "14",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "界",
+      "x": 234.77,
+      "y": 125.55,
+      "size": 20.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-013",
+      "color": "#1f3864",
+      "codes": "15",
+      "render_mode": 2,
+      "stroke_color": "#1f3864"
+    },
+    {
+      "type": "text",
+      "text": "落",
+      "x": 154.66,
+      "y": 94.37,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "25"
+    },
+    {
+      "type": "text",
+      "text": "地",
+      "x": 167.13,
+      "y": 94.37,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "26"
+    },
+    {
+      "type": "text",
+      "text": "场",
+      "x": 179.61,
+      "y": 94.37,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "27"
+    },
+    {
+      "type": "text",
+      "text": "景、",
+      "x": 192.09,
+      "y": 94.37,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "280F"
+    },
+    {
+      "type": "text",
+      "text": "风",
+      "x": 217.06,
+      "y": 94.37,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "29"
+    },
+    {
+      "type": "text",
+      "text": "险",
+      "x": 229.54,
+      "y": 94.37,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "2A"
+    },
+    {
+      "type": "text",
+      "text": "约束",
+      "x": 242.01,
+      "y": 94.37,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "2B2C"
+    },
+    {
+      "type": "text",
+      "text": "与",
+      "x": 266.99,
+      "y": 94.37,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "12"
+    },
+    {
+      "type": "text",
+      "text": "演",
+      "x": 279.47,
+      "y": 94.37,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "2D"
+    },
+    {
+      "type": "text",
+      "text": "进方",
+      "x": 291.94,
+      "y": 94.37,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "2E15"
+    },
+    {
+      "type": "text",
+      "text": "向",
+      "x": 316.92,
+      "y": 94.37,
+      "size": 12.5,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-014",
+      "color": "#6b7684",
+      "codes": "2F"
+    },
+    {
+      "type": "path",
+      "segments": [
+        {
+          "op": "m",
+          "points": [
+            [
+              698.37,
+              354.05
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              698.37,
+              354.05
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              698.37,
+              360.17
+            ],
+            [
+              699.99,
+              366.15
+            ],
+            [
+              703.02,
+              371.45
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              706.08,
+              376.72
+            ],
+            [
+              710.48,
+              381.12
+            ],
+            [
+              715.78,
+              384.18
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              721.05,
+              387.24
+            ],
+            [
+              727.06,
+              388.86
+            ],
+            [
+              733.18,
+              388.86
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              872.36,
+              388.83
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              872.36,
+              388.83
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              878.49,
+              388.83
+            ],
+            [
+              884.47,
+              387.21
+            ],
+            [
+              889.77,
+              384.18
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              895.04,
+              381.12
+            ],
+            [
+              899.43,
+              376.72
+            ],
+            [
+              902.49,
+              371.42
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              905.56,
+              366.15
+            ],
+            [
+              907.17,
+              360.14
+            ],
+            [
+              907.17,
+              354.02
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              907.17,
+              354.02
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              907.17,
+              121.24
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              907.17,
+              121.24
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              907.17,
+              115.12
+            ],
+            [
+              905.56,
+              109.13
+            ],
+            [
+              902.52,
+              103.83
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              899.46,
+              98.56
+            ],
+            [
+              895.07,
+              94.17
+            ],
+            [
+              889.77,
+              91.11
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              884.49,
+              88.04
+            ],
+            [
+              878.49,
+              86.43
+            ],
+            [
+              872.36,
+              86.43
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              733.15,
+              86.43
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              733.15,
+              86.43
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              727.03,
+              86.43
+            ],
+            [
+              721.05,
+              88.04
+            ],
+            [
+              715.75,
+              91.08
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              710.48,
+              94.14
+            ],
+            [
+              706.08,
+              98.53
+            ],
+            [
+              703.02,
+              103.83
+            ]
+          ]
+        },
+        {
+          "op": "c",
+          "points": [
+            [
+              699.96,
+              109.11
+            ],
+            [
+              698.34,
+              115.12
+            ],
+            [
+              698.34,
+              121.24
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              698.37,
+              354.05
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ],
+      "fill": "#edf2fa",
+      "line_width": 0.1,
+      "even_odd": true,
+      "clip": [
+        {
+          "op": "m",
+          "points": [
+            [
+              0.0,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              0.03
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              959.95,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "l",
+          "points": [
+            [
+              0.0,
+              540.0
+            ]
+          ]
+        },
+        {
+          "op": "h"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": "一",
+      "x": 730.69,
+      "y": 269.63,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "0E"
+    },
+    {
+      "type": "text",
+      "text": "句",
+      "x": 743.65,
+      "y": 269.63,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "12"
+    },
+    {
+      "type": "text",
+      "text": "话",
+      "x": 756.6,
+      "y": 269.63,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "13"
+    },
+    {
+      "type": "text",
+      "text": "理",
+      "x": 769.56,
+      "y": 269.63,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "14"
+    },
+    {
+      "type": "text",
+      "text": "解",
+      "x": 782.52,
+      "y": 269.63,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "15"
+    },
+    {
+      "type": "text",
+      "text": "桌",
+      "x": 730.69,
+      "y": 238.39,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "16"
+    },
+    {
+      "type": "text",
+      "text": "面",
+      "x": 743.65,
+      "y": 238.39,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "17"
+    },
+    {
+      "type": "text",
+      "text": "智",
+      "x": 756.6,
+      "y": 238.39,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "18"
+    },
+    {
+      "type": "text",
+      "text": "能",
+      "x": 769.56,
+      "y": 238.39,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "19"
+    },
+    {
+      "type": "text",
+      "text": "体",
+      "x": 782.52,
+      "y": 238.39,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "1A"
+    },
+    {
+      "type": "text",
+      "text": "=",
+      "x": 802.91,
+      "y": 238.39,
+      "size": 13.01,
+      "font": "LiberationSans",
+      "font_id": "font-009",
+      "color": "#2e5496",
+      "codes": "09"
+    },
+    {
+      "type": "text",
+      "text": "大",
+      "x": 730.69,
+      "y": 222.78,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "1C"
+    },
+    {
+      "type": "text",
+      "text": "模",
+      "x": 743.65,
+      "y": 222.78,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "1D"
+    },
+    {
+      "type": "text",
+      "text": "型",
+      "x": 756.6,
+      "y": 222.78,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "1E"
+    },
+    {
+      "type": "text",
+      "text": "的",
+      "x": 769.56,
+      "y": 222.78,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "1F"
+    },
+    {
+      "type": "text",
+      "text": "「",
+      "x": 782.52,
+      "y": 222.78,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "20"
+    },
+    {
+      "type": "text",
+      "text": "大",
+      "x": 795.52,
+      "y": 222.78,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "1C"
+    },
+    {
+      "type": "text",
+      "text": "脑",
+      "x": 808.48,
+      "y": 222.78,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "21"
+    },
+    {
+      "type": "text",
+      "text": "」",
+      "x": 821.44,
+      "y": 222.78,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "22"
+    },
+    {
+      "type": "text",
+      "text": "+",
+      "x": 730.69,
+      "y": 207.16,
+      "size": 13.01,
+      "font": "LiberationSans",
+      "font_id": "font-009",
+      "color": "#2e5496",
+      "codes": "0A"
+    },
+    {
+      "type": "text",
+      "text": "本",
+      "x": 744.97,
+      "y": 207.16,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "23"
+    },
+    {
+      "type": "text",
+      "text": "地",
+      "x": 757.93,
+      "y": 207.16,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "24"
+    },
+    {
+      "type": "text",
+      "text": "工",
+      "x": 770.89,
+      "y": 207.16,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "25"
+    },
+    {
+      "type": "text",
+      "text": "具",
+      "x": 783.85,
+      "y": 207.16,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "26"
+    },
+    {
+      "type": "text",
+      "text": "的",
+      "x": 796.81,
+      "y": 207.16,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "1F"
+    },
+    {
+      "type": "text",
+      "text": "「",
+      "x": 809.81,
+      "y": 207.16,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "20"
+    },
+    {
+      "type": "text",
+      "text": "手",
+      "x": 822.77,
+      "y": 207.16,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "27"
+    },
+    {
+      "type": "text",
+      "text": "」",
+      "x": 835.72,
+      "y": 207.16,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "22"
+    },
+    {
+      "type": "text",
+      "text": "+",
+      "x": 730.69,
+      "y": 191.54,
+      "size": 13.01,
+      "font": "LiberationSans",
+      "font_id": "font-009",
+      "color": "#2e5496",
+      "codes": "0A"
+    },
+    {
+      "type": "text",
+      "text": "记",
+      "x": 744.97,
+      "y": 191.54,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "07"
+    },
+    {
+      "type": "text",
+      "text": "忆",
+      "x": 757.93,
+      "y": 191.54,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "08"
+    },
+    {
+      "type": "text",
+      "text": "与",
+      "x": 770.89,
+      "y": 191.54,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "28"
+    },
+    {
+      "type": "text",
+      "text": "权",
+      "x": 783.85,
+      "y": 191.54,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "29"
+    },
+    {
+      "type": "text",
+      "text": "限",
+      "x": 796.81,
+      "y": 191.54,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "2A"
+    },
+    {
+      "type": "text",
+      "text": "的",
+      "x": 809.81,
+      "y": 191.54,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "1F"
+    },
+    {
+      "type": "text",
+      "text": "「",
+      "x": 822.77,
+      "y": 191.54,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "20"
+    },
+    {
+      "type": "text",
+      "text": "边",
+      "x": 835.72,
+      "y": 191.54,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "2B"
+    },
+    {
+      "type": "text",
+      "text": "界",
+      "x": 848.68,
+      "y": 191.54,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "2C"
+    },
+    {
+      "type": "text",
+      "text": "」",
+      "x": 861.64,
+      "y": 191.54,
+      "size": 13.01,
+      "font": "HiraginoSansGB-W3",
+      "font_id": "font-007",
+      "color": "#2e5496",
+      "codes": "22"
+    }
+  ]
+}

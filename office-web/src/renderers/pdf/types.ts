@@ -189,7 +189,8 @@ export function pdfCssFont(font?: string): string {
   return `'${f}', sans-serif`
 }
 
-/// 页面可见区（打印态）：crop 优先，其次 mediabox，缺省整页（与 json2pdf render 一致）
+/// 页面可见区（打印态）：crop 优先，其次 mediabox，再次页面自带 width/height，
+/// 最后顶层 page_size（与 json2pdf render 一致）
 export function pdfViewport(
   page: PdfPage,
   pageSize: PdfPageSize,
@@ -197,7 +198,14 @@ export function pdfViewport(
   if (page.crop) return { vx0: page.crop[0], vy0: page.crop[1], vw: page.crop[2] - page.crop[0], vh: page.crop[3] - page.crop[1] }
   if (page.mediabox)
     return { vx0: page.mediabox[0], vy0: page.mediabox[1], vw: page.mediabox[2] - page.mediabox[0], vh: page.mediabox[3] - page.mediabox[1] }
-  return { vx0: 0, vy0: 0, vw: pageSize.width, vh: pageSize.height }
+  // 页面自带尺寸优先于顶层 page_size：顶层值可能是默认 A4（旧版 unpack 不推导），
+  // 横版文档会拿到竖版画布、内容全错位
+  return {
+    vx0: 0,
+    vy0: 0,
+    vw: page.width ?? pageSize.width,
+    vh: page.height ?? pageSize.height,
+  }
 }
 
 /** 渲染项：配对后的元素（Tr≥4 裁剪文本与后随实心矩形合并为「透过字形填充」） */

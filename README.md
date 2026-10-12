@@ -213,10 +213,11 @@ json2xlsx convert old.xls --engine rust      # 强制纯 Rust
 astorm-office/
 ├── Cargo.toml            # workspace 根（统一依赖版本与 lint 策略）
 ├── office-core/          # 共享基础层（OPC 读写 / soffice 转换引擎 / Output 契约）
-├── ai-word/              # json2docx 库 + cli/ + skill/
-├── ai-excel/             # json2xlsx 库 + cli/ + skill/ + tests/corpus 真实语料
-├── ai-ppt/               # json2pptx 库 + cli/ + skill/ + web/ + web-server/
-├── ai-pdf/               # json2pdf 库 + cli/ + skill/ + docs/ 评估数据
+├── ai-word/              # json2docx 库 + cli/
+├── ai-excel/             # json2xlsx 库 + cli/ + tests/corpus 真实语料
+├── ai-ppt/               # json2pptx 库 + cli/ + web/ + web-server/
+├── ai-pdf/               # json2pdf 库 + cli/ + docs/ 评估数据
+├── skill/                # agent 技能（融合形态）：总纲 SKILL.md + word/excel/ppt/pdf 四本分册，与 bin 同包分发
 ├── office-web/           # 四格式预览组件库（Vue3 lib）+ demo 演示站 + examples/
 ├── docs/                 # cli-conventions.md（统一契约）/ legacy-formats.md（旧格式选型与实测）
 └── .github/workflows/    # CI：fmt / clippy / test / schema 一致性 / web 构建 / Pages 部署
@@ -263,7 +264,7 @@ office-kit-<version>/
 
 - 提交前跑 `cargo fmt --all && cargo clippy --workspace --all-targets -- -D warnings && cargo test`；
 - 修改数据模型后重新生成 schema：
-  `cargo run -p json2docx-cli -- schema --json > ai-word/skill/references/schema.json`（四个项目同理），
+  `cargo run -p json2docx-cli -- schema --json > skill/word/references/schema.json`（四个分册同理：word/excel/ppt/pdf），
   CI 校验一致性；
 - 各项目文档以 `--help` 与代码为准；README / `skill/references/cli.md` 随 CLI 变更同步更新。
 

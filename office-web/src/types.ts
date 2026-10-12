@@ -118,8 +118,21 @@ export interface XlsxWorkbook {
 
 // ------------------------------------------------------------------ docx ---
 
+export interface DocxRunImage {
+  src: string
+  width?: number | null
+  height?: number | null
+  /** 环绕：inline（无此字段）/ none（浮动覆盖）… */
+  wrap?: string | null
+  /** 浮动位置（pt）：x 相对栏内容左缘，y 相对所属段落顶 */
+  x?: number | null
+  y?: number | null
+}
+
 export interface DocxRun {
   text: string
+  /** run 内嵌图片（含锚浮图）：渲染时随文字走，锚浮图按 x/y 绝对定位 */
+  image?: DocxRunImage
   bold?: boolean
   italic?: boolean
   underline?: boolean
@@ -159,6 +172,11 @@ export interface DocxParagraphBlock extends DocxBlockBase {
   border?: string | null
   keep_next?: boolean | null
   page_break_before?: boolean | null
+  /** 行距规则 exact/atLeast（含磅值时用 line_pt） */
+  line_pt?: number | null
+  line_rule?: string | null
+  /** 段落标记的东亚语言（w:lang w:eastAsia）：西文标签时按西文行距排版 */
+  lang_ea?: string | null
 }
 
 export interface DocxHeadingBlock extends DocxBlockBase {
@@ -274,10 +292,22 @@ export type DocxBlock =
   | (DocxBlockBase & Record<string, unknown>)
 
 export interface DocxSection {
-  page?: { size?: string | null; orientation?: string | null; margins?: Record<string, number> | null }
+  page?: {
+    size?: string | null
+    orientation?: string | null
+    margins?: Record<string, number> | null
+    /** 栏数（多栏排版） */
+    columns?: number | null
+    /** 栏间距（pt） */
+    column_space?: number | null
+    /** 显式各栏宽（pt，w:col 定义；缺省等宽） */
+    column_widths?: number[] | null
+  }
   header?: string | null
   footer_format?: string | null
   footer_page_number?: boolean | null
+  /** 分节符类型：continuous / nextPage / evenPage / oddPage（w:type；continuous 不分页） */
+  section_type?: string | null
 }
 
 export interface DocxPart {
@@ -287,23 +317,48 @@ export interface DocxPart {
 }
 
 export interface DocxStyle {
+  /** 模型里命名样式用 font_family/font_size（东亚洲字体另见 east_asia_font）；font/size 兼容旧产物 */
+  font_family?: string | null
+  font_size?: number | null
+  east_asia_font?: string | null
+  cs_font?: string | null
   font?: string | null
   size?: number | null
   bold?: boolean | null
   italic?: boolean | null
   color?: string | null
   align?: string | null
+  /** 行距倍数（lineRule=auto，Word 的「1.5 倍行距」即 1.5） */
   line_spacing?: number | null
+  /** 固定行距（lineRule 非 auto）：磅值 + exact/atLeast */
+  line_pt?: number | null
+  line_rule?: string | null
   space_before?: number | null
   space_after?: number | null
   first_line_indent?: number | null
   indent?: number | null
   based_on?: string | null
+  /** 东亚语言标签（w:lang w:eastAsia）：en-US 等西文标签时按西文行距排版 */
+  lang_ea?: string | null
+}
+
+/** 文档默认样式（docDefaults）：块级样式缺失时的基准排版 */
+export interface DocxDefaults {
+  font_family?: string | null
+  east_asia_font?: string | null
+  font_size?: number | null
+  line_spacing?: number | null
+  space_before?: number | null
+  space_after?: number | null
+  /** 东亚语言标签（w:lang w:eastAsia）：西文标签时整篇按西文行距排版 */
+  lang_ea?: string | null
 }
 
 export interface DocxDocument {
   parts: DocxPart[]
   styles?: Record<string, DocxStyle>
+  /** 文档默认样式（字号/行距/字体）：预览页面的基准排版 */
+  defaults?: DocxDefaults | null
   page?: { size?: string | null; orientation?: string | null; margins?: Record<string, number> | null }
   theme?: unknown
   template?: string | null

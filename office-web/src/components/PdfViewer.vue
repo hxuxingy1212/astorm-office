@@ -24,6 +24,12 @@ const props = withDefaults(
     pageIndex?: number
     /** 显示缩略图导航（默认开） */
     showThumbnails?: boolean
+    /** 受控缩放:相对「适配可视区基准」的用户倍率。提供即受控——隐藏内置缩放控件、
+     *  缩放只跟此值走;不传(undefined)保持自主模式(内置滑杆可用)。 */
+    zoom?: number
+    /** 拾取模式:仅 true 时启用交互层——元素 hover 高亮/路径卡/选中事件;
+     *  false(默认)为纯只读观感(无高亮、无卡片、不发 select)。 */
+    pickMode?: boolean
   }>(),
   { pageIndex: 0, showThumbnails: true },
 )
@@ -32,6 +38,8 @@ const emit = defineEmits<{
   (e: 'select', path: string, info?: SelectInfo): void
   (e: 'hover', path: string | null): void
   (e: 'page-change', index: number): void
+  /** 缩放汇报(scale 变化即发):scale=绝对倍率(展示用百分比),fitScale=适配基准(宿主换算) */
+  (e: 'zoom-change', v: { scale: number; fitScale: number }): void
 }>()
 
 provideMediaResolver(
@@ -58,8 +66,9 @@ const pageHpt = computed(() => view.value.vh)
 const vx0 = computed(() => view.value.vx0)
 const vy0 = computed(() => view.value.vy0)
 
-/** 用户缩放倍率（相对"适配宽度"的倍率） */
-const zoom = ref(1)
+/** 用户缩放倍率（相对"适配宽度"的倍率）:宿主传 zoom 即受控跟随,否则用内部值(内置滑杆) */
+const selfZoom = ref(1)
+const zoom = computed(() => props.zoom ?? selfZoom.value)
 
 const wrapRef = ref<HTMLElement | null>(null)
 const wrapW = ref(0)
@@ -73,6 +82,7 @@ const fitScale = computed(() => {
   return Math.min(1, availW / pageW.value, availH / pageH.value)
 })
 const scale = computed(() => Math.max(0.05, fitScale.value * zoom.value))
+watch(scale, (s) => emit('zoom-change', { scale: s, fitScale: fitScale.value }), { immediate: true })
 
 const stageBoxStyle = computed(() => ({
   width: `${Math.round(pageW.value * scale.value)}px`,
@@ -162,6 +172,7 @@ function elementAtSeg(seg: string): PdfElement | undefined {
 }
 
 function onHover(ev: MouseEvent, seg: string) {
+  if (!props.pickMode) return
   const path = `/page[${active.value + 1}]${seg}`
   const el = elementAtSeg(seg)
   hover.enter(
@@ -182,6 +193,7 @@ function onLeave() {
 }
 
 function onSelect(seg: string) {
+  if (!props.pickMode) return
   const path = `/page[${active.value + 1}]${seg}`
   const el = elementAtSeg(seg)
   emit('select', path, {
@@ -290,7 +302,7 @@ defineExpose({ hover, go })
         <span class="ov-page-no">{{ active + 1 }} / {{ doc.pages.length }}</span>
         <button class="ov-nav" :disabled="active >= doc.pages.length - 1" @click="go(1)">›</button>
         <span class="ov-spacer"></span>
-        <label class="ov-zoom">
+        <label v-if="props.zoom === undefined" class="ov-zoom">
           缩放
           <input v-model.number="zoom" type="range" min="0.5" max="2.2" step="0.05" />
           <span>{{ Math.round(scale * 100) }}%</span>

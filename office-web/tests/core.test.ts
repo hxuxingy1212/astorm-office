@@ -27,6 +27,13 @@ import {
   canvasScale,
   refToPos,
 } from '../src/renderers/xlsx/virtual'
+import { paginateBlocks } from '../src/renderers/docx/paginate'
+import {
+  layoutParagraph,
+  spansOf,
+  type StyledChar,
+  type MeasureText,
+} from '../src/renderers/docx/linebreak'
 
 let failed = 0
 function eq<T>(actual: T, expected: T, label: string) {
@@ -281,6 +288,299 @@ async function streamEquality() {
   eq(bb[0] < 72 && bb[3] <= 792 && bb[1] < 720, true, 'pdf 文本包围盒在基线上方')
   eq(pdfElementContent(el), 'hi', 'pdf 内容摘要')
   eq(pdfElementContent({ type: 'image', src: 'media/x.png' }), 'media/x.png', 'pdf 图片摘要')
+}
+
+// ---- docx：物理分页（硬分页符 + 按度量高度的软分页） ----
+{
+  /** 造块：top/bottom 为块自身范围（相对分片内容区顶端，自然 px）；分页符传 null */
+  const b = (
+    top: number | null,
+    h = 40,
+    extra: { breakBefore?: boolean; breakHere?: boolean } = {},
+  ) => ({ top, bottom: top === null ? null : top + h, ...extra })
+  const brk = { top: null, bottom: null, breakHere: true }
+  const span = (r: { from: number; to: number }) => [r.from, r.to]
+  const range = (r: { top: number; bottom: number }) => [r.top, r.bottom]
+
+  // 硬分页：分页符把 5 个块切成 3 段
+  {
+    const pages = paginateBlocks(
+      [b(0, 100), b(100, 100), brk, b(200, 50), brk, b(250, 20)],
+      1000,
+      270,
+    )
+    eq(pages.map(span), [[0, 2], [3, 4], [5, 6]], '硬分页：分页符切三段')
+    eq(pages.map(range), [[0, 200], [200, 250], [250, 270]], '硬分页：内容范围随分段')
+  }
+
+  // 软分页：页高 100、块高 40 —— 第 3 块（80→120）放不下时另起一页
+  {
+    const pages = paginateBlocks([b(0), b(40), b(80), b(120), b(160)], 100, 200)
+    eq(pages.map(span), [[0, 2], [2, 4], [4, 5]], '软分页：超出页高另起一页')
+    eq(pages[1].top, 80, '软分页：续页顶端 = 该块顶端')
+    eq(pages[0].bottom, 80, '软分页：底端 = 末块自身底端')
+  }
+
+  // 段前分页（page_break_before）与首块不制造空页
+  {
+    const pages = paginateBlocks([b(0, 40, { breakBefore: true }), b(40), b(80, 20, { breakBefore: true })], 1000, 100)
+    eq(pages.map(span), [[0, 2], [2, 3]], '段前分页：切页且首块不产生空页')
+  }
+
+  // 单块超过页高：独占一页（不裁切，页面随后按内容长高）
+  {
+    const pages = paginateBlocks([b(0), b(40), b(80, 620)], 100, 700)
+    eq(pages.map(span), [[0, 2], [2, 3]], '超高块：独占一页')
+    eq(pages[1].bottom, 700, '超高块：底端取块自身底端')
+  }
+
+  // 未度量（pageH = Infinity / 高度全空）：只做硬分页
+  {
+    const pages = paginateBlocks([b(null), b(null), brk, b(null)], Number.POSITIVE_INFINITY, 0)
+    eq(pages.map(span), [[0, 2], [3, 4]], '未度量：仅按分页符切')
+  }
+
+  // 尾部分页符不留空页；全分页符的分片仍给出一页可渲染
+  {
+    eq(paginateBlocks([b(0), brk], 1000, 100).map(span), [[0, 1]], '尾部分页符不留空页')
+    const empty = paginateBlocks([brk], 1000, 0)
+    eq(empty.length, 1, '全分页符：仍给出一页')
+    eq(span(empty[0]), [0, 0], '全分页符：空页区间')
+  }
+
+  // 首页已占用高（连续分节：正文接在分栏带等内容之后续排）
+  {
+    // 两块共 90px、页高 100：无占用时整段一页；首页已占 45 时第二块放不下 → 另起一页
+    const flow = [b(0, 60), b(60, 30)]
+    eq(paginateBlocks(flow, 100, 90).map(span), [[0, 2]], '无占用：整段一页')
+    const pages = paginateBlocks(flow, 100, 90, 45)
+    eq(pages.map(span), [[0, 1], [1, 2]], '首页已占用：按剩余高度分页')
+    eq(pages[1].top, 60, '首页已占用：续页顶端 = 该块顶端')
+  }
+
+  // 段前分页后必须恢复整页容量（占用高只作用于首页）
+  {
+    // 页高 200、首页已占 160：段前分页换页后，新页应能装下 190px（块 1+2）
+    const pages = paginateBlocks(
+      [b(0, 40), b(40, 40, { breakBefore: true }), b(80, 150), b(230, 20)],
+      200,
+      250,
+      160,
+    )
+    eq(pages.map(span), [[0, 1], [1, 3], [3, 4]], '段前分页：换页后按整页容量续排')
+    eq(pages[1].top, 40, '段前分页：新页顶端 = 该块顶端')
+  }
+
+  // 与下段同页（keepNext）：页底的标题要一起带到下一页
+  {
+    const kn = (
+      top: number,
+      h: number,
+      keepWithNext = false,
+    ): { top: number; bottom: number; keepWithNext?: boolean } => ({
+      top,
+      bottom: top + h,
+      ...(keepWithNext ? { keepWithNext: true } : {}),
+    })
+    // 页高 100：a(0,40) + heading(40,20,keepNext) + body(60,90) —— body 溢出时标题一起下移
+    const pages = paginateBlocks([kn(0, 40), kn(40, 20, true), kn(60, 90)], 100, 150)
+    eq(pages.map(span), [[0, 1], [1, 3]], 'keepNext：页底标题随下段换页')
+    eq(pages[1].top, 40, 'keepNext：新页顶端 = 标题顶端')
+    // keepNext 链顶到页首：两块必须同页，页面随之撑高（不拆散）
+    const allKeep = paginateBlocks([kn(0, 40, true), kn(40, 90, true)], 100, 130)
+    eq(allKeep.map(span), [[0, 2]], 'keepNext：链顶到页首时页面撑高')
+  }
+
+  // 段内分页（孤行控制）：段落可在行边界切开，首尾各留 ≥2 行
+  {
+    /** 造可切段落：每行 10px、共 n 行 */
+    const para = (top: number, n: number) => ({
+      top,
+      bottom: top + n * 10,
+      lineTops: Array.from({ length: n }, (_, k) => k * 10),
+    })
+    // 页高 100：块 0 占 0..40，段落 8 行（40..120）→ 本页放 6 行，余 2 行续页
+    const pages = paginateBlocks([b(0, 40), para(40, 8)], 100, 120)
+    eq(pages.map(span), [[0, 2], [1, 2]], '段内分页：段落切成两页（续页仍标该块）')
+    eq(pages.length, 2, '段内分页：共两页')
+    eq(pages[0].bottom, 100, '段内分页：首页底端 = 第 6 行底端')
+    eq(pages[0].trailKeep, 6, '段内分页：首页显示前 6 行')
+    eq(pages[1].top, 100, '段内分页：续页顶端 = 第 7 行顶端')
+    eq(pages[1].leadSkip, 6, '段内分页：续页从第 7 行开始')
+    eq(pages[1].bottom, 120, '段内分页：续页底端 = 段落底端')
+
+    // 孤行控制：只剩 1 行放得下 → 不切，整段挪到下一页
+    const widow = paginateBlocks([b(0, 85), para(85, 4)], 100, 125)
+    eq(widow.map(span), [[0, 1], [1, 2]], '孤行控制：本页剩 1 行时整段下移')
+    eq(widow[1].leadSkip, undefined, '孤行控制：续页从块首行开始')
+
+    // 续段仍超页：一段跨三页
+    const long = paginateBlocks([para(0, 25)], 100, 250)
+    eq(long.map(span), [[0, 1], [0, 1], [0, 1]], '长段：跨三页')
+    eq(long.map((r) => r.trailKeep), [10, 20, undefined], '长段：逐页切到第 10/20 行')
+    eq(long[1].leadSkip, 10, '长段：第二页从第 11 行开始')
+    eq(long[1].top, 100, '长段：第二页顶端 = 第 11 行顶端')
+  }
+
+  // 表格跨页（Word 行为）：按行切开、续排片重复表头行
+  {
+    /** 造可切表格：每行 20px；headerRows 为表头行数 */
+    const table = (top: number, rows: number, headerRows = 0) => ({
+      top,
+      bottom: top + rows * 20,
+      rowBoxes: Array.from({ length: rows }, (_, k): [number, number] => [k * 20, k * 20 + 20]),
+      headerRows,
+    })
+    // 无表头：8 行 160px、页高 100 → 首页 5 行，余 3 行续页
+    const plain = paginateBlocks([table(0, 8)], 100, 160)
+    eq(plain.map(span), [[0, 1], [0, 1]], '表格分页：按行切成两页（续页仍标该块）')
+    eq(plain[0].bottom, 100, '表格分页：首页底端 = 第 5 行底端')
+    eq(plain[0].trailRows, 5, '表格分页：首页放到第 5 行')
+    eq(plain[1].leadRows, 5, '表格分页：续页从第 6 行开始')
+    eq(plain[1].top, 100, '表格分页：续页顶端 = 第 6 行顶端')
+    eq(plain[1].bottom, 160, '表格分页：续页底端 = 表尾')
+
+    // 带 1 行表头：续排片（表头 20 + 3 行 60 = 80）→ 续页顶端上抬一个表头高
+    const head = paginateBlocks([table(0, 8, 1)], 100, 160)
+    eq(head.map(span), [[0, 1], [0, 1]], '表格分页：带表头切成两页')
+    eq(head[0].trailRows, 5, '表格分页：表头连 4 行数据行留在首页')
+    eq(head[1].leadRows, 5, '表格分页：续页从第 6 行（数据行）续排')
+    eq(head[1].top, 80, '表格分页：续页顶端上抬表头高（重复表头占位）')
+    eq(head[1].bottom, 160, '表格分页：续页底端仍为表尾')
+
+    // 前方有内容：剩余高度放得下表头 + 至少 1 行数据行 → 就地在页底续排
+    const after = paginateBlocks([b(0, 40), table(40, 5, 1)], 100, 140)
+    eq(after.map(span), [[0, 2], [1, 2]], '表格分页：页底放得下就就地在页底续排')
+    eq(after[0].trailRows, 3, '表格分页：首页放表头 + 2 行')
+    eq(after[1].top, 80, '表格分页：续页顶端 = 表头 + 剩余行')
+
+    // 连表头都放不下（剩余 15px）→ 整表挪到下一页
+    const moved = paginateBlocks([b(0, 85), table(85, 5, 1)], 100, 185)
+    eq(moved.map(span), [[0, 1], [1, 2]], '表格分页：放不下表头时整表下移')
+    eq(moved[0].trailRows, undefined, '表格分页：整表下移时不切行')
+    eq(moved[1].bottom, 185, '表格分页：整表落在下一页')
+
+    // 单行比页还高（页首）：强行放行、页面长高，不死循环
+    const tall = { top: 0, bottom: 360, rowBoxes: [[0, 120], [120, 240], [240, 360]] as [number, number][], headerRows: 1 }
+    const grown = paginateBlocks([tall, b(360, 20)], 100, 380)
+    eq(grown.length, 3, '表格分页：超页高的行强行放行 → 三页收口')
+    eq(grown[0].bottom, 240, '表格分页：页面按放下的行长高')
+    eq(grown[0].trailRows, 2, '表格分页：一次放下表头 + 1 行')
+    eq(grown[2].bottom, 380, '表格分页：末页收在流末尾')
+  }
+
+  // 表格行内切分（Word 允许一行跨页：行内文本按行接着排）
+  {
+    /** 造可切到行内的表格：行盒/内容盒相对块顶端（与度量一致），top/bottom 为自然坐标 */
+    const rowsTable = (
+      absTop: number,
+      spec: Array<{ lines: number; lineH?: number; pad?: number }>,
+      headerRows = 0,
+    ) => {
+      const rowBoxes: [number, number][] = []
+      const rowContent: [number, number][] = []
+      const rowLines: number[] = []
+      let y = 0
+      for (const r of spec) {
+        const pad = r.pad ?? 0
+        const lineH = r.lineH ?? 20
+        const h = r.lines * lineH + pad * 2
+        rowBoxes.push([y, y + h])
+        rowContent.push([y + pad, y + h - pad])
+        rowLines.push(r.lines)
+        y += h
+      }
+      return { top: absTop, bottom: absTop + y, rowBoxes, rowContent, rowLines, headerRows }
+    }
+
+    // 表头 1 行 + 一行 3 行文本：页底剩 60px（表头 20 + 2 行 40）→ 行内切在第 2 行
+    const cut = paginateBlocks([b(0, 40), rowsTable(40, [{ lines: 1 }, { lines: 3 }], 1)], 100, 120)
+    eq(cut.map(span), [[0, 2], [1, 2]], '行内切：一行跨页（续页仍标该块）')
+    eq(cut[0].trailRows, 2, '行内切：首页画到第 2 行（末行只画前 2 行文本）')
+    eq(cut[0].trailLines, 2, '行内切：末行画 2 行文本')
+    eq(cut[0].bottom, 100, '行内切：底端 = 第 2 行文本底端（不含下内边距）')
+    eq(cut[1].leadRows, 1, '行内切：续页还是这一行')
+    eq(cut[1].leadLines, 2, '行内切：续页跳过前 2 行文本')
+    eq(cut[1].top, 80, '行内切：续页顶端 = 表头 + 剩余 1 行')
+    eq(cut[1].bottom, 120, '行内切：续页底端 = 表尾')
+
+    // 一行跨三页：表头 1 行 + 一行 12 行文本，页高 100（表头 20 + 每次 4 行 80）
+    const long = paginateBlocks([rowsTable(0, [{ lines: 1 }, { lines: 12 }], 1)], 100, 260)
+    eq(long.length, 3, '行内切：一行跨三页')
+    eq(long.map((r) => r.trailLines), [4, 8, undefined], '行内切：逐页切到第 4/8 行文本')
+    eq(long.map((r) => r.leadLines), [undefined, 4, 8], '行内切：续页跳过 4/8 行文本')
+    eq(long.map((r) => r.top), [0, 80, 160], '行内切：每页顶端递进（含重复表头占位）')
+    eq(long[2].bottom, 260, '行内切：末页收在表尾')
+
+    // 连表头 + 1 行文本都放不下 → 整表下移（行内切也要守这条）
+    const none = paginateBlocks([b(0, 85), rowsTable(85, [{ lines: 1 }, { lines: 2 }], 1)], 100, 145)
+    eq(none.map(span), [[0, 1], [1, 2]], '行内切：放不下表头 + 1 行时整表下移')
+  }
+}
+
+// Word 兼容断行（禁则 + 行末标点悬挂）：宽高都用合成量宽，不依赖 DOM
+{
+  // 汉字按 size 计宽（1em，与 buildUnits 的全角规则一致）；西文/空格按 8px/字（measure）
+  const charsOf = (text: string, size = 10): StyledChar[] =>
+    [...text].map((ch) => ({ ch, font: 't', size }))
+  const measure: MeasureText = (t) => t.length * 8
+  const widths = (text: string, opts: { avail: number; firstAvail?: number; hangMax?: number; size?: number }) =>
+    layoutParagraph(charsOf(text, opts.size ?? 10), {
+      firstAvail: opts.firstAvail ?? opts.avail,
+      avail: opts.avail,
+      hangMax: opts.hangMax ?? 12,
+      measure,
+    })
+  const lens = (text: string, opts: { avail: number; firstAvail?: number; hangMax?: number; size?: number }) =>
+    widths(text, opts).map((l) => l.to - l.from)
+  const hangs = (text: string, opts: { avail: number; firstAvail?: number; hangMax?: number; size?: number }) =>
+    widths(text, opts).map((l) => l.hang)
+
+  eq(lens('一'.repeat(25), { avail: 100 }), [10, 10, 5], '断行：贪心排字（全角 1em）')
+  eq(
+    widths('一'.repeat(10) + '二三', { avail: 100 }).map((l) => [l.from, l.to]),
+    [
+      [0, 10],
+      [10, 12],
+    ],
+    '断行：字符区间推进正确',
+  )
+  // 行末句读放不下 → 悬挂出版心（Word 的 overflowPunct）
+  eq(lens('一'.repeat(10) + '，二', { avail: 100 }), [11, 1], '悬挂：句读留在上一行')
+  eq(hangs('一'.repeat(10) + '，二', { avail: 100 }), [true, false], '悬挂：标记挂出版心')
+  eq(lens('一'.repeat(10) + '。', { avail: 100 }), [11], '悬挂：末字悬挂也成立')
+  // 标点比「一个字」还宽（hangMax 之外）→ 不敢挂，连前一个字一起下移（行首禁则）
+  eq(lens('一'.repeat(10) + '，二', { avail: 100, hangMax: 6 }), [9, 3], '禁则：挂不下时前一字跟下移')
+  eq(hangs('一'.repeat(10) + '，二', { avail: 100, hangMax: 6 }), [false, false], '禁则：不悬挂')
+  // 行尾禁则：开括号不能落在行末
+  eq(lens('一'.repeat(9) + '（二', { avail: 100 }), [9, 2], '禁则：开括号不下留行末')
+  // 行尾空白丢弃（Word 断行吞掉断点处的空格），空格不占行尾
+  eq(lens('一'.repeat(9) + ' ab', { avail: 100 }), [9, 2], '断行：行尾空格丢弃')
+  eq(
+    spansOf(charsOf('一'.repeat(9) + ' ab'), 0, 9).map((s) => s.text),
+    ['一一一一一一一一一'],
+    '断行：行尾空格不进本行文本',
+  )
+  // 首行缩进：首行更窄，其余行按版心
+  eq(lens('一'.repeat(12), { avail: 100, firstAvail: 50 }), [5, 7], '断行：首行缩进')
+  // 超宽单元（超长西文串）独占一行，保证推进不死循环
+  eq(lens('abcdefghij', { avail: 40 }), [10], '断行：超宽西文串独占一行')
+  // 强制换行符：每段独立断行，区间带 \n 偏移
+  eq(
+    widths('一二\n三四五六', { avail: 100 }).map((l) => [l.from, l.to]),
+    [
+      [0, 2],
+      [3, 7],
+    ],
+    '断行：\\n 强制分段',
+  )
+  // 同样式字符并段（渲染用）
+  const styled = charsOf('甲甲', 10).map((c) => ({ ...c, style: { 'font-weight': 'bold' } }))
+  eq(spansOf(styled, 0, 2).length, 1, 'spansOf：同样式并段')
+  eq(spansOf(charsOf('甲乙', 10), 0, 2).length, 1, 'spansOf：无样式同样并段')
+  const mixed = charsOf('甲乙', 10)
+  mixed[1] = { ...mixed[1], style: { color: 'red' } }
+  eq(spansOf(mixed, 0, 2).length, 2, 'spansOf：样式不同则分段')
 }
 
 const streamDone = streamEquality()
