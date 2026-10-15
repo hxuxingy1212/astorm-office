@@ -2,6 +2,7 @@
 resolver = "2"
 members = [
     "office-core",
+    "office-cli",
     "ai-word",
     "ai-word/cli",
     "ai-excel",
@@ -14,6 +15,7 @@ members = [
 ]
 default-members = [
     "office-core",
+    "office-cli",
     "ai-word",
     "ai-word/cli",
     "ai-excel",

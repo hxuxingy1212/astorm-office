@@ -8,7 +8,7 @@
 //   node scripts/export.mjs --skip-build    # 复用已有 target/release 与 office-web/dist
 //
 // 产物结构（office-kit-<version>/）：
-//   bin/        四个 CLI 可执行文件（json2docx/json2xlsx/json2pptx/json2pdf）
+//   bin/        五个 CLI 可执行文件（astorm-office 统一入口 + json2docx/json2xlsx/json2pptx/json2pdf）
 //   skill/      融合技能目录：总纲 SKILL.md + word/ excel/ ppt/ pdf/ 四分册（自包含）
 //   viewer/     @astorm/office-viewer dist 三件套（js/css/d.ts）
 //   samples/    四格式样例产物目录（预览/悬浮功能手测夹具）
@@ -31,7 +31,7 @@ const skipBuild = args.includes('--skip-build')
 const outIdx = args.indexOf('--out')
 const OUT_ROOT = outIdx >= 0 ? resolve(args[outIdx + 1]) : join(ROOT, 'dist-kit')
 
-const BINS = ['json2docx', 'json2xlsx', 'json2pptx', 'json2pdf']
+const BINS = ['astorm-office', 'json2docx', 'json2xlsx', 'json2pptx', 'json2pdf']
 
 function sh(cmd, opts = {}) {
   console.log(`  $ ${cmd}`)
@@ -73,7 +73,9 @@ async function main() {
 
   if (!skipBuild) {
     console.log('== 构建 CLI（release）')
-    sh(`cargo build --release -p json2docx-cli -p json2xlsx-cli -p json2pptx-cli -p json2pdf-cli`)
+    sh(
+      `cargo build --release -p astorm-office-cli -p json2docx-cli -p json2xlsx-cli -p json2pptx-cli -p json2pdf-cli`
+    )
     console.log('== 构建 viewer（office-web dist）')
     sh('npm run build', { cwd: join(ROOT, 'office-web') })
   }
