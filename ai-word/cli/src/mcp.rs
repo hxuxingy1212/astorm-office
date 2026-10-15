@@ -1,7 +1,7 @@
 //! 极简 MCP（Model Context Protocol）服务：stdio + JSON-RPC 2.0
 //! 暴露工具：unpack / repack / view / validate / merge / edit / render / schema / templates
 
-use office_core::CliError;
+use office_core::{CliError, PayloadSinks};
 
 type Result<T> = std::result::Result<T, CliError>;
 use crate::{edit, path, product, render, view};
@@ -107,7 +107,7 @@ fn tools() -> Value {
         ),
         tool(
             "view",
-            "查看文档结构：text/layout；输入 .docx 或产物目录",
+            "查看文档：text（结构感知 Markdown；path 用 / 看整篇）/ layout（结构树）；输入 .docx 或产物目录",
             json!({ "input": s(), "path": s(), "mode": { "type": "string", "enum": ["text", "layout"] } }),
             json!(["input", "path"])
         ),
@@ -165,16 +165,25 @@ fn call(name: &str, args: &Value) -> Result<String> {
             let input = PathBuf::from(g(args, "input")?);
             let (root, _t) = product::resolve_input(&input)?;
             let doc = product::load_document(&root)?;
-            let segs = path::parse(g(args, "path")?)?;
-            let loc = path::resolve(&doc, &segs)?;
+            let path_arg = g(args, "path")?;
             let mode = args
                 .get("mode")
                 .and_then(|v| v.as_str())
                 .unwrap_or("layout");
-            let mut v = if mode == "text" {
-                view::view_text(&doc, loc.part)
+            let mut v = if path_arg.trim() == "/" {
+                if mode != "text" {
+                    return Err(CliError::new(format!("整篇（/）不支持 {mode} 视图"))
+                        .suggest("layout 请指定分片：/part[1]；整篇阅读用 text"));
+                }
+                view::view_text_all(&doc, PayloadSinks::default())
             } else {
-                view::view_layout(&doc, loc.part)
+                let segs = path::parse(path_arg)?;
+                let loc = path::resolve(&doc, &segs)?;
+                if mode == "text" {
+                    view::view_text(&doc, loc.part, PayloadSinks::default())
+                } else {
+                    view::view_layout(&doc, loc.part)
+                }
             };
             if let Value::Object(m) = &mut v {
                 m.insert("issues".into(), json!(json2docx::validate_product(&root)));

@@ -10,6 +10,7 @@
 //! 退出码约定（三个 CLI 一致）：
 //! `0` 成功；`1` 运行时错误；`2` 用法错误（clap 默认）；`3` 命令成功但产物存在校验问题。
 
+pub mod attachment;
 pub mod batch;
 pub mod chrome;
 pub mod error;
@@ -22,6 +23,7 @@ pub mod pathutil;
 pub mod soffice;
 pub mod suggest;
 
+pub use attachment::{ExportedAttachment, PayloadSink, PayloadSinks};
 pub use error::CliError;
 pub use guards::{FileGuard, TempGuard};
 pub use output::{Output, EXIT_FAILURE, EXIT_ISSUES, EXIT_SUCCESS, EXIT_USAGE};

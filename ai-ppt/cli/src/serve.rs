@@ -96,14 +96,29 @@ fn handle(s: &mut Session, v: &Value) -> Value {
                 .get("path")
                 .and_then(|x| x.as_str())
                 .unwrap_or("/slide[1]");
+            let mode = v.get("mode").and_then(|x| x.as_str()).unwrap_or("text");
+            // `/` = 整本（仅 text）
+            if p.trim() == "/" {
+                return match mode {
+                    "text" => Ok(view::view_text_all(
+                        &s.slides,
+                        &s.root,
+                        json2pptx::PayloadSinks::default(),
+                    )),
+                    other => Err(office_core::CliError::new(format!(
+                        "整本（/）不支持 {other} 视图"
+                    ))
+                    .suggest("layout 请指定幻灯片：/slide[1]；整本阅读用 text")),
+                };
+            }
             let ep = ppath::parse(p)?;
             let resolved = ppath::resolve(&s.slides, &ep)?;
-            let mode = v.get("mode").and_then(|x| x.as_str()).unwrap_or("text");
             Ok(match mode {
                 "text" => view::view_text(
                     &s.slides[resolved.slide_idx],
                     resolved.slide_idx + 1,
                     &s.root,
+                    json2pptx::PayloadSinks::default(),
                 ),
                 "layout" => {
                     view::view_layout(&s.slides[resolved.slide_idx], resolved.slide_idx + 1)

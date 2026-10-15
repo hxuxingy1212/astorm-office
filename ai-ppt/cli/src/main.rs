@@ -84,16 +84,22 @@ enum Command {
         /// 输入的 unpack 产物目录
         input: PathBuf,
     },
-    /// 第一层视图：text（文本+媒体）/ layout（组件布局）
+    /// 第一层视图：text（结构感知 Markdown：表格/图表/组件/分组层次）/ layout（组件布局）
     ///
     /// 输入是 PPTX 文件（一次性解包到临时目录）或 unpack 产物目录。
     View {
         /// 输入的 PPTX 文件或 unpack 产物目录
         input: PathBuf,
-        /// 元素路径（如 /slide[1]）
+        /// 元素路径（如 /slide[1]；`/` = 整本，仅 text）
         path: String,
         /// 视图模式
         mode: ViewMode,
+        /// 把内嵌附件（embeddings 部件）导出到该目录，Markdown 里的引用指向导出后的路径
+        #[arg(long, value_name = "DIR")]
+        attachments: Option<PathBuf>,
+        /// 把图片等媒体导出到该目录，Markdown 里的图片链接指向导出后的路径
+        #[arg(long, value_name = "DIR")]
+        media: Option<PathBuf>,
     },
     /// 第二层精准修改：get / set / add / remove
     ///
@@ -211,7 +217,7 @@ enum RenderEngine {
 /// view 视图模式
 #[derive(clap::ValueEnum, Clone)]
 enum ViewMode {
-    /// 文本 + 媒体信息（去样式/图形，媒体为绝对路径）
+    /// 结构感知 Markdown（表格/图表/组件/分组层次，媒体为绝对路径）
     Text,
     /// 组件布局（类型/名称/文字/位置，树形）
     Layout,
@@ -339,17 +345,100 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
             out.status(&format!("已生成: {} ({} 张幻灯片)", r.path, r.slides));
             out.emit_result(&json!({ "ok": true, "output": r.path, "slides": r.slides }))?;
         }
-        Command::View { input, path, mode } => {
-            let (root, _tmp) = resolve_input(input)?;
-            let slides = product::load_slides(&root)?;
-            let ep = path::parse(path)?;
-            let resolved = path::resolve(&slides, &ep)?;
-            let slide = &slides[resolved.slide_idx];
-            let value = match mode {
-                ViewMode::Text => view::view_text(slide, resolved.slide_idx + 1, &root),
-                ViewMode::Layout => view::view_layout(slide, resolved.slide_idx + 1),
+        Command::View {
+            input,
+            path,
+            mode,
+            attachments,
+            media,
+        } => {
+            let (root, _tmp, slides) = resolve_and_load(input)?;
+            if (attachments.is_some() || media.is_some()) && !matches!(mode, ViewMode::Text) {
+                return Err(office_core::CliError::new(
+                    "--attachments/--media 只对 text 模式有意义",
+                )
+                .suggest("用法：view <输入> / text --attachments <目录> --media <目录>"));
+            }
+            let sink = attachments
+                .as_ref()
+                .map(|dir| json2pptx::PayloadSink::new(dir.clone()));
+            // 媒体在产物根下（模型里 src 是包内相对路径，用产物根解析）
+            let media_sink = media
+                .as_ref()
+                .map(|dir| json2pptx::PayloadSink::new(dir.clone()).with_root(root.clone()));
+            let sinks = json2pptx::PayloadSinks {
+                attachments: sink.as_ref(),
+                media: media_sink.as_ref(),
             };
-            out.emit_json(&value)?;
+            // `/` = 整本（与 text 模式的整本阅读对应）
+            let value = if path.trim() == "/" {
+                match mode {
+                    ViewMode::Text => view::view_text_all(&slides, &root, sinks),
+                    ViewMode::Layout => {
+                        return Err(office_core::CliError::new("整本（/）不支持 layout 视图")
+                            .suggest("layout 请指定幻灯片：/slide[1]；整本阅读用 text"));
+                    }
+                }
+            } else {
+                let ep = path::parse(path)?;
+                let resolved = path::resolve(&slides, &ep)?;
+                let slide = &slides[resolved.slide_idx];
+                match mode {
+                    ViewMode::Text => view::view_text(slide, resolved.slide_idx + 1, &root, sinks),
+                    ViewMode::Layout => view::view_layout(slide, resolved.slide_idx + 1),
+                }
+            };
+            // media[] 指向导出后的路径（带 --media 时）
+            let mut value = value;
+            if let Some(ms) = media_sink.as_ref() {
+                if let Some(list) = value.get_mut("media").and_then(|m| m.as_array_mut()) {
+                    for entry in list.iter_mut() {
+                        if let Some(src) =
+                            entry.get("src").and_then(|s| s.as_str()).map(String::from)
+                        {
+                            let name = src.rsplit('/').next().unwrap_or(&src).to_string();
+                            let link = if src.starts_with("http") {
+                                ms.link_for_url(&name, &src)
+                            } else {
+                                ms.link_for(&name, &src)
+                            };
+                            entry["src"] = serde_json::json!(link);
+                        }
+                    }
+                }
+            }
+            let value = match (sink.as_ref(), value) {
+                (Some(s), serde_json::Value::Object(mut m)) if !s.entries().is_empty() => {
+                    m.insert("attachments".to_string(), serde_json::json!(s.entries()));
+                    serde_json::Value::Object(m)
+                }
+                (_, v) => v,
+            };
+            let value = match (media_sink.as_ref(), value) {
+                (Some(s), serde_json::Value::Object(mut m)) if !s.entries().is_empty() => {
+                    m.insert("media_exported".to_string(), serde_json::json!(s.entries()));
+                    serde_json::Value::Object(m)
+                }
+                (_, v) => v,
+            };
+            let attachments_reported = sink.as_ref().map(|s| s.entries()).unwrap_or_default();
+            let media_reported = media_sink.as_ref().map(|s| s.entries()).unwrap_or_default();
+            for (kind_label, list) in [("附件", &attachments_reported), ("媒体", &media_reported)]
+            {
+                for a in list.iter() {
+                    match a.kind {
+                        "file" => out.status(&format!(
+                            "{kind_label}已导出: {} → {}",
+                            a.name,
+                            a.path.clone().unwrap_or_default()
+                        )),
+                        "url" => out.status(&format!("{kind_label}是 URL，原样保留: {}", a.src)),
+                        _ => out.status(&format!("{kind_label}载荷不在，保留原引用: {}", a.src)),
+                    }
+                }
+            }
+            // 默认直出 Markdown；--json 才是结构化信封
+            out.emit_view_markdown(&value)?;
         }
         Command::Edit {
             input,
@@ -650,6 +739,31 @@ fn load_presentation(input: &Path) -> Result<json2pptx::model::Presentation, Cli
     } else {
         Ok(json2pptx::parse(&path_str(input))?)
     }
+}
+
+/// 读类命令用：解析一次同时拿到产物根与**内存里的幻灯片**（省一次读回分片再解析）。
+///
+/// 媒体仍照旧落到临时目录，所以 `media[].src` 的绝对路径形态与原来一致。
+fn resolve_and_load(
+    input: &Path,
+) -> Result<(PathBuf, Option<TempGuard>, Vec<json2pptx::model::Slide>), CliError> {
+    if product::is_product_dir(input) {
+        let slides = product::load_slides(input)?;
+        return Ok((input.to_path_buf(), None, slides));
+    }
+    let stem = input
+        .file_stem()
+        .map(|s| s.to_string_lossy().to_string())
+        .unwrap_or_else(|| "deck".to_string());
+    let tmp = std::env::temp_dir().join(format!("json2pptx-{}-{stem}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&tmp);
+    // 读类命令：解析 + 只落媒体（分片 JSON 没人读，省一次写盘）；
+    // 报错文案与原来的「解包失败」保持一致
+    let mut pres = json2pptx::parse(&path_str(input))
+        .map_err(|e| CliError::new(format!("解包 {} 失败: {e}", input.display())))?;
+    json2pptx::materialize_media(&mut pres, &path_str(input), &path_str(&tmp))
+        .map_err(|e| CliError::new(format!("解包 {} 失败: {e}", input.display())))?;
+    Ok((tmp.clone(), Some(TempGuard { path: tmp }), pres.slides))
 }
 
 /// 将输入解析为产物根目录

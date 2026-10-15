@@ -56,7 +56,7 @@ Agent 只写结构化的**产物目录**（`workbook.json` + `xl/worksheets/shee
 
 ```bash
 json2xlsx repack deck/ -o out.xlsx          # 构建
-json2xlsx view deck/ /sheet[1] values       # 读内容
+json2xlsx view deck/ /sheet[1] text         # 读内容（Markdown 表格）
 json2xlsx edit deck/ '/sheet[1]/cell[A1]' set --prop value=标题 --prop font.bold=true
 json2xlsx render deck/ -o preview.html      # 目视验收
 ```
@@ -69,7 +69,7 @@ json2xlsx render deck/ -o preview.html      # 目视验收
 |---|---|
 | `unpack <in.xlsx> [-o DIR]` | xlsx → 产物目录（workbook.json + 每个工作表一个 JSON + `xl/media/`） |
 | `repack <DIR> [-o out.xlsx]` | 产物目录 → xlsx（AI 从零生成也用它） |
-| `view <输入> [路径] [text\|layout]` | 只读查看内容 / 结构（旧值 values/structure 兼容） |
+| `view <输入> [路径] [text\|layout]` | 只读查看：text = Markdown 表格（`/` = 整本）/ layout = 工作表结构树（旧值 values/structure 兼容） |
 | `edit <输入> <路径> get\|set\|add\|remove [--prop k=v] [-o out.xlsx]` | 精准修改 |
 | `render <输入> [-o out.html]` | 生成 HTML 预览 |
 | `import <in.csv\|tsv> -o out.xlsx [--delim D] [--header] [--sheet 名]` | CSV/TSV 导入为 xlsx |

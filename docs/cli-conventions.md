@@ -3,6 +3,42 @@
 四个 CLI（`json2docx` / `json2xlsx` / `json2pptx` / `json2pdf`）遵循同一套命令风格、I/O 契约与退出码约定。
 本文档是 agent 与脚本调用这些 CLI 的权威依据；各 CLI 的格式特有命令见 `skill/<格式>/references/cli.md`（格式 = word / excel / ppt / pdf）。
 
+## 〇、统一入口 `astorm-office`
+
+`office-cli/` 提供 `astorm-office`：**只做分发与批处理**，不实现任何文档能力，转发时
+参数、stdout/stderr、退出码全部原样透传（与直接调底层 CLI 等价）。
+
+```bash
+astorm-office <格式> <命令...>      # 格式：word|docx|doc|docs · excel|xlsx|xls|sheet · ppt|pptx|slides · pdf
+astorm-office <命令...>             # 省略格式：从参数里的文件扩展名或产物目录名推断
+astorm-office formats [--json]      # 格式别名表 + 各 CLI 解析到的路径（诊断）
+astorm-office batch <脚本|-> [...]   # 批量执行多条命令（文本一行一条 / JSON commands 数组）
+```
+
+- 二进制定位顺序：`ASTORM_JSON2DOCX`/`ASTORM_JSON2XLSX`/`ASTORM_JSON2PPTX`/`ASTORM_JSON2PDF`
+  环境变量 → 与自己同目录（官方 `office-kit` 的 `bin/`）→ `PATH`。
+- `batch`：默认停在第 1 个失败处（`--force`/步骤级 `continue_on_error` 继续）；
+  `--dry-run` 只解析定位；`--json` 捕获各步 stdout/stderr 并输出报告
+  `{"ok","total","succeeded","failed","stopped_at","steps":[{index,format,bin,source,args,ok,exit_code,stdout,stderr}]}`；
+  默认模式子命令输出直通，汇总走 stderr。退出码：全绿 `0`、任一步失败 `1`、用法错误 `2`。
+- 转发模式退出码 = 子进程退出码（含 `3`）；`--json` 等旗标在格式参数之后，属于底层 CLI 自己。
+
+> **性能**：读类命令对二进制输入会先解析并落一份临时产物目录；**同一文档反复读时先
+> `unpack` 成产物目录再反复 `view` 更快**（实测大 docx：61 ms → 4.3 ms，大 pptx：35 ms → 5 ms）。
+> `batch` 脚本里同理：`unpack` 放第一步，后续步骤都读产物目录。
+
+> **载荷导出**：`view … text --attachments <DIR>`（内嵌附件）与 `--media <DIR>`（图片等媒体）
+> 把文档里的载荷落到指定目录，Markdown 里的引用改指导出后的路径。共同语义：
+> **URL 原样保留**（不下载）；载荷找不到时**保留原引用**并在 `--json` 信封里标 `kind=missing`
+> （附件在 `attachments[]`、媒体在 `media_exported[]`，`media[]` 的 `src` 同步指向导出路径）；
+> 目标目录已有同名文件不覆盖（自动 `名字-2.ext`）；**同一文件只导出一份**（模型里的相对路径与
+> `media[]` 的绝对路径归一到同一个键）；不带参数时输出与以前完全一致
+> （docx 的附件/图片链接保持模型里的原始引用；xlsx/pptx 不渲染附件行）。
+> `--media` 目前支持 docx / pptx（这两个格式的 Markdown 里有图片链接）；xlsx 的表格视图不渲染图片。
+> **PDF 的内嵌文件**（`/EmbeddedFiles` 名字树 + 页面 `FileAttachment` 注释）已建模：
+> `unpack` 把载荷落到产物目录的 `attachments/` 并记进 `document.json`，`repack` 原样写回
+> （回环保真），用 `json2pdf extract attachment <pdf|目录> [-o DIR]` 列清单/导出。
+
 ## 一、命令集
 
 四个 CLI 的公共核心命令（语义一致）：
@@ -11,7 +47,7 @@
 |---|---|---|---|
 | `unpack <input>` | 文档 → 产物目录（`--inline` 输出单个自包含 JSON，见下） | 空 | `{"ok":true,"output":...}` |
 | `repack <dir>` | 产物目录 → 文档（自动校验） | 空 | `{"ok":true,"output":...,"issues":[...]}` |
-| `view <input> <path> <text\|layout>` | 省 token 的两档只读视图 | 数据 JSON | 数据 JSON |
+| `view <input> <path> <text\|layout>` | 省 token 的两档只读视图：`text` = **结构感知 Markdown**（标题层级/列表嵌套/表格/代码/公式；Office 三格式的 `<path>` 可用 `/` 表示整篇/整本），**stdout 直出 Markdown 原文**（不带注释标记）；`layout` = 机器可读结构树 | Markdown 原文（`text`）/ 数据 JSON（`layout`） | `{markdown, media, issues, warnings}` 信封 |
 | `edit <input> <path> get\|set\|add\|remove` | 精准修改 | 数据 JSON | 数据 JSON |
 | `render <input> [path]` | 目视验证（HTML/PNG/PDF） | 空 | `{"ok":true,"output":...,"format":...}` |
 | `validate <input>` | 结构校验 | `{"issues":[...],"count":N}` | 同左 |
@@ -102,3 +138,16 @@
 - `json2xlsx` 的 `template extract` 提升为顶层 `extract`（旧写法兼容）。
 - `raw-set` 现在严格遵循 `-o`（此前实现会原地覆写输入文件，属缺陷）。
 - `repack`/`validate` 发现校验问题时退出码为 3（此前为 0）。
+- **`view text` 改为结构感知 Markdown**（三个 Office CLI）：从"每块 `{type, text}` 的扁平列表"
+  变为 Markdown——标题层级、列表嵌套、表格、代码围栏、公式、图片链接、分组层次都保留；
+  整篇用 `/`。两个输出纪律：
+  **① 默认 stdout 就是 Markdown 原文**（不套 JSON，便于直接读/落盘/喂 LLM；`warnings`/`issues`
+  这类体检信息走 stderr，`--quiet` 抑制）；**② `--json` 才输出结构化信封**
+  `{markdown, media, issues, warnings}`（供程序消费）。
+  输出是**纯 Markdown**：不带 `<!-- … -->` 注释标记（分片边界是内部实现、合并区等表格表达不了
+  的信息都放进 `layout` 视图，不塞注释）；`page_break` 输出为 `---`。
+  机器可读的等价物是 `layout` 模式（含类型与属性），单元格级细节仍走 `edit <路径> get`。
+  xlsx 的单元格目标（`/sheet[1]/cell[B2]`）没有 markdown 形态，默认仍输出该节点 JSON。
+  `json2pdf` 的 view 保持元素级寻址；整篇 Markdown 用 `extract text --format markdown`
+  （该命令的输出恒为 JSON 包：每页文本带 complexity/OCR 路由信息，取纯文本用
+  `jq -r '.pages[].text'`）。

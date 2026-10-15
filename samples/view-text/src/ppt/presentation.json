@@ -1,0 +1,13 @@
+{
+  "width": 13.333,
+  "height": 7.5,
+  "meta": {
+    "title": "2026 年度经营复盘"
+  },
+  "slides": [
+    "ppt/slides/slide1.json",
+    "ppt/slides/slide2.json",
+    "ppt/slides/slide3.json",
+    "ppt/slides/slide4.json"
+  ]
+}

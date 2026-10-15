@@ -76,6 +76,44 @@ impl Output {
         Ok(())
     }
 
+    /// Markdown 视图（`view … text`）的输出：
+    ///
+    /// - 默认：stdout **直出 `markdown` 字段的原文**（不套 JSON——JSON 里的 `\n`
+    ///   转义会让 Markdown 没法直接读、也没法直接落盘）；`warnings`/`issues`
+    ///   这类体检信息走 stderr，`--quiet` 抑制；
+    /// - `--json`：输出结构化信封（`{markdown, media, issues, warnings}`），供程序消费；
+    /// - 值里没有 `markdown` 字段（如 xlsx 的单元格节点、layout 结构树）：照常输出 JSON。
+    ///
+    /// 返回是否以 Markdown 形态输出（调用方可据此跳过后续 JSON 输出）。
+    pub fn emit_view_markdown(&self, value: &serde_json::Value) -> std::io::Result<bool> {
+        let md = value.get("markdown").and_then(|v| v.as_str());
+        if self.json || md.is_none() {
+            self.emit_json(value)?;
+            return Ok(false);
+        }
+        {
+            let mut out = std::io::stdout().lock();
+            write!(out, "{}", md.unwrap_or_default())?;
+            out.flush()?;
+        }
+        if let Some(warnings) = value.get("warnings").and_then(|v| v.as_array()) {
+            for w in warnings {
+                if let Some(s) = w.as_str() {
+                    self.status(s);
+                }
+            }
+        }
+        if let Some(issues) = value.get("issues").and_then(|v| v.as_array()) {
+            if !issues.is_empty() {
+                self.status(&format!(
+                    "校验发现 {} 个问题（`validate` 看明细；--json 时随信封返回）",
+                    issues.len()
+                ));
+            }
+        }
+        Ok(true)
+    }
+
     /// 错误 → stderr；`--json` 时输出 `{"ok":false,"error":{code,message,hint,suggestion}}`。
     pub fn error(&self, code: &str, message: &str, hint: Option<&str>) {
         self.error_full(code, message, hint, None);

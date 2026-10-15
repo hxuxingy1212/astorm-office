@@ -1,0 +1,229 @@
+{
+  "name": "经营看板",
+  "merges": [
+    "A1:D1"
+  ],
+  "freeze": "A3",
+  "auto_filter": "A2:D8",
+  "columns": [
+    {
+      "col": "A",
+      "width": 10
+    },
+    {
+      "col": "B",
+      "width": 14
+    },
+    {
+      "col": "C",
+      "width": 11
+    },
+    {
+      "col": "D",
+      "width": 14
+    }
+  ],
+  "rows": [
+    {
+      "index": 1,
+      "cells": [
+        {
+          "ref": "A1",
+          "value": "2026 年度经营复盘（单位：万元）"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "cells": [
+        {
+          "ref": "A2",
+          "value": "月份"
+        },
+        {
+          "ref": "B2",
+          "value": "收入"
+        },
+        {
+          "ref": "C2",
+          "value": "增长率"
+        },
+        {
+          "ref": "D2",
+          "value": "净利润"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "cells": [
+        {
+          "ref": "A3",
+          "value": "1 月"
+        },
+        {
+          "ref": "B3",
+          "value": 128.0,
+          "number_format": "#,##0.0"
+        },
+        {
+          "ref": "C3",
+          "value": "+8.2%"
+        },
+        {
+          "ref": "D3",
+          "value": 23.6,
+          "number_format": "#,##0.0"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "cells": [
+        {
+          "ref": "A4",
+          "value": "2 月"
+        },
+        {
+          "ref": "B4",
+          "value": 143.5,
+          "number_format": "#,##0.0"
+        },
+        {
+          "ref": "C4",
+          "value": "+12.1%"
+        },
+        {
+          "ref": "D4",
+          "value": 28.8,
+          "number_format": "#,##0.0"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "cells": [
+        {
+          "ref": "A5",
+          "value": "3 月"
+        },
+        {
+          "ref": "B5",
+          "value": 131.2,
+          "number_format": "#,##0.0"
+        },
+        {
+          "ref": "C5",
+          "value": "-8.6%"
+        },
+        {
+          "ref": "D5",
+          "value": 20.5,
+          "number_format": "#,##0.0"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "cells": [
+        {
+          "ref": "A6",
+          "value": "4 月"
+        },
+        {
+          "ref": "B6",
+          "value": 168.7,
+          "number_format": "#,##0.0"
+        },
+        {
+          "ref": "C6",
+          "value": "+28.6%"
+        },
+        {
+          "ref": "D6",
+          "value": 40.2,
+          "number_format": "#,##0.0"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "cells": [
+        {
+          "ref": "A7",
+          "value": "5 月"
+        },
+        {
+          "ref": "B7",
+          "value": 182.4,
+          "number_format": "#,##0.0"
+        },
+        {
+          "ref": "C7",
+          "value": "+8.1%"
+        },
+        {
+          "ref": "D7",
+          "value": 45.5,
+          "number_format": "#,##0.0"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "cells": [
+        {
+          "ref": "A8",
+          "value": "6 月"
+        },
+        {
+          "ref": "B8",
+          "value": 174.5,
+          "number_format": "#,##0.0"
+        },
+        {
+          "ref": "C8",
+          "value": "-4.3%"
+        },
+        {
+          "ref": "D8",
+          "value": 41.8,
+          "number_format": "#,##0.0"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "cells": [
+        {
+          "ref": "A9",
+          "value": "合计"
+        },
+        {
+          "ref": "B9",
+          "formula": "SUM(B3:B8)",
+          "number_format": "#,##0.0"
+        },
+        {
+          "ref": "D9",
+          "formula": "SUM(D3:D8)",
+          "number_format": "#,##0.0"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "cells": [
+        {
+          "ref": "A10",
+          "value": "净利率"
+        },
+        {
+          "ref": "D10",
+          "formula": "D9/B9",
+          "number_format": "0.0%"
+        }
+      ]
+    }
+  ]
+}

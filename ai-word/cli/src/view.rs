@@ -1,26 +1,43 @@
 //! 第一层视图：text / layout（对应 ai-ppt 的 view.rs）
+//!
+//! - text：结构感知的 Markdown 纯文本（标题层级/列表嵌套/表格/代码围栏/公式/图片链接），
+//!   媒体路径另列在 `media`；路径 `/` 表示整篇（`view_text_all`）。
+//! - layout：块结构树（机器可读，含类型与属性，便于定位后 edit）。
 
 use json2docx::model::blocks::*;
 use json2docx::model::Document;
+use json2docx::PayloadSinks;
 use serde_json::{json, Value};
 
-/// view text：文本 + 媒体（去样式/图形）
-pub fn view_text(doc: &Document, part_idx: usize) -> Value {
+/// 收集分片内的图片媒体（相对产物根的路径）
+fn part_media(part: &json2docx::model::Part) -> Vec<Value> {
+    part.blocks
+        .iter()
+        .filter_map(|b| match b {
+            Block::Image(img) => Some(json!({ "type": "image", "src": img.src })),
+            _ => None,
+        })
+        .collect()
+}
+
+/// view text（单个分片）：块 → Markdown（保留结构层次）
+///
+/// `sink` 非空时把内嵌附件导出到指定目录，Markdown 里的引用指向导出后的路径/URL。
+pub fn view_text(doc: &Document, part_idx: usize, sinks: PayloadSinks<'_>) -> Value {
     let part = &doc.parts[part_idx];
-    let mut blocks = Vec::new();
-    let mut media = Vec::new();
-    for b in &part.blocks {
-        blocks.push(json!({
-            "type": b.type_name(),
-            "text": b.plain_text(),
-        }));
-        if let Block::Image(img) = b {
-            media.push(json!({ "type": "image", "src": img.src }));
-        }
-    }
     json!({
         "part": part_idx + 1,
-        "blocks": blocks,
+        "markdown": json2docx::markdown::part_markdown_with(part, sinks),
+        "media": part_media(part),
+    })
+}
+
+/// view text（整篇）：所有分片 → 一段 Markdown
+pub fn view_text_all(doc: &Document, sinks: PayloadSinks<'_>) -> Value {
+    let media: Vec<Value> = doc.parts.iter().flat_map(part_media).collect();
+    json!({
+        "parts": doc.parts.len(),
+        "markdown": json2docx::markdown::document_markdown_with(doc, sinks),
         "media": media,
     })
 }

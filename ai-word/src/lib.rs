@@ -9,6 +9,7 @@ pub mod error;
 pub mod extract;
 pub mod generate;
 pub mod legacy;
+pub mod markdown;
 pub mod merge;
 pub mod model;
 pub mod parse;
@@ -18,7 +19,12 @@ pub mod validate;
 pub use error::Error;
 pub use extract::{describe_template, extract_template, ExtractedTemplate};
 pub use generate::{generate, repack, GenerateResult};
+pub use markdown::{
+    blocks_markdown, blocks_markdown_with, document_markdown, document_markdown_with,
+    part_markdown, part_markdown_with,
+};
 pub use merge::merge_document;
 pub use model::Document;
-pub use parse::{parse, unpack, UnpackResult};
-pub use validate::{content_warnings, validate_docx, validate_product};
+pub use office_core::{ExportedAttachment, PayloadSink, PayloadSinks};
+pub use parse::{parse, unpack, unpack_with_model, UnpackResult};
+pub use validate::{content_warnings, validate_docx, validate_product, validate_product_with};

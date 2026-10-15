@@ -74,7 +74,10 @@ pub const ADD_TYPES: &[(&str, &str)] = &[
 
 /// view 模式
 pub const VIEW_MODES: &[(&str, &str)] = &[
-    ("text", "纯文本视图（含分片与块结构提示）"),
+    (
+        "text",
+        "结构感知 Markdown（标题层级/列表嵌套/表格/代码/公式；`/` = 整篇）",
+    ),
     ("layout", "块布局树（类型/级别/文字摘要）"),
 ];
 

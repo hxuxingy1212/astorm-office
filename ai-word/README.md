@@ -124,7 +124,7 @@ json2docx render paper.docx / -o paper.png
 |------|------|
 | `json2docx unpack <in.docx> -o <dir>` | DOCX → 产物目录（`document.json` + 分片 JSON + 媒体） |
 | `json2docx repack <dir> -o <out.docx>` | 产物目录 → DOCX（含从零新建、或 `parts` 内联的目录）；自动校验，有问题退出码 3 |
-| `json2docx view <输入> <路径> text\|layout` | 只读视图：文本+媒体 / 块结构树（附 `issues`/`warnings`） |
+| `json2docx view <输入> <路径> text\|layout` | 只读视图：text = 结构感知 Markdown（标题层级/列表/表格，`/` = 整篇，**stdout 直出原文**，`--json` 才是信封）/ layout = 块结构树（附 `issues`/`warnings`） |
 | `json2docx edit <输入> <路径> get\|set\|add\|remove [-o <out.docx>]` | 精准修改 |
 | `json2docx render <输入> /part[N] \| / [-o <out.html\|pdf\|png>]` | 渲染预览 / 导出（`/` = 整篇） |
 | `json2docx validate <输入>` | 结构校验（.docx 或产物目录），有问题退出码 3 |

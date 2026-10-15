@@ -88,10 +88,23 @@ fn handle(wb: &mut Workbook, input: &Path, is_dir: bool, v: &Value) -> Value {
                 .get("path")
                 .and_then(|x| x.as_str())
                 .unwrap_or("/sheet[1]");
-            let ep = expath::parse(p)?;
             let mode = v.get("mode").and_then(|x| x.as_str()).unwrap_or("text");
+            // `/` = 整本（仅 text）
+            if p.trim() == "/" {
+                return match mode {
+                    "text" | "values" => Ok(json!({
+                        "sheets": wb.sheets.len(),
+                        "markdown": json2xlsx::markdown::workbook_markdown(wb),
+                    })),
+                    other => Err(office_core::CliError::new(format!(
+                        "整本（/）不支持 {other} 视图"
+                    ))
+                    .suggest("layout 请指定工作表：/sheet[1]；整本阅读用 text")),
+                };
+            }
+            let ep = expath::parse(p)?;
             Ok(match mode {
-                "text" | "values" => ops::view_values(wb, &ep)?,
+                "text" | "values" => ops::view_values(wb, &ep, json2xlsx::PayloadSinks::default())?,
                 "layout" | "structure" => ops::view_structure(wb, &ep)?,
                 other => {
                     return Err(

@@ -10,7 +10,7 @@ compatibility: 需要 Rust 工具链（cargo）或已安装对应 CLI；render �
 
 # astorm-office 文档技能（统一总纲）
 
-你负责用 **astorm-office** 四个 CLI 完成专业 Office 文档与 PDF 的**生成、查看、修改与验证**全流程。
+你负责用 **astorm-office** 的四个格式 CLI 完成专业 Office 文档与 PDF 的**生成、查看、修改与验证**全流程。
 本文件是**唯一总纲**：四格式共用的契约、工作流、命令与约束都在这里；
 **每个格式的 JSON 生成规范、设计原则与场景配方在各自的格式分册**（见文末「分层索引」，按需加载）。
 
@@ -34,7 +34,13 @@ compatibility: 需要 Rust 工具链（cargo）或已安装对应 CLI；render �
    用于把产物直接交给预览组件/宿主程序（预览/交付形态；编辑流程仍用目录形态，
    详见 `docs/cli-conventions.md`）。
 
-> **分发形态**：`skill/`（本总纲 + `word/` `excel/` `ppt/` `pdf/` 四本分册）与四个 CLI
+> **统一入口**：`astorm-office <格式> <命令...>`（格式 = `word|docx|docs` / `excel|xlsx|sheet` /
+> `ppt|pptx` / `pdf`）等价于直接调对应格式 CLI，参数与退出码原样透传；
+> `astorm-office batch <脚本>` 用一行一条命令（可混排四格式）或 JSON `commands` 数组批量执行，
+> `--json` 出逐步报告。省略格式时按参数里的文件扩展名/产物目录名自动分发。
+> 详见 `docs/cli-conventions.md` 第〇节，或直接跑 `astorm-office --help` / `astorm-office formats`。
+
+> **分发形态**：`skill/`（本总纲 + `word/` `excel/` `ppt/` `pdf/` 四本分册）与五个 CLI
 > 二进制**同包分发**——官方 `office-kit` 包中 `bin/` 与 `skill/` 同级（本目录内所有引用
 > 均为目录内相对路径，整体拷贝即可用，不依赖仓库其余部分）。
 
@@ -55,23 +61,29 @@ compatibility: 需要 Rust 工具链（cargo）或已安装对应 CLI；render �
 
 > 交付前**必须**渲染 / view / extract / qa 核对一次，不要只凭命令退出码交付。
 
+> **性能**：同一文档要反复读时，先 `unpack` 成产物目录再反复 `view`——比每次读二进制
+> 快 7 倍以上（大 docx 实测 61ms → 4.3ms；二进制输入每次都要重新解析并落临时目录）。
+> `astorm-office batch` 脚本里同理：`unpack` 放第一步，后续步骤都读产物目录。
+
 ## 二、通用命令（`json2xxx` 指代 json2docx / json2xlsx / json2pptx / json2pdf）
 
 | 命令 | 功能 | 支持范围 |
 |------|------|--------|
 | `unpack <in.xxx> -o DIR/` | 二进制文档 → 产物目录 | 四 CLI 一致 |
 | `repack <DIR/> -o out.xxx` | 产物目录 → 二进制文档（自动校验，问题非空退出码 3） | 四 CLI 一致 |
-| `view <输入> [路径] text\|layout` | 只读查看：text（文本+媒体）/ layout（结构树），省 token | 四 CLI 一致 |
+| `view <输入> [路径] text\|layout` | 只读查看：text（**结构感知 Markdown，stdout 直出原文**——标题层级/列表嵌套/表格/代码/公式，无注释标记；整篇用路径 `/`；要信封加 `--json`）/ layout（机器可读结构树），省 token | 四 CLI 一致（pdf 的 text 为元素级；整篇 Markdown 用 `extract text --format markdown`） |
 | `edit <输入> <路径> get\|set\|add\|remove [--prop k=v] [-o out]` | 精准修改 | 四 CLI 一致 |
 | `render <输入> [路径] -o out` | 渲染核对（html / pdf / png） | 四 CLI 一致（pdf 的 png/pdf 需 Chrome） |
 | `validate <输入>` | 结构校验（问题非空退出码 3） | 四 CLI 一致 |
 | `dump <输入>` / `batch <输入> --input-file cmds.json` | 导出可回放指令 / 批量回放 | 四 CLI 一致（pdf 按页面 id 幂等替换） |
 | `serve <输入>` / `mcp` | 常驻编辑（stdin JSON 行）/ MCP 服务（stdio JSON-RPC） | 四 CLI 一致 |
 | `schema` / `help [元素]` | Schema 指引 / 能力速查（`--json` 机器可读） | 四 CLI 一致 |
+| `view … text --attachments/--media <DIR>` | 导出内嵌附件 / 图片媒体到目录，Markdown 引用改指导出路径（URL 保留） | 四 CLI 的 text 视图（--media 见分册） |
 | `templates` | 内置模板/风格列表 | Office 三格式 |
+| `astorm-office <格式> <命令...>` / `astorm-office batch <脚本>` | 统一入口：按格式分发（等价直调）· 批量执行多条命令 | 独立 CLI（`astorm-office --help`） |
 | `convert <旧文件> -o 新文件` | 旧版 .doc/.xls/.ppt → 新格式（`--engine auto\|libreoffice\|rust`） | Office 三格式 |
 | `extract`（模板提取）/ `merge` / `query` / `import` / `raw` / `raw-set` | 模板提取 / `{{key}}` 填充 / 选择器查询 / CSV 导入（仅 xlsx）/ 原始 OPC 读写 | Office 三格式 |
-| PDF 特有：`extract text/table/image`（text 支持 `--layout` 版式重建 / `--format markdown` / `--ocr` 扫描件识别）、`pages merge/split/rotate/crop/clean`、`meta get/set/brand`、`form info/fill`、`convert office/html/latex`（→PDF；office 引擎链 auto=本机 LibreOffice→native 自研）与 `convert docx/pptx/xlsx`（PDF→Office）、`palette`、`design`、`code/content sanitize`、`check font/toc`、`qa`、`env check` | PDF 内容提取 / 页操作 / 元数据 / 表单 / 跨格式转换 / 调色板与设计引擎 / 清洗 / 质检 | 仅 json2pdf（见分册） |
+| PDF 特有：`extract text/table/image/attachment`（attachment = 内嵌文件清单/导出）（text 支持 `--layout` 版式重建 / `--format markdown` / `--ocr` 扫描件识别）、`pages merge/split/rotate/crop/clean`、`meta get/set/brand`、`form info/fill`、`convert office/html/latex`（→PDF；office 引擎链 auto=本机 LibreOffice→native 自研）与 `convert docx/pptx/xlsx`（PDF→Office）、`palette`、`design`、`code/content sanitize`、`check font/toc`、`qa`、`env check` | PDF 内容提取 / 页操作 / 元数据 / 表单 / 跨格式转换 / 调色板与设计引擎 / 清洗 / 质检 | 仅 json2pdf（见分册） |
 
 **运行方式**：开发用 `cargo run --release --bin json2xxx -- <命令>`；安装用 `cargo install --path <项目>/cli`。
 

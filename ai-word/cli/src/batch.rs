@@ -5,7 +5,7 @@
 
 use json2docx::model::Document;
 use office_core::batch::{props_as_kv, Report, Step};
-use office_core::CliError;
+use office_core::{CliError, PayloadSinks};
 
 use crate::{edit, path as wpath, view};
 
@@ -63,7 +63,7 @@ fn apply(doc: &mut Document, step: &Step) -> Result<serde_json::Value, CliError>
                 .and_then(|m| m.as_str())
                 .unwrap_or("text");
             Ok(match mode {
-                "text" => view::view_text(doc, loc.part),
+                "text" => view::view_text(doc, loc.part, PayloadSinks::default()),
                 _ => view::view_layout(doc, loc.part),
             })
         }

@@ -74,11 +74,20 @@ fn typed(s: &str) -> Value {
 
 // ---------------------------------------------------------------- view ----
 
-pub fn view_values(wb: &Workbook, path: &ExPath) -> Result<Value> {
+/// view text：结构感知 Markdown（表 → GFM 表格；单元格/区域各有粒度）
+///
+/// - 整表（`/sheet[1]`）：`{sheet, range, markdown}`——已用区域的 Markdown 表格
+/// - 区域（`/sheet[1]/range[A1:C10]`）：同样输出 Markdown 表格，限定在该窗口
+/// - 单元格（`/sheet[1]/cell[B2]`）：单个节点，仍给完整字段 JSON（值/公式/数字格式）
+pub fn view_values(
+    wb: &Workbook,
+    path: &ExPath,
+    sinks: json2xlsx::PayloadSinks<'_>,
+) -> Result<Value> {
     let si = resolve_sheet(wb, &path.sheet)?;
     let sheet = &wb.sheets[si];
     match &path.target {
-        None => Ok(sheet_values(sheet)),
+        None => Ok(sheet_markdown_json(sheet, sinks)),
         Some(Target::Cell(reference)) => {
             let cell = find_cell(sheet, reference)?
                 .ok_or_else(|| CliError::new(format!("单元格不存在: {reference}")))?;
@@ -86,43 +95,26 @@ pub fn view_values(wb: &Workbook, path: &ExPath) -> Result<Value> {
         }
         Some(Target::Range(r)) => {
             let ((c1, r1), (c2, r2)) = parse_range(r)?;
-            let mut out = Vec::new();
-            for row in &sheet.rows {
-                let ri = row.index.unwrap_or(0);
-                if ri < r1 || ri > r2 {
-                    continue;
-                }
-                for cell in &row.cells {
-                    if let Some((c, _)) = cell
-                        .reference
-                        .as_deref()
-                        .and_then(|x| parse_cell_ref(x).ok())
-                    {
-                        if c >= c1 && c <= c2 {
-                            out.push(cell_json(cell));
-                        }
-                    }
-                }
-            }
-            Ok(Value::Array(out))
+            let (c1, c2) = (c1.min(c2), c2.max(c1));
+            let (r1, r2) = (r1.min(r2), r2.max(r1));
+            Ok(json!({
+                "sheet": sheet.name,
+                "range": format!("{}:{}", make_cell_ref(c1, r1), make_cell_ref(c2, r2)),
+                "markdown": json2xlsx::markdown::window_markdown(sheet, c1, r1, c2, r2),
+            }))
         }
-        Some(_) => Ok(sheet_values(sheet)),
+        Some(_) => Ok(sheet_markdown_json(sheet, sinks)),
     }
 }
 
-fn sheet_values(sheet: &Sheet) -> Value {
-    let mut rows: Vec<&Row> = sheet.rows.iter().collect();
-    rows.sort_by_key(|r| r.index.unwrap_or(0));
-    let rows_json: Vec<Value> = rows
-        .iter()
-        .map(|row| {
-            json!({
-                "index": row.index,
-                "cells": row.cells.iter().map(cell_json).collect::<Vec<_>>(),
-            })
-        })
-        .collect();
-    json!({ "sheet": sheet.name, "rows": rows_json })
+fn sheet_markdown_json(sheet: &Sheet, sinks: json2xlsx::PayloadSinks<'_>) -> Value {
+    let range = json2xlsx::markdown::used_range(sheet)
+        .map(|(c1, r1, c2, r2)| format!("{}:{}", make_cell_ref(c1, r1), make_cell_ref(c2, r2)));
+    json!({
+        "sheet": sheet.name,
+        "range": range,
+        "markdown": json2xlsx::markdown::sheet_markdown_with(sheet, sinks),
+    })
 }
 
 fn cell_json(cell: &Cell) -> Value {
@@ -727,7 +719,7 @@ fn get_or_create_cell<'a>(
     sheet: &'a mut Sheet,
     col: u32,
     row: u32,
-    _style_map: &std::collections::HashMap<String, StyleDef>,
+    _style_map: &std::collections::BTreeMap<String, StyleDef>,
 ) -> &'a mut Cell {
     let r = get_or_create_row(sheet, row);
     if let Some(pos) = r.cells.iter().position(|c| {

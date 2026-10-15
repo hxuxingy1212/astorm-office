@@ -2,7 +2,7 @@
 //! 每行：{"op":"edit|view|merge|issues|save|quit", ...}
 //! 回复（每行）：{"ok":true,"result":...} 或 {"ok":false,"error":"..."}
 
-use office_core::CliError;
+use office_core::{CliError, PayloadSinks};
 
 type Result<T> = std::result::Result<T, CliError>;
 use crate::{edit, path, product, view};
@@ -83,11 +83,19 @@ fn handle(doc: &mut json2docx::Document, root: &Path, v: &Value) -> Value {
         }
         "view" => {
             let p = v.get("path").and_then(|x| x.as_str()).unwrap_or("/part[1]");
+            let mode = v.get("mode").and_then(|x| x.as_str()).unwrap_or("layout");
+            // `/` = 整篇（仅 text）
+            if p.trim() == "/" {
+                return match mode {
+                    "text" => Ok(view::view_text_all(doc, PayloadSinks::default())),
+                    other => Err(CliError::new(format!("整篇（/）不支持 {other} 视图"))
+                        .suggest("layout 请指定分片：/part[1]；整篇阅读用 text")),
+                };
+            }
             let segs = path::parse(p)?;
             let loc = path::resolve(doc, &segs)?;
-            let mode = v.get("mode").and_then(|x| x.as_str()).unwrap_or("layout");
             Ok(if mode == "text" {
-                view::view_text(doc, loc.part)
+                view::view_text(doc, loc.part, PayloadSinks::default())
             } else {
                 view::view_layout(doc, loc.part)
             })

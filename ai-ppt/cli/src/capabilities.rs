@@ -137,7 +137,10 @@ pub const ADD_TYPES: &[(&str, &str)] = &[
 
 /// view 模式
 pub const VIEW_MODES: &[(&str, &str)] = &[
-    ("text", "文本+媒体（去样式）"),
+    (
+        "text",
+        "结构感知 Markdown（表格/图表/组件/分组层次；`/` = 整本）",
+    ),
     ("layout", "组件布局树（类型/名称/文字/位置）"),
 ];
 

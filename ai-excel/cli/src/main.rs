@@ -70,13 +70,17 @@ enum Command {
     },
     /// 产物目录 → xlsx
     Repack { input: PathBuf },
-    /// 只读查看：text（值/公式）/ layout（结构树）；旧值 values/structure 兼容
+    /// 只读查看：text（结构感知 Markdown：值/公式的表格）/ layout（结构树）；旧值 values/structure 兼容
     View {
         input: PathBuf,
+        /// 路径（如 /sheet[1]、/sheet[1]/range[A1:C10]；`/` = 整本，仅 text）
         #[arg(default_value = "/sheet[1]")]
         path: String,
         #[arg(default_value = "text")]
         mode: String,
+        /// 把内嵌附件（OLE 对象）导出到该目录，Markdown 里的引用指向导出后的路径
+        #[arg(long, value_name = "DIR")]
+        attachments: Option<PathBuf>,
     },
     /// 精准修改：get / set / add / remove
     Edit {
@@ -253,26 +257,108 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
             out.status(&format!("已生成: {} ({} 个工作表)", r.path, r.sheets));
             out.emit_result(&json!({ "ok": true, "output": r.path, "sheets": r.sheets }))?;
         }
-        Command::View { input, path, mode } => {
+        Command::View {
+            input,
+            path,
+            mode,
+            attachments,
+        } => {
             let wb = load_input(input)?;
-            let p = path::parse(path)?;
-            let value = match mode.as_str() {
-                "text" | "values" => ops::view_values(&wb, &p)?,
-                "layout" | "structure" => ops::view_structure(&wb, &p)?,
-                other => {
-                    let mut e = CliError::new(format!("未知 view 模式: {other}"));
-                    e.suggestion = Some(office_core::suggest::did_you_mean(
-                        other,
-                        &capabilities::VIEW_MODES
-                            .iter()
-                            .map(|(m, _)| *m)
-                            .collect::<Vec<_>>(),
-                        4,
-                    ));
-                    return Err(e);
+            if attachments.is_some() && mode != "text" && mode != "values" {
+                return Err(CliError::new("--attachments 只对 text 模式有意义")
+                    .suggest("用法：view <输入> /sheet[1] text --attachments <目录>"));
+            }
+            // 附件载荷是包内相对路径（如 xl/embeddings/x.bin）：
+            // 产物目录 → 直接以输入目录为根；二进制输入 → 把载荷抽到临时目录再以它为根
+            let mut _emb_guard: Option<office_core::TempGuard> = None;
+            let sink = match attachments.as_ref() {
+                None => None,
+                Some(dir) => {
+                    let sink = json2xlsx::PayloadSink::new(dir.clone());
+                    if json2xlsx::is_product_dir(input) {
+                        Some(sink.with_root(input.clone()))
+                    } else {
+                        let stem = input
+                            .file_stem()
+                            .map(|s| s.to_string_lossy().to_string())
+                            .unwrap_or_else(|| "book".to_string());
+                        let tmp = std::env::temp_dir()
+                            .join(format!("json2xlsx-emb-{}-{stem}", std::process::id()));
+                        let _ = std::fs::remove_dir_all(&tmp);
+                        json2xlsx::extract_embeddings_to(input, &tmp)?;
+                        _emb_guard = Some(office_core::TempGuard { path: tmp.clone() });
+                        Some(sink.with_root(tmp))
+                    }
                 }
             };
-            out.emit_json(&value)?;
+            let unknown_mode = |other: &str| {
+                let mut e = CliError::new(format!("未知 view 模式: {other}"));
+                e.suggestion = Some(office_core::suggest::did_you_mean(
+                    other,
+                    &capabilities::VIEW_MODES
+                        .iter()
+                        .map(|(m, _)| *m)
+                        .collect::<Vec<_>>(),
+                    4,
+                ));
+                e
+            };
+            // `/` = 整本工作簿（仅 text：每张表一个 `## 表名` 小节）
+            let value = if path.trim() == "/" {
+                match mode.as_str() {
+                    "text" | "values" => json!({
+                        "sheets": wb.sheets.len(),
+                        "markdown": json2xlsx::markdown::workbook_markdown_with(
+                            &wb,
+                            json2xlsx::PayloadSinks {
+                                attachments: sink.as_ref(),
+                                media: None,
+                            },
+                        ),
+                    }),
+                    "layout" | "structure" => {
+                        return Err(CliError::new("整本（/）不支持 layout 视图")
+                            .suggest("layout 请指定工作表：/sheet[1]；整本阅读用 text"));
+                    }
+                    other => return Err(unknown_mode(other)),
+                }
+            } else {
+                let p = path::parse(path)?;
+                match mode.as_str() {
+                    "text" | "values" => ops::view_values(
+                        &wb,
+                        &p,
+                        json2xlsx::PayloadSinks {
+                            attachments: sink.as_ref(),
+                            media: None,
+                        },
+                    )?,
+                    "layout" | "structure" => ops::view_structure(&wb, &p)?,
+                    other => return Err(unknown_mode(other)),
+                }
+            };
+            let value = match (sink.as_ref(), value) {
+                (Some(s), serde_json::Value::Object(mut m)) if !s.entries().is_empty() => {
+                    m.insert("attachments".to_string(), serde_json::json!(s.entries()));
+                    serde_json::Value::Object(m)
+                }
+                (_, v) => v,
+            };
+            if let Some(s) = sink.as_ref() {
+                for a in s.entries() {
+                    match a.kind {
+                        "file" => out.status(&format!(
+                            "附件已导出: {} → {}",
+                            a.name,
+                            a.path.clone().unwrap_or_default()
+                        )),
+                        "url" => out.status(&format!("附件是 URL，原样保留: {}", a.src)),
+                        _ => out.status(&format!("附件载荷不在，保留原引用: {}", a.src)),
+                    }
+                }
+            }
+            // 表格/区域（markdown 字段）默认直出；单元格节点与结构树仍输出 JSON
+            out.emit_view_markdown(&value)?;
         }
         Command::Edit {
             input,

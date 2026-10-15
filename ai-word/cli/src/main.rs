@@ -77,14 +77,20 @@ enum Command {
         /// 输入的产物目录（含 document.json）
         input: PathBuf,
     },
-    /// 第一层视图：text（文本+媒体）/ layout（块结构树）
+    /// 第一层视图：text（结构感知 Markdown：标题层级/列表/表格）/ layout（块结构树）
     View {
         /// 输入的 DOCX 或产物目录
         input: PathBuf,
-        /// 元素路径（如 /part[1]）
+        /// 元素路径（如 /part[1]；`/` = 整篇，仅 text）
         path: String,
         /// 视图模式
         mode: ViewMode,
+        /// 把内嵌附件导出到该目录，Markdown 里的引用指向导出后的路径（URL 原样保留）
+        #[arg(long, value_name = "DIR")]
+        attachments: Option<PathBuf>,
+        /// 把图片等媒体导出到该目录，Markdown 里的图片链接指向导出后的路径
+        #[arg(long, value_name = "DIR")]
+        media: Option<PathBuf>,
     },
     /// 第二层精准修改：get / set / add / remove
     Edit {
@@ -178,9 +184,9 @@ enum Command {
 
 #[derive(clap::ValueEnum, Clone)]
 enum ViewMode {
-    /// 文本 + 媒体
+    /// 结构感知 Markdown（标题层级/列表嵌套/表格/代码/公式）+ 媒体
     Text,
-    /// 块结构树
+    /// 块结构树（机器可读，含类型与属性）
     Layout,
 }
 
@@ -360,25 +366,105 @@ fn run(cli: &Cli, out: &Output) -> Result<i32> {
                 return Ok(EXIT_ISSUES);
             }
         }
-        Command::View { input, path, mode } => {
-            let (root, _tmp) = product::resolve_input(input)?;
-            let doc = product::load_document(&root)?;
-            let segs = path::parse(path)?;
-            let loc = path::resolve(&doc, &segs)?;
-            let value = match mode {
-                ViewMode::Text => view::view_text(&doc, loc.part),
-                ViewMode::Layout => view::view_layout(&doc, loc.part),
+        Command::View {
+            input,
+            path,
+            mode,
+            attachments,
+            media,
+        } => {
+            // 解析一次同时拿模型（二进制输入不再「落盘→读回→再解析」）
+            let (root, _tmp, doc) = product::resolve_and_load(input)?;
+            if (attachments.is_some() || media.is_some()) && !matches!(mode, ViewMode::Text) {
+                return Err(office_core::CliError::new(
+                    "--attachments/--media 只对 text 模式有意义",
+                )
+                .suggest("用法：view <输入> / text --attachments <目录> --media <目录>"));
+            }
+            // 两个出口都以产物根为相对路径基准
+            let sink = attachments
+                .as_ref()
+                .map(|dir| json2docx::PayloadSink::new(dir.clone()).with_root(root.clone()));
+            let media_sink = media
+                .as_ref()
+                .map(|dir| json2docx::PayloadSink::new(dir.clone()).with_root(root.clone()));
+            let sinks = json2docx::PayloadSinks {
+                attachments: sink.as_ref(),
+                media: media_sink.as_ref(),
             };
-            let issues = json2docx::validate_product(&root);
+            // `/` = 整篇（与 render 一致）；整篇只对 text 有意义（layout 是分片级结构树）
+            let all = path.trim() == "/";
+            let value = if all {
+                match mode {
+                    ViewMode::Text => view::view_text_all(&doc, sinks),
+                    ViewMode::Layout => {
+                        return Err(office_core::CliError::new("整篇（/）不支持 layout 视图")
+                            .suggest("layout 请指定分片：/part[1]；整篇阅读用 text"));
+                    }
+                }
+            } else {
+                let segs = path::parse(path)?;
+                let loc = path::resolve(&doc, &segs)?;
+                match mode {
+                    ViewMode::Text => view::view_text(&doc, loc.part, sinks),
+                    ViewMode::Layout => view::view_layout(&doc, loc.part),
+                }
+            };
+            let issues = json2docx::validate_product_with(&root, &doc);
             let warnings = json2docx::content_warnings(&doc);
+            // media[] 也指向导出后的路径（带 --media 时）
+            let mut value = value;
+            if let Some(ms) = media_sink.as_ref() {
+                if let Some(list) = value.get_mut("media").and_then(|m| m.as_array_mut()) {
+                    for entry in list.iter_mut() {
+                        if let Some(src) =
+                            entry.get("src").and_then(|s| s.as_str()).map(String::from)
+                        {
+                            let name = src.rsplit('/').next().unwrap_or(&src).to_string();
+                            let link = if src.starts_with("http") {
+                                ms.link_for_url(&name, &src)
+                            } else {
+                                ms.link_for(&name, &src)
+                            };
+                            entry["src"] = serde_json::json!(link);
+                        }
+                    }
+                }
+            }
+            let exported = sink.as_ref().map(|s| s.entries()).unwrap_or_default();
+            let media_exported = media_sink.as_ref().map(|s| s.entries()).unwrap_or_default();
             let value = if let serde_json::Value::Object(mut m) = value {
                 m.insert("issues".to_string(), serde_json::json!(issues));
                 m.insert("warnings".to_string(), serde_json::json!(warnings));
+                if !exported.is_empty() {
+                    m.insert("attachments".to_string(), serde_json::json!(exported));
+                }
+                if !media_exported.is_empty() {
+                    m.insert(
+                        "media_exported".to_string(),
+                        serde_json::json!(media_exported),
+                    );
+                }
                 serde_json::Value::Object(m)
             } else {
                 value
             };
-            out.emit_json(&value)?;
+            // 附件导出结果走 stderr（默认模式下也能看到落点）
+            for (kind_label, list) in [("附件", &exported), ("媒体", &media_exported)] {
+                for a in list.iter() {
+                    match a.kind {
+                        "file" => out.status(&format!(
+                            "{kind_label}已导出: {} → {}",
+                            a.name,
+                            a.path.clone().unwrap_or_default()
+                        )),
+                        "url" => out.status(&format!("{kind_label}是 URL，原样保留: {}", a.src)),
+                        _ => out.status(&format!("{kind_label}载荷不在，保留原引用: {}", a.src)),
+                    }
+                }
+            }
+            // 默认直出 Markdown（体检信息走 stderr）；--json 才是结构化信封
+            out.emit_view_markdown(&value)?;
         }
         Command::Edit {
             input,

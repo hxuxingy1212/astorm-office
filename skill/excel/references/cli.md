@@ -61,13 +61,34 @@ out/                                  # json2xlsx unpack in.xlsx -o out/
 ## 3. view
 
 ```bash
-json2xlsx view <输入> [路径] [values|structure]
+json2xlsx view <输入> [路径] [text|layout]
 ```
 
-- `values`（默认）：单元格 `ref/type/value/formula/number_format/display`
-- `structure`：工作表名、标签色、隐藏、冻结、方向、视图（网格线/标题/缩放/公式）、筛选与筛选条件、列宽、合并区、行数、保护、数据验证、条件格式、表格、打印设置、批注数、图片/图表数量与明细
+- `text`（默认，旧名 `values`）：**结构感知 Markdown 表格，stdout 直出原文**（不套 JSON）——
+  已用区域渲染为 GFM 表格（首行作表头），单元格取 `display`（有公式显示 `=公式`，
+  与屏幕上的公式视图一致）。区域路径（`/sheet[1]/range[A1:C10]`）限定窗口；
+  **单元格路径（`/sheet[1]/cell[B2]`）没有 markdown 形态**，仍输出该节点 JSON（值/公式/数字格式）。
+  超过 2 万格的区域自动退回逐行稀疏列表（`- A1: 值; B2: 值`），避免百万行表格。
+  输出里没有注释标记；合并区/列宽等表格语法表达不了的信息看 `layout`。
+  要结构化信封（`{sheet, range, markdown}`）加 `--json`。
+- `--attachments <DIR>`（仅 text）：把工作簿里的内嵌 OLE 对象（`xl/embeddings/*`）导出到该目录，
+  表格后追加 `[名字](导出路径)（附件 · ProgID）` 行。解析侧已读 `<oleObjects>`（`prog_id` +
+  包内路径 `src`），所以**二进制 `.xlsx` 与产物目录都能导出**；载荷缺失时保留原引用
+  （信封里 `attachments[].kind = missing`）。
+- `layout`（旧名 `structure`）：机器可读结构树——工作表名、标签色、隐藏、冻结、方向、
+  视图（网格线/标题/缩放/公式）、筛选与筛选条件、列宽、合并区、行数、保护、数据验证、
+  条件格式、表格、打印设置、批注数、图片/图表数量与明细。
 
-路径缺省 `/sheet[1]`。
+路径缺省 `/sheet[1]`；`/`（整本）每张表一个 `## 表名` 小节。
+
+```bash
+json2xlsx view book.xlsx /sheet[1] text                 # 单表 Markdown 表格（直出）
+json2xlsx view book.xlsx '/sheet[1]/range[A1:C10]' text # 区域表格
+json2xlsx view book.xlsx / text > book.md               # 整本（每表一小节），可直接落盘
+json2xlsx view book.xlsx / text --json                  # 结构化信封（含 range）
+json2xlsx view book.xlsx /sheet[1]/cell[B2] text        # 单节点：完整字段 JSON
+json2xlsx view book.xlsx /sheet[1] layout               # 工作表版面设置（含合并区）
+```
 
 ## 4. 路径语法
 

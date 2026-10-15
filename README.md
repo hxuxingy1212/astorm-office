@@ -18,16 +18,19 @@ LLM 操作 Office 文档的常见痛点：直接改 XML 容易改坏包结构、
 
 - **JSON 产物目录为唯一中间形态**——文档解包为人类可读的 JSON（`document.json` +
   分片 + 媒体），改完 `repack` 重建为二进制文档，包结构由 CLI 保证合法；
-- **两层工具面**——`view`（省 token 的文本/结构视图）负责读，`edit get/set/add/remove`
+- **两层工具面**——`view`（`text` = 结构感知 Markdown，**stdout 直出**、整篇用 `/`、`--json` 才给信封；`layout` = 机器可读结构树）负责读，`edit get/set/add/remove`
   （1 基树形路径，docx 支持 `@paraId=` 稳定寻址）负责改，路径语法四格式一致；
 - **自验闭环**——`render` 导出 HTML / PDF / PNG，生成后立即目视核对；web 预览组件
   悬浮任意元素直接显示其 CLI 路径，所见即可寻址；
+- **一个入口管四格式**——`astorm-office word view a.docx / text`、`astorm-office batch steps.txt`：
+  格式参数选路、参数与退出码原样透传，脚本里可以混着 word/excel/ppt/pdf 跑；
 - **无状态契约**——stdout 只出数据（可 `jq`），状态走 stderr；写操作必须 `-o` 输出新文件；
   退出码 `0/1/2/3` 语义统一；`schema --json` 由 Rust 类型自动生成（CI 强制一致）。
 
 ## 概览
 
-- **四格式统一**：`json2docx` / `json2xlsx` / `json2pptx` / `json2pdf` 一个心智模型
+- **四格式统一**：`json2docx` / `json2xlsx` / `json2pptx` / `json2pdf` 一个心智模型；
+  统一入口 `astorm-office <格式> <命令...>` 按格式分发，`batch` 批量执行脚本
 - **PDF ↔ Office 互转**：产物目录为中间形态的架构内映射，语义重建，不依赖 LibreOffice
 - **内容提取**：`extract text` 支持版式重建（XY-cut 多栏阅读序）/ markdown / 扫描件 OCR
   （引擎链：HTTP OCR 服务 → macOS 系统 Vision → tesseract 兜底，均为可选）
@@ -89,6 +92,7 @@ flowchart LR
 | [`ai-ppt/`](ai-ppt/) | `json2pptx` | PowerPoint `.pptx` | 演示文稿：22 种元素、6 套模板预设、web 预览编辑器（`web/` + `web-server/`） |
 | [`ai-pdf/`](ai-pdf/) | `json2pdf` | PDF `.pdf` | PDF 工具箱：产物目录双向解析与 **view/edit/render 全链路**（8 种元素/内嵌字体/全滤镜图片解码 JPX·JBIG2·CCITT）、**PDF ↔ Word/Excel/PPT 互转**（语义重建，不依赖 LibreOffice）、文本表格提取（版式重建 / markdown / 扫描件 OCR）、页操作、AcroForm、Office/HTML/LaTeX 转 PDF、调色板与设计引擎、qa 体检 |
 | [`office-web/`](office-web/) | `@astorm/office-viewer` | DOCX / XLSX / PPTX / PDF | **四格式高保真预览 Vue3 组件库**：悬浮高亮元素并弹出 CLI 路径卡片；行虚拟滚动（百万行滚动渲染 6~12ms） |
+| [`office-cli/`](office-cli/) | **`astorm-office`** | 四格式统一入口 | 统一 CLI：`astorm-office <格式> <命令...>` 按参数（word/excel/ppt/pdf）分发到对应 CLI，参数与退出码原样透传；`batch` 用文本或 JSON 脚本批量执行多条命令并出逐步报告 |
 | [`office-core/`](office-core/) | `office-core` | — | 共享基础层：OPC 部件读写、LibreOffice 转换引擎、统一 CLI 输出契约 |
 
 ## 快速开始
@@ -99,8 +103,18 @@ flowchart LR
 git clone git@gitee.com:hxuxiny/astorm-office.git    # 或 GitHub 镜像 hxuxingy1212/astorm-office
 cd astorm-office
 
-cargo build --release          # 构建四个 CLI：target/release/json2docx|json2xlsx|json2pptx|json2pdf
+cargo build --release          # 构建五个 CLI：target/release/{astorm-office,json2docx,json2xlsx,json2pptx,json2pdf}
 cargo install --path ai-word/cli    # 或按需安装某一格式（其余同理）
+```
+
+统一入口（可选，等价于直接调对应格式的 CLI——它只做分发与批处理）：
+
+```bash
+astorm-office word view in.docx / text       # = json2docx view in.docx / text
+astorm-office excel import data.csv -o book.xlsx
+astorm-office view in.docx / text            # 省略格式：按 .docx 自动分发
+astorm-office formats                        # 格式别名与各 CLI 解析路径
+astorm-office batch steps.txt                # 批量：脚本一行一条，可混排四种格式
 ```
 
 三步工作流（以 Word 为例，Excel / PPT / PDF 完全同构）：
@@ -246,7 +260,7 @@ node scripts/export.mjs        # 官方导出包 → dist-kit/office-kit-<versio
 
 ```text
 office-kit-<version>/
-├── bin/            # json2docx / json2xlsx / json2pptx / json2pdf（release）
+├── bin/            # astorm-office（统一入口）+ json2docx / json2xlsx / json2pptx / json2pdf（release）
 ├── skill/          # 总纲 SKILL.md + 四格式分册（references/scenarios/templates 全子树）
 ├── viewer/         # @astorm/office-viewer dist 三件套
 ├── samples/        # 四格式样例产物目录（预览手测夹具）

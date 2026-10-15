@@ -1,48 +1,13 @@
 //! 视图层：text / layout
 //!
-//! - text：文本 + 媒体信息（去样式/图形），树形保留层级，媒体为绝对路径
-//! - layout：组件布局（类型/名称/文字/位置），树形结构
+//! - text：结构感知的 Markdown 纯文本（表格/图表数据/组件数据/分组嵌套/备注），媒体为绝对路径
+//! - layout：组件布局（类型/名称/文字/位置），树形结构（机器可读，便于定位后 edit）
 
 use json2pptx::model::elements::Element;
 use json2pptx::model::Slide;
+use json2pptx::PayloadSinks;
 use serde_json::json;
 use std::path::Path;
-
-/// 递归提取文本节点（text 元素 / 形状内文字 / 表格单元格）
-fn collect_texts(elements: &[Element]) -> Vec<serde_json::Value> {
-    let mut out = Vec::new();
-    for el in elements {
-        let name = el.name().unwrap_or_default();
-        match el {
-            Element::Group(g) => {
-                let children = collect_texts(&g.children);
-                if !children.is_empty() {
-                    out.push(json!({ "name": name, "children": children }));
-                }
-            }
-            Element::Table(t) => {
-                let cells: Vec<String> = t
-                    .rows
-                    .iter()
-                    .flatten()
-                    .filter(|c| !c.text.is_empty())
-                    .map(|c| c.text.clone())
-                    .collect();
-                if !cells.is_empty() {
-                    out.push(json!({ "name": name, "text": cells.join(" | ") }));
-                }
-            }
-            _ => {
-                if let Some(text) = el.text_content() {
-                    if !text.is_empty() {
-                        out.push(json!({ "name": name, "text": text }));
-                    }
-                }
-            }
-        }
-    }
-    out
-}
 
 /// 递归提取媒体节点（图片元素 + 背景图）
 fn collect_media(elements: &[Element], product_root: &Path, out: &mut Vec<serde_json::Value>) {
@@ -60,12 +25,10 @@ fn collect_media(elements: &[Element], product_root: &Path, out: &mut Vec<serde_
     }
 }
 
-/// view text：文本 + 媒体（JSON）
-pub fn view_text(slide: &Slide, slide_no: usize, product_root: &Path) -> serde_json::Value {
+/// 收集页内媒体（图片元素 + 背景图，src 解析为绝对路径）
+fn slide_media(slide: &Slide, product_root: &Path) -> Vec<serde_json::Value> {
     let mut media = Vec::new();
     collect_media(&slide.elements, product_root, &mut media);
-
-    // 背景图
     if let Some(serde_json::Value::Object(bg)) = &slide.background {
         if bg.get("type").and_then(|v| v.as_str()) == Some("image") {
             if let Some(src) = bg.get("src").and_then(|v| v.as_str()) {
@@ -76,12 +39,42 @@ pub fn view_text(slide: &Slide, slide_no: usize, product_root: &Path) -> serde_j
             }
         }
     }
+    media
+}
 
+/// view text：结构感知 Markdown（保留表格/图表/组件/分组层次）+ 媒体绝对路径
+///
+/// `sink` 非空时把内嵌附件（embeddings 部件）导出到指定目录，
+/// Markdown 里的引用指向导出后的路径。
+pub fn view_text(
+    slide: &Slide,
+    slide_no: usize,
+    product_root: &Path,
+    sinks: PayloadSinks<'_>,
+) -> serde_json::Value {
+    let resolve = |src: &str| crate::product::media_abs_path(product_root, src);
     json!({
         "slide": slide_no,
-        "texts": collect_texts(&slide.elements),
+        "markdown": json2pptx::markdown::slide_markdown_with(slide, &resolve, sinks),
+        "media": slide_media(slide, product_root),
+    })
+}
+
+/// view text（整本）：所有页 → 一段 Markdown（每页一个 `## 幻灯片 N` 小节）
+pub fn view_text_all(
+    slides: &[Slide],
+    product_root: &Path,
+    sinks: PayloadSinks<'_>,
+) -> serde_json::Value {
+    let resolve = |src: &str| crate::product::media_abs_path(product_root, src);
+    let media: Vec<serde_json::Value> = slides
+        .iter()
+        .flat_map(|s| slide_media(s, product_root))
+        .collect();
+    json!({
+        "slides": slides.len(),
+        "markdown": json2pptx::markdown::deck_markdown_with(slides, &resolve, sinks),
         "media": media,
-        "notes": slide.notes,
     })
 }
 

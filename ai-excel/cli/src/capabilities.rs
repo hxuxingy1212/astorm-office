@@ -144,7 +144,10 @@ pub const ADD_TYPES: &[(&str, &str)] = &[
 
 /// view 模式
 pub const VIEW_MODES: &[(&str, &str)] = &[
-    ("text", "值/公式视图（旧值 values 兼容）"),
+    (
+        "text",
+        "结构感知 Markdown 表格（值/公式；`/` = 整本；旧值 values 兼容）",
+    ),
     ("layout", "结构树视图（旧值 structure 兼容）"),
 ];
 
