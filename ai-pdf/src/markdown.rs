@@ -105,12 +105,8 @@ fn collect_lines(r: &Region, pt: &PageText, body_size: f64, out: &mut Vec<String
             };
             for &i in &ls {
                 let line = &pt.lines[i];
-                let text = line
-                    .items
-                    .iter()
-                    .map(|it| it.text.as_str())
-                    .collect::<Vec<_>>()
-                    .join(" ");
+                // 行内拼接走统一实现（逐字 item 的 PDF 不能变成 "1 2 8 . 0"）
+                let text = crate::text::join_items(&line.items);
                 let text = text.trim().to_string();
                 if text.is_empty() {
                     continue;

@@ -114,10 +114,11 @@ enum Cmd {
     /// 第一层视图：text（文本+媒体）/ layout（元素布局树）
     ///
     /// 输入是 PDF 文件（一次性解包到临时目录）或 unpack 产物目录。
+    /// 整篇结构化 Markdown 不在 view（元素级寻址）：用 `extract text --format markdown`。
     View {
         /// 输入的 PDF 文件或 unpack 产物目录
         input: PathBuf,
-        /// 页面路径（如 /page[1]）
+        /// 页面路径（如 /page[1]；整篇 Markdown 见 extract text --format markdown）
         page_path: String,
         /// 视图模式
         mode: ViewMode,
@@ -259,6 +260,11 @@ enum ExtractCmd {
     },
     /// 导出内嵌图片到目录（-o，缺省当前目录）
     Image { file: PathBuf },
+    /// 内嵌文件（附件）：列清单；带 -o 时导出到目录（PDF 的 /EmbeddedFiles + FileAttachment 注释）
+    Attachment {
+        /// 输入的 PDF 文件或 unpack 产物目录
+        file: PathBuf,
+    },
 }
 
 #[derive(Subcommand)]
@@ -626,6 +632,90 @@ fn dispatch(cli: &Cli, out: &Output) -> Result<i32, CmdError> {
                 })
                 .collect();
             out.emit_json(&json!({"file": file.display().to_string(), "pages": page_reports}))?;
+        }
+        Cmd::Extract(ExtractCmd::Attachment { file }) => {
+            // 输入可以是 PDF（直接读 /EmbeddedFiles）或产物目录（document.json 已记录清单）
+            let is_dir = file.is_dir() && file.join("document.json").is_file();
+            let (list, exported) = if is_dir {
+                let model = product::load_document(file)?;
+                let list = model.attachments.clone();
+                let mut exported = Vec::new();
+                if let Some(dir) = cli.output.clone() {
+                    let sink = office_core::PayloadSink::new(dir);
+                    for a in &list {
+                        let (name, path) = match a.src.as_deref() {
+                            Some(rel) => {
+                                let link =
+                                    sink.link_for(&a.name, &file.join(rel).display().to_string());
+                                let ok = std::path::Path::new(&link).exists();
+                                (a.name.clone(), ok.then_some(link))
+                            }
+                            None => (a.name.clone(), None),
+                        };
+                        exported.push(json!({
+                            "name": name,
+                            "mime": a.mime,
+                            "size": a.size,
+                            "path": path,
+                            "kind": if exported_path_ok(&path) { "file" } else { "missing" },
+                        }));
+                    }
+                }
+                (list, exported)
+            } else {
+                let doc = load(file)?;
+                let list = json2pdf::attachments::list(&doc);
+                let exported = match cli.output.clone() {
+                    Some(dir) => json2pdf::attachments::extract(&doc, &dir)?,
+                    None => Vec::new(),
+                };
+                (list, exported)
+            };
+            let count = list.len();
+            if count == 0 {
+                out.status("未发现内嵌文件（/EmbeddedFiles 与 FileAttachment 注释都为空）");
+            } else {
+                out.status(&format!("内嵌文件 {count} 个"));
+            }
+            for rec in &exported {
+                match rec.get("kind").and_then(|v| v.as_str()) {
+                    Some("file") => out.status(&format!(
+                        "已导出: {} → {}",
+                        rec.get("name").and_then(|v| v.as_str()).unwrap_or(""),
+                        rec.get("path").and_then(|v| v.as_str()).unwrap_or("")
+                    )),
+                    _ => out.status(&format!(
+                        "载荷不可读，未导出: {}",
+                        rec.get("name").and_then(|v| v.as_str()).unwrap_or("")
+                    )),
+                }
+            }
+            // 清单始终输出（这是本命令的主要用途）；--json 下与导出记录合并成信封
+            let items: Vec<Value> = list
+                .iter()
+                .map(|a| {
+                    let rec = exported
+                        .iter()
+                        .find(|r| r.get("name").and_then(|v| v.as_str()) == Some(a.name.as_str()));
+                    json!({
+                        "name": a.name,
+                        "mime": a.mime,
+                        "size": a.size,
+                        "description": a.description,
+                        "src": a.src,
+                        "path": rec.and_then(|r| r.get("path")).cloned().unwrap_or(Value::Null),
+                        // 未导出（只列清单）时标 listed
+                        "kind": rec
+                            .and_then(|r| r.get("kind").and_then(|v| v.as_str()))
+                            .unwrap_or("listed"),
+                    })
+                })
+                .collect();
+            out.emit_json(&json!({
+                "file": file.display().to_string(),
+                "count": count,
+                "attachments": items,
+            }))?;
         }
         Cmd::Extract(ExtractCmd::Table { file, pages }) => {
             let doc = load(file)?;
@@ -1035,6 +1125,16 @@ fn dispatch(cli: &Cli, out: &Output) -> Result<i32, CmdError> {
             page_path,
             mode,
         } => {
+            // `/` = 整篇：PDF 的整篇结构化 Markdown 走内容提取管线
+            // （标题/列表/表格识别 + OCR 路由），view 是元素级寻址视图
+            if page_path.trim() == "/" {
+                return Err(CliError::new("整篇（/）不是 view 的寻址形态")
+                    .suggest(
+                        "整篇 Markdown：json2pdf extract text <pdf> --format markdown；\
+                         元素级阅读：view <输入> /page[1] text|layout",
+                    )
+                    .into());
+            }
             let (root, _tmp) = product::resolve_input(input)?;
             let doc = product::load_document(&root)?;
             let pages = product::load_pages(&root)?;
@@ -1445,6 +1545,13 @@ fn parse_dims(s: &str) -> (f64, f64) {
 }
 
 /// 加载 PDF（加密文档明确拒绝）
+/// 导出记录里 path 是否有效（用于 kind 判定）
+fn exported_path_ok(path: &Option<String>) -> bool {
+    path.as_deref()
+        .map(|p| std::path::Path::new(p).exists())
+        .unwrap_or(false)
+}
+
 fn load(file: &Path) -> Result<lopdf::Document, CliError> {
     let doc = lopdf::Document::load(file).map_err(|e| {
         CliError::with_code("io", format!("load {}: {e}", file.display()))

@@ -55,6 +55,8 @@ doc/                            # 产物根
 ```bash
 json2pdf view doc/ '/page[1]' text          # 文本+媒体（每项带路径，可直接 edit）
 json2pdf view doc/ '/page[1]' layout        # 元素布局树（类型/几何/文字/路径）
+json2pdf extract text in.pdf --format markdown   # 整篇结构化 Markdown（标题/列表/表格；--ocr 可识别扫描页）
+json2pdf extract attachment in.pdf -o ./attach  # 内嵌文件（/EmbeddedFiles）：清单 + 导出到目录
 json2pdf edit doc/ '/page[1]/text[2]' get
 json2pdf edit doc/ '/page[1]/text[2]' set --prop 'text=新内容' --prop 'color=#cc0000'
 json2pdf edit doc/ '/page[1]' add --type rect --prop 'x=100' --prop 'y=600' --prop 'w=150' --prop 'h=30' --prop 'fill=#3366cc'

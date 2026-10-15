@@ -50,23 +50,35 @@ impl PageText {
         lines.sort_by(|a, b| b.y.partial_cmp(&a.y).unwrap_or(std::cmp::Ordering::Equal));
         let mut out = String::new();
         for line in &lines {
-            let mut items = line.items.clone();
-            items.sort_by(|a, b| a.x.partial_cmp(&b.x).unwrap_or(std::cmp::Ordering::Equal));
-            let mut last_end: Option<(f64, f64)> = None; // (end_x, size)
-            for item in &items {
-                if let Some((le, lsize)) = last_end {
-                    let em = item.size.max(lsize).max(1.0);
-                    if item.x - le > 0.2 * em {
-                        out.push(' ');
-                    }
-                }
-                out.push_str(&item.text);
-                last_end = Some((item.end_x, item.size));
-            }
+            out.push_str(&join_items(&line.items));
             out.push('\n');
         }
         out
     }
+}
+
+/// 同一行内的 item 按 x 拼接成文本（**行内拼接的唯一实现**）。
+///
+/// 词间距判定：下一 item 起点 − 上一 item 估算终点 > 0.2em → 补一个空格；
+/// 否则直接粘连——PDF 生成器常把 `128.0` 拆成逐字 item，靠这条规则才不会
+/// 变成 `1 2 8 . 0`。`PageText::text()`、markdown 与 layout 三条读文本的路径
+/// 都走这里，避免各自实现出现口径差异。
+pub fn join_items(items: &[TextItem]) -> String {
+    let mut refs: Vec<&TextItem> = items.iter().collect();
+    refs.sort_by(|a, b| a.x.partial_cmp(&b.x).unwrap_or(std::cmp::Ordering::Equal));
+    let mut out = String::new();
+    let mut last_end: Option<(f64, f64)> = None; // (end_x, size)
+    for item in refs {
+        if let Some((le, lsize)) = last_end {
+            let em = item.size.max(lsize).max(1.0);
+            if item.x - le > 0.2 * em {
+                out.push(' ');
+            }
+        }
+        out.push_str(&item.text);
+        last_end = Some((item.end_x, item.size));
+    }
+    out
 }
 
 pub fn is_cjk(c: char) -> bool {
@@ -1879,24 +1891,24 @@ pub fn detect_table_rows(pages: &[PageText]) -> Vec<TableMatch> {
                 flush_table_rows(&mut rows, page.page, &mut tables);
                 continue;
             }
-            // 按 x 间隔切分单元格（间隔 > 2em 视为新单元格）
-            let mut cells: Vec<String> = Vec::new();
-            let mut cur = String::new();
+            // 按 x 间隔切分单元格（间隔 > 2em 视为新单元格）；
+            // 格内拼接走 join_items——逐字 item 的 PDF 不能变成 "1 2 8 . 0"
+            let mut groups: Vec<Vec<TextItem>> = Vec::new();
+            let mut cur: Vec<TextItem> = Vec::new();
             let mut last_end: Option<f64> = None;
             for item in items {
                 if let Some(le) = last_end {
                     if item.x - le > 2.0 * item.size {
-                        cells.push(std::mem::take(&mut cur));
-                    } else if !cur.is_empty() {
-                        cur.push(' ');
+                        groups.push(std::mem::take(&mut cur));
                     }
                 }
-                cur.push_str(&item.text);
                 last_end = Some(item.end_x);
+                cur.push(item);
             }
             if !cur.is_empty() {
-                cells.push(cur);
+                groups.push(cur);
             }
+            let cells: Vec<String> = groups.iter().map(|g| join_items(g)).collect();
             if cells.len() >= 2 {
                 rows.push((li, cells));
             } else {
@@ -2147,6 +2159,28 @@ endcmap\n";
             size,
             text: text.into(),
         }
+    }
+
+    #[test]
+    fn join_items_keeps_per_glyph_fragments_together() {
+        // 逐字 item（LibreOffice 生成的 PDF 常见）：按字形宽度推进（含少量估算误差），
+        // 间距远小于 0.2em 容差 → 必须粘连
+        let mut glyphs = Vec::new();
+        let mut x = 72.0;
+        for c in "128.0".chars() {
+            let it = item(x, 12.0, &c.to_string());
+            x = it.end_x + 0.3; // 0.3pt 估算误差（阈值 0.2em = 2.4pt）
+            glyphs.push(it);
+        }
+        assert_eq!(join_items(&glyphs), "128.0");
+
+        // 真正的词间距（200 − 估算终点 ≫ 0.2em）仍然补空格
+        let words = vec![item(72.0, 12.0, "月份"), item(200.0, 12.0, "收入")];
+        assert_eq!(join_items(&words), "月份 收入");
+
+        // 乱序 item 按 x 排序后再拼
+        let unsorted = vec![item(200.0, 12.0, "收入"), item(72.0, 12.0, "月份")];
+        assert_eq!(join_items(&unsorted), "月份 收入");
     }
 
     #[test]

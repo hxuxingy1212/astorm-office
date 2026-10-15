@@ -15,6 +15,7 @@
 //!
 //! CLI 输出契约走 office-core 的 `Output`（docs/cli-conventions.md）。
 
+pub mod attachments;
 pub mod checks;
 pub mod color;
 pub mod complexity;
