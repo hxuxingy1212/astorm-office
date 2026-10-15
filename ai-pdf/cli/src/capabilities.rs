@@ -141,8 +141,28 @@ pub const ADD_TYPES: &[(&str, &str)] = &[
 
 /// view 模式
 pub const VIEW_MODES: &[(&str, &str)] = &[
-    ("text", "文本 + 媒体（去图形，含各元素 CLI 路径）"),
+    (
+        "text",
+        "文本 + 媒体（去图形，含各元素 CLI 路径）；整篇阅读不在 view——`/` 会提示用 extract",
+    ),
     ("layout", "元素布局树（类型/几何/文字摘要/CLI 路径）"),
+];
+
+/// json2pdf 特有命令（extract/pages/meta/form/convert/…；四 CLI 公共命令见 docs/cli-conventions.md）
+pub const COMMANDS: &[(&str, &str)] = &[
+    (
+        "extract text/table/image/attachment",
+        "内容提取：text 支持 --layout 版式重建 / --format markdown / --ocr；attachment 列内嵌文件清单并可 -o 导出",
+    ),
+    ("pages merge/split/rotate/crop/clean", "页操作"),
+    ("meta get/set/brand", "元数据读写"),
+    ("form info/fill", "AcroForm 表单"),
+    (
+        "convert office/html/latex | docx/pptx/xlsx",
+        "Office/HTML/LaTeX → PDF（office 引擎链 auto=LibreOffice→native）；PDF → Office（产物目录映射）",
+    ),
+    ("palette generate/cascade · design svg/layout/derive/audit", "调色板与设计引擎"),
+    ("code/content sanitize · check font/toc · qa · env check", "清洗、质检与依赖探测"),
 ];
 
 /// batch 支持的 op

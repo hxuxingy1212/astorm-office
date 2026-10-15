@@ -81,6 +81,18 @@ pub const VIEW_MODES: &[(&str, &str)] = &[
     ("layout", "块布局树（类型/级别/文字摘要）"),
 ];
 
+/// view 的附加旗标（导出出口；`view <输入> <路径> <模式>` 之后追加）
+pub const VIEW_FLAGS: &[(&str, &str)] = &[
+    (
+        "--attachments <DIR>",
+        "把内嵌附件（word/embeddings/*）导出到目录，Markdown 引用改指导出路径；URL 原样保留",
+    ),
+    (
+        "--media <DIR>",
+        "把图片（word/media/*）导出到目录，图片链接与 media[] 都指向导出路径",
+    ),
+];
+
 /// batch 支持的 op
 pub const BATCH_OPS: &[(&str, &str)] = &[
     ("set", "修改属性（path + props）"),

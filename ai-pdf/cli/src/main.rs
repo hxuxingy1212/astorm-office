@@ -98,7 +98,7 @@ enum Cmd {
         #[arg(long)]
         skip_cover: bool,
     },
-    /// 正向解析：PDF → 产物目录（document.json + pages/*.json + media/ + fonts/）
+    /// 正向解析：PDF → 产物目录（document.json + pages/*.json + media/ + attachments/ + fonts/）
     Unpack {
         /// 输入 PDF
         pdf: PathBuf,
@@ -1481,7 +1481,7 @@ fn product_schema() -> Value {
     json!({
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "json2pdf 产物目录",
-        "description": "unpack（PDF→JSON）与 repack（JSON→PDF）的统一中间形态：document.json + pages/*.json + media/ + fonts/。坐标一律 pt、y 向上，文本 y 为基线。",
+        "description": "unpack（PDF→JSON）与 repack（JSON→PDF）的统一中间形态：document.json + pages/*.json + media/ + attachments/ + fonts/。坐标一律 pt、y 向上，文本 y 为基线。",
         "document": schemars::schema_for!(json2pdf::model::DocumentModel),
         "page": schemars::schema_for!(json2pdf::model::PageModel),
     })
@@ -1614,6 +1614,7 @@ doc/
 │   ├── page-001.json    # 每页一个文件（尺寸/旋转/元素列表）
 │   └── page-002.json
 ├── media/               # 图片实体（image.src 指向这里的相对路径）
+├── attachments/         # 内嵌文件实体（/EmbeddedFiles 与 FileAttachment 注释）
 └── fonts/               # 内嵌字体实体 + 元数据（font-NNN.ttf / font-NNN.json）
 ```
 
@@ -1625,9 +1626,15 @@ doc/
   "meta": { "title": "...", "author": "...", "subject": "...", "creator": "..." },
   "page_size": { "width": 595.28, "height": 841.89 },
   "pages": ["pages/page-001.json", "pages/page-002.json"],
-  "fonts": ["fonts/font-001.json"]
+  "fonts": ["fonts/font-001.json"],
+  "attachments": [
+    { "name": "说明.txt", "src": "attachments/说明.txt", "mime": "text/plain", "size": 23, "description": "..." }
+  ]
 }
 ```
+
+- `attachments` 为内嵌文件（PDF 附件）：`src` 指向 `attachments/` 下的载荷，`repack` 会按它重建
+  `/EmbeddedFiles` 名字树；`json2pdf extract attachment <pdf|目录> [-o DIR]` 可列清单/导出。
 
 - 坐标单位一律 pt（1/72 英寸），y 向上；文本的 y 为基线。
 - page_size 为默认页尺寸（A4），页面可覆盖。

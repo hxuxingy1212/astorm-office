@@ -65,6 +65,8 @@ json2docx view <输入> <路径> text|layout     # 路径：/part[N] 或 /（整
 - `--media <DIR>`（仅 text）：把图片（`word/media/*`）导出到该目录，Markdown 的图片链接与
   `media[]` 都指向导出后的路径（`media_exported[]` 给出清单）。二进制输入时特别有用——
   不带它的话链接是包内相对路径，只有产物目录里才解析得到。
+> 两个旗标只在 **CLI 的 view** 上有（`help` 的「view 旗标」段可查）；`serve`/`mcp` 的 view 是
+> 程序化只读接口，不接导出参数——需要导出时走 CLI，或先 `unpack` 再从产物目录取载荷。
 - `layout`：块结构树（heading/paragraph/list/table/image/formula/…，含属性，机器可读）。
 
 整篇（`/`）把各分片按空行拼接输出（分片边界是内部实现，不引入标记；空分片跳过）。

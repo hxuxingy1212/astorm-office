@@ -16,7 +16,7 @@ compatibility: 需要 Rust 工具链（cargo）或已安装 json2pdf；convert h
 
 两层结构，缺一不可：
 
-1. **产物目录**（中间形态）：`document.json` + 按页拆分的 `pages/*.json` + `media/` 图片 + `fonts/` 内嵌字体。字段权威见 [references/schema.json](references/schema.json)（由 `json2pdf schema --json` 生成）；
+1. **产物目录**（中间形态）：`document.json` + 按页拆分的 `pages/*.json` + `media/` 图片 + `attachments/` 内嵌文件 + `fonts/` 内嵌字体。字段权威见 [references/schema.json](references/schema.json)（由 `json2pdf schema --json` 生成）；
 2. **json2pdf CLI**（执行层）：`unpack` 解包、`view` 查看、`edit` 精准修改、`repack` 重建、`render` 渲染核对、`batch/serve/mcp` 批量与常驻，及内容提取/页操作/qa 质检等工具命令。
 
 ## 产物目录结构（核心概念）
@@ -28,6 +28,7 @@ doc/                            # 产物根
 │   ├── page-001.json           # 每页一个 JSON（尺寸/旋转/裁剪/元素列表）
 │   └── page-002.json
 ├── media/                      # 图片实体（image.src 指向这里的相对路径）
+├── attachments/                # 内嵌文件实体（/EmbeddedFiles 与 FileAttachment 注释）
 └── fonts/                      # 内嵌字体实体（font-NNN.ttf + font-NNN.json 元数据）
 ```
 

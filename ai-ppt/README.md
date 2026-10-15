@@ -253,7 +253,8 @@ cargo test
 |----------------|-------------|-----------------|
 | `json2pptx unpack <input.pptx> -o <DIR>` | — | PPTX → editable slide-split JSON + media |
 | `json2pptx repack <DIR> -o out.pptx` | — | Rebuild PPTX from unpacked product |
-| `json2pptx view <input> /slide[N] text\|layout` | — | L1 view: text+media / layout tree (pptx or product dir, stateless) |
+| `json2pptx view <input> <path> text\|layout` | — | L1 view: `text` = structure-aware Markdown（直出，`/` 看整本）/ `layout` = 组件布局树（pptx 或产物目录，无状态） |
+| `json2pptx view … text --attachments DIR --media DIR` | — | 导出内嵌对象 / 图片到目录，Markdown 引用改指导出路径（URL 保留） |
 | `json2pptx edit <input> <path> get\|set\|add\|remove [-o out.pptx]` | — | L2 precise editing (pptx needs `-o` for writes) |
 | `json2pptx render <input> /slide[N] [-o out.png]` | — | Render slide to PNG (browser / native engine) |
 | `json2pptx query <input> "<selector>"` | — | CSS-like element query / 选择器查询 |

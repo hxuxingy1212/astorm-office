@@ -139,6 +139,8 @@ json2pptx view <输入> <路径> text|layout     # 路径：/slide[N] 或 /（�
 - `--media <DIR>`（仅 text）：把图片导出到该目录，Markdown 的图片链接与 `media[]` 都指向
   导出后的路径（`media_exported[]` 给出清单）。**二进制输入强烈建议带上**：不带它时图片链接
   指向临时解包目录，命令结束即失效
+> 两个旗标只在 **CLI 的 view** 上有（`help` 的「view 旗标」段可查）；`serve`/`mcp` 的 view 是
+> 程序化只读接口，不接导出参数——需要导出时走 CLI，或先 `unpack` 再从产物目录取载荷。
 - 输出里没有 `<!-- … -->` 注释标记
 - `--json`：结构化信封 `{slide, markdown, media[], issues[], warnings[]}`；
   `media` 为图片元素 + 背景图的**绝对路径**或 URL

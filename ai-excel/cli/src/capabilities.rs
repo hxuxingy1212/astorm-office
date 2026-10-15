@@ -151,6 +151,12 @@ pub const VIEW_MODES: &[(&str, &str)] = &[
     ("layout", "结构树视图（旧值 structure 兼容）"),
 ];
 
+/// view 的附加旗标（导出出口；`view <输入> <路径> <模式>` 之后追加）
+pub const VIEW_FLAGS: &[(&str, &str)] = &[(
+    "--attachments <DIR>",
+    "把内嵌 OLE 对象（xl/embeddings/*）导出到目录，表格后追加指向导出路径的附件行",
+)];
+
 /// batch 支持的操作
 pub const BATCH_OPS: &[(&str, &str)] = &[
     ("set", "修改属性（path + props）"),

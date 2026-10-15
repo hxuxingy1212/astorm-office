@@ -852,5 +852,7 @@ const SCHEMA_GUIDE: &str = concat!(
     "  page_break   {}\n",
     "\nRun: { text, bold?, italic?, underline?, strike?, color?, highlight?, font_family?, font_size?, superscript?, subscript?, code?, hyperlink? }\n",
     "\n单位：长度/字号 pt；字号也可写 \"14pt\"；行距用倍数（1.5）；页面用 A4/Letter。\n",
-    "命令：unpack / repack / view / edit / render / validate / dump / raw / raw-set / schema / templates / extract / merge / mcp / serve"
+    "命令：unpack / repack / view / edit / render / validate / dump / raw / raw-set / schema / templates / extract / merge / mcp / serve\n",
+    "view 旗标（仅 CLI）：--attachments <DIR> 导出内嵌附件 / --media <DIR> 导出图片，Markdown 引用改指导出路径\n",
+    "help 看能力速查（含 view 模式与旗标、元素属性）；schema --json 输出机器可读 schema"
 );

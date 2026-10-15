@@ -144,6 +144,18 @@ pub const VIEW_MODES: &[(&str, &str)] = &[
     ("layout", "组件布局树（类型/名称/文字/位置）"),
 ];
 
+/// view 的附加旗标（导出出口；`view <输入> <路径> <模式>` 之后追加）
+pub const VIEW_FLAGS: &[(&str, &str)] = &[
+    (
+        "--attachments <DIR>",
+        "把内嵌对象（ppt/embeddings/*，模型里的 base64 部件）解码导出到目录并改指引用",
+    ),
+    (
+        "--media <DIR>",
+        "把图片导出到目录，图片链接与 media[] 都指向导出路径（二进制输入原本指向临时目录）",
+    ),
+];
+
 /// batch 支持的 op
 pub const BATCH_OPS: &[(&str, &str)] = &[
     ("set", "修改属性（path + props）"),

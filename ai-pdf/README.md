@@ -17,6 +17,7 @@ doc/
 │   ├── page-001.json    # 每页一个 JSON（尺寸/旋转/裁剪/元素列表）
 │   └── page-002.json
 ├── media/               # 图片实体（image.src 指向这里的相对路径）
+├── attachments/         # 内嵌文件实体（/EmbeddedFiles 与 FileAttachment 注释）
 └── fonts/               # 内嵌字体实体 + 元数据（font-NNN.ttf / font-NNN.json）
 ```
 
@@ -42,6 +43,11 @@ json2pdf edit doc/ '/page[1]/text[2]' set --prop 'text=新内容'
 json2pdf repack doc/ -o out.pdf       # 逆向生成：产物目录 → PDF（默认静默，--json 出结果）
 json2pdf render doc/ -o preview.html  # 自包含 HTML 目视核对（png/pdf 需 Chrome）
 json2pdf schema                       # 人读字段指引；--json 输出机器可读 schema
+
+# 内容提取与附件（PDF 特有）
+json2pdf extract text in.pdf --format markdown   # 整篇结构化 Markdown（--layout 版式重建 / --ocr 扫描页）
+json2pdf extract attachment in.pdf -o ./attach   # 内嵌文件（/EmbeddedFiles）：列清单 + 导出到目录
+# 注：整篇 Markdown 不在 `view`（它是元素级寻址，`view <pdf> /` 会直接指引到 extract）
 ```
 
 **字体策略**（逆向生成的关键）：
