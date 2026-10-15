@@ -84,13 +84,25 @@ fn cell_to_v(v: &Value) -> V {
 
 type Key = (String, String);
 
-struct Ctx {
-    cells: HashMap<Key, V>,
-    cur_sheet: String,
+/// 求值上下文。
+///
+/// **cells / cur_sheet / vars 一律借用**：它们只读。早先这里按值持有 `cells`，
+/// 导致定点循环里每个公式都克隆一次整张表（O(n²)：2 万公式 × 2 万条目 × 2 个
+/// String 键 ≈ 8 亿次分配，实测 2 万行表要 9 分钟）。改成借用后是 O(n)。
+struct Ctx<'a> {
+    cells: &'a HashMap<Key, V>,
+    /// 尚未求值的公式单元格键。引用到它们时**本趟先放弃**，
+    /// 交给下一趟定点重算——否则会被当成空值 0 定稿，逆序依赖链（如顶部
+    /// 汇总行引用下方公式）就算错了。
+    pending: &'a std::collections::HashSet<Key>,
+    cur_sheet: &'a str,
     cur_row: Option<u32>,
     cur_col: Option<u32>,
-    vars: HashMap<String, V>,
+    vars: &'a HashMap<String, V>,
 }
+
+/// 顶层公式求值用的空作用域（`Ctx::vars` 需要借用，不能每次新建）
+static NO_VARS: std::sync::LazyLock<HashMap<String, V>> = std::sync::LazyLock::new(HashMap::new);
 
 fn norm_ref(r: &str) -> String {
     r.chars()
@@ -103,14 +115,14 @@ fn parse_cell_ref_local(r: &str) -> Option<(u32, u32)> {
     crate::utils::a1::parse_cell_ref(r).ok()
 }
 
-struct Parser<'a> {
+struct Parser<'a, 'c> {
     s: &'a [u8],
     i: usize,
-    ctx: &'a Ctx,
+    ctx: &'c Ctx<'c>,
 }
 
-impl<'a> Parser<'a> {
-    fn new(s: &'a str, ctx: &'a Ctx) -> Self {
+impl<'a, 'c> Parser<'a, 'c> {
+    fn new(s: &'a str, ctx: &'c Ctx<'c>) -> Self {
         Parser {
             s: s.as_bytes(),
             i: 0,
@@ -389,14 +401,18 @@ impl<'a> Parser<'a> {
                 self.i += 1;
             }
             let name2 = String::from_utf8_lossy(&self.s[r0..self.i]).into_owned();
-            let sh = sheet.clone().unwrap_or_else(|| self.ctx.cur_sheet.clone());
-            return Ok(range_values(&sh, &name, &name2, self.ctx));
+            let sh = sheet
+                .clone()
+                .unwrap_or_else(|| self.ctx.cur_sheet.to_string());
+            return range_values(&sh, &name, &name2, self.ctx);
         }
 
         // cell reference
         if parse_cell_ref_local(&name).is_some() {
-            let sh = sheet.clone().unwrap_or_else(|| self.ctx.cur_sheet.clone());
-            return Ok(lookup(&sh, &name, self.ctx));
+            let sh = sheet
+                .clone()
+                .unwrap_or_else(|| self.ctx.cur_sheet.to_string());
+            return lookup(&sh, &name, self.ctx);
         }
         // TRUE / FALSE / named
         match name.to_ascii_uppercase().as_str() {
@@ -414,18 +430,28 @@ impl<'a> Parser<'a> {
     }
 }
 
-fn lookup(sheet: &str, r: &str, ctx: &Ctx) -> V {
+/// 取单元格值；引用到「尚未求值的公式」时返回 Err（本趟跳过，等下一趟）。
+fn lookup(sheet: &str, r: &str, ctx: &Ctx<'_>) -> Result<V, String> {
     let key = (sheet.to_lowercase(), norm_ref(r));
-    ctx.cells.get(&key).cloned().unwrap_or(V::Empty)
+    if let Some(v) = ctx.cells.get(&key) {
+        return Ok(v.clone());
+    }
+    if ctx.pending.contains(&key) {
+        return Err(DEFERRED.to_string());
+    }
+    Ok(V::Empty)
 }
 
-fn range_values(sh: &str, a: &str, b: &str, ctx: &Ctx) -> V {
+/// 本趟拿不到值（依赖的公式还没算出来）——不是真错误，下一趟再来
+const DEFERRED: &str = "#PENDING";
+
+fn range_values(sh: &str, a: &str, b: &str, ctx: &Ctx<'_>) -> Result<V, String> {
     let (Some((c1, r1)), Some((c2, r2))) = (parse_cell_ref_local(a), parse_cell_ref_local(b))
     else {
-        return V::Grid {
+        return Ok(V::Grid {
             cols: 0,
             data: Vec::new(),
-        };
+        });
     };
     let (c1, c2) = (c1.min(c2), c1.max(c2));
     let (r1, r2) = (r1.min(r2), r1.max(r2));
@@ -434,10 +460,10 @@ fn range_values(sh: &str, a: &str, b: &str, ctx: &Ctx) -> V {
     for r in r1..=r2 {
         for c in c1..=c2 {
             let name = crate::utils::a1::make_cell_ref(c, r);
-            data.push(lookup(sh, &name, ctx));
+            data.push(lookup(sh, &name, ctx)?);
         }
     }
-    V::Grid { cols, data }
+    Ok(V::Grid { cols, data })
 }
 
 fn flatten(args: &[V]) -> Vec<(V, bool)> {
@@ -522,19 +548,20 @@ fn nums(args: &[V]) -> Vec<f64> {
 }
 
 /// 用给定变量作用域求值一个表达式字符串。
-fn eval_expr(expr: &str, ctx: &Ctx, scope: &HashMap<String, V>) -> Result<V, String> {
+fn eval_expr(expr: &str, ctx: &Ctx<'_>, scope: &HashMap<String, V>) -> Result<V, String> {
     let c = Ctx {
-        cells: ctx.cells.clone(),
-        cur_sheet: ctx.cur_sheet.clone(),
+        cells: ctx.cells,
+        pending: ctx.pending,
+        cur_sheet: ctx.cur_sheet,
         cur_row: ctx.cur_row,
         cur_col: ctx.cur_col,
-        vars: scope.clone(),
+        vars: scope,
     };
     Parser::new(expr, &c).eval()
 }
 
 /// 应用一个 LAMBDA：绑定参数后求值函数体。
-fn apply_lambda(l: &LambdaDef, vals: &[V], ctx: &Ctx) -> Result<V, String> {
+fn apply_lambda(l: &LambdaDef, vals: &[V], ctx: &Ctx<'_>) -> Result<V, String> {
     let mut scope = l.scope.clone();
     for (p, v) in l.params.iter().zip(vals.iter()) {
         scope.insert(p.clone(), v.clone());
@@ -546,7 +573,7 @@ fn apply_lambda(l: &LambdaDef, vals: &[V], ctx: &Ctx) -> Result<V, String> {
 }
 
 /// LET / LAMBDA 等需要捕获原始实参的“特殊形式”。
-fn special_func(name: &str, raw: &[String], ctx: &Ctx) -> Option<Result<V, String>> {
+fn special_func(name: &str, raw: &[String], ctx: &Ctx<'_>) -> Option<Result<V, String>> {
     let up = name.to_ascii_uppercase();
     match up.as_str() {
         "LET" => {
@@ -610,20 +637,27 @@ fn parse_ref(s: &str) -> Option<(Option<String>, u32, u32, u32, u32)> {
     }
 }
 
-fn fetch(ctx: &Ctx, sheet: &str, c: u32, r: u32) -> V {
+fn fetch(ctx: &Ctx<'_>, sheet: &str, c: u32, r: u32) -> Result<V, String> {
     let name = format!("{}{}", col_name(c), r);
     lookup(sheet, &name, ctx)
 }
 
-fn grid_of_ref(ctx: &Ctx, sheet: &str, c1: u32, r1: u32, c2: u32, r2: u32) -> V {
+fn grid_of_ref(
+    ctx: &Ctx<'_>,
+    sheet: &str,
+    c1: u32,
+    r1: u32,
+    c2: u32,
+    r2: u32,
+) -> Result<V, String> {
     let cols = (c2 - c1 + 1) as usize;
     let mut data = Vec::new();
     for r in r1..=r2 {
         for c in c1..=c2 {
-            data.push(fetch(ctx, sheet, c, r));
+            data.push(fetch(ctx, sheet, c, r)?);
         }
     }
-    V::Grid { cols, data }
+    Ok(V::Grid { cols, data })
 }
 
 fn as_f64(s: &str) -> f64 {
@@ -631,7 +665,7 @@ fn as_f64(s: &str) -> f64 {
 }
 
 /// 引用语义函数；命中返回 Some(结果)，否则 None（交回普通函数）。
-fn ref_func(name: &str, raw: &[String], ctx: &Ctx) -> Option<Result<V, String>> {
+fn ref_func(name: &str, raw: &[String], ctx: &Ctx<'_>) -> Option<Result<V, String>> {
     let up = name.to_ascii_uppercase();
     let err = |e: &str| Some(Err(e.to_string()));
     let r0 = raw.first().map(|s| s.as_str()).unwrap_or("");
@@ -670,11 +704,11 @@ fn ref_func(name: &str, raw: &[String], ctx: &Ctx) -> Option<Result<V, String>> 
             let inner = r0.trim().trim_matches('"');
             match parse_ref(inner) {
                 Some((sh, c1, r1, c2, r2)) => {
-                    let sheet = sh.unwrap_or_else(|| ctx.cur_sheet.clone());
+                    let sheet = sh.unwrap_or_else(|| ctx.cur_sheet.to_string());
                     if c1 == c2 && r1 == r2 {
-                        Some(Ok(fetch(ctx, &sheet, c1, r1)))
+                        Some(fetch(ctx, &sheet, c1, r1))
                     } else {
-                        Some(Ok(grid_of_ref(ctx, &sheet, c1, r1, c2, r2)))
+                        Some(grid_of_ref(ctx, &sheet, c1, r1, c2, r2))
                     }
                 }
                 None => err("#REF!"),
@@ -684,7 +718,7 @@ fn ref_func(name: &str, raw: &[String], ctx: &Ctx) -> Option<Result<V, String>> 
             let Some((sh, c1, r1, c2, r2)) = parse_ref(r0) else {
                 return err("#REF!");
             };
-            let sheet = sh.unwrap_or_else(|| ctx.cur_sheet.clone());
+            let sheet = sh.unwrap_or_else(|| ctx.cur_sheet.to_string());
             let rows = as_f64(raw.get(1).map(|s| s.as_str()).unwrap_or("0")) as i64;
             let cols = as_f64(raw.get(2).map(|s| s.as_str()).unwrap_or("0")) as i64;
             let nrows = (r2 as i64 - r1 as i64 + 1).max(1);
@@ -704,11 +738,11 @@ fn ref_func(name: &str, raw: &[String], ctx: &Ctx) -> Option<Result<V, String>> 
             let nr2 = nr1 + h - 1;
             let nc2 = nc1 + w - 1;
             if h == 1 && w == 1 {
-                Some(Ok(fetch(ctx, &sheet, nc1 as u32, nr1 as u32)))
+                Some(fetch(ctx, &sheet, nc1 as u32, nr1 as u32))
             } else {
-                Some(Ok(grid_of_ref(
+                Some(grid_of_ref(
                     ctx, &sheet, nc1 as u32, nr1 as u32, nc2 as u32, nr2 as u32,
-                )))
+                ))
             }
         }
         "ADDRESS" => {
@@ -733,7 +767,7 @@ fn ref_func(name: &str, raw: &[String], ctx: &Ctx) -> Option<Result<V, String>> 
     }
 }
 
-fn call_func(name: &str, args: &[V], ctx: &Ctx) -> Result<V, String> {
+fn call_func(name: &str, args: &[V], ctx: &Ctx<'_>) -> Result<V, String> {
     let up = name.to_ascii_uppercase();
     let err = |e: &str| Err(e.to_string());
     match up.as_str() {
@@ -3897,6 +3931,12 @@ pub fn evaluate(wb: &mut Workbook) {
     // 溢出的额外单元格：(sheet_i, row, col, V)
     let mut spilled: Vec<(usize, u32, u32, V)> = Vec::new();
 
+    // 尚未求值的公式键：被引用时本趟放弃（等下一趟），避免把「还没算」当成空值 0
+    let mut unresolved: std::collections::HashSet<Key> = pending
+        .iter()
+        .map(|p| (p.sheet.to_lowercase(), norm_ref(&p.reference)))
+        .collect();
+
     let mut resolved = vec![false; pending.len()];
     for _pass in 0..12 {
         let mut progressed = false;
@@ -3905,15 +3945,20 @@ pub fn evaluate(wb: &mut Workbook) {
                 continue;
             }
             let (ccol, crow) = crate::utils::a1::parse_cell_ref(&p.reference).unwrap_or((0, 0));
-            let ctx = Ctx {
-                cells: cells.clone(),
-                cur_sheet: p.sheet.clone(),
-                cur_row: Some(crow),
-                cur_col: Some(ccol),
-                vars: HashMap::new(),
+            // 求值只借用 cells（解析与 ctx 都在这个作用域里结束），随后才写回
+            let parsed = {
+                let ctx = Ctx {
+                    cells: &cells,
+                    pending: &unresolved,
+                    cur_sheet: &p.sheet,
+                    cur_row: Some(crow),
+                    cur_col: Some(ccol),
+                    vars: &NO_VARS,
+                };
+                Parser::new(&p.formula, &ctx).eval()
             };
-            let mut parser = Parser::new(&p.formula, &ctx);
-            if let Ok(v) = parser.eval() {
+            if let Ok(v) = parsed {
+                unresolved.remove(&(p.sheet.to_lowercase(), norm_ref(&p.reference)));
                 let key = (p.sheet.to_lowercase(), norm_ref(&p.reference));
                 let anchor_val = match &v {
                     V::Grid { data, .. } => data.first().cloned().unwrap_or(V::Empty),
@@ -4007,4 +4052,97 @@ fn col_name(mut c: u32) -> String {
         c = (c - 1) / 26;
     }
     s
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::model::Workbook;
+    use serde_json::json;
+
+    fn sheet_of(rows: serde_json::Value) -> Workbook {
+        serde_json::from_value(json!({ "sheets": [{ "name": "S", "rows": rows }] })).unwrap()
+    }
+
+    fn value_of(wb: &Workbook, reference: &str) -> Option<serde_json::Value> {
+        wb.sheets[0]
+            .rows
+            .iter()
+            .flat_map(|r| r.cells.iter())
+            .find(|c| c.reference.as_deref() == Some(reference))
+            .and_then(|c| c.value.clone())
+    }
+
+    #[test]
+    fn evaluates_formula_chain_across_passes() {
+        // 逆序链：B1 依赖 B2、B2 依赖 B3，一趟算不完 → 需要多趟定点
+        let mut wb = sheet_of(json!([
+            {"index": 1, "cells": [{"ref": "B1", "formula": "B2+1"}]},
+            {"index": 2, "cells": [{"ref": "B2", "formula": "B3+1"}]},
+            {"index": 3, "cells": [{"ref": "B3", "value": 1}]}
+        ]));
+        evaluate(&mut wb);
+        assert_eq!(value_of(&wb, "B1"), Some(json!(3)));
+        assert_eq!(value_of(&wb, "B2"), Some(json!(2)));
+    }
+
+    #[test]
+    fn empty_cells_still_count_as_zero() {
+        // 空单元格（非公式）必须按 0 参与运算，不能被「延迟」语义误伤
+        let mut wb = sheet_of(json!([
+            {"index": 1, "cells": [{"ref": "A1", "value": 2}, {"ref": "A3", "value": 4}]},
+            {"index": 2, "cells": [{"ref": "B1", "formula": "SUM(A1:A3)"}]}
+        ]));
+        evaluate(&mut wb);
+        assert_eq!(value_of(&wb, "B1"), Some(json!(6)));
+    }
+
+    #[test]
+    fn evaluates_range_sum_of_literals() {
+        let mut wb = sheet_of(json!([
+            {"index": 1, "cells": [{"ref": "A1", "value": 2}, {"ref": "A2", "value": 3}, {"ref": "A3", "value": 4}]},
+            {"index": 2, "cells": [{"ref": "B2", "formula": "SUM(A1:A3)"}]}
+        ]));
+        evaluate(&mut wb);
+        assert_eq!(value_of(&wb, "B2"), Some(json!(9)));
+    }
+
+    /// 性能回归闸门：定点循环里曾对每个公式克隆整张 cells 表（O(n²)），
+    /// 5 千个公式要十几秒。阈值取得很宽（3s），只为拦住这一量级的退化，
+    /// 不追求精确计时——修复后本机是几十毫秒。
+    #[test]
+    fn evaluates_thousands_of_formulas_in_linear_time() {
+        let mut rows = vec![json!({
+            "index": 1,
+            "cells": [{"ref": "A1", "value": "值"}, {"ref": "B1", "value": "合计"}]
+        })];
+        for r in 2..=5001u32 {
+            rows.push(json!({
+                "index": r,
+                "cells": [
+                    {"ref": format!("A{r}"), "value": r},
+                    {"ref": format!("B{r}"), "formula": format!("SUM(A{r}:A{r})")}
+                ]
+            }));
+        }
+        let mut wb = sheet_of(serde_json::Value::Array(rows));
+
+        let started = std::time::Instant::now();
+        evaluate(&mut wb);
+        let elapsed = started.elapsed();
+
+        // 全部结果正确
+        for r in [2u32, 1234, 5001] {
+            assert_eq!(
+                value_of(&wb, &format!("B{r}")),
+                Some(json!(r)),
+                "B{r} 的缓存值"
+            );
+        }
+        assert!(
+            elapsed.as_millis() < 3000,
+            "5 千公式耗时 {}ms（O(n²) 回归？定点循环里别再克隆 cells 表）",
+            elapsed.as_millis()
+        );
+    }
 }

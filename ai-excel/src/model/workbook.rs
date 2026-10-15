@@ -1,5 +1,5 @@
 use schemars::JsonSchema;
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -31,8 +31,9 @@ pub struct Workbook {
     pub meta: Option<Meta>,
     #[serde(default, skip_serializing_if = "is_false")]
     pub date1904: bool,
-    #[serde(default, skip_serializing_if = "HashMap::is_empty")]
-    pub styles: HashMap<String, StyleDef>,
+    /// 命名样式表（BTreeMap：键序确定，产物 JSON 可复现）
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub styles: BTreeMap<String, StyleDef>,
     /// Workbook default font (styles.xml `fonts[0]`); Calibri 11 when omitted.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub default_font: Option<Font>,

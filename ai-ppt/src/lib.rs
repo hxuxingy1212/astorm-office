@@ -11,6 +11,8 @@ pub mod error;
 pub mod generate;
 /// 解析模块：从 .pptx 文件中解析回 JSON 数据模型
 pub mod legacy;
+/// Markdown 输出：幻灯片/演示文稿 → 结构感知的纯文本（供 view text 用）
+pub mod markdown;
 pub mod merge;
 /// 数据模型模块：定义演示文稿、幻灯片、元素等数据结构
 pub mod model;
@@ -28,11 +30,14 @@ pub use generate::repack;
 pub use generate::GenerateResult;
 /// 解析 PPTX 文件的顶层函数
 pub use legacy::{is_cfb, ppt_to_pptx};
+/// Markdown 输出（view text 用）
+pub use markdown::{deck_markdown, deck_markdown_with, slide_markdown, slide_markdown_with};
 /// 演示文稿数据模型
 pub use merge::merge_slides;
 pub use model::Presentation;
+pub use office_core::{ExportedAttachment, PayloadSink, PayloadSinks};
 pub use parse::parse;
-/// 将 PPTX 解包为可编辑中间产物
-pub use parse::unpack;
 /// PPTX 解包结果
 pub use parse::UnpackResult;
+/// 将 PPTX 解包为可编辑中间产物
+pub use parse::{materialize_media, unpack, unpack_with_model};

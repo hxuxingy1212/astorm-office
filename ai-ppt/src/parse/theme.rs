@@ -5,7 +5,7 @@
 use crate::model::Theme;
 use quick_xml::events::Event;
 use quick_xml::Reader;
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 /// 规范化主题颜色值：保留十六进制；系统色名映射为具体颜色
 fn normalize_color(v: Option<String>) -> Option<String> {
@@ -32,7 +32,7 @@ pub fn parse(xml: &str) -> Theme {
         };
     }
 
-    let mut colors = HashMap::new();
+    let mut colors = BTreeMap::new();
     let mut major_font = None;
     let mut minor_font = None;
     let mut in_clr_scheme = false;

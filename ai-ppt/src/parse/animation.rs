@@ -6,7 +6,7 @@
 use crate::model::elements::Animation;
 use quick_xml::events::Event;
 use quick_xml::Reader;
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 
 pub fn parse_timing(xml: &str, _sp_id_map: &HashMap<u32, u32>) -> Vec<(u32, Vec<Animation>)> {
     if xml.is_empty() {
@@ -31,7 +31,7 @@ pub fn parse_timing(xml: &str, _sp_id_map: &HashMap<u32, u32>) -> Vec<(u32, Vec<
     let mut color: Option<String> = None;
     let mut opacity: Option<f64> = None;
     let mut distance: Option<f64> = None;
-    let mut points: Option<Vec<HashMap<String, f64>>> = None;
+    let mut points: Option<Vec<BTreeMap<String, f64>>> = None;
     let mut target_sp_id: Option<u32> = None;
     let mut in_sp_tgt = false;
     let mut child_tn_depth = 0u32;

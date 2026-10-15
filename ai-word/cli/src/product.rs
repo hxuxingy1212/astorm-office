@@ -99,6 +99,26 @@ pub fn save_document(root: &Path, doc: &Document) -> Result<()> {
     Ok(())
 }
 
+/// 读类命令用：解析一次同时拿到产物根与**内存模型**。
+///
+/// 二进制输入时 `unpack` 本来就要先解析再落盘，这里把那一步的模型直接
+/// 交给调用方，省掉「读回分片 JSON 再解析」的那一遍（大文档 20~30ms）。
+pub fn resolve_and_load(input: &Path) -> Result<(PathBuf, Option<TempGuard>, Document)> {
+    if is_product_dir(input) {
+        let doc = load_document(input)?;
+        return Ok((input.to_path_buf(), None, doc));
+    }
+    let stem = input
+        .file_stem()
+        .map(|s| s.to_string_lossy().to_string())
+        .unwrap_or_else(|| "doc".to_string());
+    let tmp = std::env::temp_dir().join(format!("json2docx-{}-{stem}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&tmp);
+    let (_r, doc) = json2docx::unpack_with_model(&path_str(input), &path_str(&tmp))
+        .map_err(|e| CliError::new(format!("解包 {} 失败: {e}", input.display())))?;
+    Ok((tmp.clone(), Some(TempGuard { path: tmp }), doc))
+}
+
 /// 将输入解析为产物根目录
 ///
 /// - 输入是产物目录 → 直接使用，不清理；

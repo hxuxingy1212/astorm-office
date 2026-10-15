@@ -11,7 +11,7 @@
 //!         └── sheet2.json
 //! ```
 
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::path::Path;
 
 use serde::{Deserialize, Serialize};
@@ -29,8 +29,8 @@ pub struct ProductWorkbook {
     pub meta: Option<Meta>,
     #[serde(default, skip_serializing_if = "is_false")]
     pub date1904: bool,
-    #[serde(default, skip_serializing_if = "HashMap::is_empty")]
-    pub styles: HashMap<String, StyleDef>,
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub styles: BTreeMap<String, StyleDef>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub default_font: Option<Font>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -273,6 +273,33 @@ fn extract_extra_parts(input: &Path, out_dir: &Path) -> Result<Vec<String>> {
         extras.push(name.clone());
     }
     Ok(extras)
+}
+
+/// 把 `xl/embeddings/*`（内嵌 OLE 载荷）抽到 `dir` 下同名路径，返回抽取的包内路径。
+///
+/// 产物目录流程里 unpack 已经落盘；这里是给**二进制输入**的读类命令用：
+/// 解析出来的 `ole_objects[].src` 是包内路径，只有把载荷放出来才能导出。
+pub fn extract_embeddings_to(input: &Path, dir: &Path) -> Result<Vec<String>> {
+    use std::io::Read;
+    let file = std::fs::File::open(input)?;
+    let mut zip = zip::ZipArchive::new(file)?;
+    let mut out = Vec::new();
+    for i in 0..zip.len() {
+        let mut entry = zip.by_index(i)?;
+        let name = entry.name().replace('\\', "/");
+        if !name.starts_with("xl/embeddings/") || name.ends_with('/') {
+            continue;
+        }
+        let dest = dir.join(&name);
+        if let Some(parent) = dest.parent() {
+            std::fs::create_dir_all(parent)?;
+        }
+        let mut bytes = Vec::new();
+        entry.read_to_end(&mut bytes)?;
+        std::fs::write(&dest, &bytes)?;
+        out.push(name);
+    }
+    Ok(out)
 }
 
 /// 收集所有图表工作表所引用的 drawing / chart / media 包内路径。

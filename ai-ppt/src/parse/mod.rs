@@ -44,6 +44,14 @@ pub struct UnpackResult {
 ///
 /// 图片 src 统一改写为 `ppt/media/...`（相对产物根），URL 原样保留。
 pub fn unpack(input_path: &str, output_dir: &str) -> Result<UnpackResult, crate::error::Error> {
+    unpack_with_model(input_path, output_dir).map(|(r, _)| r)
+}
+
+/// 解包并**把解析好的演示文稿模型一并返回**（读类命令复用，省一次读回分片再解析）。
+pub fn unpack_with_model(
+    input_path: &str,
+    output_dir: &str,
+) -> Result<(UnpackResult, Presentation), crate::error::Error> {
     // 旧版 .ppt（OLE2/CFB）：自动转换成 .pptx 后再解包（媒体一并来自转换产物）
     if crate::legacy::is_cfb(std::path::Path::new(input_path)) {
         if office_core::opc::looks_encrypted_cfb(std::path::Path::new(input_path)) {
@@ -60,11 +68,53 @@ pub fn unpack(input_path: &str, output_dir: &str) -> Result<UnpackResult, crate:
                 .unwrap_or(0)
         ));
         crate::legacy::ppt_to_pptx(std::path::Path::new(input_path), &tmp)?;
-        let r = unpack(&tmp.to_string_lossy(), output_dir);
+        let r = unpack_with_model(&tmp.to_string_lossy(), output_dir);
         let _ = std::fs::remove_file(&tmp);
         return r;
     }
     let mut model = parse(input_path)?;
+    materialize_media(&mut model, input_path, output_dir)?;
+    let out_dir = Path::new(output_dir);
+
+    // 3. 逐张写 slideN.json
+    let mut slide_paths = Vec::new();
+    for (i, slide) in model.slides.iter().enumerate() {
+        let rel = format!("ppt/slides/slide{}.json", i + 1);
+        let json = serde_json::to_string_pretty(slide)?;
+        std::fs::write(out_dir.join(&rel), json)?;
+        slide_paths.push(rel);
+    }
+
+    // 4. 写 presentation.json（slides 为文件路径数组）
+    let mut pres = serde_json::to_value(&model)?;
+    pres["slides"] = serde_json::Value::Array(
+        slide_paths
+            .iter()
+            .map(|p| serde_json::Value::String(p.clone()))
+            .collect(),
+    );
+    let pres_json = serde_json::to_string_pretty(&pres)?;
+    std::fs::write(out_dir.join("presentation.json"), pres_json)?;
+
+    Ok((
+        UnpackResult {
+            path: output_dir.to_string(),
+            slides: model.slides.len() as u32,
+        },
+        model,
+    ))
+}
+
+/// 媒体落盘 + 图片 src 规整（`../media/x` → `ppt/media/x`）。
+///
+/// 读类命令（view/query）只需要这一步：`media[].src` 的绝对路径由 CLI 对
+/// 产物根做 `canonicalize` 得到，媒体文件必须在；而分片 JSON 写了也没人读，
+/// 省掉它（300 页的演示文稿约 16ms 的写盘）。
+pub fn materialize_media(
+    model: &mut Presentation,
+    input_path: &str,
+    output_dir: &str,
+) -> Result<(), crate::error::Error> {
     let out_dir = Path::new(output_dir);
     std::fs::create_dir_all(out_dir.join("ppt/slides"))?;
 
@@ -145,30 +195,7 @@ pub fn unpack(input_path: &str, output_dir: &str) -> Result<UnpackResult, crate:
         }
     }
 
-    // 3. 逐张写 slideN.json
-    let mut slide_paths = Vec::new();
-    for (i, slide) in model.slides.iter().enumerate() {
-        let rel = format!("ppt/slides/slide{}.json", i + 1);
-        let json = serde_json::to_string_pretty(slide)?;
-        std::fs::write(out_dir.join(&rel), json)?;
-        slide_paths.push(rel);
-    }
-
-    // 4. 写 presentation.json（slides 为文件路径数组）
-    let mut pres = serde_json::to_value(&model)?;
-    pres["slides"] = serde_json::Value::Array(
-        slide_paths
-            .iter()
-            .map(|p| serde_json::Value::String(p.clone()))
-            .collect(),
-    );
-    let pres_json = serde_json::to_string_pretty(&pres)?;
-    std::fs::write(out_dir.join("presentation.json"), pres_json)?;
-
-    Ok(UnpackResult {
-        path: output_dir.to_string(),
-        slides: model.slides.len() as u32,
-    })
+    Ok(())
 }
 
 /// 提取 PPTX 中的媒体文件到指定目录
@@ -729,8 +756,17 @@ pub fn parse(input_path: &str) -> Result<Presentation, crate::error::Error> {
     // 版式缓存：部件路径 → 已叠加母版的继承上下文
     let mut layout_cache: HashMap<String, inherit::Inheritance> = HashMap::new();
 
-    // 逐张解析幻灯片；ZIP 条目顺序不等于幻灯片顺序，先收集再按编号排序
-    let mut collected: Vec<(usize, crate::model::Slide)> = Vec::new();
+    // 逐张解析幻灯片；ZIP 条目顺序不等于幻灯片顺序，先收集再按编号排序。
+    // 分三段：① 串行读 zip（解压）→ ② 并行解析 XML（多核）→ ③ 串行处理不透明部件（要读包）
+    struct RawSlide {
+        no: usize,
+        sxml: String,
+        rxml: String,
+        inherit: Option<inherit::Inheritance>,
+        comments_xml: Option<String>,
+        rels_full: HashMap<String, RelFull>,
+    }
+    let mut raws: Vec<RawSlide> = Vec::new();
     let count = archive.len();
     for i in 0..count {
         let entry = archive.by_index(i)?;
@@ -765,36 +801,94 @@ pub fn parse(input_path: &str) -> Result<Presentation, crate::error::Error> {
                 layout_cache.insert(lpath, inh.clone());
                 Some(inh)
             });
-            let mut slide = slide::parse(&sxml, &rxml, inherit_ctx.as_ref(), &charts);
-            // 批注：按 rels 引用加载并追加到元素列表
+            // 批注 XML（串行读；解析放并行段）
+            let mut comments_xml = None;
             if let Some(target) = find_comment_target(&rxml) {
                 let cpath = normalize_part_path("ppt/slides/", &target);
                 if let Ok(mut f) = archive.by_name(&cpath) {
                     let mut cxml = String::new();
                     f.read_to_string(&mut cxml)?;
-                    slide.elements.extend(
-                        comment::parse_comments(&cxml, &comment_authors)
-                            .into_iter()
-                            .map(crate::model::elements::Element::Comment),
-                    );
+                    comments_xml = Some(cxml);
                 }
             }
-            // 不透明富对象：解析引用的关系与部件
-            let slide_rels_full = parse_rels_full(&rxml);
-            resolve_opaque(
-                &mut slide.elements,
-                &slide_rels_full,
-                &ct_defaults,
-                &ct_overrides,
-                &mut archive,
-            );
             let slide_no = name
                 .trim_start_matches("ppt/slides/slide")
                 .trim_end_matches(".xml")
                 .parse::<usize>()
-                .unwrap_or(collected.len() + 1);
-            collected.push((slide_no, slide));
+                .unwrap_or(raws.len() + 1);
+            raws.push(RawSlide {
+                no: slide_no,
+                rels_full: parse_rels_full(&rxml),
+                sxml,
+                rxml,
+                inherit: inherit_ctx,
+                comments_xml,
+            });
         }
+    }
+
+    // ② 并行解析 XML：纯计算、无 I/O。幻灯片多时才铺开（少则线程开销不值）
+    let threads = std::thread::available_parallelism()
+        .map(|n| n.get())
+        .unwrap_or(1)
+        .min(raws.len().max(1));
+    let mut collected: Vec<(usize, crate::model::Slide)> = if raws.len() >= 8 && threads > 1 {
+        let chunk = raws.len().div_ceil(threads);
+        std::thread::scope(|scope| {
+            let handles: Vec<_> = raws
+                .chunks(chunk)
+                .map(|part| {
+                    scope.spawn(|| {
+                        part.iter()
+                            .map(|r| {
+                                (
+                                    r.no,
+                                    compute_slide(
+                                        &r.sxml,
+                                        &r.rxml,
+                                        r.inherit.as_ref(),
+                                        &charts,
+                                        r.comments_xml.as_deref(),
+                                        &comment_authors,
+                                    ),
+                                )
+                            })
+                            .collect::<Vec<_>>()
+                    })
+                })
+                .collect();
+            handles
+                .into_iter()
+                .flat_map(|h| h.join().expect("幻灯片解析线程 panic"))
+                .collect()
+        })
+    } else {
+        raws.iter()
+            .map(|r| {
+                (
+                    r.no,
+                    compute_slide(
+                        &r.sxml,
+                        &r.rxml,
+                        r.inherit.as_ref(),
+                        &charts,
+                        r.comments_xml.as_deref(),
+                        &comment_authors,
+                    ),
+                )
+            })
+            .collect()
+    };
+
+    // ③ 不透明富对象：按 rId 读包内部件（要 &mut archive），串行收尾
+    for (idx, r) in raws.iter().enumerate() {
+        resolve_opaque(
+            &mut collected[idx].1.elements,
+            &r.rels_full,
+            &ct_defaults,
+            &ct_overrides,
+            &mut archive,
+        );
     }
     // 按 presentation.xml 的 sldIdLst 顺序排序（回退为幻灯片文件编号）
     let mut pres_rels_xml = String::new();
@@ -883,6 +977,29 @@ pub fn parse(input_path: &str) -> Result<Presentation, crate::error::Error> {
         slides,
         table_styles,
     })
+}
+
+/// 单张幻灯片的**纯计算**部分（不碰 zip）：模型解析 + 批注追加。
+///
+/// 抽出来是为了并行：`slide::parse` 只读 `charts`/`inherit` 等共享只读数据，
+/// 300 张幻灯片的 XML 解析可以在多核上铺开（I/O 仍串行，见调用处）。
+fn compute_slide(
+    sxml: &str,
+    rxml: &str,
+    inherit: Option<&inherit::Inheritance>,
+    charts: &HashMap<String, String>,
+    comments_xml: Option<&str>,
+    comment_authors: &HashMap<String, String>,
+) -> crate::model::Slide {
+    let mut slide = slide::parse(sxml, rxml, inherit, charts);
+    if let Some(cxml) = comments_xml {
+        slide.elements.extend(
+            comment::parse_comments(cxml, comment_authors)
+                .into_iter()
+                .map(crate::model::elements::Element::Comment),
+        );
+    }
+    slide
 }
 
 /// 从幻灯片 rels 中查找 slideLayout 目标

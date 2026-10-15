@@ -208,7 +208,7 @@ pub fn parse(input: &Path) -> Result<Workbook> {
             pivot_tables: Vec::new(),
             slicers: Vec::new(),
             drawing_shapes: Vec::new(),
-            ole_objects: Vec::new(),
+            ole_objects: ps.ole_objects,
             print: ps.print,
             print_area: None,
             print_title_rows: None,
