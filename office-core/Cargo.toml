@@ -3,6 +3,8 @@ name = "office-core"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+repository.workspace = true
+readme = "../README.md"
 description = "astorm-office 共享基础层：临时文件守卫、OPC 部件读写、统一 CLI 输出契约"
 
 [dependencies]

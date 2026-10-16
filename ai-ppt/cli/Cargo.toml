@@ -4,7 +4,7 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 description = "Command line tool for json2pptx: JSON to PPTX bidirectional conversion"
-repository = "https://github.com/json2pptx/json2pptx"
+repository.workspace = true
 readme = "../README.md"
 keywords = ["pptx", "powerpoint", "json", "ooxml", "cli"]
 categories = ["command-line-utilities", "parser-implementations"]
@@ -14,7 +14,7 @@ name = "json2pptx"
 path = "src/main.rs"
 
 [dependencies]
-json2pptx = { path = ".." }
+json2pptx = { version = "0.2.0", path = ".." }
 office-core = { workspace = true }
 clap = { workspace = true }
 serde = { workspace = true }
