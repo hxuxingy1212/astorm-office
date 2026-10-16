@@ -23,7 +23,9 @@ pub mod pathutil;
 pub mod soffice;
 pub mod suggest;
 
-pub use attachment::{ExportedAttachment, PayloadSink, PayloadSinks};
+pub use attachment::{
+    ExportBatchError, ExportError, ExportErrorCode, ExportedAttachment, PayloadSink, PayloadSinks,
+};
 pub use error::CliError;
 pub use guards::{FileGuard, TempGuard};
 pub use output::{Output, EXIT_FAILURE, EXIT_ISSUES, EXIT_SUCCESS, EXIT_USAGE};

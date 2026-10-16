@@ -743,3 +743,50 @@ fn view_text_exports_media_and_rewrites_image_links() {
     assert_eq!(list.len(), 2, "只该有 file + url 两条：{v}");
     assert!(err.contains("已导出"), "{err}");
 }
+
+#[test]
+fn strict_embedded_export_reports_decode_failures_and_group_locations() {
+    let dir = temp_dir("strict_resource_report");
+    std::fs::create_dir_all(dir.join("ppt/slides")).unwrap();
+    std::fs::write(
+        dir.join("presentation.json"),
+        r#"{"width":13.333,"height":7.5,"slides":["ppt/slides/slide1.json"]}"#,
+    )
+    .unwrap();
+    std::fs::write(
+        dir.join("ppt/slides/slide1.json"),
+        r#"{"elements":[
+      {"type":"group","position":{"x":0,"y":0,"w":4,"h":4},"children":[
+        {"type":"opaque","position":{"x":0,"y":0,"w":1,"h":1},"xml":"<p:graphicFrame/>","parts":[
+          {"path":"ppt/embeddings/valid.bin","content_type":"application/pdf","data":"YWJj"},
+          {"path":"ppt/embeddings/broken.bin","content_type":"application/pdf","data":"%%%"}
+        ]}
+      ]}
+    ]}"#,
+    )
+    .unwrap();
+    let output = dir.join("exports");
+    let (ok, stdout, _) = run(&[
+        "view",
+        dir.to_str().unwrap(),
+        "/",
+        "text",
+        "--attachments",
+        output.to_str().unwrap(),
+        "--strict",
+        "--json",
+    ]);
+    assert!(!ok);
+    let report: serde_json::Value = serde_json::from_str(&stdout).unwrap();
+    let entries = report["attachments"].as_array().unwrap();
+    assert_eq!(entries.len(), 2, "{report}");
+    assert_eq!(entries[0]["resource_type"], "application/pdf");
+    assert_eq!(
+        entries[0]["source_locations"][0],
+        "/slide[1]/element[1]/element[1]/part[1]"
+    );
+    assert_eq!(entries[1]["error"]["code"], "invalid_payload");
+    assert_eq!(report["ok"], false);
+    assert_eq!(std::fs::read(output.join("valid.bin")).unwrap(), b"abc");
+    std::fs::remove_dir_all(dir).unwrap();
+}

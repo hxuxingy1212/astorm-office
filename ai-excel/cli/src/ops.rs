@@ -84,14 +84,31 @@ pub fn view_values(
     path: &ExPath,
     sinks: json2xlsx::PayloadSinks<'_>,
 ) -> Result<Value> {
+    view_values_with_options(
+        wb,
+        path,
+        sinks,
+        json2xlsx::markdown::TextOptions::for_workbook(wb, json2xlsx::markdown::ValueMode::Formula),
+    )
+}
+
+pub fn view_values_with_options(
+    wb: &Workbook,
+    path: &ExPath,
+    sinks: json2xlsx::PayloadSinks<'_>,
+    options: json2xlsx::markdown::TextOptions<'_>,
+) -> Result<Value> {
     let si = resolve_sheet(wb, &path.sheet)?;
     let sheet = &wb.sheets[si];
+    let _source = sinks.at_source(format!("sheet[{}]", si + 1));
     match &path.target {
-        None => Ok(sheet_markdown_json(sheet, sinks)),
+        None => Ok(sheet_markdown_json(sheet, sinks, options)),
         Some(Target::Cell(reference)) => {
             let cell = find_cell(sheet, reference)?
                 .ok_or_else(|| CliError::new(format!("单元格不存在: {reference}")))?;
-            Ok(cell_json(cell))
+            let mut value = cell_json(cell);
+            value["display"] = json!(json2xlsx::markdown::cell_text(cell, options));
+            Ok(value)
         }
         Some(Target::Range(r)) => {
             let ((c1, r1), (c2, r2)) = parse_range(r)?;
@@ -100,20 +117,24 @@ pub fn view_values(
             Ok(json!({
                 "sheet": sheet.name,
                 "range": format!("{}:{}", make_cell_ref(c1, r1), make_cell_ref(c2, r2)),
-                "markdown": json2xlsx::markdown::window_markdown(sheet, c1, r1, c2, r2),
+                "markdown": json2xlsx::markdown::window_markdown_with_options(sheet, c1, r1, c2, r2, sinks, options),
             }))
         }
-        Some(_) => Ok(sheet_markdown_json(sheet, sinks)),
+        Some(_) => Ok(sheet_markdown_json(sheet, sinks, options)),
     }
 }
 
-fn sheet_markdown_json(sheet: &Sheet, sinks: json2xlsx::PayloadSinks<'_>) -> Value {
+fn sheet_markdown_json(
+    sheet: &Sheet,
+    sinks: json2xlsx::PayloadSinks<'_>,
+    options: json2xlsx::markdown::TextOptions<'_>,
+) -> Value {
     let range = json2xlsx::markdown::used_range(sheet)
         .map(|(c1, r1, c2, r2)| format!("{}:{}", make_cell_ref(c1, r1), make_cell_ref(c2, r2)));
     json!({
         "sheet": sheet.name,
         "range": range,
-        "markdown": json2xlsx::markdown::sheet_markdown_with(sheet, sinks),
+        "markdown": json2xlsx::markdown::sheet_markdown_with_options(sheet, sinks, options),
     })
 }
 

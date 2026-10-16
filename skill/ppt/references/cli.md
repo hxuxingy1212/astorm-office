@@ -133,6 +133,10 @@ json2pptx view <输入> <路径> text|layout     # 路径：/slide[N] 或 /（�
   /`ring_chart` 输出数据表，`kpi_card`/`progress_*`/`rating_stars`/`process_flow`/`timeline`
   输出数值/步骤/节点行，分组以 `**组名**` + 子元素缩进一级表达包含关系，
   图片 `![名称](绝对路径)`，演讲者备注输出为 `> 备注：…`。
+- `--strict`（别名 `--strict-exports`）：导出任一资源失败返回退出码 1，仍输出整批清单并保留成功文件。
+  `--json` 的资源清单包含 `resource_id`、`resource_type`（MIME）、`size`、`sha256`、`source_locations`、
+  `relative_link`（相对导出目录的 URI）及 `error`（`code` / `operation` / `message` / IO 详情）。
+  只有载荷不存在使用 `kind=missing`；目录创建、复制、解码等其他失败使用 `kind=error`。
 - `--attachments <DIR>`（仅 text）：把内嵌对象（`ppt/embeddings/*`，模型里以 base64 保存的
   `opaque.parts`）解码导出到该目录，该页追加 `[名字](导出路径)（附件 · 内容类型）` 行；
   不带该参数时不渲染附件行（默认输出保持不变）

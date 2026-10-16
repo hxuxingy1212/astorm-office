@@ -50,6 +50,25 @@ struct Cli {
     command: Command,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, clap::ValueEnum)]
+enum ValueView {
+    Formula,
+    CachedValue,
+    Both,
+    Formatted,
+}
+
+impl From<ValueView> for json2xlsx::markdown::ValueMode {
+    fn from(value: ValueView) -> Self {
+        match value {
+            ValueView::Formula => Self::Formula,
+            ValueView::CachedValue => Self::CachedValue,
+            ValueView::Both => Self::Both,
+            ValueView::Formatted => Self::Formatted,
+        }
+    }
+}
+
 #[derive(Subcommand)]
 enum Command {
     /// xlsx → 产物目录（workbook.json + xl/worksheets/sheetN.json）
@@ -81,6 +100,15 @@ enum Command {
         /// 把内嵌附件（OLE 对象）导出到该目录，Markdown 里的引用指向导出后的路径
         #[arg(long, value_name = "DIR")]
         attachments: Option<PathBuf>,
+        /// 导出图片，Markdown 保留所在单元格及导出链接
+        #[arg(long, value_name = "DIR")]
+        media: Option<PathBuf>,
+        /// 任一资源导出失败时返回退出码 1；清单仍完整输出（配合 --json）
+        #[arg(long, alias = "strict-exports")]
+        strict: bool,
+        /// 单元格取值：formula / cached-value / both / formatted
+        #[arg(long, value_enum, default_value = "formula")]
+        value_mode: ValueView,
     },
     /// 精准修改：get / set / add / remove
     Edit {
@@ -262,35 +290,55 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
             path,
             mode,
             attachments,
+            media,
+            strict,
+            value_mode,
         } => {
             let wb = load_input(input)?;
-            if attachments.is_some() && mode != "text" && mode != "values" {
-                return Err(CliError::new("--attachments 只对 text 模式有意义")
-                    .suggest("用法：view <输入> /sheet[1] text --attachments <目录>"));
+            if (attachments.is_some() || media.is_some() || *value_mode != ValueView::Formula)
+                && mode != "text"
+                && mode != "values"
+            {
+                return Err(CliError::new(
+                    "--attachments/--media/--value-mode 只对 text 模式有意义",
+                )
+                .suggest("用法：view <输入> /sheet[1] text --attachments <目录>"));
+            }
+            if *strict && attachments.is_none() && media.is_none() {
+                return Err(office_core::CliError::new(
+                    "--strict 需要 --attachments 或 --media 导出目录",
+                ));
             }
             // 附件载荷是包内相对路径（如 xl/embeddings/x.bin）：
             // 产物目录 → 直接以输入目录为根；二进制输入 → 把载荷抽到临时目录再以它为根
-            let mut _emb_guard: Option<office_core::TempGuard> = None;
-            let sink = match attachments.as_ref() {
-                None => None,
-                Some(dir) => {
-                    let sink = json2xlsx::PayloadSink::new(dir.clone());
-                    if json2xlsx::is_product_dir(input) {
-                        Some(sink.with_root(input.clone()))
-                    } else {
-                        let stem = input
-                            .file_stem()
-                            .map(|s| s.to_string_lossy().to_string())
-                            .unwrap_or_else(|| "book".to_string());
-                        let tmp = std::env::temp_dir()
-                            .join(format!("json2xlsx-emb-{}-{stem}", std::process::id()));
-                        let _ = std::fs::remove_dir_all(&tmp);
-                        json2xlsx::extract_embeddings_to(input, &tmp)?;
-                        _emb_guard = Some(office_core::TempGuard { path: tmp.clone() });
-                        Some(sink.with_root(tmp))
-                    }
+            let mut _emb_guard: Option<tempfile::TempDir> = None;
+            let payload_root = if attachments.is_some() || media.is_some() {
+                if json2xlsx::is_product_dir(input) {
+                    Some(input.clone())
+                } else {
+                    let tmp = tempfile::Builder::new()
+                        .prefix("json2xlsx-text-")
+                        .tempdir()?;
+                    json2xlsx::extract_payloads_to(input, tmp.path(), media.is_some())?;
+                    let root = tmp.path().to_path_buf();
+                    _emb_guard = Some(tmp);
+                    Some(root)
                 }
+            } else {
+                None
             };
+            let sink = attachments.as_ref().map(|dir| {
+                json2xlsx::PayloadSink::new(dir.clone())
+                    .with_strict(*strict)
+                    .with_source_document(input.display().to_string())
+                    .with_root(payload_root.clone().unwrap())
+            });
+            let media_sink = media.as_ref().map(|dir| {
+                json2xlsx::PayloadSink::new(dir.clone())
+                    .with_strict(*strict)
+                    .with_source_document(input.display().to_string())
+                    .with_root(payload_root.clone().unwrap())
+            });
             let unknown_mode = |other: &str| {
                 let mut e = CliError::new(format!("未知 view 模式: {other}"));
                 e.suggestion = Some(office_core::suggest::did_you_mean(
@@ -303,17 +351,20 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
                 ));
                 e
             };
+            let text_options =
+                json2xlsx::markdown::TextOptions::for_workbook(&wb, (*value_mode).into());
             // `/` = 整本工作簿（仅 text：每张表一个 `## 表名` 小节）
             let value = if path.trim() == "/" {
                 match mode.as_str() {
                     "text" | "values" => json!({
                         "sheets": wb.sheets.len(),
-                        "markdown": json2xlsx::markdown::workbook_markdown_with(
+                        "markdown": json2xlsx::markdown::workbook_markdown_with_options(
                             &wb,
                             json2xlsx::PayloadSinks {
                                 attachments: sink.as_ref(),
-                                media: None,
+                                media: media_sink.as_ref(),
                             },
+                            text_options,
                         ),
                     }),
                     "layout" | "structure" => {
@@ -325,18 +376,23 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
             } else {
                 let p = path::parse(path)?;
                 match mode.as_str() {
-                    "text" | "values" => ops::view_values(
+                    "text" | "values" => ops::view_values_with_options(
                         &wb,
                         &p,
                         json2xlsx::PayloadSinks {
                             attachments: sink.as_ref(),
-                            media: None,
+                            media: media_sink.as_ref(),
                         },
+                        text_options,
                     )?,
                     "layout" | "structure" => ops::view_structure(&wb, &p)?,
                     other => return Err(unknown_mode(other)),
                 }
             };
+            let mut value = value;
+            if let (Some(ms), Some(obj)) = (media_sink.as_ref(), value.as_object_mut()) {
+                obj.insert("media_exported".into(), serde_json::json!(ms.entries()));
+            }
             let value = match (sink.as_ref(), value) {
                 (Some(s), serde_json::Value::Object(mut m)) if !s.entries().is_empty() => {
                     m.insert("attachments".to_string(), serde_json::json!(s.entries()));
@@ -344,21 +400,29 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
                 }
                 (_, v) => v,
             };
-            if let Some(s) = sink.as_ref() {
-                for a in s.entries() {
-                    match a.kind {
-                        "file" => out.status(&format!(
-                            "附件已导出: {} → {}",
-                            a.name,
-                            a.path.clone().unwrap_or_default()
-                        )),
-                        "url" => out.status(&format!("附件是 URL，原样保留: {}", a.src)),
-                        _ => out.status(&format!("附件载荷不在，保留原引用: {}", a.src)),
+            for (label, sink) in [("附件", sink.as_ref()), ("媒体", media_sink.as_ref())] {
+                if let Some(sink) = sink {
+                    for entry in sink.entries() {
+                        out.status(&entry.status_message(label));
                     }
                 }
             }
             // 表格/区域（markdown 字段）默认直出；单元格节点与结构树仍输出 JSON
+            let mut value = value;
+            let export_failed = office_core::PayloadSinks {
+                attachments: sink.as_ref(),
+                media: media_sink.as_ref(),
+            }
+            .annotate_report(&mut value);
             out.emit_view_markdown(&value)?;
+            if export_failed {
+                out.error(
+                    "resource_export_failed",
+                    "严格模式：资源导出失败，详见导出清单",
+                    None,
+                );
+                return Ok(EXIT_FAILURE);
+            }
         }
         Command::Edit {
             input,

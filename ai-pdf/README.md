@@ -6,6 +6,8 @@ astorm-office 的 PDF 工具箱 —— 复刻 ZCode 官方 pdf 插件（`pdf.py`
 Python/Node 运行时依赖）。CLI 契约与仓库内 `json2docx` / `json2xlsx` / `json2pptx`
 完全一致，见 [`docs/cli-conventions.md`](../docs/cli-conventions.md)。
 
+附件导出支持 `extract attachment <PDF或产物目录> -o <DIR> --strict --json`，返回统一资源清单和结构化错误；详见 [资源导出契约](../docs/resource-export.md)。
+
 ## 双向解析：PDF ↔ 产物目录
 
 **产物目录**是 unpack 与 repack 的统一中间形态（设计对齐 ai-ppt 的 json2pptx）：

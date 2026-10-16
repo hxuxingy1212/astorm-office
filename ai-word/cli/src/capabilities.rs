@@ -84,6 +84,14 @@ pub const VIEW_MODES: &[(&str, &str)] = &[
 /// view 的附加旗标（导出出口；`view <输入> <路径> <模式>` 之后追加）
 pub const VIEW_FLAGS: &[(&str, &str)] = &[
     (
+        "--strict",
+        "资源导出严格模式：任一失败返回退出码 1，配合 --json 返回完整结构化清单",
+    ),
+    (
+        "--revisions <final|original|markup>",
+        "修订视图，默认最终稿；脚注、尾注、批注及超链接保留",
+    ),
+    (
         "--attachments <DIR>",
         "把内嵌附件（word/embeddings/*）导出到目录，Markdown 引用改指导出路径；URL 原样保留",
     ),

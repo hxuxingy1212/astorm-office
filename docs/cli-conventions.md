@@ -151,3 +151,5 @@ astorm-office batch <脚本|-> [...]   # 批量执行多条命令（文本一行
   `json2pdf` 的 view 保持元素级寻址；整篇 Markdown 用 `extract text --format markdown`
   （该命令的输出恒为 JSON 包：每页文本带 complexity/OCR 路由信息，取纯文本用
   `jq -r '.pages[].text'`）。
+
+资源导出的结构化错误、严格模式与清单字段见 [资源导出契约](resource-export.md)。

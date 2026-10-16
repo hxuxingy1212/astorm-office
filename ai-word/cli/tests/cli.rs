@@ -554,3 +554,193 @@ fn view_text_exports_media_and_rewrites_image_links() {
     assert!(!out.status.success());
     assert!(String::from_utf8_lossy(&out.stderr).contains("只对 text"));
 }
+
+#[test]
+fn view_text_revision_modes_and_annotations_from_docx() {
+    let dir = tmpdir("revision-text");
+    std::fs::create_dir_all(&dir).unwrap();
+    let input = dir.join("revisions.docx");
+    let doc: Document = serde_json::from_value(serde_json::json!({
+        "parts":[{"blocks":[{"type":"heading", "level":1,"text":"旧题新题", "runs":[
+            {"text":"旧题", "revision":"del"}, {"text":"新题", "revision":"ins"}
+        ]}, {"type":"paragraph","runs":[
+            {"text":"废止条款", "revision":"del", "revision_author":"法务"},
+            {"text":"生效条款", "revision":"ins", "revision_author":"法务"},
+            {"text":"来源", "hyperlink":"https://example.com/source", "footnote":"说明口径", "endnote":"参考材料", "comment":"待核对", "comment_author":"审阅人"}
+        ]}]}]
+    })).unwrap();
+    json2docx::generate(&doc, input.to_str().unwrap()).unwrap();
+    // The heading generator currently emits run formatting without revision wrappers.
+    // Use actual OOXML tracked changes here to exercise the reader independently.
+    let xml = office_core::opc::read_part(&input, "word/document.xml")
+        .unwrap()
+        .unwrap();
+    let xml = String::from_utf8(xml).unwrap();
+    let start = xml
+        .find("<w:p><w:pPr><w:pStyle w:val=\"Heading1\"")
+        .unwrap();
+    let end = start + xml[start..].find("</w:p>").unwrap() + "</w:p>".len();
+    let heading = r#"<w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:del w:id="90" w:author="法务"><w:r><w:delText>旧题</w:delText></w:r></w:del><w:ins w:id="91" w:author="法务"><w:r><w:t>新题</w:t></w:r></w:ins></w:p>"#;
+    let patched = format!("{}{}{}", &xml[..start], heading, &xml[end..]);
+    let fixture = dir.join("fixture.docx");
+    office_core::opc::write_part(&input, &fixture, "word/document.xml", patched.as_bytes())
+        .unwrap();
+    let input = fixture;
+    for (mode, expected, excluded) in [
+        ("final", "生效条款", Some("废止条款")),
+        ("original", "废止条款", Some("生效条款")),
+        ("markup", "<del>废止条款</del>", None),
+    ] {
+        let out = Command::new(bin())
+            .args([
+                "view",
+                input.to_str().unwrap(),
+                "/",
+                "text",
+                "--revisions",
+                mode,
+            ])
+            .output()
+            .unwrap();
+        assert!(
+            out.status.success(),
+            "{}",
+            String::from_utf8_lossy(&out.stderr)
+        );
+        let md = String::from_utf8_lossy(&out.stdout);
+        match mode {
+            "final" => assert!(md.contains("# 新题") && !md.contains("旧题"), "{md}"),
+            "original" => assert!(md.contains("# 旧题") && !md.contains("新题"), "{md}"),
+            _ => assert!(
+                md.contains("<del>旧题</del>") && md.contains("<ins>新题</ins>"),
+                "{md}"
+            ),
+        }
+        assert!(md.contains(expected), "{mode}: {md}");
+        if let Some(excluded) = excluded {
+            assert!(!md.contains(excluded), "{mode}: {md}");
+        }
+        for annotation in [
+            "[来源](https://example.com/source)",
+            "说明口径",
+            "参考材料",
+            "待核对",
+            "审阅人",
+        ] {
+            assert!(md.contains(annotation), "missing {annotation}: {md}");
+        }
+    }
+    let out = Command::new(bin())
+        .args(["view", input.to_str().unwrap(), "/", "text"])
+        .output()
+        .unwrap();
+    let md = String::from_utf8_lossy(&out.stdout);
+    assert!(
+        out.status.success() && md.contains("生效条款") && !md.contains("废止条款"),
+        "{md}"
+    );
+    std::fs::remove_dir_all(dir).unwrap();
+}
+
+#[test]
+fn resource_export_manifest_and_strict_mode_preserve_each_failure() {
+    let dir = tmpdir("resource-report");
+    std::fs::create_dir_all(dir.join("word/embeddings")).unwrap();
+    std::fs::write(dir.join("word/embeddings/good.pdf"), b"abc").unwrap();
+    let good = serde_json::json!({"type":"attachment","name":"report #1.pdf","src":"word/embeddings/good.pdf"});
+    let missing = serde_json::json!({"type":"attachment","name":"missing.pdf","src":"word/embeddings/missing.pdf"});
+    let doc = serde_json::json!({"parts":[{"blocks":[
+        good.clone(), missing.clone(), missing,
+        {"type":"attachment","name":format!("{}.pdf", "a".repeat(300)),"src":"word/embeddings/copy-source.pdf"},
+        {"type":"table","rows":[{"cells":[{"blocks":[good.clone()]}]}]},
+        {"type":"list","ordered":false,"items":[{"blocks":[good]}]}
+    ]}]});
+    // Separate source file gives the intentionally overlong target its own export record.
+    std::fs::write(dir.join("word/embeddings/copy-source.pdf"), b"abc").unwrap();
+    std::fs::write(dir.join("document.json"), serde_json::to_vec(&doc).unwrap()).unwrap();
+    let mut identity = None;
+    for strict in [false, true] {
+        let output = dir.join(if strict { "strict" } else { "tolerant" });
+        let mut command = Command::new(bin());
+        command.args([
+            "view",
+            dir.to_str().unwrap(),
+            "/",
+            "text",
+            "--attachments",
+            output.to_str().unwrap(),
+            "--json",
+        ]);
+        if strict {
+            command.arg("--strict");
+        }
+        let result = command.output().unwrap();
+        assert_eq!(result.status.code(), Some(if strict { 1 } else { 0 }));
+        let report: serde_json::Value = serde_json::from_slice(&result.stdout).unwrap();
+        let entries = report["attachments"].as_array().unwrap();
+        assert_eq!(entries.len(), 3, "{report}");
+        let good = entries
+            .iter()
+            .find(|entry| entry["kind"] == "file")
+            .unwrap();
+        assert_eq!(good["size"], 3);
+        assert_eq!(good["resource_type"], "application/pdf");
+        assert_eq!(
+            good["sha256"],
+            "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        );
+        assert_eq!(good["relative_link"], "report%20%231.pdf");
+        let locations = good["source_locations"].as_array().unwrap();
+        assert!(
+            locations.contains(&serde_json::json!(
+                "/part[1]/block[5]/row[1]/cell[1]/block[1]"
+            )),
+            "{good}"
+        );
+        assert!(
+            locations.contains(&serde_json::json!("/part[1]/block[6]/item[1]/block[1]")),
+            "{good}"
+        );
+        if let Some(identity) = &identity {
+            assert_eq!(&good["resource_id"], identity);
+        } else {
+            identity = Some(good["resource_id"].clone());
+        }
+        assert!(entries
+            .iter()
+            .any(|entry| entry["error"]["code"] == "payload_missing"
+                && entry["source_locations"].as_array().unwrap().len() == 2));
+        assert!(entries
+            .iter()
+            .any(|entry| entry["error"]["code"] == "copy_failed" && entry["kind"] == "error"));
+        assert_eq!(report["export_summary"]["failed"], 2);
+        if strict {
+            assert_eq!(report["ok"], false);
+            assert_eq!(report["error"]["code"], "resource_export_failed");
+        }
+    }
+    let blocked = dir.join("blocked");
+    std::fs::write(&blocked, b"existing").unwrap();
+    let result = Command::new(bin())
+        .args([
+            "view",
+            dir.to_str().unwrap(),
+            "/",
+            "text",
+            "--attachments",
+            blocked.to_str().unwrap(),
+            "--strict",
+            "--json",
+        ])
+        .output()
+        .unwrap();
+    assert_eq!(result.status.code(), Some(1));
+    let report: serde_json::Value = serde_json::from_slice(&result.stdout).unwrap();
+    assert!(report["attachments"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .any(|entry| entry["error"]["code"] == "create_dir_failed"));
+    assert_eq!(std::fs::read(blocked).unwrap(), b"existing");
+    std::fs::remove_dir_all(dir).unwrap();
+}

@@ -147,6 +147,10 @@ pub const VIEW_MODES: &[(&str, &str)] = &[
 /// view 的附加旗标（导出出口；`view <输入> <路径> <模式>` 之后追加）
 pub const VIEW_FLAGS: &[(&str, &str)] = &[
     (
+        "--strict",
+        "资源导出严格模式：任一失败返回退出码 1，配合 --json 返回完整结构化清单",
+    ),
+    (
         "--attachments <DIR>",
         "把内嵌对象（ppt/embeddings/*，模型里的 base64 部件）解码导出到目录并改指引用",
     ),

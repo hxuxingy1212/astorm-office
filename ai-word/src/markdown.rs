@@ -13,6 +13,169 @@ use crate::model::{Document, Part};
 use office_core::attachment::{file_name_of, is_url};
 use office_core::{PayloadSink, PayloadSinks};
 
+/// Which tracked changes are visible in the text view. Defaults to the final document.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub enum RevisionMode {
+    #[default]
+    Final,
+    Original,
+    Markup,
+}
+
+/// Rendering state is shared by all parts and nested blocks so note IDs remain unique.
+struct TextContext {
+    revision: RevisionMode,
+    notes: Vec<String>,
+}
+
+impl TextContext {
+    fn runs(&mut self, runs: &[Run], sinks: PayloadSinks<'_>) -> String {
+        let mut out = String::new();
+        for (index, run) in runs.iter().enumerate() {
+            let _source = sinks.at_source(format!("run[{}]", index + 1));
+            let revision = run.revision.as_deref();
+            if (self.revision == RevisionMode::Final && revision == Some("del"))
+                || (self.revision == RevisionMode::Original && revision == Some("ins"))
+            {
+                continue;
+            }
+            let mut text = run.text.clone();
+            if let Some(image) = &run.image {
+                text.push_str(&image_markdown(image, sinks.media));
+            }
+            if let Some(url) = &run.hyperlink {
+                text = format!(
+                    "[{}]({})",
+                    text.replace('[', "\\[").replace(']', "\\]"),
+                    url.replace(' ', "%20")
+                        .replace('(', "%28")
+                        .replace(')', "%29")
+                );
+            }
+            if self.revision == RevisionMode::Markup {
+                match revision {
+                    Some("del") => text = format!("<del>{text}</del>"),
+                    Some("ins") => text = format!("<ins>{text}</ins>"),
+                    _ => {}
+                }
+            }
+            out.push_str(&text);
+            for (kind, note) in [
+                ("脚注", &run.footnote),
+                ("尾注", &run.endnote),
+                ("批注", &run.comment),
+            ] {
+                if let Some(note) = note {
+                    let author = if kind == "批注" {
+                        run.comment_author
+                            .as_deref()
+                            .map(|a| format!("（{a}）"))
+                            .unwrap_or_default()
+                    } else {
+                        String::new()
+                    };
+                    self.notes.push(format!("{kind}{author}：{note}"));
+                    out.push_str(&format!("[^note-{}]", self.notes.len()));
+                }
+            }
+        }
+        out
+    }
+
+    fn prepare(&mut self, block: &mut Block, sinks: PayloadSinks<'_>) {
+        match block {
+            Block::Paragraph(p) => {
+                if let Some(runs) = p.runs.take() {
+                    p.text = Some(self.runs(&runs, sinks));
+                }
+            }
+            Block::Heading { text, runs, .. } => {
+                if let Some(runs) = runs.take() {
+                    *text = self.runs(&runs, sinks);
+                }
+            }
+            Block::List(l) => {
+                for (index, item) in l.items.iter_mut().enumerate() {
+                    let _source = sinks.at_source(format!("item[{}]", index + 1));
+                    self.prepare_blocks(&mut item.blocks, sinks);
+                }
+            }
+            Block::Table(t) => {
+                for (ri, row) in t.rows.iter_mut().enumerate() {
+                    let _row = sinks.at_source(format!("row[{}]", ri + 1));
+                    for (ci, cell) in row.cells.iter_mut().enumerate() {
+                        let _cell = sinks.at_source(format!("cell[{}]", ci + 1));
+                        self.prepare_blocks(&mut cell.blocks, sinks);
+                    }
+                }
+            }
+            Block::Sdt(s) => self.prepare_blocks(&mut s.blocks, sinks),
+            _ => {}
+        }
+    }
+
+    fn prepare_blocks(&mut self, blocks: &mut [Block], sinks: PayloadSinks<'_>) {
+        for (index, block) in blocks.iter_mut().enumerate() {
+            let _source = sinks.at_source(format!("block[{}]", index + 1));
+            self.prepare(block, sinks);
+        }
+    }
+
+    fn finish(&self, mut text: String) -> String {
+        for (i, note) in self.notes.iter().enumerate() {
+            text.push_str(&format!(
+                "\n\n[^note-{}]: {}",
+                i + 1,
+                note.replace('\n', "\n    ")
+            ));
+        }
+        if !text.is_empty() {
+            text = format!("{}\n", text.trim_end());
+        }
+        text
+    }
+}
+
+/// Render blocks with explicit tracked-change semantics, including nested content.
+pub fn blocks_markdown_with_options(
+    blocks: &[Block],
+    sinks: PayloadSinks<'_>,
+    revision: RevisionMode,
+) -> String {
+    let mut context = TextContext {
+        revision,
+        notes: Vec::new(),
+    };
+    let mut prepared = blocks.to_vec();
+    context.prepare_blocks(&mut prepared, sinks);
+    context.finish(render_blocks(&prepared, sinks))
+}
+
+/// Render the whole document, sharing note references across parts.
+pub fn document_markdown_with_options(
+    doc: &Document,
+    sinks: PayloadSinks<'_>,
+    revision: RevisionMode,
+) -> String {
+    let mut context = TextContext {
+        revision,
+        notes: Vec::new(),
+    };
+    let parts: Vec<_> = doc
+        .parts
+        .iter()
+        .enumerate()
+        .map(|(index, part)| {
+            let _source = sinks.at_source(format!("part[{}]", index + 1));
+            let mut prepared = part.blocks.clone();
+            context.prepare_blocks(&mut prepared, sinks);
+            render_blocks(&prepared, sinks).trim_end().to_string()
+        })
+        .filter(|s| !s.is_empty())
+        .collect();
+    context.finish(parts.join("\n\n"))
+}
+
 /// 单个分片 → Markdown
 pub fn part_markdown(part: &Part) -> String {
     blocks_markdown(&part.blocks)
@@ -33,18 +196,7 @@ pub fn document_markdown(doc: &Document) -> String {
 
 /// 整篇文档 → Markdown（带附件导出）
 pub fn document_markdown_with(doc: &Document, sinks: PayloadSinks<'_>) -> String {
-    let parts: Vec<String> = doc
-        .parts
-        .iter()
-        .map(|p| part_markdown_with(p, sinks))
-        .filter(|md| !md.trim().is_empty())
-        .map(|md| md.trim_end().to_string())
-        .collect();
-    let mut out = parts.join("\n\n");
-    if !out.is_empty() {
-        out.push('\n');
-    }
-    out
+    document_markdown_with_options(doc, sinks, RevisionMode::Final)
 }
 
 /// 块序列 → Markdown（块之间空行分隔；空块跳过）
@@ -54,9 +206,17 @@ pub fn blocks_markdown(blocks: &[Block]) -> String {
 
 /// 块序列 → Markdown（带附件导出）
 pub fn blocks_markdown_with(blocks: &[Block], sinks: PayloadSinks<'_>) -> String {
+    blocks_markdown_with_options(blocks, sinks, RevisionMode::Final)
+}
+
+fn render_blocks(blocks: &[Block], sinks: PayloadSinks<'_>) -> String {
     let rendered: Vec<String> = blocks
         .iter()
-        .map(|b| block_markdown_with(b, sinks))
+        .enumerate()
+        .map(|(index, b)| {
+            let _source = sinks.at_source(format!("block[{}]", index + 1));
+            render_block(b, sinks)
+        })
         .filter(|s| !s.trim().is_empty())
         .collect();
     let mut out = rendered.join("\n\n");
@@ -88,6 +248,12 @@ pub fn block_markdown(b: &Block) -> String {
 
 /// 单个块 → Markdown 片段（带附件导出：attachment 的链接指向导出后的路径/URL）
 pub fn block_markdown_with(b: &Block, sinks: PayloadSinks<'_>) -> String {
+    blocks_markdown_with_options(std::slice::from_ref(b), sinks, RevisionMode::Final)
+        .trim_end()
+        .to_string()
+}
+
+fn render_block(b: &Block, sinks: PayloadSinks<'_>) -> String {
     match b {
         Block::Heading { level, text, .. } => {
             let n = (*level).clamp(1, 6) as usize;
@@ -95,7 +261,7 @@ pub fn block_markdown_with(b: &Block, sinks: PayloadSinks<'_>) -> String {
         }
         Block::Paragraph(p) => paragraph_text(p).trim().to_string(),
         Block::List(l) => list_markdown(l, sinks),
-        Block::Table(t) => table_markdown(t),
+        Block::Table(t) => table_markdown(t, sinks),
         Block::Image(i) => image_markdown(i, sinks.media),
         Block::Formula(f) => {
             if f.display {
@@ -128,9 +294,7 @@ pub fn block_markdown_with(b: &Block, sinks: PayloadSinks<'_>) -> String {
             }
             out
         }
-        Block::Sdt(c) => blocks_markdown_with(&c.blocks, sinks)
-            .trim_end()
-            .to_string(),
+        Block::Sdt(c) => render_blocks(&c.blocks, sinks).trim_end().to_string(),
         // 未建模的原始 XML 片段在纯文本里无处安放：有 SmartArt 文本时列出，否则跳过
         Block::Raw(r) => match &r.diagram {
             Some(d) if !d.texts.is_empty() => d
@@ -150,7 +314,8 @@ pub fn block_markdown_with(b: &Block, sinks: PayloadSinks<'_>) -> String {
 fn list_markdown(l: &ListBlock, sinks: PayloadSinks<'_>) -> String {
     let mut out = String::new();
     let mut n = 0i64;
-    for item in &l.items {
+    for (index, item) in l.items.iter().enumerate() {
+        let _source = sinks.at_source(format!("item[{}]", index + 1));
         let indent = "  ".repeat(item.level as usize);
         let marker = if l.ordered {
             n += 1;
@@ -161,8 +326,9 @@ fn list_markdown(l: &ListBlock, sinks: PayloadSinks<'_>) -> String {
         // 首块接在标记后，其余块按标记宽度续行缩进（嵌套列表据此保持层级）
         let cont = " ".repeat(indent.len() + marker.len() + 1);
         let mut first = true;
-        for blk in &item.blocks {
-            let text = block_markdown_with(blk, sinks);
+        for (bi, blk) in item.blocks.iter().enumerate() {
+            let _block = sinks.at_source(format!("block[{}]", bi + 1));
+            let text = render_block(blk, sinks);
             if text.trim().is_empty() {
                 continue;
             }
@@ -179,16 +345,22 @@ fn list_markdown(l: &ListBlock, sinks: PayloadSinks<'_>) -> String {
     out.trim_end().to_string()
 }
 
-fn table_markdown(t: &TableBlock) -> String {
+fn table_markdown(t: &TableBlock, sinks: PayloadSinks<'_>) -> String {
     let cols = t.rows.iter().map(|r| r.cells.len()).max().unwrap_or(0);
     if cols == 0 {
         return String::new();
     }
-    let cell_text = |c: &TableCell| -> String {
+    let cell_text = |ri: usize, ci: usize, c: &TableCell| -> String {
+        let _row = sinks.at_source(format!("row[{}]", ri + 1));
+        let _cell = sinks.at_source(format!("cell[{}]", ci + 1));
         c.blocks
             .iter()
-            .map(Block::plain_text)
-            .filter(|s| !s.trim().is_empty())
+            .enumerate()
+            .map(|(bi, block)| {
+                let _block = sinks.at_source(format!("block[{}]", bi + 1));
+                render_block(block, sinks)
+            })
+            .filter(|text| !text.trim().is_empty())
             .collect::<Vec<_>>()
             .join(" ")
             .replace('|', "\\|")
@@ -209,7 +381,12 @@ fn table_markdown(t: &TableBlock) -> String {
     }
     if t.header_row && !t.rows.is_empty() {
         out.push_str(&row_line(
-            &t.rows[0].cells.iter().map(cell_text).collect::<Vec<_>>(),
+            &t.rows[0]
+                .cells
+                .iter()
+                .enumerate()
+                .map(|(ci, cell)| cell_text(0, ci, cell))
+                .collect::<Vec<_>>(),
         ));
     } else {
         // 无表头：留空表头，避免把第一行数据伪装成表头
@@ -222,10 +399,15 @@ fn table_markdown(t: &TableBlock) -> String {
     } else {
         &t.rows[..]
     };
-    for r in body {
+    for (index, r) in body.iter().enumerate() {
+        let ri = index + usize::from(t.header_row);
         out.push('\n');
         out.push_str(&row_line(
-            &r.cells.iter().map(cell_text).collect::<Vec<_>>(),
+            &r.cells
+                .iter()
+                .enumerate()
+                .map(|(ci, cell)| cell_text(ri, ci, cell))
+                .collect::<Vec<_>>(),
         ));
     }
     out
@@ -384,6 +566,55 @@ fn with_continuation(text: &str, cont: &str, body: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn tracked_changes_and_notes_survive_nested_blocks_without_mutating_model() {
+        let doc: Document = serde_json::from_value(serde_json::json!({
+            "parts": [
+                {"blocks": [{"type":"heading", "level":1, "text":"stale heading", "runs":[
+                    {"text":"旧标题", "revision":"del"}, {"text":"新标题", "revision":"ins"}
+                ]}, {"type":"table", "rows":[{"cells":[{"blocks":[
+                    {"type":"paragraph", "text":"stale paragraph", "runs":[
+                        {"text":"废止条款", "revision":"del", "comment":"删除原因"},
+                        {"text":"生效条款", "revision":"ins", "footnote":"口径说明"},
+                        {"text":"出处", "hyperlink":"https://example.com/a (b)", "endnote":"参考材料", "comment":"核对来源\n第二行", "comment_author":"张三"}
+                    ]}
+                ]}]}]}]},
+                {"blocks":[{"type":"list", "ordered":false, "items":[{"blocks":[
+                    {"type":"paragraph", "runs":[{"text":"补充", "footnote":"第二分片"}]}
+                ]}]}]}
+            ]
+        })).unwrap();
+        let before = doc.clone();
+        let final_md = document_markdown(&doc);
+        assert!(final_md.contains("# 新标题"), "{final_md}");
+        assert!(
+            !final_md.contains("废止条款")
+                && !final_md.contains("删除原因")
+                && !final_md.contains("stale")
+        );
+        assert!(final_md.contains("生效条款[^note-1]"), "{final_md}");
+        assert!(final_md.contains("[出处](https://example.com/a%20%28b%29)"));
+        assert!(final_md.contains("[^note-3]: 批注（张三）：核对来源\n    第二行"));
+        assert!(
+            final_md.contains("补充[^note-4]") && final_md.contains("[^note-4]: 脚注：第二分片")
+        );
+        let original =
+            document_markdown_with_options(&doc, PayloadSinks::default(), RevisionMode::Original);
+        assert!(
+            original.contains("旧标题")
+                && original.contains("废止条款")
+                && original.contains("删除原因")
+        );
+        assert!(!original.contains("生效条款") && !original.contains("口径说明"));
+        let markup =
+            document_markdown_with_options(&doc, PayloadSinks::default(), RevisionMode::Markup);
+        assert!(markup.contains("<del>废止条款</del>") && markup.contains("<ins>生效条款</ins>"));
+        assert_eq!(
+            serde_json::to_value(&doc).unwrap(),
+            serde_json::to_value(&before).unwrap()
+        );
+    }
 
     fn para(text: &str) -> Block {
         Block::Paragraph(Paragraph {

@@ -152,10 +152,24 @@ pub const VIEW_MODES: &[(&str, &str)] = &[
 ];
 
 /// view 的附加旗标（导出出口；`view <输入> <路径> <模式>` 之后追加）
-pub const VIEW_FLAGS: &[(&str, &str)] = &[(
-    "--attachments <DIR>",
-    "把内嵌 OLE 对象（xl/embeddings/*）导出到目录，表格后追加指向导出路径的附件行",
-)];
+pub const VIEW_FLAGS: &[(&str, &str)] = &[
+    (
+        "--strict",
+        "资源导出严格模式：任一失败返回退出码 1，配合 --json 返回完整结构化清单",
+    ),
+    (
+        "--value-mode <formula|cached-value|both|formatted>",
+        "取值模式，默认 formula；缓存缺失明确标注，formatted 保留数字格式",
+    ),
+    (
+        "--media <DIR>",
+        "导出图片并保留所在单元格；文本同时包含图表数据、批注和链接",
+    ),
+    (
+        "--attachments <DIR>",
+        "把内嵌 OLE 对象（xl/embeddings/*）导出到目录，表格后追加指向导出路径的附件行",
+    ),
+];
 
 /// batch 支持的操作
 pub const BATCH_OPS: &[(&str, &str)] = &[

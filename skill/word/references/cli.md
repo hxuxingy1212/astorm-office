@@ -59,6 +59,13 @@ json2docx view <输入> <路径> text|layout     # 路径：/part[N] 或 /（整
   图表数据输出为数据表，题注/目录/参考文献/附件各有对应表达；分页输出为 `---`。
   输出里**没有 `<!-- … -->` 注释标记**。要结构化信封（`{markdown, media, issues, warnings}`）
   加 `--json`。
+- `--revisions final|original|markup`（仅 text，默认 `final`）：最终稿排除删除文字；原稿排除插入文字；
+  `markup` 用 `<ins>` / `<del>` 保留修订标记。覆盖标题、段落、列表、表格和内容控件。
+  脚注、尾注、批注（含作者）输出为 Markdown 脚注引用及定义，超链接保留；隐藏修订中的注释也随之隐藏。
+- `--strict`（别名 `--strict-exports`）：导出任一资源失败返回退出码 1，仍输出整批清单并保留成功文件。
+  `--json` 的资源清单包含 `resource_id`、`resource_type`（MIME）、`size`、`sha256`、`source_locations`、
+  `relative_link`（相对导出目录的 URI）及 `error`（`code` / `operation` / `message` / IO 详情）。
+  只有载荷不存在使用 `kind=missing`；目录创建、复制、解码等其他失败使用 `kind=error`。
 - `--attachments <DIR>`（仅 text）：把内嵌附件（`word/embeddings/*`，OLE 对象）导出到该目录，
   Markdown 里的引用改指导出后的路径；**URL 原样保留**，载荷缺失时保留原引用
   （信封里 `attachments[].kind = file|url|missing`）。不带该参数时链接保持模型里的原始引用。
@@ -74,6 +81,7 @@ json2docx view <输入> <路径> text|layout     # 路径：/part[N] 或 /（整
 ```bash
 json2docx view thesis.docx /part[1] text     # 单分片 Markdown（直出）
 json2docx view thesis.docx / text            # 整篇 Markdown（直出）
+json2docx view thesis.docx / text --revisions markup # 审阅修订
 json2docx view thesis.docx / text > full.md  # 直接落盘
 json2docx view thesis.docx / text --json     # 结构化信封（含 media/issues/warnings）
 json2docx view thesis.docx /part[1] layout   # 结构树（定位后再 edit）

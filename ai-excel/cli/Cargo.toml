@@ -10,6 +10,7 @@ name = "json2xlsx"
 path = "src/main.rs"
 
 [dependencies]
+tempfile = { workspace = true }
 json2xlsx = { path = ".." }
 office-core = { workspace = true }
 clap = { workspace = true }

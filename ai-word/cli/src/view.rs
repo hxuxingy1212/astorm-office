@@ -10,11 +10,12 @@ use json2docx::PayloadSinks;
 use serde_json::{json, Value};
 
 /// 收集分片内的图片媒体（相对产物根的路径）
-fn part_media(part: &json2docx::model::Part) -> Vec<Value> {
+fn part_media(part: &json2docx::model::Part, index: usize) -> Vec<Value> {
     part.blocks
         .iter()
-        .filter_map(|b| match b {
-            Block::Image(img) => Some(json!({ "type": "image", "src": img.src })),
+        .enumerate()
+        .filter_map(|(bi, b)| match b {
+            Block::Image(img) => Some(json!({ "type": "image", "src": img.src, "source_location": format!("/part[{}]/block[{}]", index + 1, bi + 1) })),
             _ => None,
         })
         .collect()
@@ -24,20 +25,48 @@ fn part_media(part: &json2docx::model::Part) -> Vec<Value> {
 ///
 /// `sink` 非空时把内嵌附件导出到指定目录，Markdown 里的引用指向导出后的路径/URL。
 pub fn view_text(doc: &Document, part_idx: usize, sinks: PayloadSinks<'_>) -> Value {
+    view_text_with_revisions(
+        doc,
+        part_idx,
+        sinks,
+        json2docx::markdown::RevisionMode::Final,
+    )
+}
+
+pub fn view_text_with_revisions(
+    doc: &Document,
+    part_idx: usize,
+    sinks: PayloadSinks<'_>,
+    revisions: json2docx::markdown::RevisionMode,
+) -> Value {
+    let _source = sinks.at_source(format!("part[{}]", part_idx + 1));
     let part = &doc.parts[part_idx];
     json!({
         "part": part_idx + 1,
-        "markdown": json2docx::markdown::part_markdown_with(part, sinks),
-        "media": part_media(part),
+        "markdown": json2docx::markdown::blocks_markdown_with_options(&part.blocks, sinks, revisions),
+        "media": part_media(part, part_idx),
     })
 }
 
 /// view text（整篇）：所有分片 → 一段 Markdown
 pub fn view_text_all(doc: &Document, sinks: PayloadSinks<'_>) -> Value {
-    let media: Vec<Value> = doc.parts.iter().flat_map(part_media).collect();
+    view_text_all_with_revisions(doc, sinks, json2docx::markdown::RevisionMode::Final)
+}
+
+pub fn view_text_all_with_revisions(
+    doc: &Document,
+    sinks: PayloadSinks<'_>,
+    revisions: json2docx::markdown::RevisionMode,
+) -> Value {
+    let media: Vec<Value> = doc
+        .parts
+        .iter()
+        .enumerate()
+        .flat_map(|(index, part)| part_media(part, index))
+        .collect();
     json!({
         "parts": doc.parts.len(),
-        "markdown": json2docx::markdown::document_markdown_with(doc, sinks),
+        "markdown": json2docx::markdown::document_markdown_with_options(doc, sinks, revisions),
         "media": media,
     })
 }

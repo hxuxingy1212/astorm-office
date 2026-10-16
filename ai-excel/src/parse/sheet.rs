@@ -49,6 +49,7 @@ struct Pending {
     style_idx: u32,
     t: Option<String>,
     value_text: String,
+    has_value: bool,
     formula_text: String,
     has_formula: bool,
     f_shared_si: Option<u32>,
@@ -159,6 +160,7 @@ impl Acc {
                     style_idx: g("s").and_then(|v| v.parse().ok()).unwrap_or(0),
                     t: g("t").map(|s| s.to_string()),
                     value_text: String::new(),
+                    has_value: false,
                     formula_text: String::new(),
                     has_formula: false,
                     f_shared_si: None,
@@ -184,7 +186,12 @@ impl Acc {
                     self.ole_refs.push((prog, rid));
                 }
             }
-            b"v" => self.in_value = true,
+            b"v" => {
+                self.in_value = true;
+                if let Some(cell) = &mut self.cur_cell {
+                    cell.has_value = true;
+                }
+            }
             b"rPh" => self.in_rph = true,
             b"is" => {
                 if let Some(c) = self.cur_cell.as_mut() {
@@ -815,15 +822,16 @@ impl Acc {
         } else if p.has_formula {
             cell.formula = Some(p.formula_text);
             match p.t.as_deref() {
+                _ if !p.has_value => {}
                 Some("str") => {
                     cell.value = Some(Value::String(norm_newlines(p.value_text)));
                     cell.cell_type = Some("string".into());
                 }
-                Some("b") => {
+                Some("b") if !p.value_text.is_empty() => {
                     cell.value = Some(Value::Bool(p.value_text == "1"));
                     cell.cell_type = Some("boolean".into());
                 }
-                Some("e") => {
+                Some("e") if !p.value_text.is_empty() => {
                     cell.value = Some(Value::String(p.value_text));
                     cell.cell_type = Some("error".into());
                 }

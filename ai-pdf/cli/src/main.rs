@@ -264,6 +264,9 @@ enum ExtractCmd {
     Attachment {
         /// 输入的 PDF 文件或 unpack 产物目录
         file: PathBuf,
+        /// 任一附件导出失败返回退出码 1（需 -o 导出目录）
+        #[arg(long, alias = "strict-exports")]
+        strict: bool,
     },
 }
 
@@ -633,89 +636,99 @@ fn dispatch(cli: &Cli, out: &Output) -> Result<i32, CmdError> {
                 .collect();
             out.emit_json(&json!({"file": file.display().to_string(), "pages": page_reports}))?;
         }
-        Cmd::Extract(ExtractCmd::Attachment { file }) => {
-            // 输入可以是 PDF（直接读 /EmbeddedFiles）或产物目录（document.json 已记录清单）
+        Cmd::Extract(ExtractCmd::Attachment { file, strict }) => {
+            if *strict && cli.output.is_none() {
+                return Err(CliError::new("--strict 需要 -o 导出目录").into());
+            }
+            let sink = cli.output.as_ref().map(|dir| {
+                office_core::PayloadSink::new(dir)
+                    .with_root(file)
+                    .with_source_document(file.display().to_string())
+                    .with_strict(*strict)
+            });
             let is_dir = file.is_dir() && file.join("document.json").is_file();
             let (list, exported) = if is_dir {
                 let model = product::load_document(file)?;
                 let list = model.attachments.clone();
-                let mut exported = Vec::new();
-                if let Some(dir) = cli.output.clone() {
-                    let sink = office_core::PayloadSink::new(dir);
-                    for a in &list {
-                        let (name, path) = match a.src.as_deref() {
-                            Some(rel) => {
-                                let link =
-                                    sink.link_for(&a.name, &file.join(rel).display().to_string());
-                                let ok = std::path::Path::new(&link).exists();
-                                (a.name.clone(), ok.then_some(link))
-                            }
-                            None => (a.name.clone(), None),
-                        };
-                        exported.push(json!({
-                            "name": name,
-                            "mime": a.mime,
-                            "size": a.size,
-                            "path": path,
-                            "kind": if exported_path_ok(&path) { "file" } else { "missing" },
-                        }));
+                if let Some(sink) = &sink {
+                    for (index, attachment) in list.iter().enumerate() {
+                        let _source = sink.at_source(format!("attachment[{}]", index + 1));
+                        if let Some(src) = &attachment.src {
+                            let _ = sink.try_link_for_typed(
+                                &attachment.name,
+                                src,
+                                attachment.mime.as_deref(),
+                            );
+                        } else {
+                            sink.report_failure_typed(
+                                &attachment.name,
+                                &format!("attachment-{}", index + 1),
+                                office_core::ExportErrorCode::PayloadMissing,
+                                "产物未保存附件载荷路径",
+                                attachment.mime.as_deref(),
+                            );
+                        }
                     }
                 }
+                let exported = sink
+                    .as_ref()
+                    .map(|sink| {
+                        sink.entries()
+                            .into_iter()
+                            .map(|entry| {
+                                let info = list
+                                    .iter()
+                                    .find(|info| info.src.as_deref() == Some(entry.src.as_str()));
+                                let mut value = serde_json::to_value(&entry).unwrap();
+                                value["mime"] = json!(info
+                                    .and_then(|info| info.mime.as_deref())
+                                    .unwrap_or(&entry.resource_type));
+                                value["description"] =
+                                    json!(info.and_then(|info| info.description.as_deref()));
+                                value
+                            })
+                            .collect()
+                    })
+                    .unwrap_or_default();
                 (list, exported)
             } else {
                 let doc = load(file)?;
                 let list = json2pdf::attachments::list(&doc);
-                let exported = match cli.output.clone() {
-                    Some(dir) => json2pdf::attachments::extract(&doc, &dir)?,
-                    None => Vec::new(),
+                let exported = if let Some(sink) = &sink {
+                    json2pdf::attachments::extract_with_sink(&doc, sink)?
+                } else {
+                    Vec::new()
                 };
                 (list, exported)
             };
             let count = list.len();
-            if count == 0 {
-                out.status("未发现内嵌文件（/EmbeddedFiles 与 FileAttachment 注释都为空）");
-            } else {
-                out.status(&format!("内嵌文件 {count} 个"));
-            }
-            for rec in &exported {
-                match rec.get("kind").and_then(|v| v.as_str()) {
-                    Some("file") => out.status(&format!(
-                        "已导出: {} → {}",
-                        rec.get("name").and_then(|v| v.as_str()).unwrap_or(""),
-                        rec.get("path").and_then(|v| v.as_str()).unwrap_or("")
-                    )),
-                    _ => out.status(&format!(
-                        "载荷不可读，未导出: {}",
-                        rec.get("name").and_then(|v| v.as_str()).unwrap_or("")
-                    )),
+            out.status(&format!("内嵌文件 {count} 个"));
+            if let Some(sink) = &sink {
+                for entry in sink.entries() {
+                    out.status(&entry.status_message("附件"));
                 }
             }
-            // 清单始终输出（这是本命令的主要用途）；--json 下与导出记录合并成信封
-            let items: Vec<Value> = list
-                .iter()
-                .map(|a| {
-                    let rec = exported
-                        .iter()
-                        .find(|r| r.get("name").and_then(|v| v.as_str()) == Some(a.name.as_str()));
-                    json!({
-                        "name": a.name,
-                        "mime": a.mime,
-                        "size": a.size,
-                        "description": a.description,
-                        "src": a.src,
-                        "path": rec.and_then(|r| r.get("path")).cloned().unwrap_or(Value::Null),
-                        // 未导出（只列清单）时标 listed
-                        "kind": rec
-                            .and_then(|r| r.get("kind").and_then(|v| v.as_str()))
-                            .unwrap_or("listed"),
-                    })
-                })
-                .collect();
-            out.emit_json(&json!({
-                "file": file.display().to_string(),
-                "count": count,
-                "attachments": items,
-            }))?;
+            let items: Vec<Value> = if sink.is_some() {
+                exported
+            } else {
+                list.iter().map(|entry| json!({"name":entry.name,"mime":entry.mime,"size":entry.size,"description":entry.description,"src":entry.src,"path":null,"kind":"listed"})).collect()
+            };
+            let mut value =
+                json!({"file":file.display().to_string(),"count":count,"attachments":items});
+            let export_failed = office_core::PayloadSinks {
+                attachments: sink.as_ref(),
+                media: None,
+            }
+            .annotate_report(&mut value);
+            out.emit_json(&value)?;
+            if export_failed {
+                out.error(
+                    "resource_export_failed",
+                    "严格模式：资源导出失败，详见导出清单",
+                    None,
+                );
+                return Ok(EXIT_FAILURE);
+            }
         }
         Cmd::Extract(ExtractCmd::Table { file, pages }) => {
             let doc = load(file)?;
@@ -1545,13 +1558,6 @@ fn parse_dims(s: &str) -> (f64, f64) {
 }
 
 /// 加载 PDF（加密文档明确拒绝）
-/// 导出记录里 path 是否有效（用于 kind 判定）
-fn exported_path_ok(path: &Option<String>) -> bool {
-    path.as_deref()
-        .map(|p| std::path::Path::new(p).exists())
-        .unwrap_or(false)
-}
-
 fn load(file: &Path) -> Result<lopdf::Document, CliError> {
     let doc = lopdf::Document::load(file).map_err(|e| {
         CliError::with_code("io", format!("load {}: {e}", file.display()))

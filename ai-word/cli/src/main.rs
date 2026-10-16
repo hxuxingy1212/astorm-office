@@ -91,6 +91,12 @@ enum Command {
         /// 把图片等媒体导出到该目录，Markdown 里的图片链接指向导出后的路径
         #[arg(long, value_name = "DIR")]
         media: Option<PathBuf>,
+        /// 任一资源导出失败时返回退出码 1；清单仍完整输出（配合 --json）
+        #[arg(long, alias = "strict-exports")]
+        strict: bool,
+        /// 修订视图：final（最终稿）/ original（原稿）/ markup（保留标记）
+        #[arg(long, value_enum, default_value = "final")]
+        revisions: RevisionView,
     },
     /// 第二层精准修改：get / set / add / remove
     Edit {
@@ -180,6 +186,23 @@ enum Command {
         #[arg(short = 'd', long)]
         data: String,
     },
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, clap::ValueEnum)]
+enum RevisionView {
+    Final,
+    Original,
+    Markup,
+}
+
+impl From<RevisionView> for json2docx::markdown::RevisionMode {
+    fn from(value: RevisionView) -> Self {
+        match value {
+            RevisionView::Final => Self::Final,
+            RevisionView::Original => Self::Original,
+            RevisionView::Markup => Self::Markup,
+        }
+    }
 }
 
 #[derive(clap::ValueEnum, Clone)]
@@ -372,22 +395,37 @@ fn run(cli: &Cli, out: &Output) -> Result<i32> {
             mode,
             attachments,
             media,
+            strict,
+            revisions,
         } => {
+            if *strict && attachments.is_none() && media.is_none() {
+                return Err(office_core::CliError::new(
+                    "--strict 需要 --attachments 或 --media 导出目录",
+                ));
+            }
             // 解析一次同时拿模型（二进制输入不再「落盘→读回→再解析」）
             let (root, _tmp, doc) = product::resolve_and_load(input)?;
-            if (attachments.is_some() || media.is_some()) && !matches!(mode, ViewMode::Text) {
+            if (attachments.is_some() || media.is_some() || *revisions != RevisionView::Final)
+                && !matches!(mode, ViewMode::Text)
+            {
                 return Err(office_core::CliError::new(
-                    "--attachments/--media 只对 text 模式有意义",
+                    "--attachments/--media/--revisions 只对 text 模式有意义",
                 )
                 .suggest("用法：view <输入> / text --attachments <目录> --media <目录>"));
             }
             // 两个出口都以产物根为相对路径基准
-            let sink = attachments
-                .as_ref()
-                .map(|dir| json2docx::PayloadSink::new(dir.clone()).with_root(root.clone()));
-            let media_sink = media
-                .as_ref()
-                .map(|dir| json2docx::PayloadSink::new(dir.clone()).with_root(root.clone()));
+            let sink = attachments.as_ref().map(|dir| {
+                json2docx::PayloadSink::new(dir.clone())
+                    .with_strict(*strict)
+                    .with_source_document(input.display().to_string())
+                    .with_root(root.clone())
+            });
+            let media_sink = media.as_ref().map(|dir| {
+                json2docx::PayloadSink::new(dir.clone())
+                    .with_strict(*strict)
+                    .with_source_document(input.display().to_string())
+                    .with_root(root.clone())
+            });
             let sinks = json2docx::PayloadSinks {
                 attachments: sink.as_ref(),
                 media: media_sink.as_ref(),
@@ -396,7 +434,9 @@ fn run(cli: &Cli, out: &Output) -> Result<i32> {
             let all = path.trim() == "/";
             let value = if all {
                 match mode {
-                    ViewMode::Text => view::view_text_all(&doc, sinks),
+                    ViewMode::Text => {
+                        view::view_text_all_with_revisions(&doc, sinks, (*revisions).into())
+                    }
                     ViewMode::Layout => {
                         return Err(office_core::CliError::new("整篇（/）不支持 layout 视图")
                             .suggest("layout 请指定分片：/part[1]；整篇阅读用 text"));
@@ -406,7 +446,9 @@ fn run(cli: &Cli, out: &Output) -> Result<i32> {
                 let segs = path::parse(path)?;
                 let loc = path::resolve(&doc, &segs)?;
                 match mode {
-                    ViewMode::Text => view::view_text(&doc, loc.part, sinks),
+                    ViewMode::Text => {
+                        view::view_text_with_revisions(&doc, loc.part, sinks, (*revisions).into())
+                    }
                     ViewMode::Layout => view::view_layout(&doc, loc.part),
                 }
             };
@@ -417,6 +459,10 @@ fn run(cli: &Cli, out: &Output) -> Result<i32> {
             if let Some(ms) = media_sink.as_ref() {
                 if let Some(list) = value.get_mut("media").and_then(|m| m.as_array_mut()) {
                     for entry in list.iter_mut() {
+                        let _source = entry
+                            .get("source_location")
+                            .and_then(|value| value.as_str())
+                            .map(|location| ms.at_source(location));
                         if let Some(src) =
                             entry.get("src").and_then(|s| s.as_str()).map(String::from)
                         {
@@ -452,19 +498,21 @@ fn run(cli: &Cli, out: &Output) -> Result<i32> {
             // 附件导出结果走 stderr（默认模式下也能看到落点）
             for (kind_label, list) in [("附件", &exported), ("媒体", &media_exported)] {
                 for a in list.iter() {
-                    match a.kind {
-                        "file" => out.status(&format!(
-                            "{kind_label}已导出: {} → {}",
-                            a.name,
-                            a.path.clone().unwrap_or_default()
-                        )),
-                        "url" => out.status(&format!("{kind_label}是 URL，原样保留: {}", a.src)),
-                        _ => out.status(&format!("{kind_label}载荷不在，保留原引用: {}", a.src)),
-                    }
+                    out.status(&a.status_message(kind_label));
                 }
             }
             // 默认直出 Markdown（体检信息走 stderr）；--json 才是结构化信封
+            let mut value = value;
+            let export_failed = sinks.annotate_report(&mut value);
             out.emit_view_markdown(&value)?;
+            if export_failed {
+                out.error(
+                    "resource_export_failed",
+                    "严格模式：资源导出失败，详见导出清单",
+                    None,
+                );
+                return Ok(EXIT_FAILURE);
+            }
         }
         Command::Edit {
             input,

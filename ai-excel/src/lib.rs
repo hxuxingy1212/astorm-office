@@ -31,6 +31,7 @@ pub use model::Workbook;
 pub use office_core::{ExportedAttachment, PayloadSink, PayloadSinks};
 pub use parse::parse;
 pub use product::{
-    extract_embeddings_to, is_product_dir, load_product, repack, save_product, unpack, UnpackResult,
+    extract_embeddings_to, extract_payloads_to, is_product_dir, load_product, repack, save_product,
+    unpack, UnpackResult,
 };
 pub use template::{extract_template, render_markdown, skeleton_workbook, Template};

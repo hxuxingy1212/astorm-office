@@ -100,6 +100,9 @@ enum Command {
         /// 把图片等媒体导出到该目录，Markdown 里的图片链接指向导出后的路径
         #[arg(long, value_name = "DIR")]
         media: Option<PathBuf>,
+        /// 任一资源导出失败时返回退出码 1；清单仍完整输出（配合 --json）
+        #[arg(long, alias = "strict-exports")]
+        strict: bool,
     },
     /// 第二层精准修改：get / set / add / remove
     ///
@@ -351,6 +354,7 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
             mode,
             attachments,
             media,
+            strict,
         } => {
             let (root, _tmp, slides) = resolve_and_load(input)?;
             if (attachments.is_some() || media.is_some()) && !matches!(mode, ViewMode::Text) {
@@ -359,13 +363,23 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
                 )
                 .suggest("用法：view <输入> / text --attachments <目录> --media <目录>"));
             }
-            let sink = attachments
-                .as_ref()
-                .map(|dir| json2pptx::PayloadSink::new(dir.clone()));
+            let sink = attachments.as_ref().map(|dir| {
+                json2pptx::PayloadSink::new(dir.clone())
+                    .with_strict(*strict)
+                    .with_source_document(input.display().to_string())
+            });
+            if *strict && attachments.is_none() && media.is_none() {
+                return Err(office_core::CliError::new(
+                    "--strict 需要 --attachments 或 --media 导出目录",
+                ));
+            }
             // 媒体在产物根下（模型里 src 是包内相对路径，用产物根解析）
-            let media_sink = media
-                .as_ref()
-                .map(|dir| json2pptx::PayloadSink::new(dir.clone()).with_root(root.clone()));
+            let media_sink = media.as_ref().map(|dir| {
+                json2pptx::PayloadSink::new(dir.clone())
+                    .with_strict(*strict)
+                    .with_source_document(input.display().to_string())
+                    .with_root(root.clone())
+            });
             let sinks = json2pptx::PayloadSinks {
                 attachments: sink.as_ref(),
                 media: media_sink.as_ref(),
@@ -393,6 +407,10 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
             if let Some(ms) = media_sink.as_ref() {
                 if let Some(list) = value.get_mut("media").and_then(|m| m.as_array_mut()) {
                     for entry in list.iter_mut() {
+                        let _source = entry
+                            .get("source_location")
+                            .and_then(|value| value.as_str())
+                            .map(|location| ms.at_source(location));
                         if let Some(src) =
                             entry.get("src").and_then(|s| s.as_str()).map(String::from)
                         {
@@ -426,19 +444,21 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
             for (kind_label, list) in [("附件", &attachments_reported), ("媒体", &media_reported)]
             {
                 for a in list.iter() {
-                    match a.kind {
-                        "file" => out.status(&format!(
-                            "{kind_label}已导出: {} → {}",
-                            a.name,
-                            a.path.clone().unwrap_or_default()
-                        )),
-                        "url" => out.status(&format!("{kind_label}是 URL，原样保留: {}", a.src)),
-                        _ => out.status(&format!("{kind_label}载荷不在，保留原引用: {}", a.src)),
-                    }
+                    out.status(&a.status_message(kind_label));
                 }
             }
             // 默认直出 Markdown；--json 才是结构化信封
+            let mut value = value;
+            let export_failed = sinks.annotate_report(&mut value);
             out.emit_view_markdown(&value)?;
+            if export_failed {
+                out.error(
+                    "resource_export_failed",
+                    "严格模式：资源导出失败，详见导出清单",
+                    None,
+                );
+                return Ok(EXIT_FAILURE);
+            }
         }
         Command::Edit {
             input,

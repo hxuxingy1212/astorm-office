@@ -96,3 +96,39 @@ fn unpack_extracts_media_and_repacks() {
     let _ = std::fs::remove_file(&out);
     let _ = std::fs::remove_file(&gif);
 }
+
+#[test]
+fn text_payload_extraction_checks_paths_and_resource_size() {
+    use std::io::Write;
+    use zip::write::SimpleFileOptions;
+    for (name, oversized, expected) in [
+        ("xl/media/../../escaped.png", false, "不安全"),
+        ("xl/media/huge.png", true, "超限"),
+        ("xl/embeddings/../escaped.bin", false, "不安全"),
+    ] {
+        let input = common::temp_xlsx_path();
+        let dir = common::temp_dir("payload-bounds");
+        let mut zip = zip::ZipWriter::new(std::fs::File::create(&input).unwrap());
+        zip.start_file(
+            name,
+            SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated),
+        )
+        .unwrap();
+        if oversized {
+            let chunk = [0u8; 1024 * 1024];
+            for _ in 0..65 {
+                zip.write_all(&chunk).unwrap();
+            }
+        } else {
+            zip.write_all(b"payload").unwrap();
+        }
+        zip.finish().unwrap();
+        let error = json2xlsx::extract_payloads_to(&input, &dir, true)
+            .unwrap_err()
+            .to_string();
+        assert!(error.contains(expected), "{error}");
+        assert!(!dir.join("escaped.png").exists() && !dir.join("escaped.bin").exists());
+        let _ = std::fs::remove_dir_all(dir);
+        std::fs::remove_file(input).unwrap();
+    }
+}

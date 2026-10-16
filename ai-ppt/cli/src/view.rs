@@ -10,30 +10,43 @@ use serde_json::json;
 use std::path::Path;
 
 /// 递归提取媒体节点（图片元素 + 背景图）
-fn collect_media(elements: &[Element], product_root: &Path, out: &mut Vec<serde_json::Value>) {
-    for el in elements {
+fn collect_media(
+    elements: &[Element],
+    product_root: &Path,
+    out: &mut Vec<serde_json::Value>,
+    prefix: &str,
+) {
+    for (index, el) in elements.iter().enumerate() {
+        let location = format!("{prefix}/element[{}]", index + 1);
         match el {
             Element::Image(img) => {
                 out.push(json!({
                     "name": img.name.as_deref().unwrap_or(""),
                     "src": crate::product::media_abs_path(product_root, &img.src),
+                    "source_location": location,
                 }));
             }
-            Element::Group(g) => collect_media(&g.children, product_root, out),
+            Element::Group(g) => collect_media(&g.children, product_root, out, &location),
             _ => {}
         }
     }
 }
 
 /// 收集页内媒体（图片元素 + 背景图，src 解析为绝对路径）
-fn slide_media(slide: &Slide, product_root: &Path) -> Vec<serde_json::Value> {
+fn slide_media(slide: &Slide, product_root: &Path, slide_no: usize) -> Vec<serde_json::Value> {
     let mut media = Vec::new();
-    collect_media(&slide.elements, product_root, &mut media);
+    collect_media(
+        &slide.elements,
+        product_root,
+        &mut media,
+        &format!("/slide[{slide_no}]"),
+    );
     if let Some(serde_json::Value::Object(bg)) = &slide.background {
         if bg.get("type").and_then(|v| v.as_str()) == Some("image") {
             if let Some(src) = bg.get("src").and_then(|v| v.as_str()) {
                 media.push(json!({
                     "name": "background",
+                    "source_location": format!("/slide[{slide_no}]/background"),
                     "src": crate::product::media_abs_path(product_root, src),
                 }));
             }
@@ -52,11 +65,12 @@ pub fn view_text(
     product_root: &Path,
     sinks: PayloadSinks<'_>,
 ) -> serde_json::Value {
+    let _source = sinks.at_source(format!("slide[{slide_no}]"));
     let resolve = |src: &str| crate::product::media_abs_path(product_root, src);
     json!({
         "slide": slide_no,
         "markdown": json2pptx::markdown::slide_markdown_with(slide, &resolve, sinks),
-        "media": slide_media(slide, product_root),
+        "media": slide_media(slide, product_root, slide_no),
     })
 }
 
@@ -69,7 +83,8 @@ pub fn view_text_all(
     let resolve = |src: &str| crate::product::media_abs_path(product_root, src);
     let media: Vec<serde_json::Value> = slides
         .iter()
-        .flat_map(|s| slide_media(s, product_root))
+        .enumerate()
+        .flat_map(|(index, s)| slide_media(s, product_root, index + 1))
         .collect();
     json!({
         "slides": slides.len(),

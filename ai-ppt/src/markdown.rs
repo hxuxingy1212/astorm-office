@@ -51,6 +51,7 @@ pub fn deck_markdown_with(
 ) -> String {
     let mut out = String::new();
     for (i, s) in slides.iter().enumerate() {
+        let _source = sinks.at_source(format!("slide[{}]", i + 1));
         if i > 0 {
             out.push('\n');
         }
@@ -68,7 +69,8 @@ fn elements_markdown(
     sinks: PayloadSinks<'_>,
 ) -> Vec<String> {
     let mut out = Vec::new();
-    for el in elements {
+    for (index, el) in elements.iter().enumerate() {
+        let _source = sinks.at_source(format!("element[{}]", index + 1));
         out.extend(element_markdown(el, depth, resolve_src, sinks));
     }
     out
@@ -223,58 +225,18 @@ fn attachments_markdown(
     sink: &PayloadSink,
 ) -> Vec<String> {
     let mut out = Vec::new();
-    for part in &o.parts {
+    for (index, part) in o.parts.iter().enumerate() {
+        let _source = sink.at_source(format!("part[{}]", index + 1));
         if !part.path.contains("/embeddings/") && !part.path.starts_with("embeddings/") {
             continue;
         }
         let name = file_name_of(&part.path).to_string();
-        let bytes = match base64_decode(&part.data) {
-            Some(b) => b,
-            None => {
-                out.push(format!(
-                    "附件：{name}（载荷解码失败 · {}）",
-                    part.content_type
-                ));
-                continue;
-            }
-        };
-        let link = sink.link_for_bytes(&name, &bytes, &part.path);
+        let link = sink.link_for_base64(&name, &part.data, &part.path, Some(&part.content_type));
         out.push(format!("[{name}]({link})（附件 · {}）", part.content_type));
     }
     out
 }
 
-/// 极简 base64 解码（模型里 parts[].data 是 base64；不引入依赖）
-fn base64_decode(s: &str) -> Option<Vec<u8>> {
-    fn val(c: u8) -> Option<u32> {
-        match c {
-            b'A'..=b'Z' => Some((c - b'A') as u32),
-            b'a'..=b'z' => Some((c - b'a' + 26) as u32),
-            b'0'..=b'9' => Some((c - b'0' + 52) as u32),
-            b'+' => Some(62),
-            b'/' => Some(63),
-            _ => None,
-        }
-    }
-    let mut out = Vec::with_capacity(s.len() / 4 * 3);
-    let mut acc = 0u32;
-    let mut nbits = 0u32;
-    for &c in s.as_bytes() {
-        if c == b'=' || c == b'\n' || c == b'\r' {
-            continue;
-        }
-        let v = val(c)?;
-        acc = (acc << 6) | v;
-        nbits += 6;
-        if nbits >= 8 {
-            nbits -= 8;
-            out.push((acc >> nbits) as u8);
-        }
-    }
-    Some(out)
-}
-
-/// 富文本 → Markdown 段落（bullet 段落输出为列表项）
 fn text_content_markdown(tc: &TextContent) -> Vec<String> {
     match tc {
         TextContent::Simple(s) => {

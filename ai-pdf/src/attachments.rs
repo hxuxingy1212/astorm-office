@@ -27,39 +27,95 @@ pub fn list(doc: &Document) -> Vec<PdfAttachment> {
     walk(doc).into_iter().map(|e| e.info).collect()
 }
 
-/// 导出附件到目录，返回每条导出记录 `{name, path, bytes, mime}`。
+/// 导出附件到目录，返回公共资源清单，并保留 `bytes` / `mime` 兼容字段。
 ///
 /// 目标目录已有同名文件时不覆盖（自动 `名字-2.ext`）；同一附件（同对象号）只导出一次。
 pub fn extract(doc: &Document, out_dir: &Path) -> Result<Vec<serde_json::Value>> {
     let sink = office_core::PayloadSink::new(out_dir);
-    let mut out = Vec::new();
-    for e in walk(doc) {
-        let Some(payload) = e.stream.and_then(|id| payload(doc, id)) else {
-            out.push(serde_json::json!({
-                "name": e.info.name,
-                "path": serde_json::Value::Null,
-                "bytes": serde_json::Value::Null,
-                "kind": "missing",
-            }));
-            continue;
-        };
-        // 同一载荷多处引用（同对象号）→ 复用同一导出
+    extract_with_sink(doc, &sink)
+}
+
+/// Export through a caller-owned sink to retain structured errors and strict reports.
+pub fn extract_with_sink(
+    doc: &Document,
+    sink: &office_core::PayloadSink,
+) -> Result<Vec<serde_json::Value>> {
+    use office_core::ExportErrorCode;
+    let mut descriptions = std::collections::HashMap::new();
+    for (index, e) in walk(doc).into_iter().enumerate() {
         let label = e
             .stream
             .map(|id| format!("pdf-obj-{}-{}", id.0, id.1))
-            .unwrap_or_else(|| e.info.name.clone());
-        let link = sink.link_for_bytes(&e.info.name, &payload, &label);
-        let exported = link != label && Path::new(&link).exists();
-        out.push(serde_json::json!({
-            "name": e.info.name,
-            "mime": e.info.mime,
-            "size": e.info.size.unwrap_or(payload.len() as u64),
-            "path": if exported { serde_json::json!(link) } else { serde_json::Value::Null },
-            "bytes": if exported { serde_json::json!(payload.len()) } else { serde_json::Value::Null },
-            "kind": if exported { "file" } else { "missing" },
-        }));
+            .unwrap_or_else(|| format!("pdf-attachment-{}", index + 1));
+        let _source = sink.at_source(format!("attachment[{}]/{label}", index + 1));
+        descriptions
+            .entry(label.clone())
+            .or_insert(e.info.description.clone());
+        match e.stream {
+            None => {
+                sink.report_failure_typed(
+                    &e.info.name,
+                    &label,
+                    ExportErrorCode::PayloadMissing,
+                    "附件未引用载荷流",
+                    e.info.mime.as_deref(),
+                );
+            }
+            Some(id) => match doc.get_object(id).and_then(Object::as_stream) {
+                Err(error) => {
+                    sink.report_failure_typed(
+                        &e.info.name,
+                        &label,
+                        ExportErrorCode::PayloadMissing,
+                        error.to_string(),
+                        e.info.mime.as_deref(),
+                    );
+                }
+                Ok(stream) => {
+                    let bytes = if stream.dict.get(b"Filter").is_err() {
+                        Ok(stream.content.clone())
+                    } else {
+                        stream.decompressed_content()
+                    };
+                    match bytes {
+                        Ok(bytes) => {
+                            let _ = sink.try_link_for_bytes_typed(
+                                &e.info.name,
+                                &bytes,
+                                &label,
+                                e.info.mime.as_deref(),
+                            );
+                        }
+                        Err(error) => {
+                            sink.report_failure_typed(
+                                &e.info.name,
+                                &label,
+                                ExportErrorCode::InvalidPayload,
+                                error.to_string(),
+                                e.info.mime.as_deref(),
+                            );
+                        }
+                    }
+                }
+            },
+        }
     }
-    Ok(out)
+    Ok(sink
+        .entries()
+        .into_iter()
+        .map(|entry| {
+            let mut value = serde_json::to_value(&entry).expect("resource manifest serializes");
+            value["mime"] = serde_json::json!(entry.resource_type);
+            value["bytes"] = if entry.kind == "file" {
+                serde_json::json!(entry.size)
+            } else {
+                serde_json::Value::Null
+            };
+            value["description"] =
+                serde_json::json!(descriptions.get(&entry.src).cloned().flatten());
+            value
+        })
+        .collect())
 }
 
 /// 遍历两处附件来源
@@ -211,20 +267,6 @@ fn entry_from_filespec(doc: &Document, spec: &Dictionary) -> Option<Entry> {
     })
 }
 
-/// 取流内容。
-///
-/// 无 `/Filter` 的流直接给原始 content（lopdf 的 `decompressed_content` 在缺 `/Filter`
-/// 时会报 `DictKey`，那是"未压缩"而不是错误）；有滤镜但解不开则返回 None——
-/// 宁可报 missing，也不写出压缩垃圾。
-fn payload(doc: &Document, id: ObjectId) -> Option<Vec<u8>> {
-    let obj = doc.get_object(id).ok()?;
-    let stream = obj.as_stream().ok()?;
-    if stream.dict.get(b"Filter").is_err() {
-        return Some(stream.content.clone());
-    }
-    stream.decompressed_content().ok()
-}
-
 /// 把可能是引用/直接字典的对象解析成字典
 fn resolve_dict<'a>(doc: &'a Document, o: &'a Object) -> Option<&'a Dictionary> {
     match o {
@@ -356,6 +398,37 @@ mod tests {
             "原文件不该被覆盖"
         );
         let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn strict_pdf_export_reports_directory_and_decode_failures() {
+        let mut doc = pdf_with_attachment(b"abc");
+        let dir = std::env::temp_dir().join(format!("j2p-strict-att-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        let blocked = dir.join("blocked");
+        std::fs::write(&blocked, b"existing").unwrap();
+        let sink = office_core::PayloadSink::new(blocked.join("out")).with_strict(true);
+        let entries = extract_with_sink(&doc, &sink).unwrap();
+        assert_eq!(entries[0]["error"]["code"], "create_dir_failed");
+        assert!(sink.check().is_err());
+        let stream_id = walk(&doc)[0].stream.unwrap();
+        doc.get_object_mut(stream_id)
+            .unwrap()
+            .as_stream_mut()
+            .unwrap()
+            .dict
+            .set("Filter", Object::Name(b"UnsupportedFilter".to_vec()));
+        let sink = office_core::PayloadSink::new(dir.join("out")).with_strict(true);
+        let entries = extract_with_sink(&doc, &sink).unwrap();
+        assert_eq!(entries[0]["error"]["code"], "invalid_payload");
+        assert_eq!(
+            entries[0]["source_locations"][0],
+            format!("/attachment[1]/pdf-obj-{}-{}", stream_id.0, stream_id.1)
+        );
+        assert!(sink.check().is_err());
+        assert!(!sink.dir().exists());
+        std::fs::remove_dir_all(dir).unwrap();
     }
 
     /// 回环保真：unpack 落盘 → repack 重建 /EmbeddedFiles → 再读，附件名/说明/MIME/字节都不丢

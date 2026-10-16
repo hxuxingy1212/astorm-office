@@ -138,6 +138,12 @@ json2docx render paper.docx / -o paper.png
 
 全局 flag（三个 CLI 一致）：`--json`（写盘命令输出结果 JSON、状态与错误结构化为 JSON 行）、`--quiet`、`--verbose`、`-o/--output`。stdout 只输出数据，状态/进度走 stderr；退出码 `0` 成功、`1` 运行时错误、`2` 用法错误、`3` 产物有校验问题。详见仓库根目录 `docs/cli-conventions.md`。
 
+`view ... text` 默认读取最终稿（过滤已删除修订）。用 `--revisions original` 读取原稿，
+或 `--revisions markup` 保留插入/删除标记；脚注、尾注、批注及作者、超链接随正文输出，
+表格和列表里的内容同样适用。该参数只影响只读文本视图，不会修改原文档。
+
+资源导出支持 `--strict`（失败退出码 1）及完整结构化清单：资源 ID、MIME 类型、大小、SHA-256、来源位置和相对链接。详见 [资源导出契约](../docs/resource-export.md)。
+
 ### edit 语义
 
 - 输入为**产物目录** → **原地修改**，之后 `repack` 重建；

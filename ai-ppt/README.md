@@ -269,6 +269,8 @@ Global flags (shared by all three astorm-office CLIs): `--json` (result JSON on 
 
 ---
 
+资源导出支持 `--strict`（失败退出码 1）及完整结构化清单：资源 ID、MIME 类型、大小、SHA-256、来源位置和相对链接。详见 [资源导出契约](../docs/resource-export.md)。
+
 ## Unit Conversion / 单位换算
 
 | Quantity | JSON Unit | OOXML Unit | Factor |
