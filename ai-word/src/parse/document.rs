@@ -1368,10 +1368,9 @@ fn parse_ref_instr(instr: &str) -> Option<(String, bool)> {
     let trimmed = instr.trim();
     let (pageref, rest) = if let Some(r) = trimmed.strip_prefix("PAGEREF") {
         (true, r)
-    } else if let Some(r) = trimmed.strip_prefix("REF") {
-        (false, r)
     } else {
-        return None;
+        let r = trimmed.strip_prefix("REF")?;
+        (false, r)
     };
     let name = rest.split_whitespace().next()?.to_string();
     if name.is_empty() {
