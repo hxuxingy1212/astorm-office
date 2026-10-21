@@ -2415,7 +2415,7 @@ fn embed_png(
             let n = (w * h) as usize;
             let mut rgb = Vec::with_capacity(n * 3);
             let mut alpha = Vec::with_capacity(n);
-            for px in pixels.chunks_exact(4) {
+            for px in pixels.as_chunks::<4>().0 {
                 rgb.extend_from_slice(&px[..3]);
                 alpha.push(px[3]);
             }
@@ -2426,7 +2426,7 @@ fn embed_png(
             let n = (w * h) as usize;
             let mut gray = Vec::with_capacity(n);
             let mut alpha = Vec::with_capacity(n);
-            for px in pixels.chunks_exact(2) {
+            for px in pixels.as_chunks::<2>().0 {
                 gray.push(px[0]);
                 alpha.push(px[1]);
             }

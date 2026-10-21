@@ -1027,7 +1027,7 @@ pub fn decode_image(
             if let Some(key) = color_key {
                 if key.len() >= 6 {
                     let mut rgba = Vec::with_capacity(n_pixels * 4);
-                    for px in rgb.chunks_exact(3) {
+                    for px in rgb.as_chunks::<3>().0 {
                         let hit = (0..3).all(|i| {
                             let lo = key[i * 2] * 255.0;
                             let hi = key[i * 2 + 1] * 255.0;
@@ -1121,7 +1121,7 @@ pub fn decode_image(
         CsSpec::Cmyk => {
             // CMYK → RGB（朴素换算；Adobe 反相已由 Decode 处理）
             let mut rgb = Vec::with_capacity(n_pixels * 3);
-            for px in samples[..n_pixels * 4].chunks_exact(4) {
+            for px in samples[..n_pixels * 4].as_chunks::<4>().0 {
                 let (c, m, y, k) = (
                     px[0] as f32 / 255.0,
                     px[1] as f32 / 255.0,
@@ -1140,7 +1140,7 @@ pub fn decode_image(
             white,
         } => {
             let mut rgb = Vec::with_capacity(n_pixels * 3);
-            for px in samples[..n_pixels * 3].chunks_exact(3) {
+            for px in samples[..n_pixels * 3].as_chunks::<3>().0 {
                 let (r, g, b) = calrgb_to_srgb(
                     px[0] as f64 / 255.0,
                     px[1] as f64 / 255.0,

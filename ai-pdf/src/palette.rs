@@ -542,7 +542,7 @@ pub fn generate_cascade_palette(
 
     // 层级饱和度钳制
     for map in [&mut roles, &mut semantic] {
-        for (_name, role) in map.iter_mut() {
+        for role in map.values_mut() {
             let tier = role["tier"].as_str().unwrap_or("").to_string();
             if let Some((_, cap)) = CASCADE_TIER_CAPS.iter().find(|(t, _)| *t == tier) {
                 let s = role["hsl"][1].as_f64().unwrap_or(0.0);
