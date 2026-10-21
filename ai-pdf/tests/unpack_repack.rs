@@ -286,7 +286,7 @@ fn repack_fontfile_stream_declares_flate_filter() {
     repack::repack(&artifact, &out).unwrap();
     let doc = Document::load(&out).unwrap();
     let mut fontfiles = 0;
-    for (_, obj) in doc.objects.iter() {
+    for obj in doc.objects.values() {
         if let lopdf::Object::Stream(s) = obj {
             let is_fontfile = s.dict.has(b"Length1")
                 || s.dict.has(b"Subtype")

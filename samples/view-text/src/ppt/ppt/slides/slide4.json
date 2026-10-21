@@ -1,0 +1,105 @@
+{
+  "background": "FFFFFF",
+  "elements": [
+    {
+      "type": "text",
+      "name": "Heading",
+      "text": "上半年合计",
+      "position": {
+        "x": 0.9,
+        "y": 0.7,
+        "w": 11.5,
+        "h": 0.8
+      },
+      "font_size": 28,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "name": "KPI 收入",
+      "text": "928.3 万元",
+      "position": {
+        "x": 1.0,
+        "y": 1.9,
+        "w": 5.4,
+        "h": 1.0
+      },
+      "font_size": 32,
+      "bold": true,
+      "color": "1F3864"
+    },
+    {
+      "type": "text",
+      "name": "KPI 收入说明",
+      "text": "上半年收入 · 同比 +12.4%",
+      "position": {
+        "x": 1.0,
+        "y": 2.9,
+        "w": 5.4,
+        "h": 0.6
+      },
+      "font_size": 14,
+      "color": "44546A"
+    },
+    {
+      "type": "text",
+      "name": "KPI 净利率",
+      "text": "21.6%",
+      "position": {
+        "x": 6.9,
+        "y": 1.9,
+        "w": 5.4,
+        "h": 1.0
+      },
+      "font_size": 32,
+      "bold": true,
+      "color": "1F3864"
+    },
+    {
+      "type": "text",
+      "name": "KPI 净利率说明",
+      "text": "净利率 · 同比 +1.8pt",
+      "position": {
+        "x": 6.9,
+        "y": 2.9,
+        "w": 5.4,
+        "h": 0.6
+      },
+      "font_size": 14,
+      "color": "44546A"
+    },
+    {
+      "type": "chart",
+      "name": "RevenueChart",
+      "chart_type": "column",
+      "title": "图 1  月度收入（万元）",
+      "categories": [
+        "1 月",
+        "2 月",
+        "3 月",
+        "4 月",
+        "5 月",
+        "6 月"
+      ],
+      "series": [
+        {
+          "name": "收入",
+          "values": [
+            128.0,
+            143.5,
+            131.2,
+            168.7,
+            182.4,
+            174.5
+          ]
+        }
+      ],
+      "position": {
+        "x": 1.0,
+        "y": 3.7,
+        "w": 11.3,
+        "h": 3.2
+      }
+    }
+  ]
+}

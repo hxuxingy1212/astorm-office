@@ -16,7 +16,7 @@ compatibility: 需要 Rust 工具链（cargo）或已安装 json2pdf；convert h
 
 两层结构，缺一不可：
 
-1. **产物目录**（中间形态）：`document.json` + 按页拆分的 `pages/*.json` + `media/` 图片 + `fonts/` 内嵌字体。字段权威见 [references/schema.json](references/schema.json)（由 `json2pdf schema --json` 生成）；
+1. **产物目录**（中间形态）：`document.json` + 按页拆分的 `pages/*.json` + `media/` 图片 + `attachments/` 内嵌文件 + `fonts/` 内嵌字体。字段权威见 [references/schema.json](references/schema.json)（由 `json2pdf schema --json` 生成）；
 2. **json2pdf CLI**（执行层）：`unpack` 解包、`view` 查看、`edit` 精准修改、`repack` 重建、`render` 渲染核对、`batch/serve/mcp` 批量与常驻，及内容提取/页操作/qa 质检等工具命令。
 
 ## 产物目录结构（核心概念）
@@ -28,6 +28,7 @@ doc/                            # 产物根
 │   ├── page-001.json           # 每页一个 JSON（尺寸/旋转/裁剪/元素列表）
 │   └── page-002.json
 ├── media/                      # 图片实体（image.src 指向这里的相对路径）
+├── attachments/                # 内嵌文件实体（/EmbeddedFiles 与 FileAttachment 注释）
 └── fonts/                      # 内嵌字体实体（font-NNN.ttf + font-NNN.json 元数据）
 ```
 
@@ -55,6 +56,8 @@ doc/                            # 产物根
 ```bash
 json2pdf view doc/ '/page[1]' text          # 文本+媒体（每项带路径，可直接 edit）
 json2pdf view doc/ '/page[1]' layout        # 元素布局树（类型/几何/文字/路径）
+json2pdf extract text in.pdf --format markdown   # 整篇结构化 Markdown（标题/列表/表格；--ocr 可识别扫描页）
+json2pdf extract attachment in.pdf -o ./attach  # 内嵌文件（/EmbeddedFiles）：清单 + 导出到目录
 json2pdf edit doc/ '/page[1]/text[2]' get
 json2pdf edit doc/ '/page[1]/text[2]' set --prop 'text=新内容' --prop 'color=#cc0000'
 json2pdf edit doc/ '/page[1]' add --type rect --prop 'x=100' --prop 'y=600' --prop 'w=150' --prop 'h=30' --prop 'fill=#3366cc'

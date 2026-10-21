@@ -124,7 +124,7 @@ json2docx render paper.docx / -o paper.png
 |------|------|
 | `json2docx unpack <in.docx> -o <dir>` | DOCX → 产物目录（`document.json` + 分片 JSON + 媒体） |
 | `json2docx repack <dir> -o <out.docx>` | 产物目录 → DOCX（含从零新建、或 `parts` 内联的目录）；自动校验，有问题退出码 3 |
-| `json2docx view <输入> <路径> text\|layout` | 只读视图：文本+媒体 / 块结构树（附 `issues`/`warnings`） |
+| `json2docx view <输入> <路径> text\|layout` | 只读视图：text = 结构感知 Markdown（标题层级/列表/表格，`/` = 整篇，**stdout 直出原文**，`--json` 才是信封）/ layout = 块结构树（附 `issues`/`warnings`） |
 | `json2docx edit <输入> <路径> get\|set\|add\|remove [-o <out.docx>]` | 精准修改 |
 | `json2docx render <输入> /part[N] \| / [-o <out.html\|pdf\|png>]` | 渲染预览 / 导出（`/` = 整篇） |
 | `json2docx validate <输入>` | 结构校验（.docx 或产物目录），有问题退出码 3 |
@@ -137,6 +137,12 @@ json2docx render paper.docx / -o paper.png
 | `json2docx serve <输入>` / `json2docx mcp` | 常驻编辑服务（stdin JSON 行）/ MCP stdio 服务 |
 
 全局 flag（三个 CLI 一致）：`--json`（写盘命令输出结果 JSON、状态与错误结构化为 JSON 行）、`--quiet`、`--verbose`、`-o/--output`。stdout 只输出数据，状态/进度走 stderr；退出码 `0` 成功、`1` 运行时错误、`2` 用法错误、`3` 产物有校验问题。详见仓库根目录 `docs/cli-conventions.md`。
+
+`view ... text` 默认读取最终稿（过滤已删除修订）。用 `--revisions original` 读取原稿，
+或 `--revisions markup` 保留插入/删除标记；脚注、尾注、批注及作者、超链接随正文输出，
+表格和列表里的内容同样适用。该参数只影响只读文本视图，不会修改原文档。
+
+资源导出支持 `--strict`（失败退出码 1）及完整结构化清单：资源 ID、MIME 类型、大小、SHA-256、来源位置和相对链接。详见 [资源导出契约](../docs/resource-export.md)。
 
 ### edit 语义
 

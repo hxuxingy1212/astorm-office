@@ -46,6 +46,15 @@ pub fn parse(input: &str) -> Result<Document> {
 
 /// 将 DOCX 解包为可编辑产物目录
 pub fn unpack(input: &str, out_dir: &str) -> Result<UnpackResult> {
+    unpack_with_model(input, out_dir).map(|(r, _)| r)
+}
+
+/// 解包并**把解析好的模型一并返回**。
+///
+/// 读类命令（view/query 等）需要模型，而 `unpack` 本来就要先解析一遍再落盘；
+/// 让调用方复用这份模型，可以省掉「读回分片 JSON 再解析」这一遍
+/// （大文档上是 20~30ms 的量级，且两遍结果必然一致——落盘的就是它）。
+pub fn unpack_with_model(input: &str, out_dir: &str) -> Result<(UnpackResult, Document)> {
     // 旧版 .doc（OLE2/CFB）：自动转换成 .docx 后再解包（媒体一并来自转换产物）
     if crate::legacy::is_cfb(std::path::Path::new(input)) {
         if office_core::opc::looks_encrypted_cfb(std::path::Path::new(input)) {
@@ -63,7 +72,7 @@ pub fn unpack(input: &str, out_dir: &str) -> Result<UnpackResult> {
         ));
         let bytes = crate::legacy::doc_to_docx_bytes(std::path::Path::new(input))?;
         std::fs::write(&tmp, &bytes)?;
-        let r = unpack(&tmp.to_string_lossy(), out_dir);
+        let r = unpack_with_model(&tmp.to_string_lossy(), out_dir);
         let _ = std::fs::remove_file(&tmp);
         return r;
     }
@@ -117,10 +126,13 @@ pub fn unpack(input: &str, out_dir: &str) -> Result<UnpackResult> {
         }
     }
 
-    Ok(UnpackResult {
-        path: out_dir.to_string(),
-        parts: doc.parts.len(),
-    })
+    Ok((
+        UnpackResult {
+            path: out_dir.to_string(),
+            parts: doc.parts.len(),
+        },
+        doc,
+    ))
 }
 
 /// 读取 ZIP 全部条目

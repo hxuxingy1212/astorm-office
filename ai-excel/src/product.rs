@@ -11,7 +11,7 @@
 //!         └── sheet2.json
 //! ```
 
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::path::Path;
 
 use serde::{Deserialize, Serialize};
@@ -29,8 +29,8 @@ pub struct ProductWorkbook {
     pub meta: Option<Meta>,
     #[serde(default, skip_serializing_if = "is_false")]
     pub date1904: bool,
-    #[serde(default, skip_serializing_if = "HashMap::is_empty")]
-    pub styles: HashMap<String, StyleDef>,
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
+    pub styles: BTreeMap<String, StyleDef>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub default_font: Option<Font>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -273,6 +273,65 @@ fn extract_extra_parts(input: &Path, out_dir: &Path) -> Result<Vec<String>> {
         extras.push(name.clone());
     }
     Ok(extras)
+}
+
+/// 把 `xl/embeddings/*`（内嵌 OLE 载荷）抽到 `dir` 下同名路径，返回抽取的包内路径。
+///
+/// 产物目录流程里 unpack 已经落盘；这里是给**二进制输入**的读类命令用：
+/// 解析出来的 `ole_objects[].src` 是包内路径，只有把载荷放出来才能导出。
+pub fn extract_embeddings_to(input: &Path, dir: &Path) -> Result<Vec<String>> {
+    extract_payloads_to(input, dir, false)
+}
+
+/// Extract embeddings and optionally images for read-only text export.
+pub fn extract_payloads_to(input: &Path, dir: &Path, media: bool) -> Result<Vec<String>> {
+    use std::io::Read;
+    let file = std::fs::File::open(input)?;
+    let mut zip = zip::ZipArchive::new(file)?;
+    let mut out = Vec::new();
+    let mut total = 0u64;
+    for i in 0..zip.len() {
+        let mut entry = zip.by_index(i)?;
+        let name = entry.name().replace('\\', "/");
+        if !(name.starts_with("xl/embeddings/") || (media && name.starts_with("xl/media/")))
+            || name.ends_with('/')
+        {
+            continue;
+        }
+        if name
+            .split('/')
+            .any(|part| part == ".." || part.contains(':'))
+        {
+            return Err(crate::error::Error::InvalidInput(format!(
+                "不安全的资源路径: {name}"
+            )));
+        }
+        const MAX_RESOURCE: u64 = 64 * 1024 * 1024;
+        const MAX_TOTAL: u64 = 256 * 1024 * 1024;
+        if entry.size() > MAX_RESOURCE || total.saturating_add(entry.size()) > MAX_TOTAL {
+            return Err(crate::error::Error::InvalidInput(format!(
+                "资源解压大小超限: {name}"
+            )));
+        }
+        let dest = dir.join(&name);
+        if let Some(parent) = dest.parent() {
+            std::fs::create_dir_all(parent)?;
+        }
+        let mut bytes = Vec::new();
+        entry
+            .by_ref()
+            .take(MAX_RESOURCE + 1)
+            .read_to_end(&mut bytes)?;
+        total += bytes.len() as u64;
+        if bytes.len() as u64 > MAX_RESOURCE || total > MAX_TOTAL {
+            return Err(crate::error::Error::InvalidInput(format!(
+                "资源解压大小超限: {name}"
+            )));
+        }
+        std::fs::write(&dest, &bytes)?;
+        out.push(name);
+    }
+    Ok(out)
 }
 
 /// 收集所有图表工作表所引用的 drawing / chart / media 包内路径。

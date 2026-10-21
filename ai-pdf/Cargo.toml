@@ -3,6 +3,8 @@ name = "json2pdf"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+repository.workspace = true
+readme = "README.md"
 description = "PDF toolkit in Rust — JSON 产物目录双向解析 + ZCode 官方 pdf 插件命令面的 Rust 移植"
 keywords = ["pdf", "json", "cli", "unpack", "repack"]
 categories = ["command-line-utilities", "parser-implementations"]
@@ -29,9 +31,9 @@ encoding_rs = { workspace = true }
 ureq = { workspace = true }
 # 跨格式转换（convert docx/pptx/xlsx）：产物目录为中间形态的架构内映射，
 # 依赖反向（office 三格式不依赖 ai-pdf），monorepo 内路径直连
-json2docx = { path = "../ai-word" }
-json2pptx = { path = "../ai-ppt" }
-json2xlsx = { path = "../ai-excel" }
+json2docx = { version = "0.2.0", path = "../ai-word" }
+json2pptx = { version = "0.2.0", path = "../ai-ppt" }
+json2xlsx = { version = "0.2.0", path = "../ai-excel" }
 hayro-ccitt = "0.4"
 hayro-jbig2 = "0.3"
 openjpeg2-pure-rs = "0.1"

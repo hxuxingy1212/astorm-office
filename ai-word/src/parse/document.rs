@@ -883,7 +883,22 @@ fn append_wrapped_runs(
 ) {
     match n.name.as_str() {
         "w:r" => {
-            if let Some(mut run) = parse_run(n, ctx.rels) {
+            let note = find_descendant(n, "w:footnoteReference")
+                .and_then(|node| node.attr("w:id"))
+                .and_then(|id| ctx.notes.get(id));
+            let endnote = find_descendant(n, "w:endnoteReference")
+                .and_then(|node| node.attr("w:id"))
+                .and_then(|id| ctx.enotes.get(id));
+            let parsed = if note.is_some() || endnote.is_some() {
+                Some(Run {
+                    footnote: note.cloned(),
+                    endnote: endnote.cloned(),
+                    ..Run::plain("")
+                })
+            } else {
+                parse_run(n, ctx.rels)
+            };
+            if let Some(mut run) = parsed {
                 if let Some(bm) = pending_bookmark.take() {
                     run.bookmark = Some(bm);
                 }
@@ -894,6 +909,27 @@ fn append_wrapped_runs(
                     }
                 }
                 runs.push(run);
+            }
+        }
+        "w:ins" | "w:del" | "w:hyperlink" => {
+            let start = runs.len();
+            for child in &n.children {
+                append_wrapped_runs(child, ctx, runs, pending_bookmark, comment);
+            }
+            let url = n
+                .attr("r:id")
+                .and_then(|id| ctx.rels.target(id))
+                .map(|(target, _)| target.to_string())
+                .or_else(|| n.attr("w:anchor").map(|anchor| format!("#{anchor}")));
+            for run in &mut runs[start..] {
+                if n.name == "w:hyperlink" {
+                    run.hyperlink = url.clone();
+                    normalize_link_color(run);
+                } else {
+                    run.revision = Some(if n.name == "w:ins" { "ins" } else { "del" }.into());
+                    run.revision_author =
+                        Some(n.attr("w:author").unwrap_or("json2docx").to_string());
+                }
             }
         }
         "w:bookmarkStart" => {
@@ -946,11 +982,16 @@ fn append_wrapped_runs(
 fn simple_runs(p: &XmlNode, ctx: &PCtx) -> Vec<Run> {
     let mut runs = Vec::new();
     let mut bm = None;
+    let mut comment = None;
     for c in &p.children {
         if c.name == "w:pPr" {
             continue;
         }
-        append_wrapped_runs(c, ctx, &mut runs, &mut bm, None);
+        match c.name.as_str() {
+            "w:commentRangeStart" => comment = c.attr("w:id"),
+            "w:commentRangeEnd" => comment = None,
+            _ => append_wrapped_runs(c, ctx, &mut runs, &mut bm, comment),
+        }
     }
     runs
 }
@@ -1110,13 +1151,13 @@ fn parse_paragraph(p: &XmlNode, ctx: &PCtx) -> Block {
                 runs: if has_fmt { Some(runs) } else { None },
             };
         }
-        if s == "Caption" {
+        if s == "Caption" && simple_runs(p, ctx).iter().all(run_promotable) {
             return Block::Caption(CaptionBlock {
                 text: paragraph_text_of(p),
                 of: None,
             });
         }
-        if s == "Quote" {
+        if s == "Quote" && simple_runs(p, ctx).iter().all(run_promotable) {
             return Block::Quote(QuoteBlock {
                 text: paragraph_text_of(p),
             });
@@ -1131,6 +1172,7 @@ fn parse_paragraph(p: &XmlNode, ctx: &PCtx) -> Block {
     let mut field_cached = String::new();
     let mut pending_ff: Option<FormField> = None;
     for c in &p.children {
+        let run_start = runs.len();
         match c.name.as_str() {
             "w:bookmarkStart" => {
                 pending_bookmark = c.attr("w:name").map(|s| s.to_string());
@@ -1142,41 +1184,14 @@ fn parse_paragraph(p: &XmlNode, ctx: &PCtx) -> Block {
             "w:commentRangeEnd" => {
                 active_comment = None;
             }
-            "w:ins" | "w:del" => {
-                let (rev, default_author) = if c.name == "w:ins" {
-                    ("ins", "json2docx")
-                } else {
-                    ("del", "json2docx")
-                };
-                let author = c.attr("w:author").unwrap_or(default_author).to_string();
-                for rc in &c.children {
-                    match rc.name.as_str() {
-                        "w:r" => {
-                            if let Some(mut run) = parse_run(rc, ctx.rels) {
-                                run.revision = Some(rev.to_string());
-                                run.revision_author = Some(author.clone());
-                                runs.push(run);
-                            }
-                        }
-                        "w:hyperlink" => {
-                            let url = rc
-                                .attr("r:id")
-                                .and_then(|id| ctx.rels.target(id))
-                                .map(|(t, _)| t.to_string())
-                                .or_else(|| rc.attr("w:anchor").map(|a| format!("#{a}")));
-                            for r2 in rc.children_named("w:r") {
-                                if let Some(mut run) = parse_run(r2, ctx.rels) {
-                                    run.hyperlink = url.clone();
-                                    normalize_link_color(&mut run);
-                                    run.revision = Some(rev.to_string());
-                                    run.revision_author = Some(author.clone());
-                                    runs.push(run);
-                                }
-                            }
-                        }
-                        _ => {}
-                    }
-                }
+            "w:ins" | "w:del" | "w:hyperlink" => {
+                append_wrapped_runs(
+                    c,
+                    ctx,
+                    &mut runs,
+                    &mut pending_bookmark,
+                    active_comment.as_deref(),
+                );
             }
             "w:r" => {
                 // 脚注引用
@@ -1271,20 +1286,6 @@ fn parse_paragraph(p: &XmlNode, ctx: &PCtx) -> Block {
                     runs.push(run);
                 }
             }
-            "w:hyperlink" => {
-                let url = c
-                    .attr("r:id")
-                    .and_then(|id| ctx.rels.target(id))
-                    .map(|(t, _)| t.to_string())
-                    .or_else(|| c.attr("w:anchor").map(|a| format!("#{a}")));
-                for r in c.children_named("w:r") {
-                    if let Some(mut run) = parse_run(r, ctx.rels) {
-                        run.hyperlink = url.clone();
-                        normalize_link_color(&mut run);
-                        runs.push(run);
-                    }
-                }
-            }
             // 内容控件 / 域 / 智能标记 / 文本框等包装：递归提取其中的 run
             _ => {
                 append_wrapped_runs(
@@ -1294,6 +1295,13 @@ fn parse_paragraph(p: &XmlNode, ctx: &PCtx) -> Block {
                     &mut pending_bookmark,
                     active_comment.as_deref(),
                 );
+            }
+        }
+        // Comment ranges also cover hyperlink and tracked-change wrappers.
+        if let Some((author, text)) = active_comment.as_ref().and_then(|id| ctx.comments.get(id)) {
+            for run in &mut runs[run_start..] {
+                run.comment = Some(text.clone());
+                run.comment_author = Some(author.clone());
             }
         }
     }
@@ -1360,10 +1368,9 @@ fn parse_ref_instr(instr: &str) -> Option<(String, bool)> {
     let trimmed = instr.trim();
     let (pageref, rest) = if let Some(r) = trimmed.strip_prefix("PAGEREF") {
         (true, r)
-    } else if let Some(r) = trimmed.strip_prefix("REF") {
-        (false, r)
     } else {
-        return None;
+        let r = trimmed.strip_prefix("REF")?;
+        (false, r)
     };
     let name = rest.split_whitespace().next()?.to_string();
     if name.is_empty() {

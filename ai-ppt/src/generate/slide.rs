@@ -1179,7 +1179,7 @@ fn generate_transition(transition: Option<&crate::model::Transition>) -> String 
     }
 }
 
-fn av_lst_xml(adjust: Option<&std::collections::HashMap<String, f64>>) -> String {
+fn av_lst_xml(adjust: Option<&std::collections::BTreeMap<String, f64>>) -> String {
     match adjust {
         None => "<a:avLst/>".to_string(),
         Some(map) if map.is_empty() => "<a:avLst/>".to_string(),

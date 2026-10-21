@@ -3,7 +3,7 @@
 use crate::model::elements::{animation::Animation, Fill, Line, Position, Shadow, TextContent};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 /// 自动形状元素（矩形、椭圆、箭头等）
 #[derive(Debug, Clone, Default, Serialize, Deserialize, JsonSchema)]
@@ -50,7 +50,7 @@ pub struct ShapeElement {
     pub autofit: Option<super::Autofit>,
     /// 形状调整参数（如圆角矩形的圆角大小）
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub adjust: Option<HashMap<String, f64>>,
+    pub adjust: Option<BTreeMap<String, f64>>,
     /// 形状内的文字
     #[serde(skip_serializing_if = "Option::is_none")]
     pub text: Option<TextContent>,

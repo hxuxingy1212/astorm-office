@@ -1,0 +1,56 @@
+{
+  "background": "FFFFFF",
+  "elements": [
+    {
+      "type": "text",
+      "name": "Heading",
+      "text": "关键动作",
+      "position": {
+        "x": 0.9,
+        "y": 0.7,
+        "w": 11.5,
+        "h": 0.8
+      },
+      "font_size": 28,
+      "bold": true
+    },
+    {
+      "type": "text",
+      "name": "Bullets",
+      "position": {
+        "x": 1.1,
+        "y": 1.9,
+        "w": 11.0,
+        "h": 3.6
+      },
+      "font_size": 18,
+      "text": [
+        {
+          "text": "拓展华东渠道：新增 12 家经销商",
+          "bullet": true
+        },
+        {
+          "text": "上线会员体系：复购率 +6.2pt",
+          "bullet": true
+        },
+        {
+          "text": "优化供应链周转：库存天数 -9 天",
+          "bullet": true
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Note",
+      "text": "注：数据为 1—6 月累计口径。",
+      "position": {
+        "x": 1.1,
+        "y": 5.9,
+        "w": 11.0,
+        "h": 0.5
+      },
+      "font_size": 12,
+      "color": "808080"
+    }
+  ]
+}

@@ -443,3 +443,42 @@ fn mcp_smoke() {
         .unwrap()
         .contains("text"));
 }
+
+#[test]
+fn attachment_export_strict_mode_keeps_structured_manifest() {
+    let dir = temp_dir("strict-attachment");
+    let product = make_product(&dir);
+    let top = product.join("document.json");
+    let mut model: serde_json::Value =
+        serde_json::from_slice(&std::fs::read(&top).unwrap()).unwrap();
+    model["attachments"] = serde_json::json!([
+        {"name":"good.pdf","src":"attachments/good.bin","mime":"application/pdf"},
+        {"name":"missing.pdf","src":"attachments/missing.bin","mime":"application/pdf"}
+    ]);
+    std::fs::create_dir_all(product.join("attachments")).unwrap();
+    std::fs::write(product.join("attachments/good.bin"), b"abc").unwrap();
+    std::fs::write(top, serde_json::to_vec(&model).unwrap()).unwrap();
+    let output = dir.join("exports");
+    let result = run(&[
+        "extract",
+        "attachment",
+        product.to_str().unwrap(),
+        "-o",
+        output.to_str().unwrap(),
+        "--strict",
+        "--json",
+    ]);
+    assert_eq!(result.code, Some(1), "{}", result.stderr);
+    let value: serde_json::Value = serde_json::from_str(&result.stdout).unwrap();
+    assert_eq!(value["ok"], false);
+    assert_eq!(
+        value["attachments"][0]["source_locations"][0],
+        "/attachment[1]"
+    );
+    assert_eq!(value["attachments"][0]["resource_type"], "application/pdf");
+    assert_eq!(value["attachments"][0]["size"], 3);
+    assert_eq!(value["attachments"][0]["relative_link"], "good.pdf");
+    assert_eq!(value["attachments"][1]["error"]["code"], "payload_missing");
+    assert_eq!(std::fs::read(output.join("good.pdf")).unwrap(), b"abc");
+    std::fs::remove_dir_all(dir).unwrap();
+}

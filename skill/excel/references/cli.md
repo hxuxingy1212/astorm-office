@@ -61,13 +61,65 @@ out/                                  # json2xlsx unpack in.xlsx -o out/
 ## 3. view
 
 ```bash
-json2xlsx view <输入> [路径] [values|structure]
+json2xlsx view <输入> [路径] [text|layout]
 ```
 
-- `values`（默认）：单元格 `ref/type/value/formula/number_format/display`
-- `structure`：工作表名、标签色、隐藏、冻结、方向、视图（网格线/标题/缩放/公式）、筛选与筛选条件、列宽、合并区、行数、保护、数据验证、条件格式、表格、打印设置、批注数、图片/图表数量与明细
+- `text`（默认，旧名 `values`）：**结构感知 Markdown 表格，stdout 直出原文**（不套 JSON）——
+  已用区域渲染为 GFM 表格（首行作表头），单元格取 `display`（有公式显示 `=公式`，
+  与屏幕上的公式视图一致）；`--value-mode` 可选择其他取值方式。区域路径（`/sheet[1]/range[A1:C10]`）限定窗口；
+  **单元格路径（`/sheet[1]/cell[B2]`）没有 markdown 形态**，仍输出该节点 JSON（值/公式/数字格式），其中 `display` 按取值模式生成。
+  超过 2 万格的区域自动退回逐行稀疏列表（`- A1: 值; B2: 值`），避免百万行表格。
+  输出里没有注释标记；合并区/列宽等表格语法表达不了的信息看 `layout`。
+  要结构化信封（`{sheet, range, markdown}`）加 `--json`。
+- `--value-mode formula|cached-value|both|formatted`（仅 text/values，默认 `formula`）：
 
-路径缺省 `/sheet[1]`。
+  | 模式 | 公式单元格输出 | 无公式单元格输出 |
+  | --- | --- | --- |
+  | `formula` | `=SUM(B2:B8)` | 保存的值 |
+  | `cached-value` | 保存的缓存结果，例如 `123` | 保存的值 |
+  | `both` | `=SUM(B2:B8)（缓存值：123）` | 保存的值 |
+  | `formatted` | 按数字格式显示缓存结果，例如 `12.50%` | 按数字格式显示值 |
+
+  不重新计算公式，不保证缓存是最新结果。无 `value` 或 `value: null` 输出 `[缓存值缺失]`；
+  零、`false`、空字符串均为有效缓存（`both` 中空字符串显示为 `""`）。默认公式模式不展示缓存提示。
+  支持单元格显式格式、内联样式和工作簿命名样式（显式格式优先），以及 1900/1904 日期系统。
+  日期支持常用年月日、时分秒、AM/PM 和累计时长；月份/星期名称按英文输出。
+  数字支持百分比、千分位、小数、货币/字面量及正负零分段；科学计数、分数、条件格式码等
+  未支持的数字格式会保留原值并附 `（格式未支持或值超限：格式码）`，避免伪造显示结果。
+  整本、整表、区域、稀疏区域和图表源数据表使用同一模式。程序化库可用 `TextOptions` / `ValueMode`；
+  单表/区域的 `TextOptions::for_workbook` 提供日期系统与命名样式上下文。
+- 默认保留图片引用及锚点单元格、图表标题及源区域数据表、批注、链接与提示文字。
+  空值单元格的注释也会输出。区域视图只收录窗口内单元格的注释和锚点在窗口内的图形。
+  图表引用其他表、命名区域或缺失来源时明确提示数据表不可用；当前不解析图表 XML 中的缓存数据。
+- `--media <DIR>`（仅 text）：导出 `xl/media/*` 图片并替换链接，支持二进制 XLSX 和产物目录；
+  `--json` 的 `media_exported[]` 返回导出清单。读取二进制载荷时，单资源上限 64 MiB、累计上限 256 MiB。
+- `--strict`（别名 `--strict-exports`）：导出任一资源失败返回退出码 1，仍输出整批清单并保留成功文件。
+  `--json` 的资源清单包含 `resource_id`、`resource_type`（MIME）、`size`、`sha256`、`source_locations`、
+  `relative_link`（相对导出目录的 URI）及 `error`（`code` / `operation` / `message` / IO 详情）。
+  只有载荷不存在使用 `kind=missing`；目录创建、复制、解码等其他失败使用 `kind=error`。
+- `--attachments <DIR>`（仅 text）：把工作簿里的内嵌 OLE 对象（`xl/embeddings/*`）导出到该目录，
+  表格后追加 `[名字](导出路径)（附件 · ProgID）` 行。解析侧已读 `<oleObjects>`（`prog_id` +
+  包内路径 `src`），所以**二进制 `.xlsx` 与产物目录都能导出**；载荷缺失时保留原引用
+  （信封里 `attachments[].kind = missing`）。
+> 导出旗标只在 **CLI 的 view** 上有（`help` 的「view 旗标」段可查）；`serve`/`mcp` 的 view 是
+> 程序化只读接口，不接导出参数——需要导出时走 CLI，或先 `unpack` 再从产物目录取载荷。
+- `layout`（旧名 `structure`）：机器可读结构树——工作表名、标签色、隐藏、冻结、方向、
+  视图（网格线/标题/缩放/公式）、筛选与筛选条件、列宽、合并区、行数、保护、数据验证、
+  条件格式、表格、打印设置、批注数、图片/图表数量与明细。
+
+路径缺省 `/sheet[1]`；`/`（整本）每张表一个 `## 表名` 小节。
+
+```bash
+json2xlsx view book.xlsx /sheet[1] text                 # 单表 Markdown 表格（直出）
+json2xlsx view book.xlsx '/sheet[1]/range[A1:C10]' text # 区域表格
+json2xlsx view book.xlsx / text --media ./media        # 图片落盘
+json2xlsx view book.xlsx / text > book.md               # 整本（每表一小节），可直接落盘
+json2xlsx view book.xlsx / text --value-mode both      # 公式与缓存结果
+json2xlsx view book.xlsx / text --value-mode formatted # 百分比、日期等显示值
+json2xlsx view book.xlsx / text --json                  # 结构化信封（含 range）
+json2xlsx view book.xlsx /sheet[1]/cell[B2] text        # 单节点：完整字段 JSON
+json2xlsx view book.xlsx /sheet[1] layout               # 工作表版面设置（含合并区）
+```
 
 ## 4. 路径语法
 

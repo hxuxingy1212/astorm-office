@@ -4,7 +4,7 @@ use crate::model::slide::Slide;
 use crate::model::theme::Theme;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 /// 演示文稿元信息（标题、作者）
 #[derive(Debug, Clone, Default, Serialize, Deserialize, JsonSchema)]
@@ -62,4 +62,4 @@ fn default_height() -> f64 {
 }
 
 /// 额外的自定义属性的类型别名
-pub type ExtraMap = HashMap<String, serde_json::Value>;
+pub type ExtraMap = BTreeMap<String, serde_json::Value>;

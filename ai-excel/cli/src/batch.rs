@@ -56,7 +56,7 @@ fn apply(wb: &mut Workbook, step: &Step) -> Result<Value> {
                 .and_then(|m| m.as_str())
                 .unwrap_or("text");
             match mode {
-                "text" | "values" => ops::view_values(wb, &p),
+                "text" | "values" => ops::view_values(wb, &p, json2xlsx::PayloadSinks::default()),
                 "layout" | "structure" => ops::view_structure(wb, &p),
                 other => Err(CliError::new(format!(
                     "第 {} 条指令 view 模式未知: {other}",

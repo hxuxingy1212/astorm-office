@@ -3,6 +3,7 @@ name = "json2docx"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+repository.workspace = true
 description = "JSON to DOCX bidirectional conversion library"
 readme = "README.md"
 keywords = ["docx", "word", "json", "ooxml", "wordprocessingml"]

@@ -3,6 +3,8 @@ name = "json2docx-cli"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+repository.workspace = true
+readme = "../README.md"
 description = "JSON <-> DOCX command line tool"
 
 [[bin]]
@@ -10,7 +12,7 @@ name = "json2docx"
 path = "src/main.rs"
 
 [dependencies]
-json2docx = { path = ".." }
+json2docx = { version = "0.2.0", path = ".." }
 office-core = { workspace = true }
 serde_json = { workspace = true }
 zip = { workspace = true }

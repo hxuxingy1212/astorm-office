@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "unpack（PDF→JSON）与 repack（JSON→PDF）的统一中间形态：document.json + pages/*.json + media/ + fonts/。坐标一律 pt、y 向上，文本 y 为基线。",
+  "description": "unpack（PDF→JSON）与 repack（JSON→PDF）的统一中间形态：document.json + pages/*.json + media/ + attachments/ + fonts/。坐标一律 pt、y 向上，文本 y 为基线。",
   "document": {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "definitions": {
@@ -57,10 +57,60 @@
           "width"
         ],
         "type": "object"
+      },
+      "PdfAttachment": {
+        "description": "一个内嵌文件（PDF 附件）",
+        "properties": {
+          "description": {
+            "description": "说明（/Desc）",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "mime": {
+            "description": "MIME 类型（/Subtype，`text#2Fplain` 这类转义已还原）",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "name": {
+            "description": "文件名（/UF 优先，其次 /F；已做路径清洗，可直接当落盘名）",
+            "type": "string"
+          },
+          "size": {
+            "description": "字节数（/Params /Size；缺省时取解码后长度）",
+            "format": "uint64",
+            "minimum": 0.0,
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "src": {
+            "description": "产物内路径（unpack 时写入，如 \"attachments/说明.txt\"）；仅清单模式为空",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
       }
     },
     "description": "顶层文档模型（document.json）",
     "properties": {
+      "attachments": {
+        "description": "内嵌文件（/EmbeddedFiles 名字树 + 页面 FileAttachment 注释）",
+        "items": {
+          "$ref": "#/definitions/PdfAttachment"
+        },
+        "type": "array"
+      },
       "fonts": {
         "description": "字体元数据文件路径数组（相对产物根，如 \"fonts/font-001.json\"）",
         "items": {

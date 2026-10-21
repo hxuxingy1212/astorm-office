@@ -111,30 +111,51 @@ json2pptx repack <目录> [-o <output.pptx>]
 - **unpack 产物目录**：直接读取，媒体 `src` 统一为产物中媒体文件的**绝对路径**（URL 保留）。
 
 ```bash
-json2pptx view <输入> /slide[N] text|layout
+json2pptx view <输入> <路径> text|layout     # 路径：/slide[N] 或 /（整本，仅 text）
 ```
 
-### view text — 文本 + 媒体（去样式/图形，树形）
+### view text — 结构感知 Markdown（表格/图表/组件/分组层次）
 
-```json
-{
-  "slide": 1,
-  "texts": [
-    { "name": "TextBox 2", "text": "标题文本" },
-    { "name": "Group 4", "children": [
-        { "name": "TextBox 5", "text": "组内文本" }
-    ]}
-  ],
-  "media": [
-    { "name": "Picture 3", "src": "/abs/.../ppt/media/image1.png" },
-    { "name": "background", "src": "https://example.com/bg.png" }
-  ]
-}
+**stdout 直出 Markdown 原文**（不套 JSON），示例输出：
+
+```markdown
+标题文本
+
+**组一**
+
+  组内文本
+
+![Picture 3](/abs/.../ppt/media/image1.png)
 ```
 
-- `texts`：文本元素 + 表格单元格文本，group 递归；**不含样式/图形信息**
-- `media`：图片元素 + 背景图；**绝对路径**或 URL
-- `notes`：该页演讲者备注，无备注时为 `null`
+- 元素按阅读顺序展开——文本框逐段（`bullet: true` 的段落输出为 `- 项`），
+  表格输出 GFM 表格（`header_row` 缺省取首行），图表/`bar_chart`/`line_chart`/`pie_chart`
+  /`ring_chart` 输出数据表，`kpi_card`/`progress_*`/`rating_stars`/`process_flow`/`timeline`
+  输出数值/步骤/节点行，分组以 `**组名**` + 子元素缩进一级表达包含关系，
+  图片 `![名称](绝对路径)`，演讲者备注输出为 `> 备注：…`。
+- `--strict`（别名 `--strict-exports`）：导出任一资源失败返回退出码 1，仍输出整批清单并保留成功文件。
+  `--json` 的资源清单包含 `resource_id`、`resource_type`（MIME）、`size`、`sha256`、`source_locations`、
+  `relative_link`（相对导出目录的 URI）及 `error`（`code` / `operation` / `message` / IO 详情）。
+  只有载荷不存在使用 `kind=missing`；目录创建、复制、解码等其他失败使用 `kind=error`。
+- `--attachments <DIR>`（仅 text）：把内嵌对象（`ppt/embeddings/*`，模型里以 base64 保存的
+  `opaque.parts`）解码导出到该目录，该页追加 `[名字](导出路径)（附件 · 内容类型）` 行；
+  不带该参数时不渲染附件行（默认输出保持不变）
+- `--media <DIR>`（仅 text）：把图片导出到该目录，Markdown 的图片链接与 `media[]` 都指向
+  导出后的路径（`media_exported[]` 给出清单）。**二进制输入强烈建议带上**：不带它时图片链接
+  指向临时解包目录，命令结束即失效
+> 两个旗标只在 **CLI 的 view** 上有（`help` 的「view 旗标」段可查）；`serve`/`mcp` 的 view 是
+> 程序化只读接口，不接导出参数——需要导出时走 CLI，或先 `unpack` 再从产物目录取载荷。
+- 输出里没有 `<!-- … -->` 注释标记
+- `--json`：结构化信封 `{slide, markdown, media[], issues[], warnings[]}`；
+  `media` 为图片元素 + 背景图的**绝对路径**或 URL
+- 整本（`/`）每页一个 `## 幻灯片 N` 小节
+
+```bash
+json2pptx view deck.pptx /slide[1] text     # 单页 Markdown（直出）
+json2pptx view deck.pptx / text > deck.md   # 整本 Markdown（每页一小节），可直接落盘
+json2pptx view deck.pptx / text --json      # 结构化信封（含 media）
+json2pptx view deck.pptx / layout           # 报错：layout 是页级视图
+```
 
 ### view layout — 组件布局（树形，只保留组件名/文字/位置）
 

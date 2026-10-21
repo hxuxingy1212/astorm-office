@@ -2,7 +2,7 @@
 
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 /// 演示文稿主题，包含颜色方案和字体设置
 ///
@@ -12,9 +12,9 @@ use std::collections::HashMap;
 /// - hlink/folHlink: 超链接颜色
 #[derive(Debug, Clone, Serialize, Deserialize, JsonSchema)]
 pub struct Theme {
-    /// 颜色方案映射表
+    /// 颜色方案映射表（BTreeMap：键序确定，产物 JSON 可复现）
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub colors: Option<HashMap<String, String>>,
+    pub colors: Option<BTreeMap<String, String>>,
     /// 主要字体（标题用）
     #[serde(skip_serializing_if = "Option::is_none")]
     pub major_font: Option<String>,
@@ -28,7 +28,7 @@ impl Theme {
     pub fn merge(&mut self, other: Theme) {
         if let Some(other_colors) = other.colors {
             self.colors
-                .get_or_insert_with(HashMap::new)
+                .get_or_insert_with(BTreeMap::new)
                 .extend(other_colors);
         }
         if other.major_font.is_some() {

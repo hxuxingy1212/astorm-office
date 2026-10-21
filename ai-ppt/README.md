@@ -253,7 +253,8 @@ cargo test
 |----------------|-------------|-----------------|
 | `json2pptx unpack <input.pptx> -o <DIR>` | — | PPTX → editable slide-split JSON + media |
 | `json2pptx repack <DIR> -o out.pptx` | — | Rebuild PPTX from unpacked product |
-| `json2pptx view <input> /slide[N] text\|layout` | — | L1 view: text+media / layout tree (pptx or product dir, stateless) |
+| `json2pptx view <input> <path> text\|layout` | — | L1 view: `text` = structure-aware Markdown（直出，`/` 看整本）/ `layout` = 组件布局树（pptx 或产物目录，无状态） |
+| `json2pptx view … text --attachments DIR --media DIR` | — | 导出内嵌对象 / 图片到目录，Markdown 引用改指导出路径（URL 保留） |
 | `json2pptx edit <input> <path> get\|set\|add\|remove [-o out.pptx]` | — | L2 precise editing (pptx needs `-o` for writes) |
 | `json2pptx render <input> /slide[N] [-o out.png]` | — | Render slide to PNG (browser / native engine) |
 | `json2pptx query <input> "<selector>"` | — | CSS-like element query / 选择器查询 |
@@ -267,6 +268,8 @@ cargo test
 Global flags (shared by all three astorm-office CLIs): `--json` (result JSON on stdout for write commands; status/errors as JSON lines on stderr), `--quiet`, `--verbose`, `-o/--output`. stdout carries data only; status goes to stderr; exit codes: `0` ok, `1` runtime error, `2` usage, `3` validation issues. See `../docs/cli-conventions.md`.
 
 ---
+
+资源导出支持 `--strict`（失败退出码 1）及完整结构化清单：资源 ID、MIME 类型、大小、SHA-256、来源位置和相对链接。详见 [资源导出契约](../docs/resource-export.md)。
 
 ## Unit Conversion / 单位换算
 

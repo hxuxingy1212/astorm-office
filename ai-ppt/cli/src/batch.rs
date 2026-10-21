@@ -68,6 +68,7 @@ fn apply(slides: &mut [Slide], step: &Step) -> Result<serde_json::Value, office_
                     &slides[resolved.slide_idx],
                     resolved.slide_idx + 1,
                     Path::new(""),
+                    json2pptx::PayloadSinks::default(),
                 ),
                 _ => view::view_layout(&slides[resolved.slide_idx], resolved.slide_idx + 1),
             })

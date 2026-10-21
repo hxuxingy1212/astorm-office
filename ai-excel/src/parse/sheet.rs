@@ -1,4 +1,4 @@
-use std::collections::{BTreeMap, HashMap};
+use std::collections::HashMap;
 
 use quick_xml::events::{BytesStart, Event};
 use quick_xml::Reader;
@@ -39,6 +39,8 @@ pub struct ParsedSheet {
     pub sort: Option<SortState>,
     pub print: Option<PrintSettings>,
     pub background: Option<String>,
+    /// 内嵌 OLE 对象（`<oleObjects>`；src 为包内路径，如 xl/embeddings/oleObject1.bin）
+    pub ole_objects: Vec<crate::model::sheet::OleObject>,
     pub rows: Vec<Row>,
 }
 
@@ -47,6 +49,7 @@ struct Pending {
     style_idx: u32,
     t: Option<String>,
     value_text: String,
+    has_value: bool,
     formula_text: String,
     has_formula: bool,
     f_shared_si: Option<u32>,
@@ -83,6 +86,8 @@ struct Acc {
     used_max_col: u32,
     merges: Vec<String>,
     auto_filter: Option<String>,
+    /// `<oleObject progId r:id>` 收集（结束时用 sheet_rels 解析成包内路径）
+    ole_refs: Vec<(String, String)>,
     sort: Option<SortState>,
     filter_columns: Vec<FilterColumn>,
     cur_filter: Option<FilterColumn>,
@@ -124,9 +129,13 @@ struct Acc {
 }
 
 impl Acc {
-    fn open(&mut self, name: &[u8], m: &BTreeMap<String, String>, empty: bool) {
-        let g = |k: &str| m.get(k).map(|s| s.as_str());
-        match name {
+    /// 打开元素。属性**按需查**（`attr_of` 无转义时借用、零分配）——
+    /// 早先是每个元素建一棵 `BTreeMap<String, String>`，16 万格的表上光这一项
+    /// 就是几十万次 map + 每属性两个 String 分配，是 parse 的主要开销之一。
+    fn open(&mut self, e: &BytesStart<'_>, empty: bool) {
+        let name = e.local_name();
+        let g = |k: &str| attr_of(e, k);
+        match name.as_ref() {
             b"row" => {
                 let idx = g("r")
                     .and_then(|v| v.parse::<u32>().ok())
@@ -134,9 +143,9 @@ impl Acc {
                 self.cur_row = Some(Row {
                     index: Some(idx),
                     height: g("ht").and_then(|v| v.parse().ok()),
-                    hidden: matches!(g("hidden"), Some("1") | Some("true")),
+                    hidden: matches!(g("hidden").as_deref(), Some("1") | Some("true")),
                     outline_level: g("outlineLevel").and_then(|v| v.parse().ok()),
-                    collapsed: matches!(g("collapsed"), Some("1") | Some("true")),
+                    collapsed: matches!(g("collapsed").as_deref(), Some("1") | Some("true")),
                     style: g("s")
                         .and_then(|v| v.parse::<usize>().ok())
                         .and_then(|i| self.styles.get(i).and_then(|o| o.clone())),
@@ -151,6 +160,7 @@ impl Acc {
                     style_idx: g("s").and_then(|v| v.parse().ok()).unwrap_or(0),
                     t: g("t").map(|s| s.to_string()),
                     value_text: String::new(),
+                    has_value: false,
                     formula_text: String::new(),
                     has_formula: false,
                     f_shared_si: None,
@@ -163,7 +173,25 @@ impl Acc {
                     self.finalize_cell();
                 }
             }
-            b"v" => self.in_value = true,
+            b"oleObject" => {
+                // <oleObject progId="Excel.Sheet.12" shapeId="1027" r:id="rId3"/>
+                let prog = g("progId")
+                    .unwrap_or(std::borrow::Cow::Borrowed(""))
+                    .to_string();
+                let rid = g("r:id")
+                    .or_else(|| g("id"))
+                    .unwrap_or_default()
+                    .to_string();
+                if !prog.is_empty() || !rid.is_empty() {
+                    self.ole_refs.push((prog, rid));
+                }
+            }
+            b"v" => {
+                self.in_value = true;
+                if let Some(cell) = &mut self.cur_cell {
+                    cell.has_value = true;
+                }
+            }
             b"rPh" => self.in_rph = true,
             b"is" => {
                 if let Some(c) = self.cur_cell.as_mut() {
@@ -174,7 +202,7 @@ impl Acc {
                 self.in_formula = true;
                 let si = g("si").and_then(|v| v.parse::<u32>().ok());
                 let sref = g("ref").map(|s| s.to_string());
-                let shared = g("t") == Some("shared");
+                let shared = g("t").as_deref() == Some("shared");
                 if let Some(c) = self.cur_cell.as_mut() {
                     if shared {
                         c.f_shared_si = si;
@@ -207,7 +235,7 @@ impl Acc {
             }
             b"color" if self.in_rpr => {
                 if let (Some(run), Some(rgb)) = (self.cur_run.as_mut(), g("rgb")) {
-                    run.color = Some(normalize_color(rgb));
+                    run.color = Some(normalize_color(rgb.as_ref()));
                 }
             }
             b"strike" if self.in_rpr => {
@@ -217,7 +245,11 @@ impl Acc {
             }
             b"u" if self.in_rpr => {
                 if let Some(run) = self.cur_run.as_mut() {
-                    run.underline = Some(g("val").unwrap_or("single").to_string());
+                    run.underline = Some(
+                        g("val")
+                            .unwrap_or(std::borrow::Cow::Borrowed("single"))
+                            .to_string(),
+                    );
                 }
             }
             b"vertAlign" if self.in_rpr => {
@@ -245,7 +277,7 @@ impl Acc {
             }
             b"tabColor" => {
                 if let Some(rgb) = g("rgb") {
-                    self.tab_color = Some(normalize_color(rgb));
+                    self.tab_color = Some(normalize_color(rgb.as_ref()));
                 }
             }
             b"pane" => {
@@ -254,7 +286,7 @@ impl Acc {
                 }
             }
             b"sheetView" => {
-                if matches!(g("rightToLeft"), Some("1") | Some("true")) {
+                if matches!(g("rightToLeft").as_deref(), Some("1") | Some("true")) {
                     self.direction = Some("rtl".to_string());
                 }
                 if let Some(v) = g("showGridLines") {
@@ -264,8 +296,9 @@ impl Acc {
                     self.headings = Some(v != "0" && v != "false");
                 }
                 self.zoom = g("zoomScale").and_then(|v| v.parse().ok());
-                self.show_formulas = matches!(g("showFormulas"), Some("1") | Some("true"));
-                self.tab_selected = matches!(g("tabSelected"), Some("1") | Some("true"));
+                self.show_formulas =
+                    matches!(g("showFormulas").as_deref(), Some("1") | Some("true"));
+                self.tab_selected = matches!(g("tabSelected").as_deref(), Some("1") | Some("true"));
             }
             b"autoFilter" => {
                 self.auto_filter = g("ref").map(|s| s.to_string());
@@ -280,7 +313,7 @@ impl Acc {
                 if let Some(st) = self.sort.as_mut() {
                     st.conditions.push(SortCondition {
                         column: g("ref").unwrap_or_default().to_string(),
-                        descending: matches!(g("descending"), Some("1") | Some("true")),
+                        descending: matches!(g("descending").as_deref(), Some("1") | Some("true")),
                         sort_on: g("sortBy").map(|s| s.to_string()),
                     });
                 }
@@ -295,21 +328,21 @@ impl Acc {
                 let max = g("max").and_then(|v| v.parse::<u32>().ok()).unwrap_or(min);
                 let col = Column {
                     width: g("width").and_then(|v| v.parse().ok()),
-                    hidden: matches!(g("hidden"), Some("1") | Some("true")),
+                    hidden: matches!(g("hidden").as_deref(), Some("1") | Some("true")),
                     outline_level: g("outlineLevel").and_then(|v| v.parse().ok()),
-                    collapsed: matches!(g("collapsed"), Some("1") | Some("true")),
+                    collapsed: matches!(g("collapsed").as_deref(), Some("1") | Some("true")),
                     style: g("style")
                         .and_then(|v| v.parse::<usize>().ok())
                         .and_then(|i| self.styles.get(i).and_then(|o| o.clone())),
                 };
-                let custom = matches!(g("customWidth"), Some("1") | Some("true"));
+                let custom = matches!(g("customWidth").as_deref(), Some("1") | Some("true"));
                 let meaningful =
                     custom || col.hidden || col.outline_level.is_some() || col.collapsed;
                 self.columns.push((min, max, col, meaningful));
             }
             b"dimension" => {
                 if let Some(r) = g("ref") {
-                    if let Ok((_, (c2, _))) = parse_range(r) {
+                    if let Ok((_, (c2, _))) = parse_range(r.as_ref()) {
                         self.dim_max_col = c2;
                     }
                 }
@@ -345,7 +378,7 @@ impl Acc {
                 self.protect = g("sheet").map(|v| v == "1" || v == "true").unwrap_or(true);
             }
             b"pageSetUpPr" => {
-                if matches!(g("fitToPage"), Some("1") | Some("true")) {
+                if matches!(g("fitToPage").as_deref(), Some("1") | Some("true")) {
                     self.print.fit_to_page = true;
                 }
             }
@@ -365,8 +398,10 @@ impl Acc {
                 self.print.margin_footer = g("footer").and_then(|v| v.parse().ok());
             }
             b"printOptions" => {
-                self.print.h_center = matches!(g("horizontalCentered"), Some("1") | Some("true"));
-                self.print.v_center = matches!(g("verticalCentered"), Some("1") | Some("true"));
+                self.print.h_center =
+                    matches!(g("horizontalCentered").as_deref(), Some("1") | Some("true"));
+                self.print.v_center =
+                    matches!(g("verticalCentered").as_deref(), Some("1") | Some("true"));
             }
             b"rowBreaks" => self.break_kind = 1,
             b"colBreaks" => self.break_kind = 2,
@@ -382,17 +417,17 @@ impl Acc {
             b"sparklineGroup" => {
                 self.spark_group = Some(Sparkline {
                     kind: g("type").map(|s| s.to_string()),
-                    show_high: matches!(g("showHigh"), Some("1") | Some("true")),
-                    show_low: matches!(g("showLow"), Some("1") | Some("true")),
-                    show_first: matches!(g("showFirst"), Some("1") | Some("true")),
-                    show_last: matches!(g("showLast"), Some("1") | Some("true")),
-                    show_negative: matches!(g("showNegative"), Some("1") | Some("true")),
+                    show_high: matches!(g("showHigh").as_deref(), Some("1") | Some("true")),
+                    show_low: matches!(g("showLow").as_deref(), Some("1") | Some("true")),
+                    show_first: matches!(g("showFirst").as_deref(), Some("1") | Some("true")),
+                    show_last: matches!(g("showLast").as_deref(), Some("1") | Some("true")),
+                    show_negative: matches!(g("showNegative").as_deref(), Some("1") | Some("true")),
                     ..Default::default()
                 });
             }
             b"colorSeries" => {
                 if let (Some(grp), Some(rgb)) = (self.spark_group.as_mut(), g("rgb")) {
-                    grp.color = Some(crate::utils::xml::normalize_color(rgb));
+                    grp.color = Some(crate::utils::xml::normalize_color(rgb.as_ref()));
                 }
             }
             b"sparkline" => {
@@ -408,7 +443,7 @@ impl Acc {
             }
             b"picture" => {
                 if let Some(rid) = g("id") {
-                    if let Some(target) = self.sheet_rels.get(rid) {
+                    if let Some(target) = self.sheet_rels.get(rid.as_ref()) {
                         self.background =
                             Some(crate::parse::drawing::resolve_part("xl/worksheets", target));
                     }
@@ -416,9 +451,9 @@ impl Acc {
             }
             b"headerFooter" => {
                 self.print.different_odd_even =
-                    matches!(g("differentOddEven"), Some("1") | Some("true"));
+                    matches!(g("differentOddEven").as_deref(), Some("1") | Some("true"));
                 self.print.different_first =
-                    matches!(g("differentFirst"), Some("1") | Some("true"));
+                    matches!(g("differentFirst").as_deref(), Some("1") | Some("true"));
             }
             b"oddHeader" => {
                 self.hf_tag = 1;
@@ -447,13 +482,18 @@ impl Acc {
             b"dataValidation" => {
                 self.cur_dv = Some(DataValidation {
                     range: g("sqref").unwrap_or_default().to_string(),
-                    validation_type: g("type").unwrap_or("none").to_string(),
+                    validation_type: g("type")
+                        .unwrap_or(std::borrow::Cow::Borrowed("none"))
+                        .to_string(),
                     operator: g("operator").map(|s| s.to_string()),
                     formula1: None,
                     formula2: None,
                     values: Vec::new(),
-                    allow_blank: matches!(g("allowBlank"), Some("1") | Some("true")),
-                    show_error: matches!(g("showErrorMessage"), Some("1") | Some("true")),
+                    allow_blank: matches!(g("allowBlank").as_deref(), Some("1") | Some("true")),
+                    show_error: matches!(
+                        g("showErrorMessage").as_deref(),
+                        Some("1") | Some("true")
+                    ),
                     error_title: g("errorTitle").map(|s| s.to_string()),
                     error_message: g("error").map(|s| s.to_string()),
                     prompt_title: g("promptTitle").map(|s| s.to_string()),
@@ -470,7 +510,7 @@ impl Acc {
                 self.cur_cf = Some(ConditionalFormat {
                     range: self.cur_range.clone(),
                     rule_type: g("type").unwrap_or_default().to_string(),
-                    operator: match g("type") {
+                    operator: match g("type").as_deref() {
                         Some("containsText")
                         | Some("beginsWith")
                         | Some("endsWith")
@@ -482,18 +522,18 @@ impl Acc {
                     color: None,
                     text: g("text").map(|s| s.to_string()),
                     rank: g("rank").and_then(|v| v.parse().ok()),
-                    percent: matches!(g("percent"), Some("1") | Some("true")),
-                    bottom: matches!(g("bottom"), Some("1") | Some("true")),
+                    percent: matches!(g("percent").as_deref(), Some("1") | Some("true")),
+                    bottom: matches!(g("bottom").as_deref(), Some("1") | Some("true")),
                     icon_style: None,
                     reverse_icons: false,
                     show_value: None,
                     time_period: g("timePeriod").map(|s| s.to_string()),
                     above_average: g("aboveAverage").map(|v| v == "1" || v == "true"),
-                    equal_average: matches!(g("equalAverage"), Some("1") | Some("true")),
+                    equal_average: matches!(g("equalAverage").as_deref(), Some("1") | Some("true")),
                     std_dev: g("stdDev").and_then(|v| v.parse().ok()),
                     font: None,
                     fill: None,
-                    stop_if_true: matches!(g("stopIfTrue"), Some("1") | Some("true")),
+                    stop_if_true: matches!(g("stopIfTrue").as_deref(), Some("1") | Some("true")),
                 });
                 self.cur_cf_dxf = g("dxfId").and_then(|v| v.parse().ok());
                 let _ = empty;
@@ -501,7 +541,7 @@ impl Acc {
             b"iconSet" => {
                 if let Some(cf) = self.cur_cf.as_mut() {
                     cf.icon_style = g("iconSet").map(|s| s.to_string());
-                    cf.reverse_icons = matches!(g("reverse"), Some("1") | Some("true"));
+                    cf.reverse_icons = matches!(g("reverse").as_deref(), Some("1") | Some("true"));
                     cf.show_value = g("showValue").map(|v| v == "1" || v == "true");
                 }
             }
@@ -509,7 +549,7 @@ impl Acc {
             b"dataBar" => self.cf_ctx = Some(2),
             b"color" if !self.in_rpr => {
                 if let Some(rgb) = g("rgb") {
-                    let c = normalize_color(rgb);
+                    let c = normalize_color(rgb.as_ref());
                     match self.cf_ctx {
                         Some(1) => {
                             if let Some(cf) = self.cur_cf.as_mut() {
@@ -765,7 +805,8 @@ impl Acc {
             .and_then(|o| o.clone());
         let mut cell = Cell {
             reference: p.reference,
-            style: style.clone().map(CellStyleRef::Inline),
+            // 直接 move：早先这里又多克隆了一份 StyleDef（每格两次深拷贝）
+            style: style.map(CellStyleRef::Inline),
             number_format,
             ..Default::default()
         };
@@ -781,15 +822,16 @@ impl Acc {
         } else if p.has_formula {
             cell.formula = Some(p.formula_text);
             match p.t.as_deref() {
+                _ if !p.has_value => {}
                 Some("str") => {
                     cell.value = Some(Value::String(norm_newlines(p.value_text)));
                     cell.cell_type = Some("string".into());
                 }
-                Some("b") => {
+                Some("b") if !p.value_text.is_empty() => {
                     cell.value = Some(Value::Bool(p.value_text == "1"));
                     cell.cell_type = Some("boolean".into());
                 }
-                Some("e") => {
+                Some("e") if !p.value_text.is_empty() => {
                     cell.value = Some(Value::String(p.value_text));
                     cell.cell_type = Some("error".into());
                 }
@@ -904,18 +946,15 @@ fn make_number(text: &str) -> Value {
     }
 }
 
-fn attrs_of(e: &BytesStart) -> BTreeMap<String, String> {
-    e.attributes()
-        .filter_map(|a| a.ok())
-        .map(|a| {
-            (
-                String::from_utf8_lossy(a.key.local_name().as_ref()).to_string(),
-                a.unescape_value()
-                    .map(|v| v.into_owned())
-                    .unwrap_or_default(),
-            )
-        })
-        .collect()
+/// 取单个属性：逐属性比键名（不建 map）；值无转义时借用，需要转义才分配
+fn attr_of<'a>(e: &'a BytesStart<'a>, key: &str) -> Option<std::borrow::Cow<'a, str>> {
+    let mut attrs = e.attributes();
+    while let Some(Ok(a)) = attrs.next() {
+        if a.key.local_name().as_ref() == key.as_bytes() {
+            return Some(a.unescape_value().unwrap_or_default());
+        }
+    }
+    None
 }
 
 pub fn parse_sheet(
@@ -951,6 +990,7 @@ pub fn parse_sheet(
         used_max_col: 0,
         merges: Vec::new(),
         auto_filter: None,
+        ole_refs: Vec::new(),
         sort: None,
         filter_columns: Vec::new(),
         cur_filter: None,
@@ -993,15 +1033,10 @@ pub fn parse_sheet(
     let mut reader = Reader::from_str(xml);
     loop {
         match reader.read_event()? {
-            Event::Start(e) => {
-                let name = e.local_name().as_ref().to_vec();
-                let m = attrs_of(&e);
-                acc.open(&name, &m, false);
-            }
+            Event::Start(e) => acc.open(&e, false),
             Event::Empty(e) => {
                 let name = e.local_name().as_ref().to_vec();
-                let m = attrs_of(&e);
-                acc.open(&name, &m, true);
+                acc.open(&e, true);
                 acc.close(&name);
             }
             Event::Text(e) => {
@@ -1088,6 +1123,24 @@ pub fn parse_sheet(
         sparklines: acc.sparklines,
         print,
         background: acc.background,
+        ole_objects: acc
+            .ole_refs
+            .iter()
+            .map(|(prog, rid)| {
+                let target = sheet_rels.get(rid).cloned().unwrap_or_default();
+                let src = if target.is_empty() {
+                    String::new()
+                } else {
+                    crate::parse::drawing::resolve_part("xl/worksheets", &target)
+                };
+                crate::model::sheet::OleObject {
+                    prog_id: prog.clone(),
+                    src,
+                    ..Default::default()
+                }
+            })
+            .filter(|o| !o.src.is_empty())
+            .collect(),
         rows: acc.rows,
     })
 }
@@ -1107,6 +1160,30 @@ fn set_cell_link(rows: &mut [Row], reference: &str, link: String, tooltip: Optio
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn ole_objects_are_parsed_with_rels() {
+        let styles = ParsedStyles {
+            xfs: vec![None],
+            num_fmts: vec![None],
+            dxfs: Vec::new(),
+            default_font: None,
+        };
+        // 工作表 rels：rId1 → ../embeddings/oleObject1.bin（解析成包内路径）
+        let mut rels = HashMap::new();
+        rels.insert(
+            "rId1".to_string(),
+            "../embeddings/oleObject1.bin".to_string(),
+        );
+        let xml = r#"<?xml version="1.0"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData><row r="1"><c r="A1" t="inlineStr"><is><t>x</t></is></c></row></sheetData><oleObjects><oleObject progId="Word.Document.12" shapeId="1027" r:id="rId1"/></oleObjects></worksheet>"#;
+        let ps = parse_sheet(xml, &[], &styles, false, &rels).unwrap();
+        assert_eq!(ps.ole_objects.len(), 1, "{:?}", ps.ole_objects);
+        assert_eq!(ps.ole_objects[0].prog_id, "Word.Document.12");
+        assert_eq!(ps.ole_objects[0].src, "xl/embeddings/oleObject1.bin");
+        // 没有 rels 目标时不产出半成品条目
+        let ps2 = parse_sheet(xml, &[], &styles, false, &HashMap::new()).unwrap();
+        assert!(ps2.ole_objects.is_empty());
+    }
 
     #[test]
     fn shared_formula_expands() {

@@ -24,6 +24,8 @@ pub struct Cell {
     #[serde(rename = "type", default, skip_serializing_if = "Option::is_none")]
     pub cell_type: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    /// Stored cell value; for formula cells this is the saved result cache.
+    /// None/null means no cache, while zero, false and an empty string are valid caches.
     pub value: Option<Value>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub formula: Option<String>,

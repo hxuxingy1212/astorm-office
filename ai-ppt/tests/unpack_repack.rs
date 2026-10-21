@@ -6,7 +6,6 @@ mod common;
 
 use json2pptx::model::elements::*;
 use json2pptx::model::*;
-use std::collections::HashMap;
 use std::io::Read;
 use std::path::PathBuf;
 
@@ -25,7 +24,7 @@ fn build_pres_with_images(img: &str) -> Presentation {
         }),
         template: None,
         theme: Some(Theme {
-            colors: Some(HashMap::from([(
+            colors: Some(std::collections::BTreeMap::from([(
                 "accent1".to_string(),
                 "4472C4".to_string(),
             )])),

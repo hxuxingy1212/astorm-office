@@ -3,10 +3,12 @@ name = "json2pptx-web-server"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+repository.workspace = true
+readme = "../README.md"
 description = "HTTP 服务：PPTX 上传 / unpack 产物读写 / repack 下载，供 web 前端预览编辑"
 
 [dependencies]
-json2pptx = { path = ".." }
+json2pptx = { version = "0.2.0", path = ".." }
 axum = { workspace = true }
 tokio = { workspace = true }
 serde = { workspace = true }

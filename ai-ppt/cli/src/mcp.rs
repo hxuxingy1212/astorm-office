@@ -86,7 +86,7 @@ fn tools() -> Value {
     json!([
         tool("unpack", "pptx → 产物目录", json!({"input": s(), "output": s()}), json!(["input","output"])),
         tool("repack", "产物目录 → pptx", json!({"input": s(), "output": s()}), json!(["input","output"])),
-        tool("view", "只读视图 text/layout", json!({"input": s(), "path": s(), "mode": {"type":"string","enum":["text","layout"]}}), json!(["input","path"])),
+        tool("view", "只读视图：text=结构感知 Markdown（path 用 / 看整本）/ layout=组件布局树", json!({"input": s(), "path": s(), "mode": {"type":"string","enum":["text","layout"]}}), json!(["input","path"])),
         tool("validate", "结构校验（越界/空文本/缺失图片）", json!({"input": s()}), json!(["input"])),
         tool("dump", "导出可回放指令", json!({"input": s()}), json!(["input"])),
         tool("query", "选择器查询 slide[1] shape[name=Title] / text:contains(...)", json!({"input": s(), "selector": s()}), json!(["input","selector"])),
@@ -142,13 +142,28 @@ fn call(name: &str, args: &Value) -> Result<String, String> {
         }
         "view" => {
             let (root, slides) = load(g(args, "input")?)?;
-            let ep = ppath::parse(g(args, "path")?).map_err(|e| e.message)?;
-            let resolved = ppath::resolve(&slides, &ep).map_err(|e| e.message)?;
+            let path_arg = g(args, "path")?;
             let mode = args.get("mode").and_then(|v| v.as_str()).unwrap_or("text");
-            let slide = &slides[resolved.slide_idx];
-            let v = match mode {
-                "layout" => view::view_layout(slide, resolved.slide_idx + 1),
-                _ => view::view_text(slide, resolved.slide_idx + 1, &root),
+            let v = if path_arg.trim() == "/" {
+                if mode != "text" {
+                    return Err(
+                        "整本（/）不支持 layout 视图；layout 请指定幻灯片：/slide[1]".to_string(),
+                    );
+                }
+                view::view_text_all(&slides, &root, json2pptx::PayloadSinks::default())
+            } else {
+                let ep = ppath::parse(path_arg).map_err(|e| e.message)?;
+                let resolved = ppath::resolve(&slides, &ep).map_err(|e| e.message)?;
+                let slide = &slides[resolved.slide_idx];
+                match mode {
+                    "layout" => view::view_layout(slide, resolved.slide_idx + 1),
+                    _ => view::view_text(
+                        slide,
+                        resolved.slide_idx + 1,
+                        &root,
+                        json2pptx::PayloadSinks::default(),
+                    ),
+                }
             };
             Ok(serde_json::to_string_pretty(&v).unwrap())
         }

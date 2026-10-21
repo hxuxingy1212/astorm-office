@@ -10,6 +10,7 @@
 //! │   ├── page-001.json    # 每页一个 JSON（尺寸/旋转/元素列表）
 //! │   └── page-002.json
 //! ├── media/               # 图片实体（image 元素 src 指向这里的相对路径）
+//! ├── attachments/         # 内嵌文件实体（/EmbeddedFiles、FileAttachment 注释）
 //! └── fonts/               # 内嵌字体实体 + 元数据（font-NNN.ttf / font-NNN.json）
 //! ```
 
@@ -34,6 +35,28 @@ pub struct DocumentModel {
     /// 字体元数据文件路径数组（相对产物根，如 "fonts/font-001.json"）
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub fonts: Vec<String>,
+    /// 内嵌文件（/EmbeddedFiles 名字树 + 页面 FileAttachment 注释）
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub attachments: Vec<PdfAttachment>,
+}
+
+/// 一个内嵌文件（PDF 附件）
+#[derive(Debug, Clone, Default, Serialize, Deserialize, JsonSchema, PartialEq)]
+pub struct PdfAttachment {
+    /// 文件名（/UF 优先，其次 /F；已做路径清洗，可直接当落盘名）
+    pub name: String,
+    /// 产物内路径（unpack 时写入，如 "attachments/说明.txt"）；仅清单模式为空
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub src: Option<String>,
+    /// MIME 类型（/Subtype，`text#2Fplain` 这类转义已还原）
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub mime: Option<String>,
+    /// 字节数（/Params /Size；缺省时取解码后长度）
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub size: Option<u64>,
+    /// 说明（/Desc）
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
 }
 
 fn default_version() -> u32 {
@@ -48,6 +71,7 @@ impl Default for DocumentModel {
             page_size: PageSize::default(),
             pages: Vec::new(),
             fonts: Vec::new(),
+            attachments: Vec::new(),
         }
     }
 }

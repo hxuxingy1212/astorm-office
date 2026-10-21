@@ -2,7 +2,7 @@
 
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 /// 元素动画效果
 ///
@@ -44,7 +44,7 @@ pub struct Animation {
     pub opacity: Option<f64>,
     /// 路径动画的关键点
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub points: Option<Vec<HashMap<String, f64>>>,
+    pub points: Option<Vec<BTreeMap<String, f64>>>,
     /// 动画移动距离（英寸）
     #[serde(skip_serializing_if = "Option::is_none")]
     pub distance: Option<f64>,

@@ -372,7 +372,7 @@ fn parse_sp(
     let mut wrap = true;
     let mut is_tx_box = false;
     let mut text_depth = 0u32;
-    let mut adjust: Option<std::collections::HashMap<String, f64>> = None;
+    let mut adjust: Option<std::collections::BTreeMap<String, f64>> = None;
     let mut in_ln = false;
     let mut in_outer_shdw = false;
     let mut shdw_blur = 4.0;
@@ -601,7 +601,7 @@ fn parse_sp(
                         }
                     }
                     "a:avLst" => {
-                        adjust = Some(std::collections::HashMap::new());
+                        adjust = Some(std::collections::BTreeMap::new());
                     }
                     "a:gd" => {
                         if let Some(ref mut adj) = adjust {

@@ -1,0 +1,45 @@
+{
+  "background": "F7F9FC",
+  "elements": [
+    {
+      "type": "text",
+      "name": "Title",
+      "text": "2026 年度经营复盘",
+      "position": {
+        "x": 1.2,
+        "y": 2.4,
+        "w": 10.9,
+        "h": 1.2
+      },
+      "font_size": 40,
+      "bold": true,
+      "color": "1F3864"
+    },
+    {
+      "type": "text",
+      "name": "Subtitle",
+      "text": "渠道扩张见效 · 毛利结构待优化",
+      "position": {
+        "x": 1.2,
+        "y": 3.8,
+        "w": 10.9,
+        "h": 0.7
+      },
+      "font_size": 18,
+      "color": "44546A"
+    },
+    {
+      "type": "text",
+      "name": "Footer",
+      "text": "经营分析组 · 2026-07",
+      "position": {
+        "x": 1.2,
+        "y": 6.4,
+        "w": 6.0,
+        "h": 0.4
+      },
+      "font_size": 11,
+      "color": "808080"
+    }
+  ]
+}

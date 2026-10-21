@@ -6,7 +6,6 @@ use json2pptx::generate;
 use json2pptx::model::elements::*;
 use json2pptx::model::*;
 use json2pptx::parse;
-use std::collections::HashMap;
 use std::io::Read;
 
 fn roundtrip(original: &Presentation) -> Presentation {
@@ -1093,7 +1092,7 @@ fn test_theme_and_meta() {
             author: Some("Test Author".to_string()),
         }),
         theme: Some(Theme {
-            colors: Some(HashMap::from([
+            colors: Some(std::collections::BTreeMap::from([
                 ("accent1".to_string(), "4472C4".to_string()),
                 ("accent2".to_string(), "ED7D31".to_string()),
                 ("dk1".to_string(), "000000".to_string()),
@@ -3542,4 +3541,60 @@ fn test_opaque_passthrough_roundtrip() {
         .unwrap();
     let s = String::from_utf8_lossy(&decoded);
     assert!(s.contains("Marker"), "part content: {s}");
+}
+
+/// 并行解析（≥8 张幻灯片时铺开线程）必须**可复现**，且与串行路径一致。
+///
+/// 造一份 12 页的 deck 走生成 → 解析：12 ≥ 阈值，会真的走到并行分支；
+/// 连解两次、序列化后逐字节比较（元素顺序、备注、关系都不能漂）。
+#[test]
+fn parallel_parse_is_deterministic() {
+    let slides: Vec<Slide> = (0..12)
+        .map(|i| Slide {
+            elements: vec![
+                Element::Text(TextElement {
+                    text: TextContent::Simple(format!("第 {i} 页")),
+                    position: Position {
+                        x: 1.0,
+                        y: 1.0,
+                        w: 8.0,
+                        h: 1.0,
+                    },
+                    ..Default::default()
+                }),
+                Element::Text(TextElement {
+                    text: TextContent::Simple(format!("要点 {i}")),
+                    position: Position {
+                        x: 1.0,
+                        y: 2.5,
+                        w: 8.0,
+                        h: 1.0,
+                    },
+                    ..Default::default()
+                }),
+            ],
+            background: None,
+            transition: None,
+            notes: Some(format!("备注 {i}")),
+        })
+        .collect();
+    let pres = Presentation {
+        table_styles: None,
+        width: 13.333,
+        height: 7.5,
+        meta: None,
+        theme: None,
+        template: None,
+        slides,
+    };
+    let path = common::temp_pptx_path();
+    generate(&pres, path.to_str().unwrap()).unwrap();
+
+    let a = serde_json::to_string(&parse(path.to_str().unwrap()).unwrap()).unwrap();
+    let b = serde_json::to_string(&parse(path.to_str().unwrap()).unwrap()).unwrap();
+    assert_eq!(a, b, "并行解析必须可复现（元素顺序/备注都不能漂）");
+    let parsed: Presentation = serde_json::from_str(&a).unwrap();
+    assert_eq!(parsed.slides.len(), 12);
+    assert_eq!(parsed.slides[0].notes.as_deref(), Some("备注 0"));
+    assert_eq!(parsed.slides[11].notes.as_deref(), Some("备注 11"));
 }

@@ -48,16 +48,44 @@ json2docx repack <目录> [-o <output.docx>]
 ## 3. view — 只读视图
 
 ```bash
-json2docx view <输入> /part[N] text|layout
+json2docx view <输入> <路径> text|layout     # 路径：/part[N] 或 /（整篇，仅 text）
 ```
 
 输入可为 `.docx`（一次性解包到临时目录，结束自动删除）或产物目录。
 
-- `text`：每块 `{type, text}` + `media[]`。
-- `layout`：块结构树（heading/paragraph/list/table/image/formula/…）。
+- `text`：**结构感知 Markdown，stdout 直出原文**（不套 JSON；`warnings`/`issues` 走 stderr）——
+  标题按级别输出 `#`～`######`，列表按 `level` 缩进/嵌套，表格输出 GFM 表格（表头取自
+  `header_row`，题注单独成行），代码含围栏与语言，公式 `$…$` / `$$…$$`，图片 `![alt](src)`，
+  图表数据输出为数据表，题注/目录/参考文献/附件各有对应表达；分页输出为 `---`。
+  输出里**没有 `<!-- … -->` 注释标记**。要结构化信封（`{markdown, media, issues, warnings}`）
+  加 `--json`。
+- `--revisions final|original|markup`（仅 text，默认 `final`）：最终稿排除删除文字；原稿排除插入文字；
+  `markup` 用 `<ins>` / `<del>` 保留修订标记。覆盖标题、段落、列表、表格和内容控件。
+  脚注、尾注、批注（含作者）输出为 Markdown 脚注引用及定义，超链接保留；隐藏修订中的注释也随之隐藏。
+- `--strict`（别名 `--strict-exports`）：导出任一资源失败返回退出码 1，仍输出整批清单并保留成功文件。
+  `--json` 的资源清单包含 `resource_id`、`resource_type`（MIME）、`size`、`sha256`、`source_locations`、
+  `relative_link`（相对导出目录的 URI）及 `error`（`code` / `operation` / `message` / IO 详情）。
+  只有载荷不存在使用 `kind=missing`；目录创建、复制、解码等其他失败使用 `kind=error`。
+- `--attachments <DIR>`（仅 text）：把内嵌附件（`word/embeddings/*`，OLE 对象）导出到该目录，
+  Markdown 里的引用改指导出后的路径；**URL 原样保留**，载荷缺失时保留原引用
+  （信封里 `attachments[].kind = file|url|missing`）。不带该参数时链接保持模型里的原始引用。
+- `--media <DIR>`（仅 text）：把图片（`word/media/*`）导出到该目录，Markdown 的图片链接与
+  `media[]` 都指向导出后的路径（`media_exported[]` 给出清单）。二进制输入时特别有用——
+  不带它的话链接是包内相对路径，只有产物目录里才解析得到。
+> 两个旗标只在 **CLI 的 view** 上有（`help` 的「view 旗标」段可查）；`serve`/`mcp` 的 view 是
+> 程序化只读接口，不接导出参数——需要导出时走 CLI，或先 `unpack` 再从产物目录取载荷。
+- `layout`：块结构树（heading/paragraph/list/table/image/formula/…，含属性，机器可读）。
+
+整篇（`/`）把各分片按空行拼接输出（分片边界是内部实现，不引入标记；空分片跳过）。
 
 ```bash
-json2docx view thesis.docx /part[1] layout
+json2docx view thesis.docx /part[1] text     # 单分片 Markdown（直出）
+json2docx view thesis.docx / text            # 整篇 Markdown（直出）
+json2docx view thesis.docx / text --revisions markup # 审阅修订
+json2docx view thesis.docx / text > full.md  # 直接落盘
+json2docx view thesis.docx / text --json     # 结构化信封（含 media/issues/warnings）
+json2docx view thesis.docx /part[1] layout   # 结构树（定位后再 edit）
+json2docx view thesis.docx / layout          # 报错：layout 是分片级视图
 ```
 
 ---

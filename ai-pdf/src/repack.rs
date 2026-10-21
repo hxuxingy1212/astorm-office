@@ -70,6 +70,15 @@ struct FontAsset {
     simple_rebuild: bool,
 }
 
+/// UTF-16BE + BOM（PDF 的 Unicode 文本串写法，用于文件名 /UF）
+fn utf16be_with_bom(s: &str) -> Vec<u8> {
+    let mut out = vec![0xFE, 0xFF];
+    for u in s.encode_utf16() {
+        out.extend_from_slice(&u.to_be_bytes());
+    }
+    out
+}
+
 pub fn repack_model(model: &DocumentModel, dir: &Path, out: &Path) -> Result<RepackResult> {
     if model.pages.is_empty() {
         bail!("document.json has no pages");
@@ -197,6 +206,88 @@ pub fn repack_model(model: &DocumentModel, dir: &Path, out: &Path) -> Result<Rep
     let mut next_res = 0u32;
     let mut font_entries: BTreeMap<String, FontEntry> = BTreeMap::new();
     let mut descriptions: Vec<String> = Vec::new();
+
+    // 内嵌文件（附件）：按 model.attachments 重建 /Names /EmbeddedFiles 名字树。
+    // 载荷从产物目录 attachments/ 读回（unpack 落的），Flate 压缩后写成 EmbeddedFile 流。
+    let mut att_entries: Vec<(String, Object)> = Vec::new();
+    for a in &model.attachments {
+        let Some(rel) = a.src.as_deref() else {
+            continue;
+        };
+        let Ok(bytes) = std::fs::read(dir.join(rel)) else {
+            descriptions.push(format!("附件载荷缺失，已跳过: {}", a.name));
+            continue;
+        };
+        let compressed = {
+            use std::io::Write;
+            let mut enc =
+                flate2::write::ZlibEncoder::new(Vec::new(), flate2::Compression::default());
+            enc.write_all(&bytes)?;
+            enc.finish()?
+        };
+        let mut ef = Dictionary::new();
+        ef.set("Type", Object::Name(b"EmbeddedFile".to_vec()));
+        if let Some(mime) = &a.mime {
+            ef.set(
+                "Subtype",
+                Object::Name(mime.replace('/', "#2F").into_bytes()),
+            );
+        }
+        let mut params = Dictionary::new();
+        params.set("Size", Object::Integer(bytes.len() as i64));
+        ef.set("Params", Object::Dictionary(params));
+        ef.set("Filter", Object::Name(b"FlateDecode".to_vec()));
+        let ef_id = doc.add_object(Object::Stream(Stream::new(ef, compressed)));
+
+        // /UF 用 UTF-16BE（PDF 的 Unicode 文本串约定），/F 退化成 ASCII 安全名
+        let ascii_fallback: String = a
+            .name
+            .chars()
+            .map(|c| if c.is_ascii() { c } else { '_' })
+            .collect();
+        let mut spec = Dictionary::new();
+        spec.set("Type", Object::Name(b"Filespec".to_vec()));
+        spec.set(
+            "F",
+            Object::String(ascii_fallback.into_bytes(), StringFormat::Literal),
+        );
+        spec.set(
+            "UF",
+            Object::String(utf16be_with_bom(&a.name), StringFormat::Hexadecimal),
+        );
+        if let Some(d) = &a.description {
+            spec.set(
+                "Desc",
+                Object::String(d.as_bytes().to_vec(), StringFormat::Literal),
+            );
+        }
+        let mut ef_ref = Dictionary::new();
+        ef_ref.set("F", Object::Reference(ef_id));
+        spec.set("EF", Object::Dictionary(ef_ref));
+        let spec_id = doc.add_object(Object::Dictionary(spec));
+        att_entries.push((
+            a.name.clone(),
+            Object::String(utf16be_with_bom(&a.name), StringFormat::Hexadecimal),
+        ));
+        // 名字树键 → filespec（键名与 /UF 一致）
+        att_entries.push((String::new(), Object::Reference(spec_id)));
+    }
+    if !att_entries.is_empty() {
+        let mut names = Vec::with_capacity(att_entries.len());
+        let mut it = att_entries.into_iter();
+        while let (Some((_, key)), Some((_, spec))) = (it.next(), it.next()) {
+            names.push(key);
+            names.push(spec);
+        }
+        let mut tree = Dictionary::new();
+        tree.set("Names", Object::Array(names));
+        let tree_id = doc.add_object(Object::Dictionary(tree));
+        let mut names_dict = Dictionary::new();
+        names_dict.set("EmbeddedFiles", Object::Reference(tree_id));
+        if let Ok(cat) = doc.get_object_mut(catalog_id).and_then(Object::as_dict_mut) {
+            cat.set("Names", Object::Dictionary(names_dict));
+        }
+    }
 
     for (key, chars) in &font_keys {
         next_res += 1;
@@ -2324,7 +2415,7 @@ fn embed_png(
             let n = (w * h) as usize;
             let mut rgb = Vec::with_capacity(n * 3);
             let mut alpha = Vec::with_capacity(n);
-            for px in pixels.chunks_exact(4) {
+            for px in pixels.as_chunks::<4>().0 {
                 rgb.extend_from_slice(&px[..3]);
                 alpha.push(px[3]);
             }
@@ -2335,7 +2426,7 @@ fn embed_png(
             let n = (w * h) as usize;
             let mut gray = Vec::with_capacity(n);
             let mut alpha = Vec::with_capacity(n);
-            for px in pixels.chunks_exact(2) {
+            for px in pixels.as_chunks::<2>().0 {
                 gray.push(px[0]);
                 alpha.push(px[1]);
             }

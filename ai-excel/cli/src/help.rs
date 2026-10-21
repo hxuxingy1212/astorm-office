@@ -87,6 +87,7 @@ pub fn overview_value() -> serde_json::Value {
         })).collect::<Vec<_>>(),
         "add_types": caps::ADD_TYPES.iter().map(|(t, n)| json!({"type": t, "note": n})).collect::<Vec<_>>(),
         "view_modes": caps::VIEW_MODES.iter().map(|(t, n)| json!({"mode": t, "note": n})).collect::<Vec<_>>(),
+        "view_flags": caps::VIEW_FLAGS.iter().map(|(t, n)| json!({"flag": t, "note": n})).collect::<Vec<_>>(),
         "batch_ops": caps::BATCH_OPS.iter().map(|(t, n)| json!({"op": t, "note": n})).collect::<Vec<_>>(),
     })
 }
@@ -125,6 +126,10 @@ fn print_overview() {
     println!("\nview 模式：");
     for (t, n) in caps::VIEW_MODES {
         println!("  {t:<8} {n}");
+    }
+    println!("\nview 旗标（view <输入> <路径> <模式> 之后追加；导出类，仅 CLI）：");
+    for (t, n) in caps::VIEW_FLAGS {
+        println!("  {t:<22} {n}");
     }
     println!("\nbatch 支持的 op：");
     for (t, n) in caps::BATCH_OPS {

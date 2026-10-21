@@ -16,7 +16,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }),
         template: None,
         theme: Some(Theme {
-            colors: Some(std::collections::HashMap::from([
+            colors: Some(std::collections::BTreeMap::from([
                 ("accent1".to_string(), "4472C4".to_string()),
                 ("dk1".to_string(), "000000".to_string()),
                 ("lt1".to_string(), "FFFFFF".to_string()),

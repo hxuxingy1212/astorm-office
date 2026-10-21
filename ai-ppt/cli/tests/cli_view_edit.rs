@@ -154,15 +154,30 @@ fn test_view_on_pptx_and_product() {
     assert!(ok, "unpack 失败: {err}");
     let product = product.to_str().unwrap().to_string();
 
-    // 产物目录输入：view text
+    // 产物目录输入：view text 默认直出 Markdown（不是 JSON）
     let (ok, out, _err) = run(&["view", &product, "/slide[1]", "text"]);
     assert!(ok, "view text 失败: {out}");
+    assert!(out.contains("标题文本"), "{out}");
+    assert!(out.contains("**组一**"), "{out}");
+    assert!(
+        !out.contains("markdown\":") && !out.contains("<!--"),
+        "应为纯 Markdown：{out}"
+    );
+
+    // --json：结构化信封（markdown + media）
+    let (ok, out, _err) = run(&["view", &product, "/slide[1]", "text", "--json"]);
+    assert!(ok, "view text --json 失败: {out}");
     let v: serde_json::Value = serde_json::from_str(&out).unwrap();
     assert_eq!(v["slide"], 1);
-    let texts = v["texts"].as_array().unwrap();
-    assert!(texts.iter().any(|t| t["text"] == "标题文本"));
-    let group = texts.iter().find(|t| t.get("children").is_some()).unwrap();
-    assert_eq!(group["children"][0]["text"], "组内文本");
+    let md = v["markdown"].as_str().unwrap();
+    assert!(md.contains("标题文本"), "{md}");
+    // 分组名独立成行、组内文本缩进一级
+    assert!(md.contains("**组一**"), "{md}");
+    assert!(
+        md.lines()
+            .any(|l| l.trim() == "组内文本" && l.starts_with("  ")),
+        "组内文本应缩进（层级）：{md}"
+    );
     let media = v["media"].as_array().unwrap();
     assert!(media.iter().any(|m| m["name"] == "background"));
     // 图片媒体解析为产物内的绝对路径（URL 保留原样）
@@ -179,10 +194,32 @@ fn test_view_on_pptx_and_product() {
     // PPTX 文件输入（一次性解包到临时目录）：结果一致
     let (ok, out, _err) = run(&["view", p, "/slide[1]", "text"]);
     assert!(ok, "view pptx 失败: {out}");
+    assert!(
+        out.contains("标题文本") && out.contains("组内文本"),
+        "{out}"
+    );
+    let (ok, out, _err) = run(&["view", p, "/slide[1]", "text", "--json"]);
+    assert!(ok, "view pptx --json 失败: {out}");
     let v: serde_json::Value = serde_json::from_str(&out).unwrap();
-    let texts = v["texts"].as_array().unwrap();
-    assert!(texts.iter().any(|t| t["text"] == "标题文本"));
-    assert!(texts.iter().find(|t| t.get("children").is_some()).is_some());
+    assert!(v["markdown"].as_str().unwrap().contains("标题文本"));
+    assert!(v["markdown"].as_str().unwrap().contains("组内文本"));
+
+    // view text 整本（`/`）：默认直出 Markdown，每页一个小节
+    let (ok, out, _err) = run(&["view", &product, "/", "text"]);
+    assert!(ok, "view 整本失败: {out}");
+    assert!(out.starts_with("## 幻灯片 1"), "{out}");
+    let (ok, out, _err) = run(&["view", &product, "/", "text", "--json"]);
+    assert!(ok, "view 整本 --json 失败: {out}");
+    let v: serde_json::Value = serde_json::from_str(&out).unwrap();
+    assert_eq!(v["slides"], 1);
+    assert!(
+        v["markdown"].as_str().unwrap().starts_with("## 幻灯片 1"),
+        "{v}"
+    );
+    // 整本 + layout 不支持（layout 是页级结构树）
+    let (ok, _out, err) = run(&["view", &product, "/", "layout"]);
+    assert!(!ok, "整本 layout 应当报错");
+    assert!(err.contains("不支持") || err.contains("layout"), "{err}");
 
     // view layout：层级与位置
     let (ok, out, _err) = run(&["view", &product, "/slide[1]", "layout"]);
@@ -273,12 +310,12 @@ fn test_edit_roundtrip_via_product() {
     assert_eq!(v["removed"], "shape");
 
     // 修改已在产物中持久化（view 重新读取）
-    let (ok, out, _err) = run(&["view", &product, "/slide[1]", "text"]);
+    let (ok, out, _err) = run(&["view", &product, "/slide[1]", "text", "--json"]);
     assert!(ok);
     let v: serde_json::Value = serde_json::from_str(&out).unwrap();
-    let texts = v["texts"].as_array().unwrap();
-    assert!(texts.iter().any(|t| t["text"] == "修改后的标题"));
-    assert!(texts.iter().any(|t| t["text"] == "新增段落"));
+    let md = v["markdown"].as_str().unwrap();
+    assert!(md.contains("修改后的标题"), "{md}");
+    assert!(md.contains("新增段落"), "{md}");
 
     // repack 回环：编辑产物 → PPTX → parse
     let out_pptx = temp_dir("edit_out").join("edited.pptx");
@@ -330,19 +367,27 @@ fn test_edit_oneshot_on_pptx() {
     assert!(ok, "一次性 edit 失败: {out}");
 
     // 输出文件包含修改后的文本
-    let (ok, out, _err) = run(&["view", out_pptx.to_str().unwrap(), "/slide[1]", "text"]);
+    let (ok, out, _err) = run(&[
+        "view",
+        out_pptx.to_str().unwrap(),
+        "/slide[1]",
+        "text",
+        "--json",
+    ]);
     assert!(ok, "view 输出失败: {out}");
     let v: serde_json::Value = serde_json::from_str(&out).unwrap();
-    let texts = v["texts"].as_array().unwrap();
-    assert!(texts.iter().any(|t| t["text"] == "一次性修改"));
+    assert!(
+        v["markdown"].as_str().unwrap().contains("一次性修改"),
+        "{v}"
+    );
 
     // 原文件未被修改
-    let (ok, out, _err) = run(&["view", p, "/slide[1]", "text"]);
+    let (ok, out, _err) = run(&["view", p, "/slide[1]", "text", "--json"]);
     assert!(ok);
     let v: serde_json::Value = serde_json::from_str(&out).unwrap();
-    let texts = v["texts"].as_array().unwrap();
-    assert!(texts.iter().any(|t| t["text"] == "标题文本"));
-    assert!(!texts.iter().any(|t| t["text"] == "一次性修改"));
+    let md = v["markdown"].as_str().unwrap();
+    assert!(md.contains("标题文本"), "{md}");
+    assert!(!md.contains("一次性修改"), "{md}");
 }
 
 #[test]
@@ -452,11 +497,17 @@ fn test_edit_line_chart_notes() {
     let chart = layout.iter().find(|e| e["type"] == "line_chart").unwrap();
     assert_eq!(chart["data"], serde_json::json!([10.0, 20.0, 15.0]));
 
-    // view text：notes 输出
-    let (ok, out, _err) = run(&["view", &product, "/slide[1]", "text"]);
+    // view text：notes 以引用行输出（Markdown）
+    let (ok, out, _err) = run(&["view", &product, "/slide[1]", "text", "--json"]);
     assert!(ok, "view text 失败: {out}");
     let v: serde_json::Value = serde_json::from_str(&out).unwrap();
-    assert_eq!(v["notes"], "CLI 端到端备注");
+    assert!(
+        v["markdown"]
+            .as_str()
+            .unwrap()
+            .contains("> 备注：CLI 端到端备注"),
+        "{v}"
+    );
 
     // repack → parse 回环：line 元素与 notes 保留
     let out_pptx = temp_dir("line_out").join("edited2.pptx");
@@ -531,4 +582,211 @@ fn test_name_path_addressing() {
     assert!(ok, "@name get failed: {err}");
     let v: serde_json::Value = serde_json::from_str(&out).unwrap();
     assert_eq!(v["name"].as_str().unwrap(), name);
+}
+
+#[test]
+fn view_text_exports_embedded_attachments() {
+    // 产物目录里放一个含 embeddings 部件的 opaque 元素（内嵌 OLE 对象）
+    let dir = temp_dir("attach_deck");
+    std::fs::create_dir_all(dir.join("ppt/slides")).unwrap();
+    let payload = b"PK\x03\x04-embedded-xlsx-bytes";
+    let b64 = {
+        const T: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+        let mut out = String::new();
+        for chunk in payload.chunks(3) {
+            let b = [
+                chunk[0],
+                *chunk.get(1).unwrap_or(&0),
+                *chunk.get(2).unwrap_or(&0),
+            ];
+            let n = ((b[0] as u32) << 16) | ((b[1] as u32) << 8) | b[2] as u32;
+            out.push(T[(n >> 18) as usize & 63] as char);
+            out.push(T[(n >> 12) as usize & 63] as char);
+            out.push(if chunk.len() > 1 {
+                T[(n >> 6) as usize & 63] as char
+            } else {
+                '='
+            });
+            out.push(if chunk.len() > 2 {
+                T[n as usize & 63] as char
+            } else {
+                '='
+            });
+        }
+        out
+    };
+    std::fs::write(
+        dir.join("presentation.json"),
+        r#"{"width":13.333,"height":7.5,"slides":["ppt/slides/slide1.json"]}"#,
+    )
+    .unwrap();
+    std::fs::write(
+        dir.join("ppt/slides/slide1.json"),
+        format!(
+            r#"{{"background":"FFFFFF","elements":[
+              {{"type":"text","name":"T","text":"含内嵌对象","position":{{"x":1,"y":1,"w":8,"h":1}}}},
+              {{"type":"opaque","name":"EmbeddedXlsx","position":{{"x":1,"y":2,"w":4,"h":2}},
+                "xml":"<p:graphicFrame/>",
+                "rels":[{{"old_id":"rId2","rel_type":"http://schemas.openxmlformats.org/officeDocument/2006/relationships/oleObject","target":"../embeddings/oleObject1.bin"}}],
+                "parts":[{{"path":"ppt/embeddings/oleObject1.bin","content_type":"application/vnd.openxmlformats-officedocument.oleObject","data":"{b64}"}}]}}
+            ]}}"#
+        ),
+    )
+    .unwrap();
+    let d = dir.to_str().unwrap().to_string();
+    let att = dir.join("out");
+
+    // 默认：不渲染附件行（输出与以前一致）
+    let (ok, out, _err) = run(&["view", &d, "/slide[1]", "text"]);
+    assert!(ok, "{out}");
+    assert!(!out.contains("附件"), "默认不应出现附件行：{out}");
+
+    // --attachments：embeddings 部件解码落盘，markdown 指向导出后的路径
+    let (ok, out, err) = run(&[
+        "view",
+        &d,
+        "/slide[1]",
+        "text",
+        "--attachments",
+        att.to_str().unwrap(),
+    ]);
+    assert!(ok, "{out}{err}");
+    let exported = att.join("oleObject1.bin");
+    assert!(exported.is_file(), "附件应已导出：{out}");
+    assert_eq!(
+        std::fs::read(&exported).unwrap(),
+        payload,
+        "解码后的字节应一致"
+    );
+    assert!(
+        out.contains(&format!("[oleObject1.bin]({})", exported.display())),
+        "{out}"
+    );
+    assert!(err.contains("附件已导出"), "{err}");
+
+    // 整本 + --json：信封带附件清单
+    let (ok, out, _err) = run(&[
+        "view",
+        &d,
+        "/",
+        "text",
+        "--attachments",
+        att.to_str().unwrap(),
+        "--json",
+    ]);
+    assert!(ok, "{out}");
+    let v: serde_json::Value = serde_json::from_str(&out).unwrap();
+    assert_eq!(v["attachments"][0]["kind"], "file");
+    assert_eq!(v["attachments"][0]["src"], "ppt/embeddings/oleObject1.bin");
+}
+
+#[test]
+fn view_text_exports_media_and_rewrites_image_links() {
+    // 产物目录里放一张真图 + 一个远程图
+    let dir = temp_dir("media_deck");
+    std::fs::create_dir_all(dir.join("ppt/slides")).unwrap();
+    std::fs::create_dir_all(dir.join("ppt/media")).unwrap();
+    let png = b"\x89PNG\r\n\x1a\n-fake-png";
+    std::fs::write(dir.join("ppt/media/logo.png"), png).unwrap();
+    std::fs::write(
+        dir.join("presentation.json"),
+        r#"{"width":13.333,"height":7.5,"slides":["ppt/slides/slide1.json"]}"#,
+    )
+    .unwrap();
+    std::fs::write(
+        dir.join("ppt/slides/slide1.json"),
+        r#"{"background":"FFFFFF","elements":[
+          {"type":"text","name":"T","text":"带图页","position":{"x":1,"y":1,"w":8,"h":1}},
+          {"type":"image","name":"Logo","src":"ppt/media/logo.png","position":{"x":1,"y":2,"w":3,"h":3}},
+          {"type":"image","name":"Remote","src":"https://example.com/remote.png","position":{"x":5,"y":2,"w":3,"h":3}}
+        ]}"#,
+    )
+    .unwrap();
+    let d = dir.to_str().unwrap().to_string();
+    let media = dir.join("media-out");
+
+    // 默认：图片链接是产物内的绝对路径（不导出）
+    let (ok, out, _err) = run(&["view", &d, "/slide[1]", "text"]);
+    assert!(ok, "{out}");
+    assert!(
+        out.contains("![Logo](") && out.contains("logo.png"),
+        "{out}"
+    );
+    assert!(!media.exists(), "默认不应创建导出目录");
+
+    // --media：图片导出到指定目录，链接指向新路径；URL 保留；同一张图只导出一份
+    let (ok, out, err) = run(&[
+        "view",
+        &d,
+        "/slide[1]",
+        "text",
+        "--media",
+        media.to_str().unwrap(),
+        "--json",
+    ]);
+    assert!(ok, "{out}{err}");
+    let exported = media.join("logo.png");
+    assert!(exported.is_file(), "图片应已导出：{out}");
+    assert_eq!(std::fs::read(&exported).unwrap(), png, "图片字节应一致");
+    let v: serde_json::Value = serde_json::from_str(&out).unwrap();
+    let md = v["markdown"].as_str().unwrap();
+    assert!(
+        md.contains(&format!("![Logo]({})", exported.display())),
+        "{md}"
+    );
+    assert!(
+        md.contains("![Remote](https://example.com/remote.png)"),
+        "{md}"
+    );
+    assert_eq!(v["media"][0]["src"], exported.display().to_string(), "{v}");
+    let list = v["media_exported"].as_array().unwrap();
+    assert_eq!(list.len(), 2, "只该有 file + url 两条：{v}");
+    assert!(err.contains("已导出"), "{err}");
+}
+
+#[test]
+fn strict_embedded_export_reports_decode_failures_and_group_locations() {
+    let dir = temp_dir("strict_resource_report");
+    std::fs::create_dir_all(dir.join("ppt/slides")).unwrap();
+    std::fs::write(
+        dir.join("presentation.json"),
+        r#"{"width":13.333,"height":7.5,"slides":["ppt/slides/slide1.json"]}"#,
+    )
+    .unwrap();
+    std::fs::write(
+        dir.join("ppt/slides/slide1.json"),
+        r#"{"elements":[
+      {"type":"group","position":{"x":0,"y":0,"w":4,"h":4},"children":[
+        {"type":"opaque","position":{"x":0,"y":0,"w":1,"h":1},"xml":"<p:graphicFrame/>","parts":[
+          {"path":"ppt/embeddings/valid.bin","content_type":"application/pdf","data":"YWJj"},
+          {"path":"ppt/embeddings/broken.bin","content_type":"application/pdf","data":"%%%"}
+        ]}
+      ]}
+    ]}"#,
+    )
+    .unwrap();
+    let output = dir.join("exports");
+    let (ok, stdout, _) = run(&[
+        "view",
+        dir.to_str().unwrap(),
+        "/",
+        "text",
+        "--attachments",
+        output.to_str().unwrap(),
+        "--strict",
+        "--json",
+    ]);
+    assert!(!ok);
+    let report: serde_json::Value = serde_json::from_str(&stdout).unwrap();
+    let entries = report["attachments"].as_array().unwrap();
+    assert_eq!(entries.len(), 2, "{report}");
+    assert_eq!(entries[0]["resource_type"], "application/pdf");
+    assert_eq!(
+        entries[0]["source_locations"][0],
+        "/slide[1]/element[1]/element[1]/part[1]"
+    );
+    assert_eq!(entries[1]["error"]["code"], "invalid_payload");
+    assert_eq!(report["ok"], false);
+    assert_eq!(std::fs::read(output.join("valid.bin")).unwrap(), b"abc");
+    std::fs::remove_dir_all(dir).unwrap();
 }

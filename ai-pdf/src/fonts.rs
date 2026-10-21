@@ -760,6 +760,7 @@ pub fn build_w_array(used: &BTreeMap<u16, i64>) -> String {
 mod tests {
     use super::*;
 
+    #[cfg(target_os = "macos")]
     fn macos_cjk_font() -> Option<PathBuf> {
         let p = PathBuf::from("/System/Library/Fonts/Supplemental/Arial Unicode.ttf");
         p.exists().then_some(p)

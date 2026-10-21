@@ -74,8 +74,31 @@ pub const ADD_TYPES: &[(&str, &str)] = &[
 
 /// view 模式
 pub const VIEW_MODES: &[(&str, &str)] = &[
-    ("text", "纯文本视图（含分片与块结构提示）"),
+    (
+        "text",
+        "结构感知 Markdown（标题层级/列表嵌套/表格/代码/公式；`/` = 整篇）",
+    ),
     ("layout", "块布局树（类型/级别/文字摘要）"),
+];
+
+/// view 的附加旗标（导出出口；`view <输入> <路径> <模式>` 之后追加）
+pub const VIEW_FLAGS: &[(&str, &str)] = &[
+    (
+        "--strict",
+        "资源导出严格模式：任一失败返回退出码 1，配合 --json 返回完整结构化清单",
+    ),
+    (
+        "--revisions <final|original|markup>",
+        "修订视图，默认最终稿；脚注、尾注、批注及超链接保留",
+    ),
+    (
+        "--attachments <DIR>",
+        "把内嵌附件（word/embeddings/*）导出到目录，Markdown 引用改指导出路径；URL 原样保留",
+    ),
+    (
+        "--media <DIR>",
+        "把图片（word/media/*）导出到目录，图片链接与 media[] 都指向导出路径",
+    ),
 ];
 
 /// batch 支持的 op

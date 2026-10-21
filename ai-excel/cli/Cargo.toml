@@ -3,6 +3,8 @@ name = "json2xlsx-cli"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+repository.workspace = true
+readme = "../README.md"
 description = "JSON <-> XLSX CLI"
 
 [[bin]]
@@ -10,7 +12,8 @@ name = "json2xlsx"
 path = "src/main.rs"
 
 [dependencies]
-json2xlsx = { path = ".." }
+tempfile = { workspace = true }
+json2xlsx = { version = "0.2.0", path = ".." }
 office-core = { workspace = true }
 clap = { workspace = true }
 serde = { workspace = true }

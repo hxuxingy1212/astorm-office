@@ -98,7 +98,7 @@ enum Cmd {
         #[arg(long)]
         skip_cover: bool,
     },
-    /// 正向解析：PDF → 产物目录（document.json + pages/*.json + media/ + fonts/）
+    /// 正向解析：PDF → 产物目录（document.json + pages/*.json + media/ + attachments/ + fonts/）
     Unpack {
         /// 输入 PDF
         pdf: PathBuf,
@@ -114,10 +114,11 @@ enum Cmd {
     /// 第一层视图：text（文本+媒体）/ layout（元素布局树）
     ///
     /// 输入是 PDF 文件（一次性解包到临时目录）或 unpack 产物目录。
+    /// 整篇结构化 Markdown 不在 view（元素级寻址）：用 `extract text --format markdown`。
     View {
         /// 输入的 PDF 文件或 unpack 产物目录
         input: PathBuf,
-        /// 页面路径（如 /page[1]）
+        /// 页面路径（如 /page[1]；整篇 Markdown 见 extract text --format markdown）
         page_path: String,
         /// 视图模式
         mode: ViewMode,
@@ -259,6 +260,14 @@ enum ExtractCmd {
     },
     /// 导出内嵌图片到目录（-o，缺省当前目录）
     Image { file: PathBuf },
+    /// 内嵌文件（附件）：列清单；带 -o 时导出到目录（PDF 的 /EmbeddedFiles + FileAttachment 注释）
+    Attachment {
+        /// 输入的 PDF 文件或 unpack 产物目录
+        file: PathBuf,
+        /// 任一附件导出失败返回退出码 1（需 -o 导出目录）
+        #[arg(long, alias = "strict-exports")]
+        strict: bool,
+    },
 }
 
 #[derive(Subcommand)]
@@ -626,6 +635,100 @@ fn dispatch(cli: &Cli, out: &Output) -> Result<i32, CmdError> {
                 })
                 .collect();
             out.emit_json(&json!({"file": file.display().to_string(), "pages": page_reports}))?;
+        }
+        Cmd::Extract(ExtractCmd::Attachment { file, strict }) => {
+            if *strict && cli.output.is_none() {
+                return Err(CliError::new("--strict 需要 -o 导出目录").into());
+            }
+            let sink = cli.output.as_ref().map(|dir| {
+                office_core::PayloadSink::new(dir)
+                    .with_root(file)
+                    .with_source_document(file.display().to_string())
+                    .with_strict(*strict)
+            });
+            let is_dir = file.is_dir() && file.join("document.json").is_file();
+            let (list, exported) = if is_dir {
+                let model = product::load_document(file)?;
+                let list = model.attachments.clone();
+                if let Some(sink) = &sink {
+                    for (index, attachment) in list.iter().enumerate() {
+                        let _source = sink.at_source(format!("attachment[{}]", index + 1));
+                        if let Some(src) = &attachment.src {
+                            let _ = sink.try_link_for_typed(
+                                &attachment.name,
+                                src,
+                                attachment.mime.as_deref(),
+                            );
+                        } else {
+                            sink.report_failure_typed(
+                                &attachment.name,
+                                &format!("attachment-{}", index + 1),
+                                office_core::ExportErrorCode::PayloadMissing,
+                                "产物未保存附件载荷路径",
+                                attachment.mime.as_deref(),
+                            );
+                        }
+                    }
+                }
+                let exported = sink
+                    .as_ref()
+                    .map(|sink| {
+                        sink.entries()
+                            .into_iter()
+                            .map(|entry| {
+                                let info = list
+                                    .iter()
+                                    .find(|info| info.src.as_deref() == Some(entry.src.as_str()));
+                                let mut value = serde_json::to_value(&entry).unwrap();
+                                value["mime"] = json!(info
+                                    .and_then(|info| info.mime.as_deref())
+                                    .unwrap_or(&entry.resource_type));
+                                value["description"] =
+                                    json!(info.and_then(|info| info.description.as_deref()));
+                                value
+                            })
+                            .collect()
+                    })
+                    .unwrap_or_default();
+                (list, exported)
+            } else {
+                let doc = load(file)?;
+                let list = json2pdf::attachments::list(&doc);
+                let exported = if let Some(sink) = &sink {
+                    json2pdf::attachments::extract_with_sink(&doc, sink)?
+                } else {
+                    Vec::new()
+                };
+                (list, exported)
+            };
+            let count = list.len();
+            out.status(&format!("内嵌文件 {count} 个"));
+            if let Some(sink) = &sink {
+                for entry in sink.entries() {
+                    out.status(&entry.status_message("附件"));
+                }
+            }
+            let items: Vec<Value> = if sink.is_some() {
+                exported
+            } else {
+                list.iter().map(|entry| json!({"name":entry.name,"mime":entry.mime,"size":entry.size,"description":entry.description,"src":entry.src,"path":null,"kind":"listed"})).collect()
+            };
+            let mut value =
+                json!({"file":file.display().to_string(),"count":count,"attachments":items});
+            let export_failed = office_core::PayloadSinks {
+                attachments: sink.as_ref(),
+                media: None,
+            }
+            .annotate_report(&mut value);
+            out.emit_json(&value)?;
+            if export_failed {
+                out.error(
+                    "resource_export_failed",
+                    "严格模式：资源导出失败，详见导出清单",
+                    None,
+                );
+                return Ok(EXIT_FAILURE);
+            }
         }
         Cmd::Extract(ExtractCmd::Table { file, pages }) => {
             let doc = load(file)?;
@@ -1035,6 +1138,16 @@ fn dispatch(cli: &Cli, out: &Output) -> Result<i32, CmdError> {
             page_path,
             mode,
         } => {
+            // `/` = 整篇：PDF 的整篇结构化 Markdown 走内容提取管线
+            // （标题/列表/表格识别 + OCR 路由），view 是元素级寻址视图
+            if page_path.trim() == "/" {
+                return Err(CliError::new("整篇（/）不是 view 的寻址形态")
+                    .suggest(
+                        "整篇 Markdown：json2pdf extract text <pdf> --format markdown；\
+                         元素级阅读：view <输入> /page[1] text|layout",
+                    )
+                    .into());
+            }
             let (root, _tmp) = product::resolve_input(input)?;
             let doc = product::load_document(&root)?;
             let pages = product::load_pages(&root)?;
@@ -1381,7 +1494,7 @@ fn product_schema() -> Value {
     json!({
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "json2pdf 产物目录",
-        "description": "unpack（PDF→JSON）与 repack（JSON→PDF）的统一中间形态：document.json + pages/*.json + media/ + fonts/。坐标一律 pt、y 向上，文本 y 为基线。",
+        "description": "unpack（PDF→JSON）与 repack（JSON→PDF）的统一中间形态：document.json + pages/*.json + media/ + attachments/ + fonts/。坐标一律 pt、y 向上，文本 y 为基线。",
         "document": schemars::schema_for!(json2pdf::model::DocumentModel),
         "page": schemars::schema_for!(json2pdf::model::PageModel),
     })
@@ -1507,6 +1620,7 @@ doc/
 │   ├── page-001.json    # 每页一个文件（尺寸/旋转/元素列表）
 │   └── page-002.json
 ├── media/               # 图片实体（image.src 指向这里的相对路径）
+├── attachments/         # 内嵌文件实体（/EmbeddedFiles 与 FileAttachment 注释）
 └── fonts/               # 内嵌字体实体 + 元数据（font-NNN.ttf / font-NNN.json）
 ```
 
@@ -1518,9 +1632,15 @@ doc/
   "meta": { "title": "...", "author": "...", "subject": "...", "creator": "..." },
   "page_size": { "width": 595.28, "height": 841.89 },
   "pages": ["pages/page-001.json", "pages/page-002.json"],
-  "fonts": ["fonts/font-001.json"]
+  "fonts": ["fonts/font-001.json"],
+  "attachments": [
+    { "name": "说明.txt", "src": "attachments/说明.txt", "mime": "text/plain", "size": 23, "description": "..." }
+  ]
 }
 ```
+
+- `attachments` 为内嵌文件（PDF 附件）：`src` 指向 `attachments/` 下的载荷，`repack` 会按它重建
+  `/EmbeddedFiles` 名字树；`json2pdf extract attachment <pdf|目录> [-o DIR]` 可列清单/导出。
 
 - 坐标单位一律 pt（1/72 英寸），y 向上；文本的 y 为基线。
 - page_size 为默认页尺寸（A4），页面可覆盖。

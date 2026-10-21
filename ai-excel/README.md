@@ -56,7 +56,7 @@ Agent 只写结构化的**产物目录**（`workbook.json` + `xl/worksheets/shee
 
 ```bash
 json2xlsx repack deck/ -o out.xlsx          # 构建
-json2xlsx view deck/ /sheet[1] values       # 读内容
+json2xlsx view deck/ /sheet[1] text         # 读内容（Markdown 表格）
 json2xlsx edit deck/ '/sheet[1]/cell[A1]' set --prop value=标题 --prop font.bold=true
 json2xlsx render deck/ -o preview.html      # 目视验收
 ```
@@ -69,7 +69,7 @@ json2xlsx render deck/ -o preview.html      # 目视验收
 |---|---|
 | `unpack <in.xlsx> [-o DIR]` | xlsx → 产物目录（workbook.json + 每个工作表一个 JSON + `xl/media/`） |
 | `repack <DIR> [-o out.xlsx]` | 产物目录 → xlsx（AI 从零生成也用它） |
-| `view <输入> [路径] [text\|layout]` | 只读查看内容 / 结构（旧值 values/structure 兼容） |
+| `view <输入> [路径] [text\|layout]` | 只读查看：text = Markdown 表格（`/` = 整本）/ layout = 工作表结构树（旧值 values/structure 兼容） |
 | `edit <输入> <路径> get\|set\|add\|remove [--prop k=v] [-o out.xlsx]` | 精准修改 |
 | `render <输入> [-o out.html]` | 生成 HTML 预览 |
 | `import <in.csv\|tsv> -o out.xlsx [--delim D] [--header] [--sheet 名]` | CSV/TSV 导入为 xlsx |
@@ -93,6 +93,16 @@ json2xlsx render deck/ -o preview.html      # 目视验收
 ```
 
 `edit` 语义：输入为**产物目录**则原地修改；输入为 **.xlsx** 时写操作必须给 `-o`（临时解包，不覆盖原文件），`get` 免 `-o`。
+
+`view ... text` 同时保留单元格批注、链接、图片及锚点、图表标题与源区域数据表。
+使用 `--media <目录>` 导出图片（XLSX 与产物目录均支持），`--json` 中可读取 `media_exported` 清单。
+区域视图按单元格/图形锚点过滤；跨表、命名区域及缺失图表来源会明确提示无法输出数据表。
+取值通过 `--value-mode formula|cached-value|both|formatted` 选择，默认 `formula`：
+分别显示公式、保存的缓存结果、公式及缓存结果、按数字格式显示的缓存结果。读取时不重新计算公式；
+缺少缓存明确输出 `[缓存值缺失]`。`formatted` 支持百分比、千分位、货币/负数分段及常用日期时间，
+解析命名样式并遵循 1900/1904 日期系统；未支持的格式保留原值并提示。
+
+资源导出支持 `--strict`（失败退出码 1）及完整结构化清单：资源 ID、MIME 类型、大小、SHA-256、来源位置和相对链接。详见 [资源导出契约](../docs/resource-export.md)。
 
 ## 测试
 

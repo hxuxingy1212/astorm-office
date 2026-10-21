@@ -1,0 +1,312 @@
+{
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "2026 年度经营复盘"
+    },
+    {
+      "type": "paragraph",
+      "text": "全年收入 928.3 万元，同比增长 12.4%；净利润 200.4 万元，净利率 21.6%。"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "关键动作"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        {
+          "level": 0,
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "拓展华东渠道"
+            }
+          ]
+        },
+        {
+          "level": 1,
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "新增 12 家经销商"
+            }
+          ]
+        },
+        {
+          "level": 0,
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "上线会员体系"
+            }
+          ]
+        },
+        {
+          "level": 0,
+          "blocks": [
+            {
+              "type": "paragraph",
+              "text": "优化供应链周转"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "月度收入"
+    },
+    {
+      "type": "table",
+      "header_row": true,
+      "caption": "表 1  月度收入与环比",
+      "rows": [
+        {
+          "cells": [
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "月份"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "收入（万元）"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "环比"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "1 月"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "128.0"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "—"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "2 月"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "143.5"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "+12.1%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "3 月"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "131.2"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "-8.6%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "4 月"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "168.7"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "+28.6%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "5 月"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "182.4"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "+8.1%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "6 月"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "174.5"
+                }
+              ]
+            },
+            {
+              "blocks": [
+                {
+                  "type": "paragraph",
+                  "text": "-4.3%"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "chart",
+      "chart_type": "line",
+      "title": "图 1  月度收入趋势（万元）",
+      "categories": [
+        "1 月",
+        "2 月",
+        "3 月",
+        "4 月",
+        "5 月",
+        "6 月"
+      ],
+      "series": [
+        {
+          "name": "收入",
+          "values": [
+            128.0,
+            143.5,
+            131.2,
+            168.7,
+            182.4,
+            174.5
+          ]
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "latex": "\\text{净利率} = \\frac{\\text{净利润}}{\\text{收入}} = 21.6\\%",
+      "display": true
+    },
+    {
+      "type": "quote",
+      "text": "上半年增速主要来自华东渠道；下半年重点是复购率与毛利结构。"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "结论"
+    },
+    {
+      "type": "paragraph",
+      "text": "渠道扩张有效，但 3 月与 6 月出现环比回落，需要在 Q3 复核定价与库存策略。"
+    }
+  ]
+}

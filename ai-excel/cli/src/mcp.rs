@@ -98,7 +98,7 @@ fn tools() -> Value {
         ),
         tool(
             "view",
-            "只读视图 text/layout",
+            "只读视图：text=Markdown 表格（path 用 / 看整本）/ layout=工作表结构树",
             json!({"input": s(), "path": s(), "mode": {"type":"string","enum":["text","layout"]}}),
             json!(["input", "path"])
         ),
@@ -190,13 +190,26 @@ fn call(name: &str, args: &Value) -> Result<String, String> {
         }
         "view" => {
             let wb = load(g(args, "input")?)?;
-            let p = expath::parse(g(args, "path")?).map_err(|e| e.message)?;
+            let path_arg = g(args, "path")?;
             let mode = args.get("mode").and_then(|v| v.as_str()).unwrap_or("text");
-            let v = match mode {
-                "layout" | "structure" => ops::view_structure(&wb, &p),
-                _ => ops::view_values(&wb, &p),
-            }
-            .map_err(|e| e.message)?;
+            let v = if path_arg.trim() == "/" {
+                if mode != "text" && mode != "values" {
+                    return Err(format!(
+                        "整本（/）不支持 {mode} 视图；layout 请指定工作表：/sheet[1]"
+                    ));
+                }
+                json!({
+                    "sheets": wb.sheets.len(),
+                    "markdown": json2xlsx::markdown::workbook_markdown(&wb),
+                })
+            } else {
+                let p = expath::parse(path_arg).map_err(|e| e.message)?;
+                match mode {
+                    "layout" | "structure" => ops::view_structure(&wb, &p),
+                    _ => ops::view_values(&wb, &p, json2xlsx::PayloadSinks::default()),
+                }
+                .map_err(|e| e.message)?
+            };
             Ok(serde_json::to_string_pretty(&v).unwrap())
         }
         "validate" => {

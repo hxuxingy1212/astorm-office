@@ -20,6 +20,7 @@
       "type": "boolean"
     },
     "styles": {
+      "description": "命名样式表（BTreeMap：键序确定，产物 JSON 可复现）",
       "type": "object",
       "additionalProperties": {
         "$ref": "#/definitions/StyleDef"
@@ -1526,7 +1527,9 @@
             "null"
           ]
         },
-        "value": true,
+        "value": {
+          "description": "Stored cell value; for formula cells this is the saved result cache. None/null means no cache, while zero, false and an empty string are valid caches."
+        },
         "formula": {
           "type": [
             "string",

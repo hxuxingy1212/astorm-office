@@ -50,13 +50,18 @@ impl Drop for PdfSource {
 
 /// unpack 到临时目录并装配行级数据（转换结束 Drop 自动清理）。
 pub fn open_source(pdf: &Path) -> Result<PdfSource> {
+    // 目录名要唯一：并行调用（如同一进程内并行跑的测试）用毫秒会撞名，
+    // 撞名后互相删写 document.json，表现为解析到空文件（EOF）。
+    static SEQ: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
+    let seq = SEQ.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
     let dir = std::env::temp_dir().join(format!(
-        "json2pdf-cross-{}-{}",
+        "json2pdf-cross-{}-{}-{}",
         std::process::id(),
         std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
-            .map(|d| d.subsec_millis())
-            .unwrap_or(0)
+            .map(|d| d.subsec_nanos())
+            .unwrap_or(0),
+        seq
     ));
     crate::unpack::unpack(pdf, &dir)?;
     let model: DocumentModel = serde_json::from_str(

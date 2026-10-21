@@ -239,6 +239,27 @@ pub fn unpack_doc_with_raw(
         };
     }
 
+    // 内嵌文件（附件）：落盘到 attachments/ 并在 document.json 里记 src
+    // （与 docx 的 word/embeddings 同思路：产物目录自带载荷，repack 才能原样写回）
+    let att_dir = out_dir.join("attachments");
+    let exported = crate::attachments::extract(doc, &att_dir).unwrap_or_default();
+    for (info, rec) in crate::attachments::list(doc)
+        .into_iter()
+        .zip(exported.iter())
+    {
+        let mut info = info;
+        if let Some(path) = rec.get("path").and_then(|v| v.as_str()) {
+            // 落盘路径相对产物根（extract 返回的是绝对/原样路径）
+            let rel = Path::new(path)
+                .strip_prefix(out_dir)
+                .map(|p| p.to_string_lossy().to_string())
+                .unwrap_or_else(|_| path.to_string());
+            info.src = Some(rel);
+            info.size = rec.get("bytes").and_then(|v| v.as_u64()).or(info.size);
+        }
+        model.attachments.push(info);
+    }
+
     std::fs::write(
         out_dir.join("document.json"),
         serde_json::to_string_pretty(&model)?,
