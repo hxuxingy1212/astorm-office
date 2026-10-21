@@ -1,0 +1,102 @@
+name: Release office-kit
+
+# 按平台构建 office-kit 并挂到 GitHub Release：
+#   office-kit-<version>-<platform>.tar.gz
+#   SHA256SUMS
+# platform 取值与桌面端 scripts/external-artifacts.json 的平台键一致：
+#   darwin-arm64 / darwin-x64 / linux-x64 / linux-arm64 / win32-x64
+#
+# 发布方式：给 main 打与 Cargo workspace version 一致的 tag（如 v0.2.0）并 push。
+# 桌面端的 scripts/sync-office.mjs 会从本 Release 下载当前平台归档并校验。
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Kit (${{ matrix.platform }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            platform: linux-x64
+          - os: ubuntu-24.04-arm
+            platform: linux-arm64
+          - os: macos-14
+            platform: darwin-arm64
+          - os: macos-15-intel
+            platform: darwin-x64
+          - os: windows-latest
+            platform: win32-x64
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install viewer deps
+        run: npm install --no-audit --no-fund
+        working-directory: office-web
+
+      - name: Export office-kit
+        run: node scripts/export.mjs --out dist-kit
+
+      - name: Check tag matches workspace version
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION=$(node -e 'const fs=require("fs");const m=fs.readFileSync("Cargo.toml","utf8").match(/\[workspace\.package\][\s\S]*?version\s*=\s*"([^"]+)"/);if(!m)process.exit(1);console.log(m[1])')
+          test "v$VERSION" = "${GITHUB_REF_NAME}" || {
+            echo "tag ${GITHUB_REF_NAME} 与 Cargo.toml 版本 v$VERSION 不一致"
+            exit 1
+          }
+
+      - name: Archive kit
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION=$(node -e 'const fs=require("fs");const m=fs.readFileSync("Cargo.toml","utf8").match(/\[workspace\.package\][\s\S]*?version\s*=\s*"([^"]+)"/);if(!m)process.exit(1);console.log(m[1])')
+          test -d "dist-kit/office-kit-$VERSION"
+          tar -czf "office-kit-$VERSION-${{ matrix.platform }}.tar.gz" \
+            -C dist-kit "office-kit-$VERSION"
+          ls -lh "office-kit-$VERSION-${{ matrix.platform }}.tar.gz"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kit-${{ matrix.platform }}
+          path: office-kit-*.tar.gz
+          if-no-files-found: error
+
+  release:
+    name: Publish release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          pattern: kit-*
+          merge-multiple: true
+
+      - name: Generate SHA256SUMS
+        run: |
+          cd dist
+          shasum -a 256 *.tar.gz > SHA256SUMS
+          cat SHA256SUMS
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.tar.gz
+            dist/SHA256SUMS
+          fail_on_unmatched_files: true

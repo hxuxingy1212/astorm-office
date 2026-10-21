@@ -84,10 +84,12 @@ async function main() {
   mkdirSync(join(kitDir, 'bin'), { recursive: true })
 
   // bin/
+  // Windows 产物带 .exe；kit 里保留平台真实文件名，桌面端按 <bin>.exe 解析。
+  const exeName = (name) => (process.platform === 'win32' ? `${name}.exe` : name)
   for (const bin of BINS) {
-    const src = join(ROOT, 'target/release', bin)
+    const src = join(ROOT, 'target/release', exeName(bin))
     if (!existsSync(src)) throw new Error(`缺少可执行文件 ${src}（先去掉 --skip-build 构建）`)
-    cpSync(src, join(kitDir, 'bin', bin))
+    cpSync(src, join(kitDir, 'bin', exeName(bin)))
   }
 
   // skill/：融合技能目录（总纲 + 四分册，目录内相对引用自包含，与 bin/ 同包分发）
@@ -110,6 +112,7 @@ async function main() {
       {
         kit: 'office-kit',
         version,
+        platform: `${process.platform}-${process.arch}`,
         git_commit: gitCommit(),
         built_at: new Date().toISOString(),
         bins: BINS,
