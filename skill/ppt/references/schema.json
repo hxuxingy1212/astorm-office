@@ -110,7 +110,7 @@
       "type": "object",
       "properties": {
         "colors": {
-          "description": "颜色方案映射表",
+          "description": "颜色方案映射表（BTreeMap：键序确定，产物 JSON 可复现）",
           "type": [
             "object",
             "null"

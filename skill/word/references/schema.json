@@ -217,6 +217,17 @@
           ],
           "format": "double"
         },
+        "column_widths": {
+          "description": "各栏宽度（pt，w:cols/w:col 显式定义时给出；缺省为等宽）",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
         "page_border": {
           "description": "页面边框（w:pgBorders）",
           "anyOf": [
@@ -561,6 +572,13 @@
         },
         "cs_font": {
           "description": "复杂脚本字体（w:rFonts cs）",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lang_ea": {
+          "description": "东亚语言标签（w:lang w:eastAsia）：en-US 等西文标签时 Word 按西文行距排版",
           "type": [
             "string",
             "null"
@@ -1046,6 +1064,13 @@
               "description": "段内从右到左（w:bidi）",
               "type": [
                 "boolean",
+                "null"
+              ]
+            },
+            "lang_ea": {
+              "description": "段落标记的东亚语言（w:pPr/w:rPr/w:lang w:eastAsia）：西文标签时按西文行距排版",
+              "type": [
+                "string",
                 "null"
               ]
             }
@@ -1942,6 +1967,20 @@
               "type": "string",
               "enum": [
                 "page_break"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "column_break"
               ]
             }
           }
