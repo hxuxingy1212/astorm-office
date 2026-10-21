@@ -310,13 +310,14 @@ fn decode_xml(buf: &[u8]) -> Result<String> {
 }
 
 fn decode_utf16(bytes: &[u8], little_endian: bool) -> String {
-    let units: Vec<u16> = bytes
-        .chunks_exact(2)
+    let (pairs, _) = bytes.as_chunks::<2>();
+    let units: Vec<u16> = pairs
+        .iter()
         .map(|c| {
             if little_endian {
-                u16::from_le_bytes([c[0], c[1]])
+                u16::from_le_bytes(*c)
             } else {
-                u16::from_be_bytes([c[0], c[1]])
+                u16::from_be_bytes(*c)
             }
         })
         .collect();
