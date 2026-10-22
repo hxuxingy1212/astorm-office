@@ -2,7 +2,7 @@
 //!
 //! 管线：JSON → Rust 模型 → WordprocessingML 字符串（手写 + 转义）→ OPC ZIP → .docx
 
-pub mod aux;
+pub mod auxiliary;
 pub mod body;
 pub mod chart;
 pub mod math;
@@ -564,12 +564,12 @@ pub fn generate(doc: &Document, output: &str) -> Result<GenerateResult> {
     // 构建页眉/页脚部件内容（可用 ctx 渲染块）
     for (i, (_kind, text)) in header_keys.iter().enumerate() {
         let blocks = header_block_srcs.get(i).and_then(|b| b.as_deref());
-        let xml = aux::header_xml_content(&ctx, text, blocks, ctx.watermark.as_deref());
+        let xml = auxiliary::header_xml_content(&ctx, text, blocks, ctx.watermark.as_deref());
         ctx.header_parts.push((format!("header{}.xml", i + 1), xml));
     }
     for (i, fmt) in footer_formats.iter().enumerate() {
         let blocks = footer_block_srcs.get(i).and_then(|b| b.as_deref());
-        let xml = aux::footer_xml_content(&ctx, fmt, blocks);
+        let xml = auxiliary::footer_xml_content(&ctx, fmt, blocks);
         ctx.footer_parts.push((format!("footer{}.xml", i + 1), xml));
     }
 
@@ -760,28 +760,28 @@ pub fn generate(doc: &Document, output: &str) -> Result<GenerateResult> {
 
     // 组装各部件
     let document_xml = body::document_xml(&ctx);
-    let styles_xml = aux::styles_xml(&ctx);
-    let numbering_xml = aux::numbering_xml(&ctx);
-    let settings_xml = aux::settings_xml(&ctx);
-    let theme_xml = aux::theme_xml(&ctx);
-    let font_table_xml = aux::font_table_xml(&ctx);
-    let web_settings_xml = aux::web_settings_xml();
-    let core_xml = aux::core_xml(&ctx);
-    let app_xml = aux::app_xml(&ctx);
+    let styles_xml = auxiliary::styles_xml(&ctx);
+    let numbering_xml = auxiliary::numbering_xml(&ctx);
+    let settings_xml = auxiliary::settings_xml(&ctx);
+    let theme_xml = auxiliary::theme_xml(&ctx);
+    let font_table_xml = auxiliary::font_table_xml(&ctx);
+    let web_settings_xml = auxiliary::web_settings_xml();
+    let core_xml = auxiliary::core_xml(&ctx);
+    let app_xml = auxiliary::app_xml(&ctx);
     let header_parts: Vec<(String, String)> = ctx.header_parts.clone();
     let footer_parts: Vec<(String, String)> = ctx.footer_parts.clone();
     let footnotes_xml = if ctx.any_footnotes {
-        Some(aux::footnotes_xml(&ctx))
+        Some(auxiliary::footnotes_xml(&ctx))
     } else {
         None
     };
     let endnotes_xml = if ctx.any_endnotes {
-        Some(aux::endnotes_xml(&ctx))
+        Some(auxiliary::endnotes_xml(&ctx))
     } else {
         None
     };
     let comments_xml = if ctx.any_comments {
-        Some(aux::comments_xml(&ctx))
+        Some(auxiliary::comments_xml(&ctx))
     } else {
         None
     };
