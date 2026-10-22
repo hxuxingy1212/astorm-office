@@ -2,7 +2,7 @@
 
 **JSON ↔ DOCX（Word）双向转换的 Rust 库与命令行工具，面向 Agent 生成与编辑专业长文档（论文、报告、信函、简历等）。**
 
-`ai-word` 以 **JSON 优先 + 产物目录 + 无状态 CLI** 为设计主线（对齐 [ai-ppt / json2pptx](https://gitee.com)），
+`ai-word` 以 **JSON 优先 + 产物目录 + 无状态 CLI** 为设计主线（对齐 [ai-ppt / json2pptx](../ai-ppt/)），
 直接手工生成与解析 OOXML（WordprocessingML），**零 Office 运行时依赖**。
 你既可以用 JSON 从零描述一份文档再编译为 `.docx`，也可以把任意 `.docx` 解析回可编辑的 JSON 产物目录。
 

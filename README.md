@@ -1,15 +1,15 @@
 # astorm-office
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Rust](https://img.shields.io/badge/rust-1.75%2B-orange.svg)](https://www.rust-lang.org)
+[![Rust](https://img.shields.io/badge/rust-1.88%2B-orange.svg)](https://www.rust-lang.org)
 [![CI](https://img.shields.io/github/actions/workflow/status/hxuxingy1212/astorm-office/ci.yml?branch=main&label=CI)](https://github.com/hxuxingy1212/astorm-office/actions/workflows/ci.yml)
-[![在线预览](https://img.shields.io/badge/预览-hxuxiny.gitee.io-3ca2ff)](https://hxuxiny.gitee.io/astorm-office/)
+[![在线预览](https://img.shields.io/badge/预览-hxuxingy1212.github.io-3ca2ff)](https://hxuxingy1212.github.io/astorm-office/)
 
 **面向 AI Agent 的 Office 文档工具集**：生成 / 解析 / 精准编辑 / 高保真预览 **Word · Excel · PPT · PDF**，
 并在 PDF 与 Office 之间互转。Rust 实现，直接操作 OOXML 与 PDF 对象，零 Office 运行时依赖；
 四个 CLI 共享同一套 JSON 中间形态与命令契约，MCP / 常驻服务 / 批量回放开箱即用。
 
-> 在线演示（四格式预览组件 + 悬浮路径卡片）：**[hxuxiny.gitee.io/astorm-office](https://hxuxiny.gitee.io/astorm-office/)**
+> 在线演示（四格式预览组件 + 悬浮路径卡片）：**[hxuxingy1212.github.io/astorm-office](https://hxuxingy1212.github.io/astorm-office/)**
 
 ## 为什么是这个样子
 
@@ -97,10 +97,25 @@ flowchart LR
 
 ## 快速开始
 
-要求 Rust 1.75+：
+### 免安装：下载预编译 office-kit
+
+从 [Releases](https://github.com/hxuxingy1212/astorm-office/releases/latest) 下载对应平台的
+`office-kit-<version>-<platform>.tar.gz`（`darwin-arm64` / `darwin-x64` / `linux-x64` /
+`linux-arm64` / `win32-x64`），解压后直接运行，无需 Rust 工具链；同页 `SHA256SUMS`
+可校验完整性：
 
 ```bash
-git clone git@gitee.com:hxuxiny/astorm-office.git    # 或 GitHub 镜像 hxuxingy1212/astorm-office
+tar -xzf office-kit-0.2.0-darwin-arm64.tar.gz
+./office-kit-0.2.0/bin/astorm-office formats
+./office-kit-0.2.0/bin/astorm-office word view in.docx / text
+```
+
+### 从源码构建
+
+要求 Rust 1.88+：
+
+```bash
+git clone https://github.com/hxuxingy1212/astorm-office.git
 cd astorm-office
 
 cargo build --release          # 构建五个 CLI：target/release/{astorm-office,json2docx,json2xlsx,json2pptx,json2pdf}
@@ -181,14 +196,10 @@ import '@astorm/office-viewer/style.css'
 - 交付形态：`dist/office-viewer.js + .css + index.d.ts`（vue 为必需 peer，echarts 可选 peer），
   完整 Props / Events / 接入说明与免安装示例见 [`office-web/README.md`](office-web/README.md)。
 
-**在线预览网址**：https://hxuxiny.gitee.io/astorm-office/
+**在线预览网址**：https://hxuxingy1212.github.io/astorm-office/
 
-> 由 `pages` 分支发布（内容 = `office-web/dist-demo` 构建产物）。首次启用：仓库
-> **服务 → Gitee Pages**，部署分支选 `pages`、目录 `/`；此后 demo 更新只需跑
-> `office-web/scripts/deploy-pages.sh` → `git push origin pages` → 在 Gitee 页面点
-> "重新部署"（免费版不自动重建）。若镜像到 GitHub（`hxuxingy1212/astorm-office`），
-> push `main` 会经 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) 自动启用
-> 并发布 Pages：https://hxuxingy1212.github.io/astorm-office/ 。本地等价验证：
+> GitHub Pages 由 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) 在 push
+> `main` 时自动发布（内容 = `office-web/dist-demo` 构建产物）。本地等价验证：
 > `cd office-web && npm run build:demo && npm run preview` → http://localhost:4173
 
 ## 旧版格式（.doc / .xls / .ppt）

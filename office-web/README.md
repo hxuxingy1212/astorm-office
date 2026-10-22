@@ -34,10 +34,9 @@ pnpm preview          # 预览构建产物 http://localhost:4173（与 Pages 线
 pnpm example          # 外部接入示例 http://localhost:5188（先跑 pnpm build）
 ```
 
-**在线演示**：https://hxuxiny.gitee.io/astorm-office/
-（`pages` 分支发布 = `build:demo` 产物；本地更新跑 [scripts/deploy-pages.sh](scripts/deploy-pages.sh) 后
-`git push origin pages`，Gitee 页面上点"重新部署"；镜像到 GitHub 则由
-[`.github/workflows/pages.yml`](../.github/workflows/pages.yml) 自动发布。）
+**在线演示**：https://hxuxingy1212.github.io/astorm-office/
+（由 [`.github/workflows/pages.yml`](../.github/workflows/pages.yml) 在 push `main` 时自动发布，
+内容为 `build:demo` 产物；本地等价预览见上方 `pnpm preview`。）
 演示站资源以相对路径 (`base: './'`) 构建，任意子路径部署无需另行配置。
 
 ```ts

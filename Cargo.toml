@@ -30,7 +30,7 @@ default-members = [
 version = "0.2.0"
 edition = "2021"
 license = "MIT"
-repository = "https://gitee.com/hxuxiny/astorm-office"
+repository = "https://github.com/hxuxingy1212/astorm-office"
 
 [workspace.dependencies]
 # 序列化
