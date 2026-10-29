@@ -24,6 +24,12 @@ const props = withDefaults(
     pageFormat?: string
     /** 初始分片下标（会被换算成该分片的第一页） */
     partIndex?: number
+    /** 受控物理页下标:变化即跳页(宿主自渲染换页 UI 时用;宿主主动设页不发 page-change,
+     *  组件内部翻页才发)。与 partIndex 并存时以后变化者为准。 */
+    pageIndex?: number
+    /** 内置换页器(侧栏底部 ▲▼+页码,默认显示):false 隐藏,翻页由宿主经
+     *  pageIndex(写)+page-change(读)+pages-change(总页数)接管。 */
+    showPager?: boolean
     /** 受控缩放:相对「适配可视区基准」的用户倍率。提供即受控——隐藏内置缩放控件、
      *  缩放只跟此值走;不传(undefined)保持自主模式(内置滑杆可用)。 */
     zoom?: number
@@ -46,6 +52,8 @@ const emit = defineEmits<{
   (e: 'zoom-change', v: { scale: number; fitScale: number }): void
   /** 目录开合汇报(内置按钮按下即发;受控模式宿主应回写 outline prop) */
   (e: 'outline-change', open: boolean): void
+  /** 总物理页数汇报(分页重算后变化即发;宿主自渲染换页 UI 需要总数) */
+  (e: 'pages-change', total: number): void
 }>()
 
 const hover = usePathHover()
@@ -462,6 +470,7 @@ function hardBreakBefore(partIndex: number): boolean {
 
 /** 重算物理分页：硬分页（分页符/段前分页/分节符）+ 软分页（超出页高的块另起一页）；
  *  连续分节之间续排，分栏区作为一个「带」插进当前页（放不下才另起页） */
+let lastPageTotal = -1
 async function rebuild(): Promise<void> {
   await nextTick()
   const measured = measureParts()
@@ -577,6 +586,11 @@ async function rebuild(): Promise<void> {
     : -1
   pages.value = out
   active.value = hit >= 0 ? hit : Math.min(active.value, Math.max(0, out.length - 1))
+  // 总页数汇报（宿主自渲染换页 UI 用）：只在变化时发，避免字体/尺寸抖动连发
+  if (out.length !== lastPageTotal) {
+    lastPageTotal = out.length
+    emit('pages-change', out.length)
+  }
 }
 
 /** 页的首个块位置（页首带是分栏带时取第一栏） */
@@ -1079,6 +1093,17 @@ watch(
   },
 )
 watch(() => props.partIndex, (v) => jumpToPart(v))
+// 受控物理页：宿主写 pageIndex 即跳页（设页本身不发 page-change，事件只汇报内部翻页）
+watch(
+  () => props.pageIndex,
+  (v) => {
+    if (typeof v !== 'number') return
+    const next = Math.min(Math.max(v, 0), Math.max(0, pages.value.length - 1))
+    if (next !== active.value) active.value = next
+  },
+)
+/** 内置换页器显隐（默认显示；宿主接管翻页时关掉） */
+const pagerVisible = computed(() => props.showPager !== false)
 // 页面基准排版（字号/行距）变化后块高度变，需重算分页
 watch(baseStyle, scheduleRebuild)
 watch(active, () => {
@@ -1113,7 +1138,7 @@ defineExpose({ hover })
         <div v-if="!outline.length" class="ov-outline-empty">（文档无标题）</div>
       </nav>
 
-      <div class="ov-pager">
+      <div v-if="pagerVisible" class="ov-pager">
         <button class="ov-btn" :disabled="active <= 0" title="上一页" @click="go(-1)">▲</button>
         <span class="ov-page-no">{{ active + 1 }} / {{ pages.length }}</span>
         <button

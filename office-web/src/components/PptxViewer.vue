@@ -19,6 +19,9 @@ const props = withDefaults(
     /** 缩略图侧栏开合:提供即受控——显隐只跟此值走,内置按钮汇报 thumbnails-change 由宿主回写;
      *  不传(undefined)保持自主模式(内置按钮直接开合,默认展开)。 */
     showThumbnails?: boolean
+    /** 内置换页器(底栏 ‹›+页码,默认显示):false 隐藏,翻页由宿主经 slideIndex(写)+
+     *  slide-change(读)接管;slides 总数宿主可从 presentation 数据自取。 */
+    showPager?: boolean
     /** 受控缩放:相对「适配宽度基准」的用户倍率。提供即受控——隐藏内置缩放控件、
      *  缩放只跟此值走;不传(undefined)保持自主模式(内置滑杆可用)。 */
     zoom?: number
@@ -54,6 +57,9 @@ function toggleThumbnails() {
   if (props.showThumbnails === undefined) selfThumbs.value = next
   emit('thumbnails-change', next)
 }
+
+/** 内置换页器显隐（默认显示；宿主接管翻页时关掉） */
+const pagerVisible = computed(() => props.showPager !== false)
 watch(
   () => props.slideIndex,
   (v) => (active.value = v),
@@ -357,10 +363,13 @@ defineExpose({ hover, go })
       </div>
     </div>
 
-    <div class="ov-pptx-bar">
-      <button class="ov-nav" :disabled="active === 0" @click="go(-1)">‹</button>
-      <span class="ov-page-no">{{ active + 1 }} / {{ presentation.slides.length }}</span>
-      <button class="ov-nav" :disabled="active >= presentation.slides.length - 1" @click="go(1)">›</button>
+    <!-- 底栏：换页器（可由 showPager 关掉交给宿主）+ 缩放（自主模式）；两者都关则整条隐藏 -->
+    <div v-if="pagerVisible || props.zoom === undefined" class="ov-pptx-bar">
+      <template v-if="pagerVisible">
+        <button class="ov-nav" :disabled="active === 0" @click="go(-1)">‹</button>
+        <span class="ov-page-no">{{ active + 1 }} / {{ presentation.slides.length }}</span>
+        <button class="ov-nav" :disabled="active >= presentation.slides.length - 1" @click="go(1)">›</button>
+      </template>
       <span class="ov-spacer"></span>
       <label v-if="props.zoom === undefined" class="ov-zoom">
         缩放

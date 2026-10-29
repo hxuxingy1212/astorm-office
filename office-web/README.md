@@ -86,7 +86,7 @@ http://localhost:5188 实测四格式渲染、悬浮路径卡片与 select 事�
 
 | 查看器 | 布局 |
 | --- | --- |
-| `DocxViewer` | **左侧 = 全文目录 + 上下翻页**：目录按分片分组列出全部标题（点击自动切换分片并滚动定位到该标题），底部 ▲/▼ 翻分片并显示 `当前/总数`；目录标题行带 « 收起按钮（收起后留一条细轨，» 重新展开），开合可用 `outline` prop 受控；中间为文档纸页——**整页（含全部内容）自动缩放到可视区**（默认 100% 以内适配、双向居中），底部缩放条可在适配基础上放大到 300% 后滚动查看 |
+| `DocxViewer` | **左侧 = 全文目录 + 上下翻页**：目录按分片分组列出全部标题（点击自动切换分片并滚动定位到该标题），底部 ▲/▼ 翻分片并显示 `当前/总数`（`showPager: false` 可隐藏、由宿主接管翻页）；目录标题行带 « 收起按钮（收起后留一条细轨，» 重新展开），开合可用 `outline` prop 受控；中间为文档纸页——**整页（含全部内容）自动缩放到可视区**（默认 100% 以内适配、双向居中），底部缩放条可在适配基础上放大到 300% 后滚动查看 |
 | `PptxViewer` | **左侧 = 缩略图大纲**（与 ai-ppt/web 同法：用同一套元素渲染器真实渲染整页，再按侧栏宽度 `transform: scale()` 缩放，页码 + 文本摘要，选中蓝环；标题行 « 可收起、细轨 » 展开，`showThumbnails` 可控），右侧为幻灯片内容；舞台**自适应容器宽高**（默认适配不溢出，缩放滑杆在适配基础上 50%~220%） |
 | `XlsxViewer` | 内容为主体，**底部 = 工作表标签栏**（Numbers 式底栏，单表也保留；标签色以顶部色条呈现），**底栏最右侧为缩放控件**（50%~200%，默认 100%，与 PPT 底栏同款 `.ov-zoom`，缩放含图表/图片并可横向滚动）；组件高度固定（`min(78vh, 860px)`），**切换工作表不改变整体高度**，内容超出时在表格区内滚动；`showHeadings` 控制行列标、`showGridlines` 控制网格线 |
 
@@ -107,11 +107,11 @@ chrome；亮/暗两组的全部令牌（`--ov-*`）见 `src/styles.css`，可按
 
 | 组件 | Props | Events |
 | --- | --- | --- |
-| `OfficeViewer` | `kind: 'docx' \| 'xlsx' \| 'pptx' \| 'pdf'`、`data`、`resolveMedia?`、`index?`、`zoom?`、`outline?`、`showThumbnails?`、`pickMode?` | `select(path)`、`hover(path \| null)`、`page-change(index)`、`zoom-change({scale, fitScale})`、`outline-change(open)`、`thumbnails-change(open)` |
-| `PptxViewer` | `presentation`（presentation.json）、`resolveMedia?`、`slideIndex?`、`showThumbnails?`、`zoom?`、`pickMode?` | `select`、`hover`、`slide-change`、`zoom-change`、`thumbnails-change` |
-| `DocxViewer` | `document`（document.json）、`resolveMedia?`、`partIndex?`、`pageFormat?`、`zoom?`、`outline?`、`pickMode?` | `select`、`hover`、`page-change`、`zoom-change`、`outline-change` |
+| `OfficeViewer` | `kind: 'docx' \| 'xlsx' \| 'pptx' \| 'pdf'`、`data`、`resolveMedia?`、`index?`、`pageIndex?`、`zoom?`、`outline?`、`showThumbnails?`、`showPager?`、`pickMode?` | `select(path)`、`hover(path \| null)`、`page-change(index)`、`pages-change(total)`、`zoom-change({scale, fitScale})`、`outline-change(open)`、`thumbnails-change(open)` |
+| `PptxViewer` | `presentation`（presentation.json）、`resolveMedia?`、`slideIndex?`、`showThumbnails?`、`showPager?`、`zoom?`、`pickMode?` | `select`、`hover`、`slide-change`、`zoom-change`、`thumbnails-change` |
+| `DocxViewer` | `document`（document.json）、`resolveMedia?`、`partIndex?`、`pageIndex?`、`pageFormat?`、`zoom?`、`outline?`、`showPager?`、`pickMode?` | `select`、`hover`、`page-change`、`pages-change`、`zoom-change`、`outline-change` |
 | `XlsxViewer` | `workbook`（workbook.json）、`resolveMedia?`、`sheetIndex?`、`showHeadings?`、`showGridlines?`、`zoom?`、`pickMode?` | `select`、`hover`、`sheet-change`、`zoom-change` |
-| `PdfViewer` | `doc`（loadPdf 产物）、`resolveMedia?`、`pageIndex?`、`showThumbnails?`、`zoom?`、`pickMode?` | `select`、`hover`、`page-change`、`zoom-change`、`thumbnails-change` |
+| `PdfViewer` | `doc`（loadPdf 产物）、`resolveMedia?`、`pageIndex?`、`showThumbnails?`、`showPager?`、`zoom?`、`pickMode?` | `select`、`hover`、`page-change`、`zoom-change`、`thumbnails-change` |
 
 `resolveMedia(src)` 把产物内的包路径（`word/media/image1.png`、`xl/media/image1.png`、`ppt/media/image1.png`）
 解析为可加载 URL。默认对 pptx 使用 `/api/media/` 前缀（与 `json2pptx-web-server` 一致）。
@@ -125,6 +125,17 @@ chrome；亮/暗两组的全部令牌（`--ov-*`）见 `src/styles.css`，可按
 `thumbnails-change`）同一套受控约定——不传 prop 为自主模式，侧栏标题行 « / 细轨 » 按钮直接开合；
 传 boolean 即受控——显隐只跟 prop 走，内置按钮按下时汇报事件，宿主回写完成回环
 （历史行为兼容：原先传 `show-thumbnails="false"` 静态隐藏仍生效，只是额外获得收起/展开入口）。
+
+**换页与缩放的外部接管**（宿主自渲染工具栏时用）：
+
+- **换页**：传 `show-pager: false` 隐藏内置换页器（docx 侧栏底部 ▲▼、pptx/pdf 底栏 ‹›+页码；
+  与受控缩放同时关闭时 pptx/pdf 整条底栏隐藏）。宿主写 `index`（pptx/pdf/xlsx 的
+  slide/page/sheet 下标）或 `page-index`（docx 物理页）驱动跳页，监听 `page-change` 感知
+  组件内部翻页（缩略图/目录点击、键盘），docx 的总物理页数经 `pages-change` 上报
+  （其余格式宿主从数据 `slides/pages/sheets` 自取）。
+- **缩放**：传 `zoom` 即受控——内置滑杆隐藏，滚轮/捏合手势与宿主按钮都经
+  `zoom-change({scale, fitScale})` 汇报，宿主按 `zoom = scale / fitScale` 回写
+  （demo 的宿主换页器 + 缩放 −/＋ 按钮即完整示例）。
 
 ## 路径卡片与悬浮高亮
 

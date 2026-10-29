@@ -188,6 +188,8 @@ async function load(k: Kind) {
     // 记录的是真实产品格式(pdf-deck↔pdf),OfficeViewer 的 kind prop 类型收敛到四格式
     kind.value = productKind as typeof kind.value
     selectedPaths.value = []
+    pageIndex.value = 0
+    pagesFromDocx.value = 0
   } catch (e) {
     error.value = `加载样例失败: ${(e as Error).message}`
     data.value = null
@@ -207,6 +209,19 @@ const resolveMedia = computed(() => {
 const outlineOpen = ref(true)
 /** 缩略图侧栏开合（PPTX/PDF）：内置按钮汇报 thumbnails-change，这里回写 showThumbnails prop */
 const thumbsOpen = ref(true)
+/** 内置换页按钮开关（showPager）：关掉后由下方宿主换页器接管 */
+const showPager = ref(true)
+/** 宿主持有的当前页下标（经 index / page-index 回写；page-change 只在组件内部翻页时上报） */
+const pageIndex = ref(0)
+/** docx 的总物理页数只有组件知道（分页是组件算的），经 pages-change 上报 */
+const pagesFromDocx = ref(0)
+/** 非 docx 的总数宿主从数据自取（slides/pages/sheets） */
+const hostPageTotal = computed(() => {
+  if (kind.value === 'docx') return pagesFromDocx.value
+  const d = data.value as { slides?: unknown[]; pages?: unknown[]; sheets?: unknown[] } | null
+  if (!d) return 0
+  return (d.slides ?? d.pages ?? d.sheets)?.length ?? 0
+})
 /** 受控缩放开关：勾选后宿主持有 zoom prop（滚轮/捏合 → zoom-change → 换算回写） */
 const zoomControlled = ref(false)
 const docZoom = ref(1)
@@ -214,6 +229,11 @@ const zoomInfo = ref<{ scale: number; fitScale: number } | null>(null)
 function onZoomChange(v: { scale: number; fitScale: number }) {
   zoomInfo.value = v
   if (zoomControlled.value) docZoom.value = v.scale / v.fitScale
+}
+/** 宿主步进缩放（受控缩放勾选时有效；用户倍率范围与内置滑杆一致） */
+function zoomStep(delta: number) {
+  if (!zoomControlled.value) return
+  docZoom.value = Math.min(3, Math.max(0.5, Math.round((docZoom.value + delta) * 100) / 100))
 }
 
 onMounted(() => load('pptx'))
@@ -253,9 +273,14 @@ onMounted(() => load('pptx'))
           :resolve-media="resolveMedia"
           :outline="outlineOpen"
           :show-thumbnails="thumbsOpen"
+          :show-pager="showPager"
+          :index="kind === 'docx' ? undefined : pageIndex"
+          :page-index="kind === 'docx' ? pageIndex : undefined"
           :zoom="zoomControlled ? docZoom : undefined"
           @hover="(p) => (hoveredPath = p)"
           @select="(p) => selectedPaths.unshift(p)"
+          @page-change="(i) => (pageIndex = i)"
+          @pages-change="(n) => (pagesFromDocx = n)"
           @zoom-change="onZoomChange"
           @outline-change="(o) => (outlineOpen = o)"
           @thumbnails-change="(o) => (thumbsOpen = o)"
@@ -319,7 +344,17 @@ onMounted(() => load('pptx'))
         <div class="perf-ctl">
           <label class="perf-check"><input v-model="outlineOpen" type="checkbox" /> 目录侧栏（DOCX）</label>
           <label class="perf-check"><input v-model="thumbsOpen" type="checkbox" /> 缩略图侧栏（PPTX/PDF）</label>
+          <label class="perf-check"><input v-model="showPager" type="checkbox" /> 内置换页按钮（showPager）</label>
           <label class="perf-check"><input v-model="zoomControlled" type="checkbox" /> 受控缩放（zoom 回环）</label>
+          <div class="host-pager">
+            <button class="ov-btn" :disabled="pageIndex <= 0" title="上一页" @click="pageIndex -= 1">‹ 上一页</button>
+            <span class="host-page-no">{{ hostPageTotal ? `${pageIndex + 1} / ${hostPageTotal}` : '—' }}</span>
+            <button class="ov-btn" :disabled="pageIndex >= hostPageTotal - 1" title="下一页" @click="pageIndex += 1">下一页 ›</button>
+          </div>
+          <div class="host-pager">
+            <button class="ov-btn" :disabled="!zoomControlled" title="缩小 10%" @click="zoomStep(-0.1)">缩放 −</button>
+            <button class="ov-btn" :disabled="!zoomControlled" title="放大 10%" @click="zoomStep(0.1)">缩放 ＋</button>
+          </div>
           <p class="perf-hint">
             缩放手势：Ctrl/⌘ + 滚轮（触控板捏合同效）或触屏双指捏合，普通滚轮保持滚动。
             当前缩放 {{ zoomInfo ? Math.round(zoomInfo.scale * 100) + '%' : '—' }}。
@@ -566,6 +601,25 @@ body {
   font-size: 11px;
   color: rgba(0, 0, 0, 0.42);
   line-height: 1.5;
+}
+/* 宿主侧换页器/缩放步进（外部接管演示） */
+.host-pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.host-pager .ov-btn {
+  flex: 1;
+  font-size: 11px;
+}
+.host-page-no {
+  flex: none;
+  min-width: 52px;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+  font-variant-numeric: tabular-nums;
 }
 .demo-status,
 .demo-error {

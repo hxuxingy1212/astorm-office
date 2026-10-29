@@ -37,6 +37,12 @@ const props = withDefaults(
     /** 缩略图侧栏开合(pptx/pdf):提供即受控——显隐只跟此值走,内置按钮汇报 thumbnails-change;
      *  不传保持自主模式(内置按钮直接开合,默认展开)。 */
     showThumbnails?: boolean
+    /** 内置换页器(docx/pptx/pdf,默认显示):false 隐藏,翻页由宿主经 index/pageIndex(写)+
+     *  page-change(读)+pages-change(docx 总页数)接管。 */
+    showPager?: boolean
+    /** 受控物理页(docx 专用;index 对 pptx/pdf/xlsx 即页/表下标且本就可外部驱动):
+     *  变化即跳页,宿主主动设页不发 page-change。 */
+    pageIndex?: number
   }>(),
   { index: 0 },
 )
@@ -51,6 +57,8 @@ const emit = defineEmits<{
   (e: 'outline-change', open: boolean): void
   /** 缩略图侧栏开合汇报(pptx/pdf;受控模式宿主应回写 showThumbnails prop) */
   (e: 'thumbnails-change', open: boolean): void
+  /** 总物理页数汇报(docx;宿主自渲染换页 UI 需要) */
+  (e: 'pages-change', total: number): void
 }>()
 
 const asPptx = computed(() => props.data as PptxDoc)
@@ -69,6 +77,7 @@ const asPdf = computed(() => props.data as PdfDoc)
       :zoom="zoom"
       :pick-mode="pickMode"
       :show-thumbnails="showThumbnails"
+      :show-pager="showPager"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @slide-change="(i) => emit('page-change', i)"
@@ -80,14 +89,17 @@ const asPdf = computed(() => props.data as PdfDoc)
       :document="asDocx"
       :resolve-media="resolveMedia"
       :part-index="index"
+      :page-index="pageIndex"
       :zoom="zoom"
       :pick-mode="pickMode"
       :outline="outline"
+      :show-pager="showPager"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @page-change="(i) => emit('page-change', i)"
       @zoom-change="(v) => emit('zoom-change', v)"
       @outline-change="(o) => emit('outline-change', o)"
+      @pages-change="(n) => emit('pages-change', n)"
     />
     <PdfViewer
       v-else-if="kind === 'pdf'"
@@ -97,6 +109,7 @@ const asPdf = computed(() => props.data as PdfDoc)
       :zoom="zoom"
       :pick-mode="pickMode"
       :show-thumbnails="showThumbnails"
+      :show-pager="showPager"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @page-change="(i) => emit('page-change', i)"
