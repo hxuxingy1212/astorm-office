@@ -13,6 +13,7 @@ import DocxBlockView from '@/components/DocxBlock.vue'
 import { fontStack, isWesternLang, normalLineRatio, ordinals, resetLineRatioCache } from '@/renderers/docx/blocks'
 import { paginateBlocks, type PaginateBlock } from '@/renderers/docx/paginate'
 import { LATEX_CSS } from '@/renderers/docx/latex'
+import { useZoomGesture } from '@/core/zoomGesture'
 
 const props = withDefaults(
   defineProps<{
@@ -29,6 +30,9 @@ const props = withDefaults(
     /** 拾取模式:仅 true 时启用交互层——元素 hover 高亮/路径卡/选中事件;
      *  false(默认)为纯只读观感(无高亮、无卡片、不发 select)。 */
     pickMode?: boolean
+    /** 侧边目录开合:提供即受控——显隐只跟此值走,内置按钮改为汇报 outline-change 由宿主回写;
+     *  不传(undefined)保持自主模式(内置按钮直接开合,默认展开)。 */
+    outline?: boolean
   }>(),
   { partIndex: 0 },
 )
@@ -40,6 +44,8 @@ const emit = defineEmits<{
   (e: 'page-change', index: number): void
   /** 缩放汇报(scale 变化即发):scale=绝对倍率(展示用百分比),fitScale=适配基准(宿主换算) */
   (e: 'zoom-change', v: { scale: number; fitScale: number }): void
+  /** 目录开合汇报(内置按钮按下即发;受控模式宿主应回写 outline prop) */
+  (e: 'outline-change', open: boolean): void
 }>()
 
 const hover = usePathHover()
@@ -629,6 +635,18 @@ const fitScale = computed(() => {
 const scale = computed(() => Math.max(0.05, fitScale.value * zoom.value))
 watch(scale, (s) => emit('zoom-change', { scale: s, fitScale: fitScale.value }), { immediate: true })
 
+/** 滚轮/捏合缩放（Ctrl/⌘+滚轮、触控板捏合、触屏双指；普通滚轮保持滚动） */
+useZoomGesture({
+  el: wrapRef,
+  min: 0.5,
+  max: 3,
+  getZoom: () => zoom.value,
+  setZoom: (z) => {
+    if (props.zoom === undefined) selfZoom.value = z
+    else emit('zoom-change', { scale: Math.max(0.05, fitScale.value * z), fitScale: fitScale.value })
+  },
+})
+
 const pageStyle = computed(() => {
   const g = curGeom.value
   return {
@@ -878,6 +896,15 @@ function onPick(
 
 const pageRef = ref<HTMLElement | null>(null)
 
+/** 目录开合：受控模式跟随 props.outline（按钮只汇报），自主模式用内部值（按钮直接开合） */
+const selfOutline = ref(true)
+const outlineOpen = computed(() => props.outline ?? selfOutline.value)
+function toggleOutline() {
+  const next = !outlineOpen.value
+  if (props.outline === undefined) selfOutline.value = next
+  emit('outline-change', next)
+}
+
 /** 全文目录：跨分片的标题（level + text），带分片分组标签 */
 const outline = computed(() => {
   const out: {
@@ -1064,9 +1091,12 @@ defineExpose({ hover })
 
 <template>
   <div class="ov-docx">
-    <!-- 左侧：目录（按分片分组）+ 上下翻页 -->
-    <aside class="ov-docx-side">
-      <div class="ov-side-title">目录</div>
+    <!-- 左侧：目录（按分片分组）+ 上下翻页；收起后留一条细轨保留展开入口 -->
+    <aside v-if="outlineOpen" class="ov-docx-side">
+      <div class="ov-side-head">
+        <span class="ov-side-title">目录</span>
+        <button class="ov-side-toggle" title="收起目录" @click="toggleOutline">«</button>
+      </div>
       <nav class="ov-outline">
         <template v-for="h in outline" :key="`${h.partIndex}-${h.bi}`">
           <div v-if="h.showGroup" class="ov-outline-part">{{ h.group }}</div>
@@ -1096,6 +1126,9 @@ defineExpose({ hover })
         </button>
       </div>
     </aside>
+    <div v-else class="ov-docx-rail">
+      <button class="ov-side-toggle" title="展开目录" @click="toggleOutline">»</button>
+    </div>
 
     <div class="ov-docx-main">
       <div ref="wrapRef" class="ov-docx-canvas">
@@ -1244,6 +1277,45 @@ defineExpose({ hover })
   /* 与内容区拼成一块：只留发丝分隔线，不再投影 */
   box-shadow: inset -0.5px 0 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
+}
+/* 目录标题行：标题 + 收起按钮 */
+.ov-side-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 10px;
+}
+.ov-side-toggle {
+  appearance: none;
+  flex: none;
+  width: 22px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--ov-label-3);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', sans-serif;
+  font-size: 13px;
+  line-height: 1;
+  cursor: default;
+}
+.ov-side-toggle:hover {
+  background: var(--ov-bg-fill);
+  color: var(--ov-label);
+}
+/* 目录收起后的细轨：保留展开入口，底色与侧栏一致 */
+.ov-docx-rail {
+  flex: none;
+  width: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10px;
+  background: var(--ov-bg-stage-blur);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: inset -0.5px 0 0 rgba(0, 0, 0, 0.1);
 }
 .ov-side-title {
   padding: 10px 12px 6px;

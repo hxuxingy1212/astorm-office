@@ -9,6 +9,7 @@ import { displayValue } from '@/renderers/xlsx/numberFormat'
 import { resolveStyle, styleToCss } from '@/renderers/xlsx/styles'
 import { usePathHover, type SelectInfo } from '@/core/hover'
 import PathCard from '@/components/PathCard.vue'
+import { useZoomGesture } from '@/core/zoomGesture'
 import XlsxChartView from '@/renderers/xlsx/XlsxChartView.vue'
 import { parseRange } from '@/renderers/xlsx/range'
 import { buildRowLayout, canvasScale, rowTop, visibleRows } from '@/renderers/xlsx/virtual'
@@ -156,6 +157,18 @@ const selfZoom = ref(1)
 const zoom = computed(() => props.zoom ?? selfZoom.value)
 // 缩放汇报:fitScale 恒为 1(无适配概念),宿主拿 scale 显示百分比
 watch(zoom, (z) => emit('zoom-change', { scale: z, fitScale: 1 }), { immediate: true })
+
+/** 滚轮/捏合缩放（Ctrl/⌘+滚轮、触控板捏合、触屏双指；普通滚轮保持滚动） */
+useZoomGesture({
+  el: wrapRef,
+  min: 0.5,
+  max: 2,
+  getZoom: () => zoom.value,
+  setZoom: (z) => {
+    if (props.zoom === undefined) selfZoom.value = z
+    else emit('zoom-change', { scale: z, fitScale: 1 })
+  },
+})
 let rafId = 0
 
 function onScroll() {

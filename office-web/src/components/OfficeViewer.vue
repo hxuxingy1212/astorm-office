@@ -31,6 +31,9 @@ const props = withDefaults(
     zoom?: number
     /** 拾取模式:仅 true 时启用交互层(元素 hover 高亮/路径卡/选中事件);false(默认)纯只读。 */
     pickMode?: boolean
+    /** 侧边目录开合(docx):提供即受控——目录显隐只跟此值走,内置按钮汇报 outline-change;
+     *  不传保持自主模式(内置按钮直接开合)。 */
+    outline?: boolean
   }>(),
   { index: 0 },
 )
@@ -41,6 +44,8 @@ const emit = defineEmits<{
   (e: 'page-change', index: number): void
   /** 缩放汇报(受控模式):scale=绝对倍率(展示用百分比),fitScale=适配基准(宿主换算) */
   (e: 'zoom-change', v: { scale: number; fitScale: number }): void
+  /** 目录开合汇报(docx;受控模式宿主应回写 outline prop) */
+  (e: 'outline-change', open: boolean): void
 }>()
 
 const asPptx = computed(() => props.data as PptxDoc)
@@ -70,10 +75,12 @@ const asPdf = computed(() => props.data as PdfDoc)
       :part-index="index"
       :zoom="zoom"
       :pick-mode="pickMode"
+      :outline="outline"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @page-change="(i) => emit('page-change', i)"
       @zoom-change="(v) => emit('zoom-change', v)"
+      @outline-change="(o) => emit('outline-change', o)"
     />
     <PdfViewer
       v-else-if="kind === 'pdf'"

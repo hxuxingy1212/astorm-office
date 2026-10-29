@@ -4,6 +4,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { ptToPx } from '@/core/units'
 import { usePathHover, type SelectInfo } from '@/core/hover'
 import PathCard from '@/components/PathCard.vue'
+import { useZoomGesture } from '@/core/zoomGesture'
 import PdfElementView from '@/renderers/pdf/PdfElementView.vue'
 import { provideMediaResolver } from '@/renderers/pptx/media'
 import {
@@ -83,6 +84,18 @@ const fitScale = computed(() => {
 })
 const scale = computed(() => Math.max(0.05, fitScale.value * zoom.value))
 watch(scale, (s) => emit('zoom-change', { scale: s, fitScale: fitScale.value }), { immediate: true })
+
+/** 滚轮/捏合缩放（Ctrl/⌘+滚轮、触控板捏合、触屏双指；普通滚轮保持滚动） */
+useZoomGesture({
+  el: wrapRef,
+  min: 0.5,
+  max: 2.2,
+  getZoom: () => zoom.value,
+  setZoom: (z) => {
+    if (props.zoom === undefined) selfZoom.value = z
+    else emit('zoom-change', { scale: Math.max(0.05, fitScale.value * z), fitScale: fitScale.value })
+  },
+})
 
 const stageBoxStyle = computed(() => ({
   width: `${Math.round(pageW.value * scale.value)}px`,

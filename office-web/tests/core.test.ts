@@ -28,6 +28,7 @@ import {
   refToPos,
 } from '../src/renderers/xlsx/virtual'
 import { paginateBlocks } from '../src/renderers/docx/paginate'
+import { wheelZoomAt, pinchZoomAt, scrollAnchor } from '../src/core/zoomMath'
 import {
   layoutParagraph,
   spansOf,
@@ -581,6 +582,24 @@ async function streamEquality() {
   const mixed = charsOf('甲乙', 10)
   mixed[1] = { ...mixed[1], style: { color: 'red' } }
   eq(spansOf(mixed, 0, 2).length, 2, 'spansOf：样式不同则分段')
+}
+
+// ---- 手势缩放纯函数（滚轮 / 捏合 / 滚动锚定） ----
+{
+  // 滚轮：上滚（ΔY<0）放大、下滚缩小，一格 ≈ ×1.25
+  eq(wheelZoomAt(1, -100) > 1.2 && wheelZoomAt(1, -100) < 1.3, true, '滚轮上滚一格 ≈ 放大 1.25×')
+  eq(wheelZoomAt(1, 100) < 0.81 && wheelZoomAt(1, 100) > 0.79, true, '滚轮下滚一格 ≈ 缩小 0.8×')
+  eq(wheelZoomAt(2.9, -1000, 0, 0.5, 3), 3, '滚轮放大钳到 max')
+  eq(wheelZoomAt(0.6, 1000, 0, 0.5, 3), 0.5, '滚轮缩小钳到 min')
+  // deltaMode 归一（Firefox 行模式）：3 行 ≈ 48px，两模式结果一致
+  eq(Math.abs(wheelZoomAt(1, 3, 1) - wheelZoomAt(1, 48, 0)) < 1e-12, true, 'deltaMode 行模式归一到像素')
+  // 捏合：距离比 = 倍率比（绝对映射）；起点距离非法时不动
+  eq(pinchZoomAt(1, 100, 200, 0.5, 3), 2, '捏合两指距离翻倍 → 倍率翻倍')
+  eq(Math.abs(pinchZoomAt(0.8, 160, 100, 0.5, 3) - 0.5) < 1e-12, true, '捏合收拢钳到 min')
+  eq(pinchZoomAt(1, 0, 200, 0.5, 3), 1, '捏合起点距离为 0 → 原值')
+  // 滚动锚定：指针下的内容点缩放前后保持在指针下
+  eq(scrollAnchor(100, 50, 2), 250, '锚定：滚动 + 指针偏移按比例放大后回减')
+  eq(scrollAnchor(0, 300, 0.5), -150, '锚定：缩小时目标为负 → 容器钳回 0 即居中')
 }
 
 const streamDone = streamEquality()
