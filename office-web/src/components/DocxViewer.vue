@@ -30,6 +30,9 @@ const props = withDefaults(
     /** 内置换页器(侧栏底部 ▲▼+页码,默认显示):false 隐藏,翻页由宿主经
      *  pageIndex(写)+page-change(读)+pages-change(总页数)接管。 */
     showPager?: boolean
+    /** 铺满容器:容器有确定高度时传 true——高度改为 100% 跟随容器、内容内部滚动;
+     *  默认 false(自撑高 72~78vh 兜底)。 */
+    fill?: boolean
     /** 受控缩放:相对「适配可视区基准」的用户倍率。提供即受控——隐藏内置缩放控件、
      *  缩放只跟此值走;不传(undefined)保持自主模式(内置滑杆可用)。 */
     zoom?: number
@@ -1115,7 +1118,7 @@ defineExpose({ hover })
 </script>
 
 <template>
-  <div class="ov-docx">
+  <div class="ov-docx" :class="{ 'ov-fill': fill }">
     <!-- 左侧：目录（按分片分组）+ 上下翻页；收起后留一条细轨保留展开入口 -->
     <aside v-if="outlineOpen" class="ov-docx-side">
       <div class="ov-side-head">
@@ -1283,11 +1286,17 @@ defineExpose({ hover })
   display: flex;
   align-items: stretch;
   gap: 0; /* 目录与内容拼成一块，无缝 */
-  height: 100%;
-  /* 外层没给高度时的兜底（桌面页签/Modal 会用 :deep 覆盖成撑满） */
-  min-height: min(76vh, 900px);
+  /* 自撑高兜底：与其余三个 viewer（72~78vh）一致给固定上限。此前用 height:100% +
+     min-height 兜底——父级没给高度时 100% 失效、容器随 A4 整页内容长高，会把页面
+     撑出窗口（demo 里 docx 溢出而 pdf 不会即此因）。铺满容器传 fill prop，或宿主
+     :deep 覆盖 height:100%（特异性更高，桌面页签/Modal 即此法） */
+  height: min(76vh, 900px);
   font-family: 'Songti SC', 'SimSun', 'Times New Roman', serif;
   color: var(--ov-text-strong);
+}
+/* 铺满容器模式：高度 100% 跟随容器（需容器有确定高度），内容内部滚动 */
+.ov-docx.ov-fill {
+  height: 100%;
 }
 /* 左侧：目录 + 翻页（毛玻璃侧栏） */
 .ov-docx-side {

@@ -22,6 +22,9 @@ const props = withDefaults(
     /** 内置换页器(底栏 ‹›+页码,默认显示):false 隐藏,翻页由宿主经 slideIndex(写)+
      *  slide-change(读)接管;slides 总数宿主可从 presentation 数据自取。 */
     showPager?: boolean
+    /** 铺满容器:容器有确定高度时传 true——高度改为 100% 跟随容器、内容内部滚动;
+     *  默认 false(自撑高 72vh 兜底)。 */
+    fill?: boolean
     /** 受控缩放:相对「适配宽度基准」的用户倍率。提供即受控——隐藏内置缩放控件、
      *  缩放只跟此值走;不传(undefined)保持自主模式(内置滑杆可用)。 */
     zoom?: number
@@ -296,7 +299,7 @@ defineExpose({ hover, go })
 </script>
 
 <template>
-  <div class="ov-pptx" tabindex="0" @keydown="onKey">
+  <div class="ov-pptx" :class="{ 'ov-fill': fill }" tabindex="0" @keydown="onKey">
     <!-- 左侧：缩略图大纲；收起后留一条细轨保留展开入口（单页不显示侧栏与轨） -->
     <aside v-if="thumbsOpen && presentation.slides.length > 1" class="ov-pptx-side">
       <div class="ov-side-head">
@@ -532,6 +535,16 @@ defineExpose({ hover, go })
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+/* 铺满容器模式：高度 100% 跟随容器（需容器有确定高度），舞台与侧栏放开 72vh 上限 */
+.ov-pptx.ov-fill {
+  height: 100%;
+}
+.ov-pptx.ov-fill .ov-stage-wrap {
+  height: 100%;
+}
+.ov-pptx.ov-fill .ov-pptx-side {
+  max-height: none;
 }
 .ov-pptx-main {
   flex: 1;

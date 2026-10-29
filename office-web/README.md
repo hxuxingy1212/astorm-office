@@ -121,6 +121,24 @@ chrome；亮/暗两组的全部令牌（`--ov-*`）见 `src/styles.css`，可按
 内置滑杆隐藏，缩放（含滚轮/捏合手势）只跟此值走，组件经 `zoom-change` 汇报
 `{ scale, fitScale }`，宿主按 `zoom = scale / fitScale` 回写即完成回环（demo「受控缩放」勾选项可复现）。
 
+**高度与宽度（自定义尺寸 / 铺满容器）**：宽度天然跟随容器（100%，无固定宽）；
+高度两种模式——
+
+- **默认（自撑高）**：容器没给确定高度时，viewer 自撑 `min(72~78vh, …)` 上限、内容内部滚动，
+  不会随文档内容无限长高（docx 此前用 min-height 兜底会撑出窗口，已与其余格式统一）；
+- **铺满容器（`fill`）**：容器有确定高度（如 `height: 100vh` 的 flex 子级、页签/Modal 内容区）时传
+  `fill`（布尔 prop），viewer 高度改为 100% 跟随容器、内容内部滚动；也可按老办法用 `:deep` 覆盖
+  `.ov-root` 与各 viewer 根类的 `height`（桌面端集成即此法，`fill` 是它的 prop 化替代）。
+
+外部接线示例（铺满容器）：
+
+```html
+<div style="height: 100vh; display: flex; flex-direction: column;">
+  <YourToolbar />
+  <OfficeViewer kind="docx" :data="doc" fill style="flex: 1; min-height: 0;" />
+</div>
+```
+
 **侧栏开合**：目录（docx，`outline` + `outline-change`）与缩略图侧栏（pptx/pdf，`showThumbnails` +
 `thumbnails-change`）同一套受控约定——不传 prop 为自主模式，侧栏标题行 « / 细轨 » 按钮直接开合；
 传 boolean 即受控——显隐只跟 prop 走，内置按钮按下时汇报事件，宿主回写完成回环

@@ -29,6 +29,9 @@ const props = withDefaults(
     /** 内置换页器(底栏 ‹›+页码,默认显示):false 隐藏,翻页由宿主经 pageIndex(写)+
      *  page-change(读)接管;pages 总数宿主可从 doc 数据自取。 */
     showPager?: boolean
+    /** 铺满容器:容器有确定高度时传 true——高度改为 100% 跟随容器、内容内部滚动;
+     *  默认 false(自撑高 72vh 兜底)。 */
+    fill?: boolean
     /** 受控缩放:相对「适配可视区基准」的用户倍率。提供即受控——隐藏内置缩放控件、
      *  缩放只跟此值走;不传(undefined)保持自主模式(内置滑杆可用)。 */
     zoom?: number
@@ -267,7 +270,7 @@ defineExpose({ hover, go })
 </script>
 
 <template>
-  <div class="ov-pdf" tabindex="0" @keydown="onKey">
+  <div class="ov-pdf" :class="{ 'ov-fill': fill }" tabindex="0" @keydown="onKey">
     <!-- 左侧：页面缩略图；收起后留一条细轨保留展开入口（单页不显示侧栏与轨） -->
     <aside v-if="thumbsOpen && doc.pages.length > 1" class="ov-pdf-side">
       <div class="ov-side-head">
@@ -387,6 +390,16 @@ defineExpose({ hover, go })
   min-width: 0;
   display: flex;
   flex-direction: column;
+}
+/* 铺满容器模式：高度 100% 跟随容器（需容器有确定高度），舞台与侧栏放开 72vh 上限 */
+.ov-pdf.ov-fill {
+  height: 100%;
+}
+.ov-pdf.ov-fill .ov-stage-wrap {
+  height: 100%;
+}
+.ov-pdf.ov-fill .ov-pdf-side {
+  max-height: none;
 }
 .ov-pdf-bar {
   display: flex;

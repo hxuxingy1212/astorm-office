@@ -43,6 +43,9 @@ const props = withDefaults(
     /** 受控物理页(docx 专用;index 对 pptx/pdf/xlsx 即页/表下标且本就可外部驱动):
      *  变化即跳页,宿主主动设页不发 page-change。 */
     pageIndex?: number
+    /** 铺满容器:容器有确定高度时传 true——viewer 高度 100% 跟随容器、内容内部滚动;
+     *  默认 false(自撑高 72~78vh 兜底)。 */
+    fill?: boolean
   }>(),
   { index: 0 },
 )
@@ -78,6 +81,7 @@ const asPdf = computed(() => props.data as PdfDoc)
       :pick-mode="pickMode"
       :show-thumbnails="showThumbnails"
       :show-pager="showPager"
+      :fill="fill"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @slide-change="(i) => emit('page-change', i)"
@@ -94,6 +98,7 @@ const asPdf = computed(() => props.data as PdfDoc)
       :pick-mode="pickMode"
       :outline="outline"
       :show-pager="showPager"
+      :fill="fill"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @page-change="(i) => emit('page-change', i)"
@@ -110,6 +115,7 @@ const asPdf = computed(() => props.data as PdfDoc)
       :pick-mode="pickMode"
       :show-thumbnails="showThumbnails"
       :show-pager="showPager"
+      :fill="fill"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @page-change="(i) => emit('page-change', i)"
@@ -123,6 +129,7 @@ const asPdf = computed(() => props.data as PdfDoc)
       :sheet-index="index"
       :zoom="zoom"
       :pick-mode="pickMode"
+      :fill="fill"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @sheet-change="(i) => emit('page-change', i)"

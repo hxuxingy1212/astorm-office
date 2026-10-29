@@ -33,6 +33,9 @@ const props = withDefaults(
     /** 拾取模式:仅 true 时启用交互层——元素 hover 高亮/路径卡/选中事件;
      *  false(默认)为纯只读观感(无高亮、无卡片、不发 select)。 */
     pickMode?: boolean
+    /** 铺满容器:容器有确定高度时传 true——高度改为 100% 跟随容器、内容内部滚动;
+     *  默认 false(自撑高 min(78vh, 860px) 兜底)。 */
+    fill?: boolean
   }>(),
   { showHeadings: true, sheetIndex: 0 },
 )
@@ -520,7 +523,7 @@ defineExpose({ hover })
 </script>
 
 <template>
-  <div class="ov-xlsx">
+  <div class="ov-xlsx" :class="{ 'ov-fill': fill }">
     <div ref="wrapRef" class="ov-sheet-wrap">
       <!-- 缩放占位盒撑出滚动范围；画布按逻辑尺寸渲染后整体缩放（与 PPT 舞台同法） -->
       <div class="ov-sheet-zoomer" :style="zoomerStyle">
@@ -660,6 +663,10 @@ defineExpose({ hover })
   overflow: hidden;
   background: var(--ov-page-bg);
   box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+/* 铺满容器模式：高度 100% 跟随容器（需容器有确定高度） */
+.ov-xlsx.ov-fill {
+  height: 100%;
 }
 /* 工作表标签：Numbers 底部标签栏风格（分段控件）；左侧标签滚动，右侧缩放固定 */
 .ov-sheet-tabs {

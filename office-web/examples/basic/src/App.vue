@@ -73,6 +73,7 @@ onMounted(() => load('pptx'))
       :kind="kind"
       :data="data as any"
       :resolve-media="resolveMedia"
+      fill
       @hover="(p) => (hoveredPath = p)"
       @select="(p) => selectedPaths.unshift(p)"
     />
