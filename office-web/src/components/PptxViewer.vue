@@ -16,7 +16,8 @@ const props = withDefaults(
     /** 媒体解析：xl/media/xxx → 可加载 URL（默认 /api/media/ 前缀） */
     resolveMedia?: (src: string) => string
     slideIndex?: number
-    /** 显示缩略图导航（默认开） */
+    /** 缩略图侧栏开合:提供即受控——显隐只跟此值走,内置按钮汇报 thumbnails-change 由宿主回写;
+     *  不传(undefined)保持自主模式(内置按钮直接开合,默认展开)。 */
     showThumbnails?: boolean
     /** 受控缩放:相对「适配宽度基准」的用户倍率。提供即受控——隐藏内置缩放控件、
      *  缩放只跟此值走;不传(undefined)保持自主模式(内置滑杆可用)。 */
@@ -25,7 +26,7 @@ const props = withDefaults(
      *  false(默认)为纯只读观感(无高亮、无卡片、不发 select)。 */
     pickMode?: boolean
   }>(),
-  { slideIndex: 0, showThumbnails: true },
+  { slideIndex: 0 },
 )
 
 const emit = defineEmits<{
@@ -34,6 +35,8 @@ const emit = defineEmits<{
   (e: 'slide-change', index: number): void
   /** 缩放汇报(scale 变化即发):scale=绝对倍率(展示用百分比),fitScale=适配基准(宿主换算) */
   (e: 'zoom-change', v: { scale: number; fitScale: number }): void
+  /** 缩略图侧栏开合汇报(内置按钮按下即发;受控模式宿主应回写 showThumbnails prop) */
+  (e: 'thumbnails-change', open: boolean): void
 }>()
 
 provideMediaResolver(
@@ -42,6 +45,15 @@ provideMediaResolver(
 
 const hover = usePathHover()
 const active = ref(props.slideIndex)
+
+/** 缩略图侧栏开合：受控模式跟随 props.showThumbnails（按钮只汇报），自主模式用内部值 */
+const selfThumbs = ref(true)
+const thumbsOpen = computed(() => props.showThumbnails ?? selfThumbs.value)
+function toggleThumbnails() {
+  const next = !thumbsOpen.value
+  if (props.showThumbnails === undefined) selfThumbs.value = next
+  emit('thumbnails-change', next)
+}
 watch(
   () => props.slideIndex,
   (v) => (active.value = v),
@@ -279,9 +291,12 @@ defineExpose({ hover, go })
 
 <template>
   <div class="ov-pptx" tabindex="0" @keydown="onKey">
-    <!-- 左侧：缩略图大纲 -->
-    <aside v-if="showThumbnails && presentation.slides.length > 1" class="ov-pptx-side">
-      <div class="ov-side-title">幻灯片</div>
+    <!-- 左侧：缩略图大纲；收起后留一条细轨保留展开入口（单页不显示侧栏与轨） -->
+    <aside v-if="thumbsOpen && presentation.slides.length > 1" class="ov-pptx-side">
+      <div class="ov-side-head">
+        <span class="ov-side-title">幻灯片</span>
+        <button class="ov-side-toggle" title="收起缩略图" @click="toggleThumbnails">«</button>
+      </div>
       <button
         v-for="(s, i) in presentation.slides"
         :key="i"
@@ -311,6 +326,14 @@ defineExpose({ hover, go })
         </span>
       </button>
     </aside>
+    <button
+      v-else-if="presentation.slides.length > 1"
+      class="ov-side-rail"
+      title="展开缩略图"
+      @click="toggleThumbnails"
+    >
+      »
+    </button>
 
     <div class="ov-pptx-main">
     <div ref="wrapRef" class="ov-stage-wrap">
@@ -383,6 +406,50 @@ defineExpose({ hover, go })
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--ov-label-2);
+}
+/* 侧栏标题行：标题 + 收起按钮；收起后的细轨保留展开入口 */
+.ov-side-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 8px;
+}
+.ov-side-toggle {
+  appearance: none;
+  flex: none;
+  width: 22px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--ov-label-3);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1;
+  cursor: default;
+}
+.ov-side-toggle:hover {
+  background: var(--ov-bg-fill);
+  color: var(--ov-label);
+}
+.ov-side-rail {
+  appearance: none;
+  flex: none;
+  width: 26px;
+  align-self: stretch;
+  border: 0;
+  border-right: 0.5px solid var(--ov-separator);
+  background: var(--ov-bg-toolbar);
+  color: var(--ov-label-3);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1;
+  cursor: default;
+}
+.ov-side-rail:hover {
+  background: var(--ov-bg-fill);
+  color: var(--ov-label);
 }
 .ov-thumb {
   display: block;

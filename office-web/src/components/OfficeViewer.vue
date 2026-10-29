@@ -34,6 +34,9 @@ const props = withDefaults(
     /** 侧边目录开合(docx):提供即受控——目录显隐只跟此值走,内置按钮汇报 outline-change;
      *  不传保持自主模式(内置按钮直接开合)。 */
     outline?: boolean
+    /** 缩略图侧栏开合(pptx/pdf):提供即受控——显隐只跟此值走,内置按钮汇报 thumbnails-change;
+     *  不传保持自主模式(内置按钮直接开合,默认展开)。 */
+    showThumbnails?: boolean
   }>(),
   { index: 0 },
 )
@@ -46,6 +49,8 @@ const emit = defineEmits<{
   (e: 'zoom-change', v: { scale: number; fitScale: number }): void
   /** 目录开合汇报(docx;受控模式宿主应回写 outline prop) */
   (e: 'outline-change', open: boolean): void
+  /** 缩略图侧栏开合汇报(pptx/pdf;受控模式宿主应回写 showThumbnails prop) */
+  (e: 'thumbnails-change', open: boolean): void
 }>()
 
 const asPptx = computed(() => props.data as PptxDoc)
@@ -63,10 +68,12 @@ const asPdf = computed(() => props.data as PdfDoc)
       :slide-index="index"
       :zoom="zoom"
       :pick-mode="pickMode"
+      :show-thumbnails="showThumbnails"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @slide-change="(i) => emit('page-change', i)"
       @zoom-change="(v) => emit('zoom-change', v)"
+      @thumbnails-change="(o) => emit('thumbnails-change', o)"
     />
     <DocxViewer
       v-else-if="kind === 'docx'"
@@ -89,10 +96,12 @@ const asPdf = computed(() => props.data as PdfDoc)
       :page-index="index"
       :zoom="zoom"
       :pick-mode="pickMode"
+      :show-thumbnails="showThumbnails"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @page-change="(i) => emit('page-change', i)"
       @zoom-change="(v) => emit('zoom-change', v)"
+      @thumbnails-change="(o) => emit('thumbnails-change', o)"
     />
     <XlsxViewer
       v-else

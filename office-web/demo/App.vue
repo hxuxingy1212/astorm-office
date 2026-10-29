@@ -202,9 +202,11 @@ const resolveMedia = computed(() => {
   return (src: string) => (src.startsWith('http') || src.startsWith('data:') ? src : `${ASSET_BASE}samples/${dir}/${src}`)
 })
 
-/* ---- 预览控制演示：目录开合与受控缩放都走「事件汇报 → 宿主回写 prop」的受控回环 ---- */
+/* ---- 预览控制演示：目录/缩略图开合与受控缩放都走「事件汇报 → 宿主回写 prop」的受控回环 ---- */
 /** 目录开合（DOCX）：侧栏内置按钮汇报 outline-change，这里回写 outline prop */
 const outlineOpen = ref(true)
+/** 缩略图侧栏开合（PPTX/PDF）：内置按钮汇报 thumbnails-change，这里回写 showThumbnails prop */
+const thumbsOpen = ref(true)
 /** 受控缩放开关：勾选后宿主持有 zoom prop（滚轮/捏合 → zoom-change → 换算回写） */
 const zoomControlled = ref(false)
 const docZoom = ref(1)
@@ -250,11 +252,13 @@ onMounted(() => load('pptx'))
           :data="data"
           :resolve-media="resolveMedia"
           :outline="outlineOpen"
+          :show-thumbnails="thumbsOpen"
           :zoom="zoomControlled ? docZoom : undefined"
           @hover="(p) => (hoveredPath = p)"
           @select="(p) => selectedPaths.unshift(p)"
           @zoom-change="onZoomChange"
           @outline-change="(o) => (outlineOpen = o)"
+          @thumbnails-change="(o) => (thumbsOpen = o)"
         />
       </section>
 
@@ -314,6 +318,7 @@ onMounted(() => load('pptx'))
         <h3>预览控制</h3>
         <div class="perf-ctl">
           <label class="perf-check"><input v-model="outlineOpen" type="checkbox" /> 目录侧栏（DOCX）</label>
+          <label class="perf-check"><input v-model="thumbsOpen" type="checkbox" /> 缩略图侧栏（PPTX/PDF）</label>
           <label class="perf-check"><input v-model="zoomControlled" type="checkbox" /> 受控缩放（zoom 回环）</label>
           <p class="perf-hint">
             缩放手势：Ctrl/⌘ + 滚轮（触控板捏合同效）或触屏双指捏合，普通滚轮保持滚动。
