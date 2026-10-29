@@ -209,8 +209,8 @@ const resolveMedia = computed(() => {
 const outlineOpen = ref(true)
 /** 缩略图侧栏开合（PPTX/PDF）：内置按钮汇报 thumbnails-change，这里回写 showThumbnails prop */
 const thumbsOpen = ref(true)
-/** 内置换页按钮开关（showPager）：关掉后由下方宿主换页器接管 */
-const showPager = ref(true)
+/** 内置换页按钮开关（showPager）：默认关——演示页默认展示「宿主接管」形态 */
+const showPager = ref(false)
 /** 宿主持有的当前页下标（经 index / page-index 回写；page-change 只在组件内部翻页时上报） */
 const pageIndex = ref(0)
 /** docx 的总物理页数只有组件知道（分页是组件算的），经 pages-change 上报 */
@@ -222,8 +222,8 @@ const hostPageTotal = computed(() => {
   if (!d) return 0
   return (d.slides ?? d.pages ?? d.sheets)?.length ?? 0
 })
-/** 受控缩放开关：勾选后宿主持有 zoom prop（滚轮/捏合 → zoom-change → 换算回写） */
-const zoomControlled = ref(false)
+/** 受控缩放开关：默认开——演示页默认由宿主持有 zoom prop（滚轮/捏合 → zoom-change → 换算回写） */
+const zoomControlled = ref(true)
 const docZoom = ref(1)
 const zoomInfo = ref<{ scale: number; fitScale: number } | null>(null)
 function onZoomChange(v: { scale: number; fitScale: number }) {
