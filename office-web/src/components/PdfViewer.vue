@@ -5,6 +5,7 @@ import { ptToPx } from '@/core/units'
 import { usePathHover, type SelectInfo } from '@/core/hover'
 import PathCard from '@/components/PathCard.vue'
 import { useZoomGesture } from '@/core/zoomGesture'
+import { useOvTheme } from '@/core/theme'
 import PdfElementView from '@/renderers/pdf/PdfElementView.vue'
 import { provideMediaResolver } from '@/renderers/pptx/media'
 import {
@@ -38,9 +39,14 @@ const props = withDefaults(
     /** 拾取模式:仅 true 时启用交互层——元素 hover 高亮/路径卡/选中事件;
      *  false(默认)为纯只读观感(无高亮、无卡片、不发 select)。 */
     pickMode?: boolean
+    /** 主题:light / dark / auto(默认 auto,跟随系统 prefers-color-scheme 实时切换)。
+     *  只暗化 chrome(缩略图侧栏/底栏);页面保持白底,宿主要连页面一起暗在外层加 ov-dark-pages 类。 */
+    theme?: 'light' | 'dark' | 'auto'
   }>(),
   { pageIndex: 0 },
 )
+
+const dark = useOvTheme(() => props.theme)
 
 const emit = defineEmits<{
   (e: 'select', path: string, info?: SelectInfo): void
@@ -270,7 +276,7 @@ defineExpose({ hover, go })
 </script>
 
 <template>
-  <div class="ov-pdf" :class="{ 'ov-fill': fill }" tabindex="0" @keydown="onKey">
+  <div class="ov-pdf" :class="{ 'ov-fill': fill, 'ov-dark': dark }" tabindex="0" @keydown="onKey">
     <!-- 左侧：页面缩略图；收起后留一条细轨保留展开入口（单页不显示侧栏与轨） -->
     <aside v-if="thumbsOpen && doc.pages.length > 1" class="ov-pdf-side">
       <div class="ov-side-head">
@@ -371,8 +377,8 @@ defineExpose({ hover, go })
   outline: none;
   border-radius: 12px;
   overflow: hidden;
-  background: #fff;
-  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+  background: var(--ov-page-bg);
+  box-shadow: var(--ov-hairline), 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 .ov-pdf-side {
   flex: none;
@@ -485,7 +491,7 @@ defineExpose({ hover, go })
   position: relative;
   display: block;
   border-radius: 5px;
-  background: #fff;
+  background: var(--ov-page-bg);
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
 }
@@ -526,7 +532,7 @@ defineExpose({ hover, go })
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
   border-radius: 3px;
   overflow: hidden;
-  background: #fff;
+  background: var(--ov-page-bg);
 }
 .ov-stage-inner {
   overflow: hidden;
@@ -545,7 +551,7 @@ defineExpose({ hover, go })
   height: 24px;
   border: 1px solid var(--ov-separator);
   border-radius: 6px;
-  background: #fff;
+  background: var(--ov-bg-control);
   color: var(--ov-label);
   box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.08);
   cursor: default;

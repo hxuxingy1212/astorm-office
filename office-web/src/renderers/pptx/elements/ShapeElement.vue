@@ -130,7 +130,7 @@ const textStyle = computed(() => {
           width="190"
           height="190"
           fill="none"
-          stroke="#999"
+          :style="{ stroke: 'var(--ov-page-ink-2)' }"
           stroke-width="1"
           stroke-dasharray="4 3"
         />
@@ -140,7 +140,7 @@ const textStyle = computed(() => {
           text-anchor="middle"
           dominant-baseline="middle"
           font-size="10"
-          fill="#888"
+          :style="{ fill: 'var(--ov-page-ink-2)' }"
         >
           {{ el.shape_type }}
         </text>

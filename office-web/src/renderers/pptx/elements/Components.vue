@@ -187,7 +187,7 @@ const flowText = computed(() => withHash((props.el as { text_color?: string }).t
 const timeline = computed(() => props.el as { items?: Record<string, unknown>[]; line_color?: string; dot_color?: string; label_color?: string })
 const tlLine = computed(() => withHash(timeline.value.line_color ?? '#3498db'))
 const tlDot = computed(() => withHash(timeline.value.dot_color ?? '#3498db'))
-const tlLabel = computed(() => withHash(timeline.value.label_color ?? '#000000'))
+const tlLabel = computed(() => timeline.value.label_color ? withHash(timeline.value.label_color) : 'var(--ov-page-ink)')
 
 function timelineLabel(item: Record<string, unknown>): string {
   const title = item.title ?? item.date ?? item.name ?? ''
@@ -202,7 +202,7 @@ function timelineLabel(item: Record<string, unknown>): string {
       <div
         class="comp-progress-track"
         :style="{
-          background: withHash(el.track_color ?? '#E0E0E0'),
+          background: el.track_color ? withHash(el.track_color) : 'var(--ov-page-fill)',
           borderRadius: el.rounded === false ? '0' : '6px',
         }"
       >
@@ -215,7 +215,7 @@ function timelineLabel(item: Record<string, unknown>): string {
           }"
         />
       </div>
-      <div v-if="el.show_label !== false" class="comp-progress-label" :style="{ color: withHash(el.text_color ?? '#000') }">
+      <div v-if="el.show_label !== false" class="comp-progress-label" :style="{ color: el.text_color ? withHash(el.text_color) : 'var(--ov-page-ink)' }">
         {{ el.label ?? `${Math.round(progress)}%` }}
       </div>
     </template>
@@ -248,7 +248,7 @@ function timelineLabel(item: Record<string, unknown>): string {
         text-anchor="middle"
         dominant-baseline="middle"
         :font-size="ptToPx(el.font_size ?? 18)"
-        :fill="withHash(el.text_color ?? '#000')"
+        :fill="el.text_color ? withHash(el.text_color) : 'var(--ov-page-ink)'"
       >
         {{ Math.round(progress) }}%
       </text>
@@ -431,7 +431,7 @@ function timelineLabel(item: Record<string, unknown>): string {
 }
 .comp-flow-arrow {
   font-size: 10px;
-  color: #95a5a6;
+  color: var(--ov-page-ink-2);
 }
 .comp-unknown {
   width: 100%;
@@ -439,8 +439,8 @@ function timelineLabel(item: Record<string, unknown>): string {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed #ccc;
-  color: #999;
+  border: 1px dashed var(--ov-page-line);
+  color: var(--ov-page-ink-2);
   font-size: 12px;
 }
 .comp-chart-missing {
@@ -449,8 +449,8 @@ function timelineLabel(item: Record<string, unknown>): string {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed var(--ov-border, #ccc);
-  color: var(--ov-text-muted, #999);
+  border: 1px dashed var(--ov-page-line);
+  color: var(--ov-page-ink-2);
   font-size: 12px;
   box-sizing: border-box;
 }

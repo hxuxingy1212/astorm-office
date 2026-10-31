@@ -10,6 +10,7 @@ import { resolveStyle, styleToCss } from '@/renderers/xlsx/styles'
 import { usePathHover, type SelectInfo } from '@/core/hover'
 import PathCard from '@/components/PathCard.vue'
 import { useZoomGesture } from '@/core/zoomGesture'
+import { useOvTheme } from '@/core/theme'
 import XlsxChartView from '@/renderers/xlsx/XlsxChartView.vue'
 import { parseRange } from '@/renderers/xlsx/range'
 import { buildRowLayout, canvasScale, rowTop, visibleRows } from '@/renderers/xlsx/virtual'
@@ -36,6 +37,9 @@ const props = withDefaults(
     /** 铺满容器:容器有确定高度时传 true——高度改为 100% 跟随容器、内容内部滚动;
      *  默认 false(自撑高 min(78vh, 860px) 兜底)。 */
     fill?: boolean
+    /** 主题:light / dark / auto(默认 auto,跟随系统 prefers-color-scheme 实时切换)。
+     *  只暗化 chrome(工具条/标签栏);页面画布保持白底,宿主要连画布一起暗在外层加 ov-dark-pages 类。 */
+    theme?: 'light' | 'dark' | 'auto'
   }>(),
   { showHeadings: true, sheetIndex: 0 },
 )
@@ -49,6 +53,7 @@ const emit = defineEmits<{
 }>()
 
 const hover = usePathHover()
+const dark = useOvTheme(() => props.theme)
 const active = ref(props.sheetIndex)
 
 watch(
@@ -523,7 +528,7 @@ defineExpose({ hover })
 </script>
 
 <template>
-  <div class="ov-xlsx" :class="{ 'ov-fill': fill }">
+  <div class="ov-xlsx" :class="{ 'ov-fill': fill, 'ov-dark': dark }">
     <div ref="wrapRef" class="ov-sheet-wrap">
       <!-- 缩放占位盒撑出滚动范围；画布按逻辑尺寸渲染后整体缩放（与 PPT 舞台同法） -->
       <div class="ov-sheet-zoomer" :style="zoomerStyle">
@@ -658,11 +663,12 @@ defineExpose({ hover })
   height: min(78vh, 860px);
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Helvetica Neue',
     sans-serif;
-  color: var(--ov-label);
+  /* 画布内容墨色跟页面层（无样式单元格从这里继承），不跟 chrome 主题 */
+  color: var(--ov-page-ink);
   border-radius: 12px;
   overflow: hidden;
   background: var(--ov-page-bg);
-  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--ov-hairline), 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 /* 铺满容器模式：高度 100% 跟随容器（需容器有确定高度） */
 .ov-xlsx.ov-fill {
@@ -737,13 +743,13 @@ defineExpose({ hover })
   border: 0;
   height: inherit;
 }
-/* 行列标：系统灰 + 发丝线 */
+/* 行列标：页面层系统灰 + 发丝线（跟画布主题走，不跟 chrome） */
 .ov-sheet th {
-  background: var(--ov-bg-head);
-  color: var(--ov-label-2);
+  background: var(--ov-page-fill);
+  color: var(--ov-page-ink-2);
   font-weight: 400;
   font-size: 11px;
-  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  border: 0.5px solid var(--ov-gridline);
   text-align: center;
   user-select: none;
 }
@@ -763,7 +769,7 @@ defineExpose({ hover })
 }
 .ov-cell {
   position: relative; /* 文本溢出 span 的定位基准 */
-  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  border: 0.5px solid var(--ov-gridline);
   padding: 1px 5px;
   overflow: hidden;
   white-space: pre;
@@ -771,7 +777,7 @@ defineExpose({ hover })
 }
 /* 悬浮：系统蓝细环（Numbers 观感） */
 .ov-cell:hover {
-  outline: 2px solid rgba(0, 122, 255, 0.6);
+  outline: 2px solid var(--ov-hover-ring);
   outline-offset: -2px;
   border-radius: 2px;
 }
@@ -788,7 +794,7 @@ defineExpose({ hover })
 }
 .ov-drawing {
   border-radius: 4px;
-  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 0 0.5px var(--ov-gridline);
 }
 .ov-charts {
   position: absolute;

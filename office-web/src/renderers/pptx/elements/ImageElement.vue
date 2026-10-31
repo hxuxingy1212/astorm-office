@@ -63,7 +63,7 @@ function onError() {
   width: 100%;
   height: 100%;
   font-size: 11px;
-  color: #999;
-  background: #f1f3f7;
+  color: var(--ov-page-ink-2);
+  background: var(--ov-page-fill);
 }
 </style>

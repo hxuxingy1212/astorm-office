@@ -121,7 +121,7 @@ const wrapStyle = computed(() => ({
 
 <style scoped>
 .el-table :deep(td) {
-  border: 1px solid #cccccc;
+  border: 1px solid var(--ov-page-line);
   padding: 2px 6px;
   vertical-align: middle;
 }

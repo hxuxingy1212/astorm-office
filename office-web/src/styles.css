@@ -32,9 +32,6 @@
   --ov-bg-stage: linear-gradient(180deg, #f3f3f5 0%, #ececf0 100%);
   --ov-bg-stage-blur: rgba(246, 246, 246, 0.78);
   --ov-bg-head: #f5f5f7;
-  /* 文档页面/画布面（纸张、幻灯片、表格网格）：暗色主题下仍保持白底（同 macOS 预览），
-     留令牌供宿主按需覆盖 */
-  --ov-page-bg: #ffffff;
   --ov-hover-ring: rgba(0, 122, 255, 0.65);
   --ov-hover-fill: rgba(0, 122, 255, 0.05);
   --ov-accent-text: #0a6cd8;
@@ -51,10 +48,22 @@
   --ov-shadow-control: 0 0.5px 1px rgba(0, 0, 0, 0.08);
   --ov-shadow-popover: 0 12px 32px rgba(0, 0, 0, 0.2), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
   --ov-blur: saturate(180%) blur(20px);
+
+  /* 页面层令牌（纸张/幻灯片/表格画布上的内容色）：与 chrome 主题解耦——.ov-dark 不动这一组，
+     暗色 chrome 下页面保持白底黑字（同 macOS 预览）。宿主要连页面一起暗，加 .ov-dark-pages，
+     墨色/网格线/底纹随画布一起翻；文件显式指定的颜色（字体色/填充色）仍按原样渲染。 */
+  --ov-page-bg: #ffffff;
+  --ov-page-ink: #1d1d1f;
+  --ov-page-ink-2: rgba(0, 0, 0, 0.45);
+  --ov-page-line: rgba(0, 0, 0, 0.28);
+  --ov-gridline: rgba(0, 0, 0, 0.1);
+  --ov-page-fill: rgba(120, 120, 128, 0.1);
 }
 
-/* 暗色一组：外层容器加 .ov-dark 即生效（文档页面本身保持白底，只暗化 chrome） */
+/* 暗色一组：外层容器加 .ov-dark 即生效（只暗化 chrome；页面层令牌不受影响保持白底）。
+   组件也可用 theme prop（light/dark/auto，默认 auto 跟随系统）自动开合此类。 */
 .ov-dark {
+  color-scheme: dark;
   --ov-accent: #0a84ff;
   --ov-accent-soft: rgba(10, 132, 255, 0.22);
   --ov-accent-text: #6db2ff;
@@ -89,6 +98,18 @@
 
   --ov-shadow-control: 0 0.5px 1px rgba(0, 0, 0, 0.4);
   --ov-shadow-popover: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+}
+
+/* 页面一起暗：与 .ov-dark 叠用（单独用只翻页面不翻 chrome）。
+   只动页面层令牌，墨色/次级墨色/内容框线/网格线/底纹随画布一起翻，
+   保证画布暗了内容仍可读；文件显式色不翻转（同把文档页"夜间模式"的常见取舍）。 */
+.ov-dark-pages {
+  --ov-page-bg: #232325;
+  --ov-page-ink: rgba(255, 255, 255, 0.92);
+  --ov-page-ink-2: rgba(255, 255, 255, 0.55);
+  --ov-page-line: rgba(255, 255, 255, 0.3);
+  --ov-gridline: rgba(255, 255, 255, 0.14);
+  --ov-page-fill: rgba(120, 120, 128, 0.22);
 }
 
 .ov-root,

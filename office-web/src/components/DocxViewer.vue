@@ -14,6 +14,7 @@ import { fontStack, isWesternLang, normalLineRatio, ordinals, resetLineRatioCach
 import { paginateBlocks, type PaginateBlock } from '@/renderers/docx/paginate'
 import { LATEX_CSS } from '@/renderers/docx/latex'
 import { useZoomGesture } from '@/core/zoomGesture'
+import { useOvTheme } from '@/core/theme'
 
 const props = withDefaults(
   defineProps<{
@@ -42,9 +43,14 @@ const props = withDefaults(
     /** 侧边目录开合:提供即受控——显隐只跟此值走,内置按钮改为汇报 outline-change 由宿主回写;
      *  不传(undefined)保持自主模式(内置按钮直接开合,默认展开)。 */
     outline?: boolean
+    /** 主题:light / dark / auto(默认 auto,跟随系统 prefers-color-scheme 实时切换)。
+     *  只暗化 chrome(目录侧栏/翻页器);纸张保持白底,宿主要连纸张一起暗在外层加 ov-dark-pages 类。 */
+    theme?: 'light' | 'dark' | 'auto'
   }>(),
   { partIndex: 0 },
 )
+
+const dark = useOvTheme(() => props.theme)
 
 const emit = defineEmits<{
   (e: 'select', path: string, info?: SelectInfo): void
@@ -1118,7 +1124,7 @@ defineExpose({ hover })
 </script>
 
 <template>
-  <div class="ov-docx" :class="{ 'ov-fill': fill }">
+  <div class="ov-docx" :class="{ 'ov-fill': fill, 'ov-dark': dark }">
     <!-- 左侧：目录（按分片分组）+ 上下翻页；收起后留一条细轨保留展开入口 -->
     <aside v-if="outlineOpen" class="ov-docx-side">
       <div class="ov-side-head">
@@ -1292,7 +1298,8 @@ defineExpose({ hover })
      :deep 覆盖 height:100%（特异性更高，桌面页签/Modal 即此法） */
   height: min(76vh, 900px);
   font-family: 'Songti SC', 'SimSun', 'Times New Roman', serif;
-  color: var(--ov-text-strong);
+  /* 纸张正文墨色跟页面层（不跟 chrome 主题），否则暗 chrome 下白纸白字 */
+  color: var(--ov-page-ink);
 }
 /* 铺满容器模式：高度 100% 跟随容器（需容器有确定高度），内容内部滚动 */
 .ov-docx.ov-fill {
@@ -1309,7 +1316,7 @@ defineExpose({ hover })
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   /* 与内容区拼成一块：只留发丝分隔线，不再投影 */
-  box-shadow: inset -0.5px 0 0 rgba(0, 0, 0, 0.1);
+  box-shadow: inset -0.5px 0 0 var(--ov-separator);
   overflow: hidden;
 }
 /* 目录标题行：标题 + 收起按钮 */
@@ -1349,7 +1356,7 @@ defineExpose({ hover })
   background: var(--ov-bg-stage-blur);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  box-shadow: inset -0.5px 0 0 rgba(0, 0, 0, 0.1);
+  box-shadow: inset -0.5px 0 0 var(--ov-separator);
 }
 .ov-side-title {
   padding: 10px 12px 6px;
@@ -1460,7 +1467,7 @@ defineExpose({ hover })
   overflow: auto;
   border-radius: 0;
   background: var(--ov-bg-stage);
-  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--ov-hairline), 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 /* 纸张（自然尺寸渲染，外层容器按缩放后尺寸占位） */
 .ov-page {
@@ -1531,7 +1538,7 @@ defineExpose({ hover })
   left: 0;
   right: 0;
   text-align: center;
-  color: rgba(0, 0, 0, 0.4);
+  color: var(--ov-page-ink-2);
   font-size: 12px;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', sans-serif;
 }
@@ -1598,14 +1605,14 @@ defineExpose({ hover })
   font-size: 14px;
 }
 .ov-table td {
-  border: 0.5px solid rgba(0, 0, 0, 0.28);
+  border: 0.5px solid var(--ov-page-line);
   /* 纵向内边距 0：Word 的表格默认单元格上下边距就是 0（w:tblCellMar），
      单元格带 w:tcMar 时由行内样式给。横向取 Word 默认 0.19cm ≈ 7px。 */
   padding: 0 7px;
   vertical-align: top;
 }
 .ov-tr-head td {
-  background: rgba(120, 120, 128, 0.1);
+  background: var(--ov-page-fill);
   font-weight: 600;
 }
 /* 无框线表格（文档 border.style=none）：不画线也不留内边距 */
@@ -1618,7 +1625,7 @@ defineExpose({ hover })
 }
 .ov-figure img {
   border-radius: 4px;
-  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 0 0.5px var(--ov-gridline);
 }
 .ov-caption,
 .ov-caption-block {
@@ -1648,7 +1655,7 @@ defineExpose({ hover })
   color: var(--ov-label-2);
 }
 .ov-code {
-  background: rgba(120, 120, 128, 0.1);
+  background: var(--ov-page-fill);
   border-radius: 8px;
   padding: 10px 12px;
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
@@ -1669,7 +1676,7 @@ defineExpose({ hover })
   margin-bottom: 4px;
 }
 .ov-toc-item {
-  color: rgba(0, 0, 0, 0.72);
+  color: var(--ov-page-ink);
 }
 .ov-bib {
   margin: 10px 0;

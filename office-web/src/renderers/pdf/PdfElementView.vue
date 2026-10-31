@@ -82,7 +82,8 @@ const boxStyle = computed(() => {
     s.maxWidth = `${props.pageW * ppp}px`
     s.fontSize = `${size * ppp}px`
     s.fontFamily = pdfCssFont(e.font)
-    s.color = props.pairFill ?? (props.hidden ? 'transparent' : e.color ?? '#000')
+    // 无显式色的文本跟页面墨色令牌（ov-dark-pages 下随画布翻亮），文件显式色原样渲染
+    s.color = props.pairFill ?? (props.hidden ? 'transparent' : e.color ?? 'var(--ov-page-ink)')
     s.whiteSpace = 'pre'
     if (e.bold) s.fontWeight = '700'
     if (e.italic) s.fontStyle = 'italic'
@@ -101,8 +102,9 @@ const boxStyle = computed(() => {
         s.transform = `rotate(${-e.rotation}deg)`
       }
     } else if (e.type === 'pattern_rect') {
-      s.background = '#eef1f5'
-      s.border = '1px dashed #9aa7b4'
+      // 图案填充的兜底底纹：跟页面层令牌（ov-dark-pages 下随画布翻暗）
+      s.background = 'var(--ov-page-fill)'
+      s.border = '1px dashed var(--ov-page-line)'
     } else if (e.rotation) {
       s.transformOrigin = '0 0'
       s.transform = `rotate(${-e.rotation}deg)`
@@ -127,7 +129,7 @@ const vecSvg = computed(() => {
       polyline: d,
       d: '',
       fill: 'none',
-      stroke: e.stroke ?? '#000',
+      stroke: e.stroke ?? 'var(--ov-page-ink)',
       width: e.line_width ?? 1,
       fillRule: 'nonzero' as const,
       dash: e.dash ?? null,
@@ -263,7 +265,7 @@ const imgClip = computed(() => {
       :src="resolveMedia(el.preview ?? el.src)"
       style="width: 100%; height: 100%; display: block"
       alt=""
-      onerror="this.parentElement.style.background='#e8eaed';this.parentElement.style.border='1px dashed #9aa0a6';this.remove()"
+      onerror="this.parentElement.style.background='var(--ov-page-fill)';this.parentElement.style.border='1px dashed var(--ov-page-line)';this.remove()"
     >
   </div>
   <div
@@ -292,7 +294,7 @@ const imgClip = computed(() => {
           v-if="vecSvg.polyline"
           :points="vecSvg.polyline"
           fill="none"
-          :stroke="vecSvg.stroke"
+          :style="{ stroke: vecSvg.stroke }"
           :stroke-width="vecSvg.width"
           :stroke-dasharray="vecSvg.dash ? vecSvg.dash.join(',') : undefined"
         />
@@ -300,7 +302,7 @@ const imgClip = computed(() => {
           v-else
           :d="vecSvg.d"
           :fill="vecSvg.fill"
-          :stroke="vecSvg.stroke"
+          :style="{ stroke: vecSvg.stroke }"
           :stroke-width="vecSvg.width"
           :fill-rule="vecSvg.fillRule"
           :stroke-dasharray="vecSvg.dash ? vecSvg.dash.join(',') : undefined"

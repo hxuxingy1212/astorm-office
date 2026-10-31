@@ -46,6 +46,9 @@ const props = withDefaults(
     /** 铺满容器:容器有确定高度时传 true——viewer 高度 100% 跟随容器、内容内部滚动;
      *  默认 false(自撑高 72~78vh 兜底)。 */
     fill?: boolean
+    /** 主题:light / dark / auto(默认 auto,跟随系统 prefers-color-scheme 实时切换),透传四格式 viewer。
+     *  只暗化 chrome;页面(纸张/幻灯片/表格画布)保持白底,宿主要连页面一起暗在外层加 ov-dark-pages 类。 */
+    theme?: 'light' | 'dark' | 'auto'
   }>(),
   { index: 0 },
 )
@@ -82,6 +85,7 @@ const asPdf = computed(() => props.data as PdfDoc)
       :show-thumbnails="showThumbnails"
       :show-pager="showPager"
       :fill="fill"
+      :theme="theme"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @slide-change="(i) => emit('page-change', i)"
@@ -99,6 +103,7 @@ const asPdf = computed(() => props.data as PdfDoc)
       :outline="outline"
       :show-pager="showPager"
       :fill="fill"
+      :theme="theme"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @page-change="(i) => emit('page-change', i)"
@@ -116,6 +121,7 @@ const asPdf = computed(() => props.data as PdfDoc)
       :show-thumbnails="showThumbnails"
       :show-pager="showPager"
       :fill="fill"
+      :theme="theme"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @page-change="(i) => emit('page-change', i)"
@@ -130,6 +136,7 @@ const asPdf = computed(() => props.data as PdfDoc)
       :zoom="zoom"
       :pick-mode="pickMode"
       :fill="fill"
+      :theme="theme"
       @select="(p, info) => emit('select', p, info)"
       @hover="(p) => emit('hover', p)"
       @sheet-change="(i) => emit('page-change', i)"

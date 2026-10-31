@@ -9,6 +9,7 @@ import type { Element, Slide, PptxDoc } from '@/renderers/pptx/presentation'
 import { usePathHover, type SelectInfo } from '@/core/hover'
 import PathCard from '@/components/PathCard.vue'
 import { useZoomGesture } from '@/core/zoomGesture'
+import { useOvTheme } from '@/core/theme'
 
 const props = withDefaults(
   defineProps<{
@@ -31,9 +32,14 @@ const props = withDefaults(
     /** 拾取模式:仅 true 时启用交互层——元素 hover 高亮/路径卡/选中事件;
      *  false(默认)为纯只读观感(无高亮、无卡片、不发 select)。 */
     pickMode?: boolean
+    /** 主题:light / dark / auto(默认 auto,跟随系统 prefers-color-scheme 实时切换)。
+     *  只暗化 chrome(缩略图侧栏/底栏);幻灯片画布保持白底,宿主要连画布一起暗在外层加 ov-dark-pages 类。 */
+    theme?: 'light' | 'dark' | 'auto'
   }>(),
   { slideIndex: 0 },
 )
+
+const dark = useOvTheme(() => props.theme)
 
 const emit = defineEmits<{
   (e: 'select', path: string, info?: SelectInfo): void
@@ -161,7 +167,8 @@ onBeforeUnmount(() => {
 })
 
 function backgroundCss(bg: unknown): string {
-  if (!bg) return '#fff'
+  // 无背景的幻灯片默认跟页面层令牌（白底；ov-dark-pages 下随画布翻暗）
+  if (!bg) return 'var(--ov-page-bg)'
   if (typeof bg === 'string') return bg.startsWith('#') ? bg : `#${bg}`
   // 兼容两种形态：嵌套 { gradient: { stops, angle } } 与扁平 { type: 'gradient', stops, angle }
   // （后者来自 LibreOffice 引擎的转换产物）；position 兼容 0-1 与 0-100。
@@ -187,7 +194,7 @@ function backgroundCss(bg: unknown): string {
     return `linear-gradient(${angle}deg, ${stops})`
   }
   if (b.image?.src) return `url("${props.resolveMedia ? props.resolveMedia(b.image.src) : b.image.src}") center/cover`
-  return '#fff'
+  return 'var(--ov-page-bg)'
 }
 
 /** 数字索引路径（"2.1"）→ CLI 路径（/slide[1]/text[2]） */
@@ -299,7 +306,7 @@ defineExpose({ hover, go })
 </script>
 
 <template>
-  <div class="ov-pptx" :class="{ 'ov-fill': fill }" tabindex="0" @keydown="onKey">
+  <div class="ov-pptx" :class="{ 'ov-fill': fill, 'ov-dark': dark }" tabindex="0" @keydown="onKey">
     <!-- 左侧：缩略图大纲；收起后留一条细轨保留展开入口（单页不显示侧栏与轨） -->
     <aside v-if="thumbsOpen && presentation.slides.length > 1" class="ov-pptx-side">
       <div class="ov-side-head">
@@ -397,7 +404,7 @@ defineExpose({ hover, go })
   border-radius: 12px;
   overflow: hidden;
   background: var(--ov-page-bg);
-  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--ov-hairline), 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 /* 左侧缩略图大纲（毛玻璃侧栏） */
 .ov-pptx-side {

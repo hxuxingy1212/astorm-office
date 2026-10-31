@@ -98,20 +98,24 @@ http://localhost:5188 实测四格式渲染、悬浮路径卡片与 select 事�
 
 三个查看器的事件一致：`select(path, info?)`（点击元素；`info` 为元素摘要）、`hover(path | null)`（悬浮进出）、`page-change(index)`（分片/幻灯片/工作表切换）、`zoom-change({ scale, fitScale })`（缩放汇报，含手势）；DocxViewer 另有 `outline-change(open)`（目录开合），PptxViewer/PdfViewer 另有 `thumbnails-change(open)`（缩略图侧栏开合）。
 
-**暗色主题**：`<OfficeViewer class="ov-dark" …>`（或在外层容器加 `ov-dark` 类）即得全套暗色
-chrome；亮/暗两组的全部令牌（`--ov-*`）见 `src/styles.css`，可按令牌逐项覆盖。
-文档页面（纸张/幻灯片/表格网格）在暗色下保持白底（同 macOS 预览），如需连页面一起暗，
-覆盖 `--ov-page-bg` 即可。
+**暗色主题**：默认 `theme="auto"`——跟随系统 `prefers-color-scheme` 实时切换，暗色下自动得到
+全套暗色 chrome；也可显式传 `theme="light" / "dark"`，或沿用类开关（在外层容器加 `ov-dark` 类，
+组件不动外层，两条路径可并存）。亮/暗两组的全部令牌（`--ov-*`）见 `src/styles.css`，可按令牌逐项覆盖。
+文档页面（纸张/幻灯片/表格网格）与 chrome 解耦：暗色 chrome 下页面默认保持白底黑字（同 macOS 预览），
+页面层内容色走独立令牌 `--ov-page-bg / --ov-page-ink / --ov-page-ink-2 / --ov-page-line / --ov-gridline / --ov-page-fill`；
+如需连页面一起暗（画布融入深色宿主），加 `ov-dark-pages` 类即可，墨色/网格线/底纹随画布一起翻
+（文件里显式指定的颜色——字体色、填充色——仍按原样渲染）。注意不要只覆盖 `--ov-page-bg`：
+那会把画布翻暗而内容墨色留在亮色组，正是"深底深字"的来源。
 
 ## Props / Events
 
 | 组件 | Props | Events |
 | --- | --- | --- |
-| `OfficeViewer` | `kind: 'docx' \| 'xlsx' \| 'pptx' \| 'pdf'`、`data`、`resolveMedia?`、`index?`、`pageIndex?`、`zoom?`、`outline?`、`showThumbnails?`、`showPager?`、`pickMode?` | `select(path)`、`hover(path \| null)`、`page-change(index)`、`pages-change(total)`、`zoom-change({scale, fitScale})`、`outline-change(open)`、`thumbnails-change(open)` |
-| `PptxViewer` | `presentation`（presentation.json）、`resolveMedia?`、`slideIndex?`、`showThumbnails?`、`showPager?`、`zoom?`、`pickMode?` | `select`、`hover`、`slide-change`、`zoom-change`、`thumbnails-change` |
-| `DocxViewer` | `document`（document.json）、`resolveMedia?`、`partIndex?`、`pageIndex?`、`pageFormat?`、`zoom?`、`outline?`、`showPager?`、`pickMode?` | `select`、`hover`、`page-change`、`pages-change`、`zoom-change`、`outline-change` |
-| `XlsxViewer` | `workbook`（workbook.json）、`resolveMedia?`、`sheetIndex?`、`showHeadings?`、`showGridlines?`、`zoom?`、`pickMode?` | `select`、`hover`、`sheet-change`、`zoom-change` |
-| `PdfViewer` | `doc`（loadPdf 产物）、`resolveMedia?`、`pageIndex?`、`showThumbnails?`、`showPager?`、`zoom?`、`pickMode?` | `select`、`hover`、`page-change`、`zoom-change`、`thumbnails-change` |
+| `OfficeViewer` | `kind: 'docx' \| 'xlsx' \| 'pptx' \| 'pdf'`、`data`、`resolveMedia?`、`index?`、`pageIndex?`、`zoom?`、`outline?`、`showThumbnails?`、`showPager?`、`pickMode?`、`theme?` | `select(path)`、`hover(path \| null)`、`page-change(index)`、`pages-change(total)`、`zoom-change({scale, fitScale})`、`outline-change(open)`、`thumbnails-change(open)` |
+| `PptxViewer` | `presentation`（presentation.json）、`resolveMedia?`、`slideIndex?`、`showThumbnails?`、`showPager?`、`zoom?`、`pickMode?`、`theme?` | `select`、`hover`、`slide-change`、`zoom-change`、`thumbnails-change` |
+| `DocxViewer` | `document`（document.json）、`resolveMedia?`、`partIndex?`、`pageIndex?`、`pageFormat?`、`zoom?`、`outline?`、`showPager?`、`pickMode?`、`theme?` | `select`、`hover`、`page-change`、`pages-change`、`zoom-change`、`outline-change` |
+| `XlsxViewer` | `workbook`（workbook.json）、`resolveMedia?`、`sheetIndex?`、`showHeadings?`、`showGridlines?`、`zoom?`、`pickMode?`、`theme?` | `select`、`hover`、`sheet-change`、`zoom-change` |
+| `PdfViewer` | `doc`（loadPdf 产物）、`resolveMedia?`、`pageIndex?`、`showThumbnails?`、`showPager?`、`zoom?`、`pickMode?`、`theme?` | `select`、`hover`、`page-change`、`zoom-change`、`thumbnails-change` |
 
 `resolveMedia(src)` 把产物内的包路径（`word/media/image1.png`、`xl/media/image1.png`、`ppt/media/image1.png`）
 解析为可加载 URL。默认对 pptx 使用 `/api/media/` 前缀（与 `json2pptx-web-server` 一致）。

@@ -224,6 +224,15 @@ const hostPageTotal = computed(() => {
 })
 /** 受控缩放开关：默认开——演示页默认由宿主持有 zoom prop（滚轮/捏合 → zoom-change → 换算回写） */
 const zoomControlled = ref(true)
+/** 主题：auto 跟随系统 prefers-color-scheme（默认）；light/dark 显式指定 */
+const theme = ref<'light' | 'dark' | 'auto'>('auto')
+const themeOptions = [
+  { value: 'auto', label: '跟随系统' },
+  { value: 'light', label: '浅色' },
+  { value: 'dark', label: '深色' },
+] as const
+/** 连页面一起暗（ov-dark-pages）：画布/纸张/网格翻暗，墨色网格线随动 */
+const pagesDark = ref(false)
 const docZoom = ref(1)
 const zoomInfo = ref<{ scale: number; fitScale: number } | null>(null)
 function onZoomChange(v: { scale: number; fitScale: number }) {
@@ -268,9 +277,11 @@ onMounted(() => load('pptx'))
         <OfficeViewer
           v-else-if="data"
           :key="kind"
+          :class="{ 'ov-dark-pages': pagesDark }"
           :kind="kind === 'xlsx-charts' || kind === 'perf' ? 'xlsx' : kind === 'pdf-deck' ? 'pdf' : kind === 'pptx' ? 'pptx' : kind"
           :data="data"
           :resolve-media="resolveMedia"
+          :theme="theme"
           :outline="outlineOpen"
           :show-thumbnails="thumbsOpen"
           :show-pager="showPager"
@@ -342,6 +353,20 @@ onMounted(() => load('pptx'))
 
         <h3>预览控制</h3>
         <div class="perf-ctl">
+          <div class="demo-theme-row">
+            <span class="demo-theme-label">主题</span>
+            <div class="ov-segmented">
+              <button
+                v-for="opt in themeOptions"
+                :key="opt.value"
+                :class="{ active: theme === opt.value }"
+                @click="theme = opt.value"
+              >
+                {{ opt.label }}
+              </button>
+            </div>
+          </div>
+          <label class="perf-check"><input v-model="pagesDark" type="checkbox" /> 连页面一起暗（ov-dark-pages）</label>
           <label class="perf-check"><input v-model="outlineOpen" type="checkbox" /> 目录侧栏（DOCX）</label>
           <label class="perf-check"><input v-model="thumbsOpen" type="checkbox" /> 缩略图侧栏（PPTX/PDF）</label>
           <label class="perf-check"><input v-model="showPager" type="checkbox" /> 内置换页按钮（showPager）</label>
@@ -544,6 +569,15 @@ body {
   flex-direction: column;
   gap: 6px;
   font-size: 12px;
+}
+.demo-theme-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.demo-theme-label {
+  color: rgba(0, 0, 0, 0.6);
 }
 .perf-ctl label {
   display: flex;

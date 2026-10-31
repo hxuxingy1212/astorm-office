@@ -109,11 +109,11 @@ watch(editing, (v) => {
   inset: 0;
   width: 100%;
   height: 100%;
-  border: 1px dashed #4472c4;
+  border: 1px dashed var(--ov-accent);
   resize: none;
   font: inherit;
   box-sizing: border-box;
   padding: 2px;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--ov-page-bg);
 }
 </style>

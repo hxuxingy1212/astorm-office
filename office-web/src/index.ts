@@ -20,6 +20,8 @@ export { default as PathCard } from '@/components/PathCard.vue'
 
 export { loadDocx, loadPdf, loadPptx, loadProduct, loadXlsx, loadXlsxStreamed } from '@/core/loader'
 export type { ProductKind } from '@/core/loader'
+export { useOvTheme } from '@/core/theme'
+export type { OvTheme } from '@/core/theme'
 export { usePathHover, jsonSnippet } from '@/core/hover'
 export type { PathCardInfo, PathCardState, PathHoverApi, SelectInfo } from '@/core/hover'
 export { colLetter, cellRef, xlsxCellPath, pptxElementPath, pdfElementPath, docxPath, typeOrdinal } from '@/core/path'

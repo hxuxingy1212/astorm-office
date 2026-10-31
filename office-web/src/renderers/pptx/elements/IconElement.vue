@@ -29,7 +29,15 @@ const color = computed(() => withHash(props.el.color ?? '#4472C4'))
       <template v-if="def">
         <path v-for="(d, i) in def.paths" :key="i" :d="d" :fill="color" />
       </template>
-      <text v-else x="12" y="12" text-anchor="middle" dominant-baseline="middle" font-size="8" fill="#999">
+      <text
+        v-else
+        x="12"
+        y="12"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        font-size="8"
+        :style="{ fill: 'var(--ov-page-ink-2)' }"
+      >
         ?
       </text>
     </svg>
