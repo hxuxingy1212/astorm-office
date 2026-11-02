@@ -306,7 +306,7 @@ fn batch_replays_dump_and_stops_or_continues_as_flagged() {
 fn merge_fills_placeholders_in_product_dir() {
     let dir = temp_dir("merge");
     let product = make_product(&dir);
-    // 在 A1 写入占位符，再用 merge 数据填充
+    // 在 A1 写入占位符，再用 merge 数据填充（数据 JSON 从文件传入）
     let r = run(&[
         "edit",
         product.to_str().unwrap(),
@@ -316,18 +316,31 @@ fn merge_fills_placeholders_in_product_dir() {
         "value={{company}}",
     ]);
     assert_eq!(r.code, Some(0), "{}", r.stderr);
+    let data = dir.join("data.json");
+    std::fs::write(&data, r#"{"company":"ACME"}"#).unwrap();
     let r = run(&[
         "--json",
         "merge",
         product.to_str().unwrap(),
         "--data",
-        r#"{"company":"ACME"}"#,
+        data.to_str().unwrap(),
     ]);
     assert_eq!(r.code, Some(0), "{}", r.stderr);
     let v: serde_json::Value = serde_json::from_str(&r.stdout).unwrap();
     assert_eq!(v["replacements"], 1, "{v}");
     let r = run(&["view", product.to_str().unwrap(), "/sheet[1]", "text"]);
     assert!(r.stdout.contains("ACME"), "{}", r.stdout);
+
+    // 内联 JSON 不再接受（收束为文件路径）
+    let r = run(&[
+        "--json",
+        "merge",
+        product.to_str().unwrap(),
+        "--data",
+        r#"{"company":"x"}"#,
+    ]);
+    assert_eq!(r.code, Some(1), "{}", r.stderr);
+    assert!(r.stderr.contains("文件路径"), "{}", r.stderr);
 }
 
 #[test]

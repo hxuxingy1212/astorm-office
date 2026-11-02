@@ -157,12 +157,9 @@ enum Command {
     Batch {
         /// 输入的产物目录（.docx 请先 unpack）
         input: PathBuf,
-        /// 指令 JSON 文件（- 表示 stdin）
-        #[arg(long)]
+        /// 指令 JSON 文件（- 表示 stdin；缺省读 stdin）
+        #[arg(long, value_name = "FILE")]
         input_file: Option<String>,
-        /// 内联指令 JSON
-        #[arg(long)]
-        commands: Option<String>,
         /// 遇错继续（报告仍标 ok=false，退出码 1）
         #[arg(long)]
         force: bool,
@@ -182,8 +179,8 @@ enum Command {
     Merge {
         /// 输入的 DOCX 或产物目录
         input: PathBuf,
-        /// 数据 JSON（对象字符串）
-        #[arg(short = 'd', long)]
+        /// 数据 JSON 文件路径（- 表示 stdin）
+        #[arg(short = 'd', long, value_name = "FILE")]
         data: String,
     },
 }
@@ -242,35 +239,6 @@ enum EditAction {
     },
     /// 删除路径指向的元素
     Remove,
-}
-
-/// 读取 batch 指令：--input-file > --commands > stdin
-fn read_batch_commands(input_file: Option<&str>, commands: Option<&str>) -> Result<String> {
-    if let Some(f) = input_file {
-        if f == "-" {
-            use std::io::Read;
-            let mut s = String::new();
-            std::io::stdin()
-                .read_to_string(&mut s)
-                .map_err(|e| CliError::with_code("io", format!("读取 stdin 失败: {e}")))?;
-            return Ok(s);
-        }
-        return std::fs::read_to_string(f)
-            .map_err(|e| CliError::with_code("io", format!("读取 {f} 失败: {e}")));
-    }
-    if let Some(c) = commands {
-        return Ok(c.to_string());
-    }
-    use std::io::Read;
-    let mut s = String::new();
-    std::io::stdin()
-        .read_to_string(&mut s)
-        .map_err(|e| CliError::with_code("io", format!("读取 stdin 失败: {e}")))?;
-    if s.trim().is_empty() {
-        return Err(CliError::new("缺少 batch 指令")
-            .suggest("用 --input-file <file> / --commands '<json>' 或从 stdin 传入"));
-    }
-    Ok(s)
 }
 
 fn main() {
@@ -537,13 +505,13 @@ fn run(cli: &Cli, out: &Output) -> Result<i32> {
             let value = match action {
                 EditAction::Get => edit::get(&doc, &loc)?,
                 EditAction::Set { prop } => {
-                    let props = edit::parse_props(prop)?;
+                    let props = edit::parse_props(&office_core::payload::expand_props(prop)?)?;
                     let r = edit::set(&mut doc, &loc, &props)?;
                     product::save_document(&root, &doc)?;
                     r
                 }
                 EditAction::Add { r#type, prop } => {
-                    let props = edit::parse_props(prop)?;
+                    let props = edit::parse_props(&office_core::payload::expand_props(prop)?)?;
                     let r = edit::add(&mut doc, &loc, r#type, &props)?;
                     product::save_document(&root, &doc)?;
                     r
@@ -563,14 +531,13 @@ fn run(cli: &Cli, out: &Output) -> Result<i32> {
         Command::Batch {
             input,
             input_file,
-            commands,
             force,
         } => {
             if !product::is_product_dir(input) {
                 return Err(CliError::new("batch 需要产物目录（.docx 请先 unpack）")
                     .suggest("先 json2docx unpack <文件.docx> -o <目录>"));
             }
-            let raw = read_batch_commands(input_file.as_deref(), commands.as_deref())?;
+            let raw = office_core::payload::read_text(input_file.as_deref().unwrap_or("-"))?;
             let v: serde_json::Value = serde_json::from_str(&raw).map_err(|e| {
                 CliError::new(format!("指令 JSON 解析失败: {e}"))
                     .suggest(r#"指令格式: {"commands":[{"op":"set","path":"/part[1]/paragraph[1]","props":{"text":"新文本"}}]}"#)
@@ -600,8 +567,7 @@ fn run(cli: &Cli, out: &Output) -> Result<i32> {
         Command::Merge { input, data } => {
             let (root, _tmp) = product::resolve_input(input)?;
             let mut doc = product::load_document(&root)?;
-            let jd: serde_json::Value = serde_json::from_str(data)
-                .map_err(|e| CliError::new(format!("数据 JSON 解析失败: {e}")))?;
+            let jd: serde_json::Value = office_core::payload::read_json(data)?;
             let n = json2docx::merge_document(&mut doc, &jd);
             let out_docx = output.clone().unwrap_or_else(|| {
                 let mut p = input.clone();

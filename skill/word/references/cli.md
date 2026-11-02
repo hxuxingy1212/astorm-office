@@ -182,7 +182,7 @@ echo '<x/>' | json2docx raw-set a.docx customXml/i1.xml --file - -o b.docx
 ## 10. merge / serve / mcp
 
 ```bash
-json2docx merge tpl.docx -d '{"name":"张三"}' -o out.docx   # {{key}} 数据填充
+json2docx merge tpl.docx --data data.json -o out.docx   # {{key}} 数据填充（数据为 JSON 文件，- = stdin）
 json2docx serve a.docx                                      # 常驻：stdin 逐行 JSON 操作
 json2docx mcp                                               # MCP stdio JSON-RPC 服务
 ```
@@ -233,7 +233,7 @@ json2docx templates     # 列出 5 套内置模板；--json 输出结构化
 - 图片支持内联与浮动：`image.wrap`（`square`/`tight`/`topAndBottom`/`none`）+ `x`/`y`（pt）+ `behind_text`；裁剪 `image.crop`（[左,上,右,下] 百分比）与旋转 `image.rotation`（度）。
 - MCP 服务：`json2docx mcp`（stdio JSON-RPC，工具：unpack/repack/view/validate/merge/edit/render/schema）。
 - 常驻编辑：`json2docx serve <输入>`（stdin 逐行 JSON 操作，内存保持文档）。
-- 数据填充：`merge <输入> -d '{"k":"v"}' -o out.docx`，替换段落/表格/形状/页眉页脚中的 `{{key}}`（支持 `a.b` 嵌套）。
+- 数据填充：`merge <输入> --data <data.json>`（`-` = stdin），替换段落/表格/形状/页眉页脚中的 `{{key}}`（支持 `a.b` 嵌套）。
 - 超链接：`run.hyperlink` 以 `#` 开头视为文档内书签锚点（`w:hyperlink w:anchor`），否则按外部关系生成。
 - 原生图表：`chart` 块（`chart_type` + `categories` + `series{name,values,color}`）生成 `chartN.xml` 并可回环；支持 `legend`（b/t/l/r/none）、`x_title`/`y_title`、`y_min`/`y_max`、`data_labels`、`grouping`（clustered/stacked/percentStacked）；系列数值/类别兼容 `numRef/strRef` 缓存。
 - 文本框/形状：`textbox` 块（`fill`/`line`/`font_size`/`color`，内联或浮动）；`shape` 块（`shape_type` 预设几何 + 可选 `text`/`fill`/`line`/`rotation`/`wrap`+`x`/`y`）。

@@ -32,12 +32,15 @@
 | `samples/sdt.json` | 内容控件（SDT）：下拉框/富文本/行内 | `json2docx repack <dir> -o sdt.docx` |
 | `samples/form.json` | 表单域（text/checkbox/dropdown）+ 域（DATE） | 同上 |
 | `samples/chart.json` | 富图表：堆叠柱状图（图例/轴标题/数据标签/系列色）+ 多系列折线 | 同上 |
-| `samples/merge.json` | 模板占位符 `{{key}}`（段落/表格/形状） | `json2docx merge <dir> -d '{"key":"v"}' -o out.docx` |
+| `samples/merge.json` | 模板占位符 `{{key}}`（段落/表格/形状） | `json2docx merge <dir> --data data.json -o out.docx` |
 
 ```bash
-# 示例：合并填充
+# 示例：合并填充（数据 JSON 先落盘，`-` 可从 stdin 传入）
 mkdir -p /tmp/merge && cp skill/samples/merge.json /tmp/merge/document.json
-json2docx merge /tmp/merge -d '{"title":"Q4 对账单","client":"Acme","total":"5,200","item":"服务费","amount":"5,200","date":"2026-01-01","note":"已开票"}' -o out.docx
+cat > /tmp/merge-data.json <<'EOF'
+{"title":"Q4 对账单","client":"Acme","total":"5,200","item":"服务费","amount":"5,200","date":"2026-01-01","note":"已开票"}
+EOF
+json2docx merge /tmp/merge --data /tmp/merge-data.json -o out.docx
 ```
 
 > 另见 `scripts/gen_template_samples.py` 生成的 `feature-showcase.docx`（综合演示盒式边框/制表位前导/富图表/表格宽度/SDT/表单域/域/注音/RTL）。

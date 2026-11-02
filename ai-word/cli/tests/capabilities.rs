@@ -92,6 +92,48 @@ fn make_product(dir: &Path) -> PathBuf {
 }
 
 #[test]
+fn edit_prop_value_can_come_from_file() {
+    let dir = temp_dir("prop_file");
+    let product = make_product(&dir);
+    let ps = product.to_str().unwrap();
+
+    // --prop 值 @file：长文本从文件读，避免内联进命令行
+    let body = dir.join("body.txt");
+    std::fs::write(&body, "来自文件的长正文").unwrap();
+    let r = run(&[
+        "edit",
+        ps,
+        "/part[1]/paragraph[1]",
+        "set",
+        "--prop",
+        &format!("text=@{}", body.display()),
+    ]);
+    assert_eq!(r.code, Some(0), "{}", r.stderr);
+    let r = run(&["view", ps, "/part[1]", "text"]);
+    assert!(r.stdout.contains("来自文件的长正文"), "{}", r.stdout);
+
+    // @@ 转义字面 @；不存在的文件要报错
+    let r = run(&[
+        "edit",
+        ps,
+        "/part[1]/paragraph[2]",
+        "set",
+        "--prop",
+        "text=@@提及",
+    ]);
+    assert_eq!(r.code, Some(0), "{}", r.stderr);
+    let r = run(&[
+        "edit",
+        ps,
+        "/part[1]/paragraph[2]",
+        "set",
+        "--prop",
+        "text=@/nonexistent/body.txt",
+    ]);
+    assert_eq!(r.code, Some(1), "{}", r.stderr);
+}
+
+#[test]
 fn help_lists_elements_and_props() {
     let r = run(&["--json", "help"]);
     assert_eq!(r.code, Some(0), "{}", r.stderr);
@@ -281,19 +323,20 @@ fn merge_and_serve_smoke() {
     let product = make_product(&dir);
     let ps = product.to_str().unwrap();
 
-    // merge：{{title}} → 数据
-    let r = run(&[
-        "--json",
-        "merge",
-        ps,
-        "--data",
-        r#"{"title":"2026 战略报告"}"#,
-    ]);
+    // merge：{{title}} → 数据（数据 JSON 从文件传入，`-`/内联不再支持）
+    let data = dir.join("data.json");
+    std::fs::write(&data, r#"{"title":"2026 战略报告"}"#).unwrap();
+    let r = run(&["--json", "merge", ps, "--data", data.to_str().unwrap()]);
     assert_eq!(r.code, Some(0), "{}", r.stderr);
     let v: serde_json::Value = serde_json::from_str(&r.stdout).unwrap();
     assert_eq!(v["replaced"], 1, "{v}");
     let r = run(&["view", ps, "/part[1]", "text"]);
     assert!(r.stdout.contains("2026 战略报告"), "{}", r.stdout);
+
+    // 内联 JSON 不再接受（收束为文件路径，报错要带迁移建议）
+    let r = run(&["--json", "merge", ps, "--data", r#"{"title":"x"}"#]);
+    assert_eq!(r.code, Some(1), "{}", r.stderr);
+    assert!(r.stderr.contains("文件路径"), "{}", r.stderr);
 
     // serve：edit + quit
     let input = format!(

@@ -139,8 +139,8 @@ paper/
 ## 模板填充与服务化命令（Word 特有用法）
 
 ```bash
-# 模板数据填充：替换 {{key}}（支持 a.b 嵌套）
-json2docx merge <输入.docx|产物目录> -d '{"client":"Acme","order":{"id":"A-100"}}' -o out.docx
+# 模板数据填充：替换 {{key}}（支持 a.b 嵌套）；数据写在 JSON 文件里（- = stdin）
+json2docx merge <输入.docx|产物目录> --data data.json -o out.docx
 
 # MCP 服务（stdio JSON-RPC）：工具 unpack/repack/view/validate/merge/edit/render/schema
 json2docx mcp

@@ -53,7 +53,7 @@ deck/                            # 产物根
 json2pptx query deck.pptx 'slide[1] shape[name=Logo]'   # 类 CSS 选择器筛选元素（ppt 特有）
 json2pptx render deck.pptx /slide[1] -o p1.png          # PNG 预览（browser / native 双引擎）
 json2pptx help shape --json                             # 能力速查（与实现同源）
-json2pptx merge deck/ --data '{"title":"2026"}'         # {{key}} 占位符批量填充
+json2pptx merge deck/ --data data.json                  # {{key}} 占位符批量填充（数据为 JSON 文件，- = stdin）
 
 # 从零生成一页然后微调（产物目录 + edit 原地修改，不需要反复 repack）
 json2pptx repack deck/ -o deck.pptx

@@ -270,18 +270,32 @@ fn batch_replays_dump_faithfully() {
 fn merge_fills_placeholders() {
     let dir = temp_dir("merge");
     let product = make_product(&dir);
+    // 数据 JSON 从文件传入（- = stdin；内联不再支持）
+    let data = dir.join("data.json");
+    std::fs::write(&data, r#"{"title":"2026 战略"}"#).unwrap();
     let r = run(&[
         "--json",
         "merge",
         product.to_str().unwrap(),
         "--data",
-        r#"{"title":"2026 战略"}"#,
+        data.to_str().unwrap(),
     ]);
     assert_eq!(r.code, Some(0), "{}", r.stderr);
     let v: serde_json::Value = serde_json::from_str(&r.stdout).unwrap();
     assert_eq!(v["replacements"], 1, "{v}");
     let r = run(&["view", product.to_str().unwrap(), "/slide[1]", "text"]);
     assert!(r.stdout.contains("2026 战略"), "{}", r.stdout);
+
+    // 内联 JSON 不再接受（收束为文件路径）
+    let r = run(&[
+        "--json",
+        "merge",
+        product.to_str().unwrap(),
+        "--data",
+        r#"{"title":"x"}"#,
+    ]);
+    assert_eq!(r.code, Some(1), "{}", r.stderr);
+    assert!(r.stderr.contains("文件路径"), "{}", r.stderr);
 }
 
 #[test]

@@ -4,6 +4,7 @@
 //! - [`guards`]：一次性临时目录/文件守卫（RAII 清理）
 //! - [`opc`]：OPC（OOXML 包）通用部件读写，与具体文档格式无关
 //! - [`output`]：统一 CLI 输出契约（stdout 只放数据、stderr 放状态、--json 全结构化）
+//! - [`payload`]：大 JSON/长文本载荷的文件路径加载约定（`-` = stdin，`@file` 读长文本）
 //! - [`pathutil`]：路径与字符串转换辅助
 //! - [`soffice`]：LibreOffice 无头转换引擎（旧格式 → 新格式的最高保真路径）
 //!
@@ -20,6 +21,7 @@ pub mod merge;
 pub mod opc;
 pub mod output;
 pub mod pathutil;
+pub mod payload;
 pub mod soffice;
 pub mod suggest;
 

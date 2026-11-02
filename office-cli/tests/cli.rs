@@ -248,13 +248,18 @@ fn batch_runs_text_script_across_formats() {
 #[test]
 fn batch_json_script_and_json_report() {
     let s = Stubs::new("batch_json");
-    // 内联 JSON：一步显式格式、一步靠推断、一步字符串形式
-    let commands = r#"{"version":1,"commands":[
+    // JSON 脚本文件：一步显式格式、一步靠推断、一步字符串形式
+    let script = s.dir.join("steps.json");
+    std::fs::write(
+        &script,
+        r#"{"version":1,"commands":[
         {"format":"word","args":["view","prod/","/","text"]},
         {"args":["extract","text","r.pdf","--format","markdown"]},
         "ppt view deck.pptx / layout"
-    ]}"#;
-    let (code, out, err) = s.run(&["batch", "--commands", commands, "--json"]);
+    ]}"#,
+    )
+    .unwrap();
+    let (code, out, err) = s.run(&["batch", script.to_str().unwrap(), "--json"]);
     assert_eq!(code, 0, "{err}");
     let v: serde_json::Value = serde_json::from_str(&out).unwrap();
     assert_eq!(v["ok"], true);
@@ -342,14 +347,23 @@ fn batch_dry_run_executes_nothing() {
 fn batch_helpful_errors() {
     let s = Stubs::new("batch_err");
     // 缺少 args
-    let (code, _o, err) = s.run(&["batch", "--commands", r#"[{"format":"word"}]"#]);
+    let bad = s.dir.join("bad.json");
+    std::fs::write(&bad, r#"[{"format":"word"}]"#).unwrap();
+    let (code, _o, err) = s.run(&["batch", bad.to_str().unwrap()]);
     assert_eq!(code, 1);
     assert!(err.contains("args"), "{err}");
 
     // 未知格式
-    let (code, _o, err) = s.run(&["batch", "--commands", r#"[{"format":"nope","args":["x"]}]"#]);
+    let nope = s.dir.join("nope.json");
+    std::fs::write(&nope, r#"[{"format":"nope","args":["x"]}]"#).unwrap();
+    let (code, _o, err) = s.run(&["batch", nope.to_str().unwrap()]);
     assert_eq!(code, 1);
     assert!(err.contains("未知格式"), "{err}");
+
+    // 内联命令不再接受（迁移提示）
+    let (code, _o, err) = s.run(&["batch", r#"[{"format":"word","args":["view","a.docx"]}]"#]);
+    assert_eq!(code, 1);
+    assert!(err.contains("文件路径"), "{err}");
 
     // 脚本文件不存在
     let (code, _o, err) = s.run(&["batch", "/nonexistent/steps.txt"]);

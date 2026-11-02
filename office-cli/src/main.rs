@@ -37,11 +37,11 @@ const AFTER_HELP: &str = "\
   astorm-office pdf extract text r.pdf --format markdown
   astorm-office view thesis.docx / text               # 省略格式：按 .docx 自动分发
   astorm-office formats                               # 看格式别名与底层 CLI 路径
-  astorm-office batch steps.txt                       # 批量执行（一行一条命令）
-  astorm-office batch --commands '[{\"format\":\"word\",\"args\":[\"unpack\",\"a.docx\",\"-o\",\"prod/\"]}]'
+  astorm-office batch steps.txt                       # 批量执行（一行一条命令；.json 走 JSON 脚本，- 读 stdin）
 
 转发模式：格式后面的参数原封不动交给底层 CLI（含 --json/--quiet/-o 等）。
-批处理：脚本每行一条命令（'#' 注释），或用 JSON {\"commands\":[{\"format\",…,\"args\":[…]}]}。";
+批处理：脚本每行一条命令（'#' 注释），或 JSON {\"commands\":[{\"format\",…,\"args\":[…]}]}。
+大 JSON / 长文本参数一律走文件路径（`-` = stdin），不接受内联。";
 
 #[derive(Parser)]
 #[command(
@@ -86,9 +86,6 @@ struct BatchArgs {
     /// 同上，显式写法
     #[arg(long = "input-file")]
     input_file: Option<String>,
-    /// 内联脚本（JSON 数组 / {\"commands\":[…]}/ 多行文本）
-    #[arg(long)]
-    commands: Option<String>,
     /// 遇错继续（默认停在第 1 个失败处）
     #[arg(long)]
     force: bool,
@@ -220,15 +217,15 @@ fn run_batch(args: &BatchArgs) -> Result<i32, CliError> {
         .or_else(|| args.input_file.clone())
         .unwrap_or_else(|| "-".to_string());
     // 交互式终端下又没有脚本来源 → 直接给用法，别干等着读 stdin
-    if args.commands.is_none()
-        && args.script.is_none()
+    if args.script.is_none()
         && args.input_file.is_none()
         && std::io::IsTerminal::is_terminal(&std::io::stdin())
     {
-        return Err(CliError::new("batch 需要脚本来源")
-            .suggest("astorm-office batch steps.txt / --input-file steps.json / --commands '<json>' / 管道输入"));
+        return Err(CliError::new("batch 需要脚本来源").suggest(
+            "astorm-office batch steps.txt / --input-file steps.json / 管道输入（脚本参数不再接受内联命令）",
+        ));
     }
-    let steps = batch::load_script(&source, args.commands.as_deref())?;
+    let steps = batch::load_script(&source)?;
     if steps.is_empty() {
         return Err(CliError::new("脚本里没有可执行的命令").suggest(
             "文本脚本一行一条：`word unpack a.docx -o prod/`；JSON 脚本用 commands 数组",

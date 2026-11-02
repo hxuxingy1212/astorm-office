@@ -70,9 +70,9 @@ astorm-office batch <脚本|-> [...]   # 批量执行多条命令（文本一行
 
 | 命令 | 语义 | stdout | 退出码 |
 |---|---|---|---|
-| `batch <input> --input-file F\|--commands '<json>'` | 回放 dump 风格指令；**默认遇错即停**，`--force` 跳过错误继续 | 报告 JSON `{"ok","applied","failed","steps":[{"index","op","path","ok","result"/"error","suggestion"}]}` | 任一步失败 → 1 |
+| `batch <input> --input-file F`（`-` = stdin，缺省读 stdin） | 回放 dump 风格指令；**默认遇错即停**，`--force` 跳过错误继续 | 报告 JSON `{"ok","applied","failed","steps":[{"index","op","path","ok","result"/"error","suggestion"}]}` | 任一步失败 → 1 |
 | `help [元素]` | 能力速查（属性/别名/示例，能力表与实现同源） | 人读表格；`--json` 时机器可读能力 schema | 未知元素 → 1（带建议） |
-| `merge <input> --data '<json>'` | `{{key}}` 占位符填充（xlsx/ppt 原地产物目录；docx 输出新文件） | 空；`--json` 结果 | 1（数据非法） |
+| `merge <input> --data <data.json>`（`-` = stdin） | `{{key}}` 占位符填充（xlsx/ppt 原地产物目录；docx 输出新文件） | 空；`--json` 结果 | 1（数据非法） |
 | `serve <dir>` | 常驻编辑服务：stdin 逐行 JSON op（edit/view/batch/merge/issues/save/quit），逐行回 `{"ok",...}` | 逐行 JSON | 1（加载失败） |
 | `mcp` | MCP 服务（stdio JSON-RPC 2.0，tools/list + tools/call） | 逐行 JSON-RPC | — |
 
@@ -112,6 +112,11 @@ astorm-office batch <脚本|-> [...]   # 批量执行多条命令（文本一行
 
 - 输入一律为**位置参数**，接受文档文件或产物目录（自动识别）。
 - 输出路径一律 `-o/--output`（global，可放在任意位置）。
+- **大 JSON / 长文本参数一律收束为文件路径**（agent 集成时省上下文，也绕开 argv 上限）：
+  `batch --input-file <file>`、`merge --data <file>`、`json2pdf meta set -d <file>` /
+  `form fill -d <file>`——都是「读文件（`-` = stdin）再解析」，不再接受内联 JSON
+  （传内联会报错并提示先落盘）。`edit` 的 `--prop k=v` 值以 `@` 开头时从文件读长文本
+  （`text=@body.txt`；`@@` 转义字面 `@`，`@-` = stdin）。
 - `edit` 属性用 `--prop k=v`（可重复）；新增元素用 `--type T`。
 - 路径语法为 1 基树形寻址：`/part[1]/paragraph[2]`（docx）、`/sheet[1]/cell[A1]`（xlsx）、`/slide[1]/text[2]`（pptx）。
 - **稳定 ID 寻址**（多步编辑防索引漂移）：docx 段落 `paragraph[@paraId=1A2B3C4D]`（w14:paraId，unpack 自原始文档保留、repack 回写）；pptx 元素 `text[@id=5]` / `text[@name=标题]`（cNvPr/@id，`edit add` 回显分配的 id）。

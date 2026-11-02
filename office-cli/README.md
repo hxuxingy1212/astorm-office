@@ -44,7 +44,6 @@ astorm-office -f ppt view deck.pptx / text         # 显式指定（--format/-f�
 astorm-office batch steps.txt                      # 文本脚本：一行一条，# 注释
 astorm-office batch steps.json                     # JSON 脚本
 astorm-office batch - < steps.txt                  # stdin
-astorm-office batch --commands '<json 或文本串>'
 ```
 
 ```text

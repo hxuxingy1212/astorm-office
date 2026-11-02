@@ -464,16 +464,8 @@ fn status(opts: &BatchOpts, msg: &str) {
     }
 }
 
-/// 脚本来源：文件（`.` 开头为 JSON，其余为文本；`-` 读 stdin）
-pub fn load_script(source: &str, commands: Option<&str>) -> Result<Vec<Step>, CliError> {
-    if let Some(c) = commands {
-        // 内联命令：兼容 `{"commands":[…]}`、裸数组、以及单行文本
-        let trimmed = c.trim_start();
-        if trimmed.starts_with('{') || trimmed.starts_with('[') {
-            return parse_script(c);
-        }
-        return parse_script_text(c);
-    }
+/// 脚本来源：文件（内容自适应 JSON / 文本；`-` 读 stdin）
+pub fn load_script(source: &str) -> Result<Vec<Step>, CliError> {
     let content = if source == "-" {
         let mut buf = String::new();
         std::io::Read::read_to_string(&mut std::io::stdin(), &mut buf)
@@ -482,8 +474,14 @@ pub fn load_script(source: &str, commands: Option<&str>) -> Result<Vec<Step>, Cl
     } else {
         let p = Path::new(source);
         if !p.is_file() {
+            let t = source.trim_start();
+            if t.starts_with('{') || t.starts_with('[') {
+                return Err(CliError::new(format!("脚本文件不存在: {source}")).suggest(
+                    "batch 的脚本参数是文件路径（不再接受内联命令）：先把脚本写入文件，或用 `-` 从 stdin 传入",
+                ));
+            }
             return Err(CliError::new(format!("脚本文件不存在: {source}"))
-                .suggest("写脚本文件，或 `--commands '<json>'` 内联给命令"));
+                .suggest("写脚本文件后传入，或用管道 `cat steps.json | astorm-office batch -`"));
         }
         std::fs::read_to_string(p)
             .map_err(|e| CliError::with_code("io", format!("读取脚本失败: {e}")))?

@@ -31,4 +31,4 @@
    json2pptx edit deck/ '/slide[3]/text[@name=Slogan]' set --prop text=新口号
    ```
 5. **视觉闭环**：每页 `render '/slide[N]'` 截图检查溢出/对比度；不确定属性先 `json2pptx help <元素> --json`。
-6. **数据填充**：同一模板换项目数据时，文字写 `{{key}}` 占位符，用 `merge --data '{"company":"ACME"}'` 批量填充。
+6. **数据填充**：同一模板换项目数据时，文字写 `{{key}}` 占位符，数据写成 JSON 文件后用 `merge --data data.json` 批量填充。

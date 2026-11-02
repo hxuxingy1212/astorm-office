@@ -140,19 +140,16 @@ enum Command {
     /// 模板数据填充：把 {{key}} 替换为 JSON 数据
     Merge {
         input: PathBuf,
-        /// 数据 JSON（对象字符串）
-        #[arg(short = 'd', long)]
+        /// 数据 JSON 文件路径（- 表示 stdin）
+        #[arg(short = 'd', long, value_name = "FILE")]
         data: String,
     },
     /// 回放 dump 指令（默认遇错停止；--force 跳过错误继续）
     Batch {
         input: PathBuf,
-        /// 指令 JSON 文件（与 --commands 二选一；都缺省时读 stdin）
-        #[arg(long)]
-        input_file: Option<PathBuf>,
-        /// 内联指令 JSON
-        #[arg(long)]
-        commands: Option<String>,
+        /// 指令 JSON 文件（- 表示 stdin；缺省读 stdin）
+        #[arg(long, value_name = "FILE")]
+        input_file: Option<String>,
         /// 跳过错误继续执行
         #[arg(long)]
         force: bool,
@@ -437,13 +434,13 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
                     out.emit_json(&ops::get(&wb, &p)?)?;
                 }
                 EditAction::Set { props } => {
-                    let props = ops::parse_props(props);
+                    let props = ops::parse_props(&office_core::payload::expand_props(props)?);
                     apply_edit(out, output.as_ref(), input, is_dir, |wb| {
                         ops::set(wb, &p, &props)
                     })?;
                 }
                 EditAction::Add { etype, props } => {
-                    let props = ops::parse_props(props);
+                    let props = ops::parse_props(&office_core::payload::expand_props(props)?);
                     apply_edit(out, output.as_ref(), input, is_dir, |wb| {
                         ops::add(wb, &p, etype, &props)
                     })?;
@@ -534,10 +531,7 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
         Command::Merge { input, data } => {
             let is_dir = json2xlsx::is_product_dir(input);
             let mut wb = load_input(input)?;
-            let jd: serde_json::Value = serde_json::from_str(data).map_err(|e| {
-                CliError::new(format!("数据 JSON 解析失败: {e}"))
-                    .suggest("data 应为 JSON 对象字符串，如 '{\"name\":\"张三\"}'")
-            })?;
+            let jd: serde_json::Value = office_core::payload::read_json(data)?;
             let n = json2xlsx::merge_workbook(&mut wb, &jd);
             let xlsx = match output {
                 Some(o) => o.clone(),
@@ -560,10 +554,9 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
         Command::Batch {
             input,
             input_file,
-            commands,
             force,
         } => {
-            let raw = read_batch_commands(input_file.as_deref(), commands.as_deref())?;
+            let raw = office_core::payload::read_text(input_file.as_deref().unwrap_or("-"))?;
             let v: serde_json::Value = serde_json::from_str(&raw).map_err(|e| {
                 CliError::new(format!("指令 JSON 解析失败: {e}"))
                     .suggest("指令格式: {\"commands\":[{\"op\":\"set\",\"path\":\"/sheet[1]/cell[A1]\",\"props\":{...}}]}")
@@ -750,27 +743,6 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
         }
     }
     Ok(office_core::EXIT_SUCCESS)
-}
-
-/// 读取 batch 指令来源：--input-file > --commands > stdin
-fn read_batch_commands(file: Option<&Path>, inline: Option<&str>) -> Result<String, CliError> {
-    if let Some(f) = file {
-        return std::fs::read_to_string(f)
-            .map_err(|e| CliError::with_code("io", format!("读取指令文件失败: {e}")));
-    }
-    if let Some(c) = inline {
-        return Ok(c.to_string());
-    }
-    use std::io::Read;
-    let mut s = String::new();
-    std::io::stdin()
-        .read_to_string(&mut s)
-        .map_err(|e| CliError::with_code("io", format!("读取 stdin 失败: {e}")))?;
-    if s.trim().is_empty() {
-        return Err(CliError::new("缺少 batch 指令")
-            .suggest("用 --input-file <file> / --commands '<json>' 或从 stdin 传入"));
-    }
-    Ok(s)
 }
 
 fn do_extract(

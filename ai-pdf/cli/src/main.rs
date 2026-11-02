@@ -159,12 +159,9 @@ enum Cmd {
     Batch {
         /// 输入的产物目录（PDF 请先 unpack；不存在的空目录会自动创建 document.json）
         input: PathBuf,
-        /// 指令 JSON 文件（- 表示 stdin）
-        #[arg(long)]
+        /// 指令 JSON 文件（- 表示 stdin；缺省读 stdin）
+        #[arg(long, value_name = "FILE")]
         input_file: Option<String>,
-        /// 内联指令 JSON
-        #[arg(long)]
-        commands: Option<String>,
         /// 遇错继续（报告仍标 ok=false，退出码 1）
         #[arg(long)]
         force: bool,
@@ -299,11 +296,11 @@ enum PagesCmd {
 enum MetaCmd {
     /// 读取元数据
     Get { file: PathBuf },
-    /// 写入元数据（-d '{"Title":"...","Author":"..."}'，自动更新 ModDate）
+    /// 写入元数据（-d 指向元数据 JSON 文件，自动更新 ModDate）
     Set {
         file: PathBuf,
-        /// JSON 字符串
-        #[arg(short, long)]
+        /// 元数据 JSON 文件路径（- 表示 stdin）
+        #[arg(short, long, value_name = "FILE")]
         data: String,
     },
     /// 批量写入 Z.ai 品牌元数据（多文件原地，单文件可用 -o）
@@ -318,10 +315,11 @@ enum MetaCmd {
 enum FormCmd {
     /// 字段树分析
     Info { file: PathBuf },
-    /// 填写表单（-d '{"字段名":"值"}'）
+    /// 填写表单（-d 指向「字段名 → 值」JSON 文件）
     Fill {
         file: PathBuf,
-        #[arg(short, long)]
+        /// 表单数据 JSON 文件路径（- 表示 stdin）
+        #[arg(short, long, value_name = "FILE")]
         data: String,
     },
 }
@@ -824,12 +822,16 @@ fn dispatch(cli: &Cli, out: &Output) -> Result<i32, CmdError> {
             out.emit_json(&meta::get(file)?)?;
         }
         Cmd::Meta(MetaCmd::Set { file, data }) => {
-            let map: serde_json::Map<String, Value> = serde_json::from_str(data).map_err(|e| {
-                CmdError(
-                    CliError::with_code("json", format!("-d 不是合法 JSON: {e}"))
-                        .suggest(r#"格式: -d '{"Title":"标题","Author":"作者"}'"#),
-                )
-            })?;
+            let value = office_core::payload::read_json(data)?;
+            let map: serde_json::Map<String, Value> =
+                match value {
+                    Value::Object(m) => m,
+                    _ => return Err(CliError::with_code("json", "元数据必须是 JSON 对象")
+                        .suggest(
+                            r#"文件内容格式: {"Title":"标题","Author":"作者"}（`-` 表示 stdin）"#,
+                        )
+                        .into()),
+                };
             let o = require_output(cli, "meta set")?;
             let payload = meta::set(file, &o, &map)?;
             out.status(&format!("已写入元数据 → {}", o.display()));
@@ -845,12 +847,16 @@ fn dispatch(cli: &Cli, out: &Output) -> Result<i32, CmdError> {
             out.emit_json(&forms::info(file)?)?;
         }
         Cmd::Form(FormCmd::Fill { file, data }) => {
-            let map: serde_json::Map<String, Value> = serde_json::from_str(data).map_err(|e| {
-                CmdError(
-                    CliError::with_code("json", format!("-d 不是合法 JSON: {e}"))
-                        .suggest(r#"格式: -d '{"姓名":"张三"}'（键为字段全限定名）"#),
-                )
-            })?;
+            let value = office_core::payload::read_json(data)?;
+            let map: serde_json::Map<String, Value> =
+                match value {
+                    Value::Object(m) => m,
+                    _ => return Err(CliError::with_code("json", "表单数据必须是 JSON 对象")
+                        .suggest(
+                            r#"文件内容格式: {"姓名":"张三"}（键为字段全限定名；`-` 表示 stdin）"#,
+                        )
+                        .into()),
+                };
             let o = require_output(cli, "form fill")?;
             let payload = forms::fill(file, &o, &map)?;
             out.status(&format!("已填写表单 → {}", o.display()));
@@ -1193,14 +1199,14 @@ fn dispatch(cli: &Cli, out: &Output) -> Result<i32, CmdError> {
                     (edit::get(&doc, &pages, &resolved)?, None)
                 }
                 EditAction::Set { prop } => {
-                    let props = edit::parse_props(prop)?;
+                    let props = edit::parse_props(&office_core::payload::expand_props(prop)?)?;
                     let resolved = path::resolve(&pages, &ep)?;
                     let r = edit::set(&mut pages, &resolved, &props)?;
                     product::save_page(&root, resolved.page_idx, &pages[resolved.page_idx])?;
                     (r, Some(resolved.page_idx))
                 }
                 EditAction::Add { r#type, prop } => {
-                    let props = edit::parse_props(prop)?;
+                    let props = edit::parse_props(&office_core::payload::expand_props(prop)?)?;
                     if r#type == "page" {
                         // add page：/page 为文档容器，无需解析到既有页
                         let resolved = path::Resolved {
@@ -1330,7 +1336,6 @@ fn dispatch(cli: &Cli, out: &Output) -> Result<i32, CmdError> {
         Cmd::Batch {
             input,
             input_file,
-            commands,
             force,
         } => {
             // 产物目录必须存在；不存在的空路径引导创建（dump → batch 从零构建）
@@ -1356,7 +1361,7 @@ fn dispatch(cli: &Cli, out: &Output) -> Result<i32, CmdError> {
                     .unwrap(),
                 )?;
             }
-            let raw = read_batch_commands(input_file.as_deref(), commands.as_deref())?;
+            let raw = office_core::payload::read_text(input_file.as_deref().unwrap_or("-"))?;
             let v: Value = serde_json::from_str(&raw).map_err(|e| {
                 CliError::new(format!("指令 JSON 解析失败: {e}"))
                     .suggest(r#"指令格式: {"commands":[{"op":"set","path":"/page[1]/text[1]","props":{"text":"新文本"}}]}"#)
@@ -1505,38 +1510,6 @@ fn require_output(cli: &Cli, cmd: &str) -> Result<PathBuf, CliError> {
         CliError::new(format!("{cmd} 需要 -o 显式指定输出（绝不回写输入文件）"))
             .suggest(format!("用法: json2pdf {cmd} … -o <输出路径>"))
     })
-}
-
-/// 读取 batch 指令：--input-file > --commands > stdin
-fn read_batch_commands(
-    input_file: Option<&str>,
-    commands: Option<&str>,
-) -> Result<String, CliError> {
-    if let Some(f) = input_file {
-        if f == "-" {
-            use std::io::Read;
-            let mut s = String::new();
-            std::io::stdin()
-                .read_to_string(&mut s)
-                .map_err(|e| CliError::with_code("io", format!("读取 stdin 失败: {e}")))?;
-            return Ok(s);
-        }
-        return std::fs::read_to_string(f)
-            .map_err(|e| CliError::with_code("io", format!("读取 {f} 失败: {e}")));
-    }
-    if let Some(c) = commands {
-        return Ok(c.to_string());
-    }
-    use std::io::Read;
-    let mut s = String::new();
-    std::io::stdin()
-        .read_to_string(&mut s)
-        .map_err(|e| CliError::with_code("io", format!("读取 stdin 失败: {e}")))?;
-    if s.trim().is_empty() {
-        return Err(CliError::new("缺少 batch 指令")
-            .suggest("用 --input-file <file> / --commands '<json>' 或从 stdin 传入"));
-    }
-    Ok(s)
 }
 
 /// -o 缺省时与输入同目录同名换扩展名

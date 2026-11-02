@@ -179,20 +179,17 @@ enum Command {
     Merge {
         /// unpack 产物目录
         input: PathBuf,
-        /// 数据 JSON（对象字符串）
-        #[arg(long)]
+        /// 数据 JSON 文件路径（- 表示 stdin）
+        #[arg(long, value_name = "FILE")]
         data: String,
     },
     /// 回放 dump 风格编辑指令（默认遇错即停；--force 跳过继续）
     Batch {
         /// 输入的产物目录（.pptx 需先 unpack）
         input: PathBuf,
-        /// 指令 JSON 文件（- 表示 stdin）
-        #[arg(long)]
+        /// 指令 JSON 文件（- 表示 stdin；缺省读 stdin）
+        #[arg(long, value_name = "FILE")]
         input_file: Option<String>,
-        /// 内联指令 JSON
-        #[arg(long)]
-        commands: Option<String>,
         /// 遇错继续（报告仍标 ok=false，退出码 1）
         #[arg(long)]
         force: bool,
@@ -483,13 +480,13 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
             let value = match action {
                 EditAction::Get => edit::get(&slides, &resolved)?,
                 EditAction::Set { prop } => {
-                    let props = edit::parse_props(prop)?;
+                    let props = edit::parse_props(&office_core::payload::expand_props(prop)?)?;
                     let r = edit::set(&mut slides, &resolved, &props)?;
                     edit::save(&root, &slides, &resolved)?;
                     r
                 }
                 EditAction::Add { r#type, prop } => {
-                    let props = edit::parse_props(prop)?;
+                    let props = edit::parse_props(&office_core::payload::expand_props(prop)?)?;
                     let r = edit::add(&mut slides, &resolved, r#type, &props)?;
                     edit::save(&root, &slides, &resolved)?;
                     r
@@ -669,10 +666,7 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
                         .suggest("先 json2pptx unpack <文件.pptx> -o <目录>，再对目录 merge"),
                 );
             }
-            let jd: serde_json::Value = serde_json::from_str(data).map_err(|e| {
-                CliError::new(format!("数据 JSON 解析失败: {e}"))
-                    .suggest(r#"data 应为 JSON 对象字符串，如 '{"name":"张三"}'"#)
-            })?;
+            let jd: serde_json::Value = office_core::payload::read_json(data)?;
             let n = merge_cmd::run(input, &jd)?;
             out.status(&format!("已填充: {}（替换 {n} 处）", input.display()));
             out.emit_result(&json!({
@@ -682,14 +676,13 @@ fn run(cli: &Cli, out: &Output) -> Result<i32, CliError> {
         Command::Batch {
             input,
             input_file,
-            commands,
             force,
         } => {
             if !product::is_product_dir(input) {
                 return Err(CliError::new("batch 需要产物目录（.pptx 请先 unpack）")
                     .suggest("先 json2pptx unpack <文件.pptx> -o <目录>"));
             }
-            let raw = read_batch_commands(input_file.as_deref(), commands.as_deref())?;
+            let raw = office_core::payload::read_text(input_file.as_deref().unwrap_or("-"))?;
             let v: serde_json::Value = serde_json::from_str(&raw).map_err(|e| {
                 CliError::new(format!("指令 JSON 解析失败: {e}"))
                     .suggest(r#"指令格式: {"commands":[{"op":"set","path":"/slide[1]/text[1]","props":{"text":"新文本"}}]}"#)
@@ -819,36 +812,4 @@ impl Drop for TempGuard {
 fn default_template_dir(input: &Path) -> PathBuf {
     let stem = input.file_stem().unwrap_or_default();
     input.with_file_name(format!("{}_template", stem.to_string_lossy()))
-}
-
-/// 读取 batch 指令：--input-file > --commands > stdin
-fn read_batch_commands(
-    input_file: Option<&str>,
-    commands: Option<&str>,
-) -> Result<String, CliError> {
-    if let Some(f) = input_file {
-        if f == "-" {
-            use std::io::Read;
-            let mut s = String::new();
-            std::io::stdin()
-                .read_to_string(&mut s)
-                .map_err(|e| CliError::with_code("io", format!("读取 stdin 失败: {e}")))?;
-            return Ok(s);
-        }
-        return std::fs::read_to_string(f)
-            .map_err(|e| CliError::with_code("io", format!("读取 {f} 失败: {e}")));
-    }
-    if let Some(c) = commands {
-        return Ok(c.to_string());
-    }
-    use std::io::Read;
-    let mut s = String::new();
-    std::io::stdin()
-        .read_to_string(&mut s)
-        .map_err(|e| CliError::with_code("io", format!("读取 stdin 失败: {e}")))?;
-    if s.trim().is_empty() {
-        return Err(CliError::new("缺少 batch 指令")
-            .suggest("用 --input-file <file> / --commands '<json>' 或从 stdin 传入"));
-    }
-    Ok(s)
 }
