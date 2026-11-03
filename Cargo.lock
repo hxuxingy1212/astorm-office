@@ -128,7 +128,7 @@ checksum = "d92bec98840b8f03a5ff5413de5293bfcd8bf96467cf5452609f939ec6f5de16"
 
 [[package]]
 name = "astorm-office-cli"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "clap",
  "office-core",
@@ -1217,7 +1217,7 @@ dependencies = [
 
 [[package]]
 name = "json2docx"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "image",
  "office-core",
@@ -1232,7 +1232,7 @@ dependencies = [
 
 [[package]]
 name = "json2docx-cli"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "clap",
  "json2docx",
@@ -1244,7 +1244,7 @@ dependencies = [
 
 [[package]]
 name = "json2pdf"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "anyhow",
  "brotli",
@@ -1274,7 +1274,7 @@ dependencies = [
 
 [[package]]
 name = "json2pdf-cli"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "anyhow",
  "base64",
@@ -1291,7 +1291,7 @@ dependencies = [
 
 [[package]]
 name = "json2pptx"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "base64",
  "office-core",
@@ -1306,7 +1306,7 @@ dependencies = [
 
 [[package]]
 name = "json2pptx-cli"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "base64",
  "clap",
@@ -1321,7 +1321,7 @@ dependencies = [
 
 [[package]]
 name = "json2pptx-web-server"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "axum",
  "json2pptx",
@@ -1333,7 +1333,7 @@ dependencies = [
 
 [[package]]
 name = "json2xlsx"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "calamine",
  "chrono",
@@ -1348,7 +1348,7 @@ dependencies = [
 
 [[package]]
 name = "json2xlsx-cli"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "clap",
  "json2xlsx",
@@ -1670,7 +1670,7 @@ dependencies = [
 
 [[package]]
 name = "office-core"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "base64",
  "serde",
